@@ -1,0 +1,285 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>首页 {$site_info.site_name|default=''}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    {include file='public/header' /}
+    <link href="/static/web/detault/css/list.css" rel="stylesheet">
+</head>
+<style type="text/css">
+
+</style>
+<body class="body-white">
+    {include file='public/nav' /}
+    <div class="container-body">
+        <!-- 筛选 -->
+        <div class="container-fluid bg-white bg-light rounded">
+            <div class="container">
+                <br>
+                <ul class="nav">
+				  <li class="nav-item">
+				    	<strong class="nav-link">课程类型:</strong>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link active" href="#">全部</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">免费课程</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">收费课程</a>
+				  </li>
+				</ul>
+				<hr>
+				<ul class="nav">
+				  <li class="nav-item">
+				    	<strong class="nav-link">学习方向:</strong>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link active" href="#">全部</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">后端开发</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">前端开发</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">移动端开发</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">计算机基础</a>
+				  </li>
+				</ul>
+				<hr>
+
+				<ul class="nav">
+				  <li class="nav-item">
+				    	<strong class="nav-link">学习方向:</strong>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link active" href="#">全部</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">HTML/CSS</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">JavaScript</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">React.JS</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">jQuery</a>
+				  </li>
+				</ul>
+				<br>
+
+            </div>
+        </div>
+        <!-- 筛选数据 -->
+        <div class="container mt-2">
+
+
+        <div class="row">
+            <div class="col-md-2 mt-3">
+                <div class="card card-cascade wider">
+                    <div class="view view-cascade overlay">
+                        <a href="{:url('/course')}">
+                            <img class="list-img-top"  src="https://img4.mukewang.com/szimg/5d5377660922e54c12000676-360-202.png" alt="Card image cap" />
+                        </a>
+                    </div>
+                    <div class="card-body p-2">
+                        <p class="card-text">
+                            <span class="badge badge-info">
+                                试看
+                            </span>
+                            <a href="{:url('/course')}">
+                                Node.js+Koa2框架生态实战 - 从零模拟新浪微博
+                            </a>
+                        </p>
+                        <p>
+                            <!-- <span class="tag ml-2">暂无</span> -->
+                            <span class="price">￥120</span>
+                            <span class="tag ml-2">
+                                后端
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mt-3">
+                <div class="card card-cascade wider">
+                    <div class="view view-cascade overlay">
+                        <a href="{:url('/course')}">
+                            <img class="list-img-top"  src="https://img4.mukewang.com/szimg/5d5377660922e54c12000676-360-202.png" alt="Card image cap" />
+                        </a>
+                    </div>
+                    <div class="card-body p-2">
+                        <p class="card-text">
+                            <span class="badge badge-info">
+                                试看
+                            </span>
+                            <a href="{:url('/course')}">
+                                Node.js+Koa2框架生态实战 - 从零模拟新浪微博
+                            </a>
+                        </p>
+                        <p>
+                            <!-- <span class="tag ml-2">暂无</span> -->
+                            <span class="price">￥120</span>
+                            <span class="tag ml-2">
+                                后端
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-2 mt-3">
+                <div class="card card-cascade wider">
+                    <div class="view view-cascade overlay">
+                        <a href="{:url('/course')}">
+                            <img class="list-img-top" src="https://img4.mukewang.com/szimg/5d5377660922e54c12000676-360-202.png" alt="Card image cap" />
+                        </a>
+                    </div>
+                    <div class="card-body p-2">
+                        <p class="card-text">
+                            <span class="badge badge-info">
+                                试看
+                            </span>
+                            <a href="{:url('/course')}">
+                                Node.js+Koa2框架生态实战 - 从零模拟新浪微博
+                            </a>
+                        </p>
+                        <p>
+                            <!-- <span class="tag ml-2">暂无</span> -->
+                            <span class="price">￥120</span>
+                            <span class="tag ml-2">
+                                后端
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-2 mt-3">
+                <div class="card card-cascade wider">
+                    <div class="view view-cascade overlay">
+                        <a href="{:url('/course')}">
+                            <img class="list-img-top"  src="https://img4.mukewang.com/szimg/5d5377660922e54c12000676-360-202.png" alt="Card image cap" />
+                        </a>
+                    </div>
+                    <div class="card-body p-2">
+                        <p class="card-text">
+                            <span class="badge badge-info">
+                                试看
+                            </span>
+                            <a href="{:url('/course')}">
+                                Node.js+Koa2框架生态实战 - 从零模拟新浪微博
+                            </a>
+                        </p>
+                        <p>
+                            <!-- <span class="tag ml-2">暂无</span> -->
+                            <span class="price">￥120</span>
+                            <span class="tag ml-2">
+                                后端
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-2 mt-3">
+                <div class="card card-cascade wider">
+                    <div class="view view-cascade overlay">
+                        <a href="{:url('/course')}">
+                            <img class="list-img-top"  src="https://img4.mukewang.com/szimg/5d5377660922e54c12000676-360-202.png" alt="Card image cap" />
+                        </a>
+                    </div>
+                    <div class="card-body p-2">
+                        <p class="card-text">
+                            <span class="badge badge-info">
+                                试看
+                            </span>
+                            <a href="{:url('/course')}">
+                                Node.js+Koa2框架生态实战 - 从零模拟新浪微博
+                            </a>
+                        </p>
+                        <p>
+                            <!-- <span class="tag ml-2">暂无</span> -->
+                            <span class="price">￥120</span>
+                            <span class="tag ml-2">
+                                后端
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-2 mt-3">
+                <div class="card card-cascade wider">
+                    <div class="view view-cascade overlay">
+                        <a href="{:url('/course')}">
+                            <img class="list-img-top"  src="https://img4.mukewang.com/szimg/5d5377660922e54c12000676-360-202.png" alt="Card image cap" />
+                        </a>
+                    </div>
+                    <div class="card-body p-2">
+                        <p class="card-text">
+                            <span class="badge badge-info">
+                                试看
+                            </span>
+                            <a href="{:url('/course')}">
+                                Node.js+Koa2框架生态实战 - 从零模拟新浪微博
+                            </a>
+                        </p>
+                        <p>
+                            <!-- <span class="tag ml-2">暂无</span> -->
+                            <span class="price">￥120</span>
+                            <span class="tag ml-2">
+                                后端
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 mt-3">
+                <div class="card card-cascade wider">
+                    <div class="view view-cascade overlay">
+                        <a href="{:url('/course')}">
+                            <img class="list-img-top"  src="https://img4.mukewang.com/szimg/5d5377660922e54c12000676-360-202.png" alt="Card image cap" />
+                        </a>
+                    </div>
+                    <div class="card-body p-2">
+                        <p class="card-text">
+                            <span class="badge badge-info">
+                                试看
+                            </span>
+                            <a href="{:url('/course')}">
+                                Node.js+Koa2框架生态实战 - 从零模拟新浪微博
+                            </a>
+                        </p>
+                        <p>
+                            <!-- <span class="tag ml-2">暂无</span> -->
+                            <span class="price">￥120</span>
+                            <span class="tag ml-2">
+                                后端
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        </div>
+    </div>
+    {include file='public/footer' /}
+</body>

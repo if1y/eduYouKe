@@ -1,0 +1,74 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>用户首页 {$site_info.site_name|default=''}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    {include file='public/header' /}
+    <link href="/static/web/detault/css/user.css" rel="stylesheet">
+</head>
+
+<body class="body-white">
+    {include file='public/nav' /}
+    <div class="container container-body">
+        <div class="row mt-4">
+            <div class="col-lg-2 col-md-2 col-auto mt-4 user-nav border-right">
+                <ul class="nav">
+                    <a class="nav-link  mt-2 mb-2" href="{:url('/user/centor')}">
+                        <i class="fas fa-cog mr-2" aria-hidden="true"></i>
+                        个人设置
+                    </a>
+                    <a class="nav-link mt-2 mb-2" href="{:url('/user/order')}">
+                        <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>
+                        我的订单
+                    </a>
+                    <a class="nav-link  mt-2 mb-2 active" href="{:url('/user/history')}">
+                        <i class="fas fa-shoe-prints mr-2" aria-hidden="true"></i>历史课程
+                    </a>
+                    <a class="nav-link  mt-2 mb-2" href="{:url('/user/message')}">
+                        <i class="fas fa-envelope mr-2" aria-hidden="true"></i>
+                        消息列表
+                    </a>
+                </ul>
+            </div>
+            <div class="col-lg-10 col-md-10 col-auto mt-4 user-nav-detail">
+                <!-- <p><strong>我的订单</strong></p> -->
+                <!-- <h5 class="mt-2"><strong>我的订单</strong></h5> -->
+                <div class="card">
+                    <div class="media ml-3 mt-3">
+                        <img class="card-img-top" src="https://img4.mukewang.com/szimg/5d5377660922e54c12000676-360-202.png" class="align-self-start mr-3" alt="...">
+                        <div class="media-body ml-3">
+                            <div>
+                                <h5 class="mt-0">swoole入门课程</h5>
+                                <p class="text-muted mt-3">
+                                    <strong>正在学:</strong>
+                                    <a href="#" class="text-danger"><strong>swoole的由来与简介</strong></a>
+                                </p>
+                            </div>
+                            <div class="article-tag">
+                                <a href="/cms/c/wearable.html" class="tag tag-primary mt-2">限时优惠</a>
+                                <a href="/cms/c/wearable.html" class="tag tag-primary mt-2">随时可退</a>
+                                <a href="/cms/c/wearable.html" class="tag tag-primary mt-2">随时可退</a>
+                                <a href="/cms/c/wearable.html" class="tag tag-primary mt-2">随时可退</a>
+                            </div>
+                            <!-- <div class="mt-2">
+                                <button type="button" class="btn btn-danger">继续学习</button>
+                            </div> -->
+                        </div>
+                    </div>
+                    <br>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    {include file='public/footer' /}
+</body>
+<script type="text/javascript">
+if (IsPhone()) {
+    console.log('phone');
+}
+</script>
