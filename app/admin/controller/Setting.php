@@ -11,7 +11,13 @@ class Setting extends AdminBaseController
         return View::fetch('');
     }
 
-    public function Login()
+    public function slide()
+    {
+        return View::fetch('');
+    }
+
+
+    public function links()
     {
         return View::fetch('');
     }
