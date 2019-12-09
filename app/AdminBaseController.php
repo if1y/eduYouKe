@@ -18,9 +18,9 @@ class AdminBaseController extends BaseController{
         $this->getWebTheme();
 
         //模板继承
-        // if ($this->layout) {
-        //     View::layout('layout/' . $this->layout);
-        // }
+        if ($this->layout) {
+            View::layout('layout/' . $this->layout);
+        }
     }
 
     /**
