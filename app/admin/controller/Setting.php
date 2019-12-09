@@ -22,4 +22,18 @@ class Setting extends AdminBaseController
         return View::fetch('');
     }
 
+    public function delete()
+    {
+        $param = $this->request->param();
+        $data = ['name' => $param, 'code' => '1'];
+        return json($data);
+    }
+
+    //
+    public function add()
+    {
+        return View::fetch('');
+        
+    }
+
 }

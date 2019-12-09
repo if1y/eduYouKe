@@ -8,11 +8,19 @@ use app\BaseController;
 
 class AdminBaseController extends BaseController{
 
+    //模板继承
+    protected $layout = 'default';
+
     // 初始化
     protected function initialize()
     {
         //获取当前配置的模板
         $this->getWebTheme();
+
+        //模板继承
+        // if ($this->layout) {
+        //     View::layout('layout/' . $this->layout);
+        // }
     }
 
     /**

@@ -1,159 +1,38 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>管理后台首页 {$site_info.site_name|default=''}</title>
     <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
-    {include file='public/header' /}
+    {block name="header"}{include file="Public:header" /}{/block}
     {load href="/static/admin/detault/css/common.css" /}
     {load href="/static/admin/detault/css/index.css" /}
 </head>
 
-<body>
-    <!--         <nav class="navbar navbar-dark bg-dark">
+<body style="overflow: hidden;">
+            <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand p-2 ml-2" href="/admin">
             <img src="https://v4.bootcss.com/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
             <strong class="text-white ml-4">
                 FastEdu后台管理系统
             </strong>
         </a>
-    </nav> -->
+    </nav>
     <div class="container-fluid h-100">
         <div class="row justify-content-center h-100">
             <div class="col-lg-2 col-md-2 bg-white p-0 h-100 border-right">
-                <div class="user bg-dark">
-                    <div class="media">
-                        <img class="comment-avatart rounded-circle" src="https://10.url.cn/eth/ajNVdqHZLLD9MnzPTL0GibTVuI0fPLW8cwS59H2Yo3NLgZice8NRZekXLiafoDKtGD9flaJ5XKhnzs/130" width="64" height="64" class="mr-3" alt="...">
-                        <div class="media-body ml-3">
-                            <p>
-                                <span class="nickname"><a href="#" class="text-primary">
-                                        <strong class="text-white">
-                                            欢迎您 : Admin
-                                        </strong>
-                                    </a></span>
-                            </p>
-                            <p class="text-white-50">
-                                <strong>
-                                    身份:超级管理员
-                                </strong>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <nav class="nav flex-column">
-                    <div class="nav-meun">
-                        <div class="menu-open">
-                            <a class="nav-link active" href="javascript:;">
-                                <li class="fa fa-cog"></li>
-                                <strong class="ml-3">
-                                    网站管理
-                                </strong>
-                                <span class="p-50">
-                                    <li class="fa fa-angle-right"></li>
-                                </span>
-                            </a>
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <a href="http://edu.com/admin/Setting" target="programContent" class="sessionUri text-muted ml-4">
-                                        网站配置
-                                    </a>
-                                    <!-- <span class="badge badge-primary badge-pill">14</span> -->
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <a href="http://edu.com/admin/Setting/slide" target="programContent" class="sessionUri text-muted ml-4">轮播图配置</a>
-                                    <!-- <span class="badge badge-primary badge-pill">2</span> -->
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <a href="http://edu.com/admin/Setting/links" target="programContent" class="sessionUri text-muted ml-4">友情链接配置</a>
-                                    <!-- <span class="badge badge-primary badge-pill">1</span> -->
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="menu-open">
-                            <a class="nav-link" href="#">
-                                <li class="fa fa-align-justify"></li>
-                                <strong class="ml-3">
-                                    导航管理
-                                </strong>
-                            </a>
-                        </div>
-                        <div class="menu-open">
-                            <a class="nav-link" href="#">
-                                <li class="fa fa-users"></li>
-                                <strong class="ml-3">
-                                    会员管理
-                                </strong>
-                            </a>
-                        </div>
-                        <div class="menu-open">
-                            <a class="nav-link" href="#">
-                                <li class="fa fa-laptop-code"></li>
-                                <strong class="ml-3">
-                                    课程管理
-                                </strong>
-                            </a>
-                        </div>
-                        <div class="menu-open">
-                            <a class="nav-link" href="#">
-                                <li class="fa fa-paste"></li>
-                                <strong class="ml-3">
-                                    文章管理
-                                </strong>
-                            </a>
-                        </div>
-                        <div class="menu-open">
-                            <a class="nav-link" href="#">
-                                <li class="fa fa-chalkboard-teacher"></li>
-                                <strong class="ml-3">
-                                    教师入驻
-                                </strong>
-                            </a>
-                        </div>
-                        <div class="menu-open">
-                            <a class="nav-link" href="#">
-                                <li class="fa fa-ad"></li>
-                                <strong class="ml-3">
-                                    广告管理
-                                </strong>
-                            </a>
-                        </div>
-                        <div class="menu-open">
-                            <a class="nav-link" href="#">
-                                <li class="fa fa-bezier-curve"></li>
-                                <strong class="ml-3">
-                                    日志管理
-                                </strong>
-                            </a>
-                        </div>
-                        <div class="menu-open">
-                            <a class="nav-link" href="#">
-                                <li class="fa fa-heartbeat"></li>
-                                <strong class="ml-3">
-                                    服务器监控
-                                </strong>
-                            </a>
-                        </div>
-                        <div class="menu-open">
-                            <a class="nav-link" href="#">
-                                <li class="fa fa-fingerprint"></li>
-                                <strong class="ml-3">
-                                    权限管理
-                                </strong>
-                            </a>
-                        </div>
-                    </div>
-                </nav>
+                {block name="leftMenu"}{include file="Public:leftMenu" /}{/block}
             </div>
             <div class="col-lg-10 col-md-10 p-0">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" name="programContent" src="http://edu.com/admin/main" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" name="programContent" src="" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
     </div>
 </body>
-{include file='public/script' /}
+
+{block name="script"}{include file="Public:script" /}{/block}
 <script type="text/javascript">
 $(".nav-link").click(function() {
     $(this).parent().find('.list-group').toggle(500)
@@ -162,6 +41,25 @@ $(".nav-link").hover(function() {
     $(this).find('.fa').toggleClass("fa-color")
 });
 
+
+
+
+//逻辑待整理------
+
+var src = $(window.parent.document).find(".embed-responsive-item").attr("src");
+console.log(src);
+var uri = window.location.href;
+
+var url = window.localStorage.getItem('sessionUri');
+if (uri.indexOf("#") != -1) {
+    src = url;
+}
+
+
+if (!src) {
+    var detault = window.location.href + '/main';
+    $(window.parent.document).find(".embed-responsive-item").attr("src", detault);
+}
 
 //iframe 处理
 $(".sessionUri").click(function() {
@@ -181,10 +79,19 @@ $(".sessionUri").click(function() {
 //刷新当前页面
 var url = window.localStorage.getItem('sessionUri');
 var uri = window.location.href;
-console.log(uri.indexOf("#"))
 
 if (url && uri.indexOf("#") != -1) {
     $(window.parent.document).find(".embed-responsive-item").attr("src", url);
+}
+
+
+onbeforeunload = reload()
+
+function reload() {
+
+    if (url && uri.indexOf("#") != -1) {
+        $(window.parent.document).find(".embed-responsive-item").attr("src", url);
+    }
 }
 </script>
 

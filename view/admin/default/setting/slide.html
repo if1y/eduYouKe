@@ -6,13 +6,13 @@
                 <li class="fa fa-image"></li>
                 幻灯片配置
             </strong></p>
-        <div class="commonality-card">
+        <div class="commonality-card mt-4">
             <div class="table-toolbar mt-2">
                 <!--        <a href="javascript:;" class="btn btn-primary btn-sm btn-refresh" title="刷新">
                     刷新
                     <i class="fa fa-sync-alt"></i>
                 </a> -->
-                <a href="javascript:;" class="btn btn-success btn-sm btn-add" title="添加">
+                <a href="{$Request.root}/{$Request.controller}/add/type/{$Request.action}" class="btn btn-success btn-sm btn-add" title="添加">
                     <i class="fa fa-plus"></i>
                     添加
                 </a>
@@ -85,7 +85,7 @@
                             </td>
                             <td>
                                 <a class="btn btn-primary btn-sm" href="/admin/slide_item/edit/id/3.html">编辑</a>
-                                <a href="/admin/slide_item/delete/id/3.html" class="btn btn-sm btn-danger js-ajax-delete">删除</a>
+                                <a href="/admin/setting/delete/id/3.html" class="btn btn-sm btn-danger js-ajax-delete">删除</a>
                                 <a href="/admin/slide_item/ban/id/3.html" class="btn btn-sm btn-warning js-ajax-dialog-btn" data-msg="确定隐藏此幻灯片吗？">隐藏</a>
                             </td>
                         </tr>
