@@ -29,7 +29,10 @@ if (active) {
     $('.nav-meun .list-group-item .active').removeClass("text-muted");
 }
 
-$("#nav-link").click(function() {
-    $(this).parent().find('.list-group').toggle(500)
+$(".nav-link").click(function() {
+
+    if ($(this).parent().find('.list-group').html()) {
+        $(this).parent().find('.list-group').toggle(500)
+    }
 });
 </script>

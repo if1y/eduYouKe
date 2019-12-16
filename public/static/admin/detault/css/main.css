@@ -1,0 +1,21 @@
+.statistics {
+    min-height: 300px;
+}
+
+
+.commonality-card-down .fa {
+    font-size: 3em;
+}
+
+.commonality-card-down .text-secondary {
+    color: #455a64;
+    font-size: 22px;
+}
+
+.commonality-card-down {
+    padding: 10px 15px;
+}
+
+.text-danger {
+    font-size: 42px;
+}

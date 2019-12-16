@@ -36,4 +36,15 @@ class Setting extends AdminBaseController
         
     }
 
+    public function nav()
+    {
+        return View::fetch('');
+    }
+
+
+    public function navPost()
+    {
+        return View::fetch('');
+    }
+
 }
