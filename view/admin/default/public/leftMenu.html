@@ -34,16 +34,27 @@
                     <strong class="ml-3">
                         网站管理
                     </strong>
-                    <div class="triangle"></div>
+                    <span class="triangle"></span>
                 </a>
                 <ul class="list-group">
                     <!-- <li class="list-group-item list-group-item-active"> -->
-                    <li class="list-group-item">
-                        <a href="{:url('/admin/Setting')}" class="text-muted ml-4">
-                            网站配置
-                        </a>
-                        <!-- <span class="badge badge-primary badge-pill">14</span> -->
-                    </li>
+                    <div>
+                        <li class="list-group-item">
+                            <a href="{:url('/admin/Setting')}" class="text-muted ml-4">
+                                <i class="fa fa-caret-right" style="font-size: 12px;"></i>
+                                网站配置
+                            </a>
+                        </li>
+                        <div>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="{:url('/admin/Setting/slide')}" class="text-muted ml-4">
+                                        <i class="fa fa-angle-double-right" style="font-size: 12px;"></i>
+                                        基础配置</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="{:url('/admin/Setting/slide')}" class="text-muted ml-4">轮播图管理</a>
                         <!-- <span class="badge badge-primary badge-pill">2</span> -->
@@ -70,7 +81,7 @@
                 <ul class="list-group">
                     <!-- <li class="list-group-item list-group-item-active"> -->
                     <li class="list-group-item">
-                        <a href="{:url('/admin/user')}" class="text-muted ml-4 active">
+                        <a href="{:url('/admin/user')}" class="text-muted ml-4">
                             会员管理
                         </a>
                         <!-- <span class="badge badge-primary badge-pill">14</span> -->
@@ -83,7 +94,23 @@
                     <strong class="ml-3">
                         课程管理
                     </strong>
+                    <span class="triangle"></span>
                 </a>
+                <ul class="list-group">
+                    <!-- <li class="list-group-item list-group-item-active"> -->
+                    <li class="list-group-item">
+                        <a href="{:url('/admin/course')}" class="text-muted ml-4 active">
+                            课程分类
+                        </a>
+                        <!-- <span class="badge badge-primary badge-pill">14</span> -->
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{:url('/admin/course/list')}" class="text-muted ml-4">
+                            课程列表
+                        </a>
+                        <!-- <span class="badge badge-primary badge-pill">14</span> -->
+                    </li>
+                </ul>
             </div>
             <div class="menu-open">
                 <a class="nav-link" href="#">
