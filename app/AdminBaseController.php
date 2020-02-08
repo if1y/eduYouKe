@@ -100,17 +100,19 @@ class AdminBaseController extends BaseController{
         $action = strtolower(Request::action());
         $active = $app.'/'.$controller.'/'.$action;
 
+        $ids = [];
         foreach ($access as $key => $v) {
             $val = $v['app'].'/'.$v['controller'].'/'.$v['action'];
             if ( $active == $val) {
                 $v['active'] = 'active';
+                $ids = $this->getActiveId($v['id']);
             }else{
                 $v['active'] = '';
             }
-            if ($v['id'] == '50') {
-                $v['active'] = 'active';
-                $ids = $this->getActiveId($v['id']);
-            }
+            // if ($v['id'] == '50') {
+            //     $v['active'] = 'active';
+            //     $ids = $this->getActiveId($v['id']);
+            // }
             $access[$key] = $v;
         }
 

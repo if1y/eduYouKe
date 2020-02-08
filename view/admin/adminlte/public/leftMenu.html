@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="/admin" class="brand-link">
         <img src="/static/common/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
@@ -19,7 +19,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/admin" class="nav-link   {$adminMenus |indexActive=### } ">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>概览</p>
                     </a>
@@ -29,10 +29,13 @@
                     <a href="#" class="nav-link {$vo.active}">
                         <i class="nav-icon fas fa-{$vo.icon}"></i>
                         <p>
+                            {notempty name="vo._child"}
                             <i class="right fas fa-angle-left"></i>
+                            {/notempty}
                             {$vo.name}
                         </p>
                     </a>
+                    {notempty name="vo._child"}
                     <ul class="nav nav-treeview">
                         {volist name="vo._child" id="voo"}
                         <li class="nav-item {$voo['_child']? 'has-treeview' : ''} {$voo['active']? 'menu-open' : ''}">
@@ -58,6 +61,7 @@
                         </li>
                         {/volist}
                     </ul>
+                    {/notempty}
                 </li>
                 {/volist}
             </ul>
