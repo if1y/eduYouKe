@@ -1,92 +1,99 @@
-{include file='public/header' /}
-<div class="container-fluid">
-    <!-- setting -->
-    <div class="p-3">
-        <p><strong>
-                <li class="fa fa-link"></li>
-                课程列表
-            </strong></p>
-        <div class="commonality-card mt-4">
-            <div class="table-toolbar mt-2">
-                <!--        <a href="javascript:;" class="btn btn-primary btn-sm btn-refresh" title="刷新">
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">网站配置</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">网站配置</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="commonality-card">
+                <div class="table-toolbar mt-2">
+                    <!--        <a href="javascript:;" class="btn btn-primary btn-sm btn-refresh" title="刷新">
                     刷新
                     <i class="fa fa-sync-alt"></i>
                 </a> -->
-                <a href="{$Request.root}/{$Request.controller}/add/type/{$Request.action}" class="btn btn-success btn-sm btn-add" title="添加">
-                    <i class="fa fa-plus"></i>
-                    添加
-                </a>
-                <!--     <a href="javascript:;" class="btn btn-success btn-edit btn-sm btn-disabled disabled" title="编辑">
+                    <a href="{$Request.root}/{$Request.controller}/add/type/{$Request.action}" class="btn btn-success btn-sm btn-add" title="添加">
+                        <i class="fa fa-plus"></i>
+                        添加
+                    </a>
+                    <!--     <a href="javascript:;" class="btn btn-success btn-edit btn-sm btn-disabled disabled" title="编辑">
                     <i class="fa fa-edit"></i>
                     编辑
                 </a> -->
-                <a href="javascript:;" class="btn btn-danger btn-ajax-del btn-sm disabled" title="删除">
-                    <i class="fa fa-trash"></i>
-                    删除
-                </a>
-                <!--  <a href="javascript:;" class="btn btn-danger btn-sm btn-import" title="导入" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false" initialized="true" style="position: relative; z-index: 1;">
+                    <a href="javascript:;" class="btn btn-danger btn-ajax-del btn-sm disabled" title="删除">
+                        <i class="fa fa-trash"></i>
+                        删除
+                    </a>
+                    <!--  <a href="javascript:;" class="btn btn-danger btn-sm btn-import" title="导入" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false" initialized="true" style="position: relative; z-index: 1;">
                     <i class="fa fa-upload"></i>
                     导入
                 </a> -->
+                </div>
+                <div class="table-content mt-4">
+                    <table class="table mt-2">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col"><input type="checkbox" name="checkInputAll" class="checkInputAll"></th>
+                                <th scope="col">ID</th>
+                                <th scope="col">用户名</th>
+                                <th scope="col">昵称</th>
+                                <th scope="col">头像</th>
+                                <th scope="col">邮箱</th>
+                                <th scope="col">手机</th>
+                                <th scope="col">注册时间</th>
+                                <th scope="col">最后登录时间</th>
+                                <th scope="col">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    <input type="checkbox" class="js-check" name="ids[]" value="1">
+                                </th>
+                                <td class="td-text">1</td>
+                                <td class="td-text">li7344</td>
+                                <td class="td-text">@昵称</td>
+                                <td>
+                                    <li class="fa fa-image text-info"></li>
+                                </td>
+                                <td class="td-text">
+                                    734462@qq.com
+                                </td>
+                                <td class="td-text">
+                                    18612885121
+                                </td>
+                                <td class="td-text">
+                                    2012/02/10
+                                </td>
+                                <td class="td-text">
+                                    2019/11/20
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-edit btn-sm" href="/admin/slide_item/edit/id/3.html">拉黑</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="table-content mt-4">
-                <table class="table mt-2">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col"><input type="checkbox" name="checkInputAll" class="checkInputAll"></th>
-                            <th scope="col">ID</th>
-                            <th scope="col">用户名</th>
-                            <th scope="col">昵称</th>
-                            <th scope="col">头像</th>
-                            <th scope="col">邮箱</th>
-                            <th scope="col">手机</th>
-                            <th scope="col">注册时间</th>
-                            <th scope="col">最后登录时间</th>
-                            <th scope="col">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">
-                                <input type="checkbox" class="js-check" name="ids[]" value="1">
-                            </th>
-                            <td class="td-text">1</td>
-                            <td class="td-text">li7344</td>
-                            <td class="td-text">@昵称</td>
-                            <td>
-                                <li class="fa fa-image text-info"></li>
-                            </td>
-                            <td class="td-text">
-                                734462@qq.com
-                            </td>
-                            <td class="td-text">
-                                18612885121
-                            </td>
-
-                            <td class="td-text">
-                                2012/02/10
-                            </td>
-
-                            <td class="td-text">
-                                2019/11/20
-                            </td>
-
-                            <td>
-                                <a class="btn btn-primary btn-edit btn-sm" href="/admin/slide_item/edit/id/3.html">拉黑</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content -->
 </div>
-{include file='public/script' /}
 <script type="text/javascript">
-
-
-
-
 $(".checkInputAll").click(function() {
     // var checkedres=GetAllCheckBox(".js-check");
     // console.log(checkedres)
@@ -123,9 +130,4 @@ function GetAllCheckBox(myclass) {
     })
     return checkedPids;
 }
-
-
-
-
-
 </script>

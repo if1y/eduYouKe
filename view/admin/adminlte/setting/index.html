@@ -1,264 +1,353 @@
-{include file='public/header' /}
-{load href="/static/admin/detault/css/main.css" /}
-<div class="container-fluid">
-    <!-- setting -->
-    <div class="p-3">
-        <p><strong>
-                <li class="fa fa-cogs"></li>
-                网站配置
-            </strong></p>
-        <div class="commonality-card mt-4">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">基础配置</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">播放器配置</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-email-tab" data-toggle="pill" href="#pills-email" role="tab" aria-controls="pills-email" aria-selected="false">邮件配置</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-pay-tab" data-toggle="pill" href="#pills-pay" role="tab" aria-controls="pills-pay" aria-selected="false">支付配置</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">其他配置</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <form class="p-3">
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">网站名称</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">SEO标题</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">SEO关键字</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">SEO描述</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">ICP备</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">站长邮箱</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">统计代码</label>
-                            <div class="col-sm-5">
-                                <textarea class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <form class="p-3">
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">播放器key</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                                <small id="emailHelp" class="form-text text-muted">获取阿里云播放器key</small>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">播放器Secret</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="tab-pane fade" id="pills-email" role="tabpanel" aria-labelledby="pills-email-tab">
-                    <form class="p-3">
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">发件人</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">邮箱地址</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">SMTP服务器</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">连接方式</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">SMTP服务端口</label>
-                            <div class="col-sm-5">
-                                <select class="custom-select" id="validationTooltip04" required>
-                                    <option selected disabled value="">默认</option>
-                                    <option>ssl</option>
-                                    <option>tls</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">发件箱帐号</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">发件箱密码</label>
-                            <div class="col-sm-5">
-                                <textarea class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="tab-pane fade" id="pills-pay" role="tabpanel" aria-labelledby="pills-pay-tab">
-                    <form class="p-3">
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">支付宝Key</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">支付宝Secret</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">微信支付Key</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">微信支付Secret</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">个人支付Key</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">个人支付Secret</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <form class="p-3">
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">阿里大于Key</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                                <small id="emailHelp" class="form-text text-muted">阿里大于短信接口</small>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">阿里大于Secret</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">微信登录Key</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">微信登录Secret</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">微博登录Key</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">微博登录Key</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">OssKey</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-1 col-form-label">OssKey</label>
-                            <div class="col-sm-5">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">网站配置</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">网站配置</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Bordered Table</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Task</th>
+                                        <th>Progress</th>
+                                        <th style="width: 40px">Label</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1.</td>
+                                        <td>Update software</td>
+                                        <td>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-danger">55%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.</td>
+                                        <td>Clean database</td>
+                                        <td>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar bg-warning" style="width: 70%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-warning">70%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.</td>
+                                        <td>Cron job running</td>
+                                        <td>
+                                            <div class="progress progress-xs progress-striped active">
+                                                <div class="progress-bar bg-primary" style="width: 30%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-primary">30%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.</td>
+                                        <td>Fix and squish bugs</td>
+                                        <td>
+                                            <div class="progress progress-xs progress-striped active">
+                                                <div class="progress-bar bg-success" style="width: 90%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-success">90%</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+                            <ul class="pagination pagination-sm m-0 float-right">
+                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- <div class="commonality-card">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">基础配置</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">播放器配置</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-email-tab" data-toggle="pill" href="#pills-email" role="tab" aria-controls="pills-email" aria-selected="false">邮件配置</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-pay-tab" data-toggle="pill" href="#pills-pay" role="tab" aria-controls="pills-pay" aria-selected="false">支付配置</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">其他配置</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <form class="p-3">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">网站名称</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">SEO标题</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">SEO关键字</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">SEO描述</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">ICP备</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">站长邮箱</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">统计代码</label>
+                                <div class="col-sm-5">
+                                    <textarea class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Sign in</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <form class="p-3">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">播放器key</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                    <small id="emailHelp" class="form-text text-muted">获取阿里云播放器key</small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">播放器Secret</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Sign in</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-email" role="tabpanel" aria-labelledby="pills-email-tab">
+                        <form class="p-3">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">发件人</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">邮箱地址</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">SMTP服务器</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">连接方式</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">SMTP服务端口</label>
+                                <div class="col-sm-5">
+                                    <select class="custom-select" id="validationTooltip04" required>
+                                        <option selected disabled value="">默认</option>
+                                        <option>ssl</option>
+                                        <option>tls</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">发件箱帐号</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">发件箱密码</label>
+                                <div class="col-sm-5">
+                                    <textarea class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Sign in</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-pay" role="tabpanel" aria-labelledby="pills-pay-tab">
+                        <form class="p-3">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">支付宝Key</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">支付宝Secret</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">微信支付Key</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">微信支付Secret</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">个人支付Key</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">个人支付Secret</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Sign in</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                        <form class="p-3">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">阿里大于Key</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                    <small id="emailHelp" class="form-text text-muted">阿里大于短信接口</small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">阿里大于Secret</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">微信登录Key</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">微信登录Secret</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">微博登录Key</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">微博登录Key</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">OssKey</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">OssKey</label>
+                                <div class="col-sm-5">
+                                    <input type="email" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Sign in</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> -->
+            <!-- /.col-md-6 -->
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
 </div>
-{include file='public/script' /}

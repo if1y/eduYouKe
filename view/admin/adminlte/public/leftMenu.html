@@ -24,6 +24,101 @@
                         <p>概览</p>
                     </a>
                 </li>
+
+
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-circle"></i>
+              <p>
+                网站管理
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{:url('/admin/Setting')}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>网站配置</p>
+                </a>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="{:url('/admin/Setting/slide')}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    基础配置
+                    <!-- <i class="right fas fa-angle-left"></i> -->
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{:url('/admin/Setting/slide')}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>轮播图</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{:url('/admin/Setting/links')}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>友情链接</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{:url('/admin/Setting/nav')}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>首页导航</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+        
+
+
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-circle"></i>
+              <p>
+                用户管理
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{:url('/admin/user')}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>会员管理</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-circle"></i>
+              <p>
+                课程管理
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{:url('/admin/course')}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>课程分类</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{:url('/admin/course/list')}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>课程列表</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
                 {volist name="$adminMenus" id="vo"}
                 <li class="nav-item {$vo['_child']? 'has-treeview' : ''} {$vo['active']? 'menu-open' : ''}">
                     <a href="#" class="nav-link {$vo.active}">
