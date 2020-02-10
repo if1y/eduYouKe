@@ -55,12 +55,9 @@ class AdminBaseController extends BaseController{
         ->where('status',1)
         ->order('list_order','desc')
         ->select()->toArray();
-
-
         
 
         $access = $this->getActiveStatus($access);
-
         // if ($type)
         // {
         //     $roleObj = new AdminRole();
@@ -74,14 +71,52 @@ class AdminBaseController extends BaseController{
         //         $access[$key]  = $value;
         //     }
         // }
-        $menus = Tools::listToTree($access, 'id', 'parent_id',);
-        // $formatTree = Tools::formatTree($menus);
-
-        // print_r($menus);exit();
-        // print_r($formatTree);exit();
-
-
+        // 
+        $menus = $this->buildMenus(
+            Tools::listToTree($access, 'id', 'parent_id')
+        );
         return $menus;
+    }
+
+    /**
+     * [buildMenus 组装目录]
+     * @Author   HUI
+     * @DateTime 2020-02-07
+     * @version  [version]
+     * @param    [type]     $formatTree [description]
+     * @return   [type]                 [description]
+     */
+    public function buildMenus($menus, &$str = '')
+    {
+        // print_r($menus);exit();
+        foreach ($menus as $key => $value) {
+
+            //
+            $hastreeview = !empty($value['type'])? '' :'has-treeview';
+            $icon = !empty($value['icon'])?  $value['icon']:'circle';
+            $left = !empty($hastreeview)?  '<i class="right fas fa-angle-left"></i>':'';
+            $href = !empty($hastreeview) ? 'javascript:;':'/'.$value['app'].'/'.$value['controller'].'/'.$value['action'];
+            $menuOpen = !empty($value['active']) && !empty($hastreeview) ? ' menu-open' :'';
+
+            //
+            $str .= '<li class="nav-item '.$hastreeview. $menuOpen.'">
+            <a href="'.$href.'" class="nav-link ' . $value['active'].'">
+              <i class="nav-icon fas fa-'.$icon.'"></i>
+              <p>'
+                .$value['name'].$left.'
+              </p>
+            </a>';
+            if (isset($value['_child'])) {
+                $str.='<ul class="nav nav-treeview">';
+                self::buildMenus($value['_child'],$str);
+                 $str.='</ul>';
+            }else{
+                 $str.='</li>';
+            }
+
+        }
+        return $str;
+
     }
 
     /**
@@ -109,10 +144,6 @@ class AdminBaseController extends BaseController{
             }else{
                 $v['active'] = '';
             }
-            // if ($v['id'] == '50') {
-            //     $v['active'] = 'active';
-            //     $ids = $this->getActiveId($v['id']);
-            // }
             $access[$key] = $v;
         }
 
@@ -183,7 +214,6 @@ class AdminBaseController extends BaseController{
      */
     public function getTreeParentId($id,&$result = [])
     {
-
         $result[]=$id;
         if ($id) {
             $res = DB::name('admin_menu')->where('id',$id)->find();
@@ -191,91 +221,9 @@ class AdminBaseController extends BaseController{
                 self::getTreeParentId($res['parent_id'],$result);
             }
         }
-
         return $result;
     }
 
-    /**
-     * [buildMenus 组装目录]
-     * @Author   HUI
-     * @DateTime 2020-02-07
-     * @version  [version]
-     * @param    [type]     $formatTree [description]
-     * @return   [type]                 [description]
-     */
-    public function buildMenus($formatTree)
-    {
-        foreach ($formatTree as $key => $value) {
 
-            if ($value['type'] == 0) {
-
-            }
-            print_r($value);exit();
-
-
-
-
-
-          // <li class="nav-item has-treeview">
-          //   <a href="#" class="nav-link">
-          //     <i class="nav-icon fas fa-circle"></i>
-          //     <p>
-          //       Level 1
-          //       <i class="right fas fa-angle-left"></i>
-          //     </p>
-          //   </a>
-          //   <ul class="nav nav-treeview">
-          //     <li class="nav-item">
-          //       <a href="#" class="nav-link">
-          //         <i class="far fa-circle nav-icon"></i>
-          //         <p>Level 2</p>
-          //       </a>
-          //     </li>
-          //     <li class="nav-item has-treeview">
-          //       <a href="#" class="nav-link">
-          //         <i class="far fa-circle nav-icon"></i>
-          //         <p>
-          //           Level 2
-          //           <i class="right fas fa-angle-left"></i>
-          //         </p>
-          //       </a>
-          //       <ul class="nav nav-treeview">
-          //         <li class="nav-item">
-          //           <a href="#" class="nav-link">
-          //             <i class="far fa-dot-circle nav-icon"></i>
-          //             <p>Level 3</p>
-          //           </a>
-          //         </li>
-          //         <li class="nav-item">
-          //           <a href="#" class="nav-link">
-          //             <i class="far fa-dot-circle nav-icon"></i>
-          //             <p>Level 3</p>
-          //           </a>
-          //         </li>
-          //         <li class="nav-item">
-          //           <a href="#" class="nav-link">
-          //             <i class="far fa-dot-circle nav-icon"></i>
-          //             <p>Level 3</p>
-          //           </a>
-          //         </li>
-          //       </ul>
-          //     </li>
-          //     <li class="nav-item">
-          //       <a href="#" class="nav-link">
-          //         <i class="far fa-circle nav-icon"></i>
-          //         <p>Level 2</p>
-          //       </a>
-          //     </li>
-          //   </ul>
-          // </li>
-          // <li class="nav-item">
-          //   <a href="#" class="nav-link">
-          //     <i class="fas fa-circle nav-icon"></i>
-          //     <p>Level 1</p>
-          //   </a>
-          // </li>
-
-        }
-    }
 
 }
