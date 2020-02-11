@@ -19,6 +19,7 @@
 
     layui.use('layer', function() {
         var layer = layui.layer;
+        // var form=layui.form;
     });
 
 
@@ -99,9 +100,6 @@
             href = href ? href : $this.attr('href');
 
             // console.log(window.location.origin+href);
-
-
-
             layer.open({
                 type: 2,
                 content: href,
@@ -114,9 +112,10 @@
                 success: function(layero, index) {},
                 // 确定的操作
                 yes: function(index, layero) {
-                    console.log(layero.find("iframe")[0].contentWindow.$("button").html());
-                    layero.find("iframe")[0].contentWindow.$("button").click();
-                    layer.close(index);
+                    var body = layer.getChildFrame('body', index); //得到iframe页面层的BODY
+                    var iframeBtn = body.find('.sub-bindbtn'); //得到iframe页面层的提交按钮
+                    iframeBtn.click(); //模拟iframe页面层的提交按钮点击
+                    // layer.close(index);
                 },
                 cancel: function(index, layero) {
                     // 取消的操作

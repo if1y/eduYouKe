@@ -24,3 +24,10 @@ a {
 .table-bordered td .fa-trash{
 	color: Tomato;	
 }
+.layui-layer-btn{
+    background-color: #ecf0f1;
+}
+.layui-layer-title{
+    background-color: #4b545c !important;
+    color: #fff !important;
+}

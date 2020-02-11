@@ -26,7 +26,7 @@ class Menu
         foreach ($access as $key => $v)
         {
             $val = $v['url'];
-            if ($active == $val)
+            if (strtolower($active) == strtolower($val))
             {
                 $v['active'] = 'active';
                 $ids         = self::getActiveId($v['id']);
