@@ -21,6 +21,7 @@ class AdminBaseController extends BaseController
         //获取当前配置的模板
         $this->getWebTheme();
         View::assign('adminMenus', $this->getMenus());
+        View::assign('contentHeader', $this->getContentHeader());
         //模板继承
         if ($this->layout)
         {
@@ -50,6 +51,14 @@ class AdminBaseController extends BaseController
         View::config(['view_path' => $path]);
 
     }
+
+
+    //contentHeader获取当前header头的内容
+    public function getContentHeader()
+    {
+        return Menu::buildContentHeader();
+    }
+
 
     final public function getMenus()
     {

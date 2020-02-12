@@ -39,7 +39,7 @@ class Menu extends AdminBaseController
             'parent_id' => $param['parent_id'],
             'type' => $param['menuType'],
             'title' => $param['title'],
-            'url' => trim($param['url']),
+            'url' => trim(strtolower($param['url'])),
             'icon' => !empty($param['icon']) ? trim($param['icon']) : 'circle',
             'remark' => $param['remark'],
             'show_status' => !empty($param['show_status']) ? 1 : 0,
@@ -71,9 +71,9 @@ class Menu extends AdminBaseController
 
         $param['type']        = $param['menuType'];
         $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
-
+        $param['url'] = trim(strtolower($param['url']));
+            
         $menu = new AdminMenu();
-
         $menuData = $menu->find($param['id']);
         $menuData->allowField([
             'parent_id',

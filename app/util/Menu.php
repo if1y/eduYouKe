@@ -166,4 +166,16 @@ class Menu
         return $result;
     }
 
+    //
+    public static function buildContentHeader($value='')
+    {
+        $app        = strtolower(app('http')->getName());
+        $controller = strtolower(Request::controller());
+        $action     = strtolower(Request::action());
+        $active     = $app . '/' . $controller . '/' . $action;
+
+        return DB::name('admin_menu')->where('url', strtolower($active))->find();
+    }
+
+
 }
