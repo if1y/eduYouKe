@@ -70,9 +70,9 @@ class Menu
         {
 
             //
-            $hastreeview = !empty($value['type']) ? '' : 'has-treeview';
+            $hastreeview = !empty($value['type'])  ? '' : 'has-treeview';
             $icon        = !empty($value['icon']) ? $value['icon'] : 'circle';
-            $left        = !empty($hastreeview) ? '<i class="right fas fa-angle-left"></i>' : '';
+            $left        = !empty($hastreeview) || !empty($value['_child']) ?  '<i class="right fas fa-angle-left"></i>' : '';
             $href        = !empty($hastreeview) ? 'javascript:;' : '/' . $value['url'];
             $menuOpen    = !empty($value['active']) && !empty($hastreeview) ? ' menu-open' : '';
 
