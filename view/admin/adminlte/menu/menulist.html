@@ -75,10 +75,10 @@
                                             {$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}
                                         </td>
                                         <td>
-                                            <a href="{$Request.root}/{$Request.controller}/add/type/{$Request.action}" class="" title="编辑">
+                                            <a href="{$Request.root}/{$Request.controller}/edit/type/{$Request.action}/id/{$vo.id}" class="btn-edit" title="编辑">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="{$Request.root}/{$Request.controller}/add/type/{$Request.action}" class="" title="删除">
+                                            <a href="{$Request.root}/{$Request.controller}/delete/type/{$Request.action}/id/{$vo.id}" class="js-ajax-delete" title="删除">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>

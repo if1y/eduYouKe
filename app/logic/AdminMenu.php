@@ -13,7 +13,8 @@ class AdminMenu extends AdminMenuModel
 	 */
 	public function getMenuList()
 	{
-		$menu = $this->order('sort', 'desc')->select()->toArray();
+		$menu = $this->where('delete_status',0)->order('sort', 'desc')->select()->toArray();
         return Tools::formatTree(Tools::listToTree($menu, 'id', 'parent_id'),0,'title');
 	}
+
 }

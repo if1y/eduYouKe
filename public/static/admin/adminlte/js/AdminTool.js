@@ -24,8 +24,7 @@
 
 
 
-
-    //所有的删除操作，删除数据后刷新页面
+    //所有的添加操作，添加数据后刷新页面
     if ($('.btn-add').length) {
         $('.btn-add').on('click', function(e) {
 
@@ -53,7 +52,53 @@
                     var body = layer.getChildFrame('body', index); //得到iframe页面层的BODY
                     var iframeBtn = body.find('.sub-bindbtn'); //得到iframe页面层的提交按钮
                     iframeBtn.click(); //模拟iframe页面层的提交按钮点击
-                    // layer.close(index);
+                    layer.close(index);
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
+                },
+                cancel: function(index, layero) {
+                    // 取消的操作
+                }
+
+            });
+
+        });
+    }
+
+
+    //所有的编辑操作,提交数据后关闭页面
+    if ($('.btn-edit').length) {
+        $('.btn-edit').on('click', function(e) {
+
+            e.preventDefault();
+            var $_this = this,
+                $this = $($_this),
+                href = $this.data('href'),
+                refresh = $this.data('refresh'),
+                msg = $this.data('msg');
+            href = href ? href : $this.attr('href');
+
+            // console.log(window.location.origin+href);
+            layer.open({
+                type: 2,
+                content: href,
+                area: ['800px', '600px'],
+                title: $this.attr("title"),
+                resize: false,
+                btn: ['确认', '取消'],
+
+
+                success: function(layero, index) {},
+                // 确定的操作
+                yes: function(index, layero) {
+                    var body = layer.getChildFrame('body', index); //得到iframe页面层的BODY
+                    var iframeBtn = body.find('.sub-bindbtn'); //得到iframe页面层的提交按钮
+                    iframeBtn.click(); //模拟iframe页面层的提交按钮点击
+                    layer.close(index);
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
                 },
                 cancel: function(index, layero) {
                     // 取消的操作
@@ -66,8 +111,72 @@
 
 
 
+    //所有的删除操作，删除数据后刷新页面
+    if ($('a.js-ajax-delete').length) {
+
+        $('.js-ajax-delete').on('click', function(e) {
+            e.preventDefault();
+            var $_this = this,
+                $this = $($_this),
+                href = $this.data('href'),
+                refresh = $this.data('refresh'),
+                msg = $this.data('msg');
+            href = href ? href : $this.attr('href');
+
+            $.confirm({
+                title: '确认!',
+                content: '是否删除!',
+                type: 'red',
+                typeAnimated: true,
+                closeIcon: true,
+                buttons: {
+
+                    ok: {
+                        text: '确认', // 按钮文字
+                        btnClass: 'btn-blue',
+                        action: function() {
+
+                            $.getJSON(href).done(function(data) {
+
+                                if (data.code == '1') {
+                                    $.alert({
+                                        type: 'blue',
+                                        title: '操作提示',
+                                        content: data.msg,
+                                        icon: 'glyphicon glyphicon-info-sign'
+                                    });
 
 
+
+                                    setTimeout(function() {
+                                        window.location.reload();
+                                    }, 1000);
+
+                                } else if (data.code == '0') {
+
+                                    $.alert({
+                                        type: 'red',
+                                        title: '操作提示',
+                                        content: data.msg,
+                                        icon: 'glyphicon glyphicon-info-sign'
+                                    });
+                                }
+                            });
+                        }
+                    },
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'btn-warning',
+                        action: function() {
+                            // $.alert('点击取消');
+                        }
+                    }
+
+                }
+            });
+
+        });
+    }
 
 
 
