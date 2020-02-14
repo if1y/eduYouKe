@@ -1,0 +1,46 @@
+{__NOLAYOUT__}
+{include file='public/header' /}
+<style type="text/css">
+   #defaultUpload{
+    height: 200px;
+    width: 200px;
+    background-image: url("/static/common/img/AdminLTELogo.png");
+   } 
+</style>
+
+
+
+<div class="container-fluid bg-white">
+    <br>
+    <input type="file" name="file" id="uploadFile" style="display: none;">
+    <div id="defaultUpload">
+    </div>
+</div>
+
+
+{include file='public/script' /}
+{load href="/static/common/js/uploadImg.js" /}
+<script type="text/javascript">
+var uploadConfig = {
+    inputId: 'uploadFile', // 上传图片的inputId
+    triggerId: 'defaultUpload', // 触发上传的元素Id
+    url: "{:url('admin/Adminuser/uploadPost')}", // 上传地址
+    params: { // 上传需要携带的参数
+        token: 'a8100c30fc194ff275f691336c655ea6'
+    },
+    beforeSend: function() {
+        // 做loadding开始处理
+    },
+    isShowProgress: false, // 是否需要展示上传进度
+    loadProgress: function(progress) { // 上传进度回调
+        console.log(progress)
+    },
+    base64String: function(base64Str) { // 获取本地的base64字符串做展示
+        console.log(base64Str)
+    },
+    loadSuccess: function(data) { // 上传完成后回调
+        console.log(data)
+    }
+}
+uploadImage(uploadConfig)
+</script>

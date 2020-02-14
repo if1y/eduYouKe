@@ -5,6 +5,8 @@ use app\AdminBaseController;
 use app\logic\AdminUser as User;
 use app\util\Tools;
 use think\facade\View;
+use think\Validate;
+
 
 class AdminUser extends AdminBaseController
 {
@@ -94,5 +96,18 @@ class AdminUser extends AdminBaseController
         }
     }
 
+
+    public function upload()
+    {
+        return View::fetch();
+    }
+
+
+    public function uploadPost()
+    {
+        $file = request()->file('file');
+        $savename = \think\facade\Filesystem::putFile( 'topic', $file);
+        print_r($savename);exit();
+    }
 
 }
