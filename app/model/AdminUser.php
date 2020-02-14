@@ -3,7 +3,7 @@ namespace app\model;
 
 use think\Model;
 
-class AdminMenu extends Model
+class AdminUser extends Model
 {
 
     protected $autoWriteTimestamp = true;
@@ -11,7 +11,7 @@ class AdminMenu extends Model
 
 
     //获取详情
-    public function getAdminMenuInfo($id, $fields = '*')
+    public function getAdminUserInfo($id, $fields = '*')
     {
         if (is_array($id))
         {

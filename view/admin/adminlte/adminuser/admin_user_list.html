@@ -54,23 +54,25 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10px">ID</th>
-                                        <th style="width: 20px">菜单名称</th>
-                                        <th style="width: 10px">路径</th>
-                                        <th style="width: 10px">图标</th>
-                                        <th style="width: 10px">排序</th>
+                                        <th style="width: 10px">用户名</th>
+                                        <th style="width: 20px">头像</th>
+                                        <th style="width: 10px">手机号</th>
+                                        <th style="width: 10px">所属角色组</th>
                                         <th style="width: 10px">状态</th>
+                                        <th style="width: 10px">最后登录时间</th>
                                         <th style="width: 40px">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {volist name="userlist" id="vo"}
+
                                     <tr>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
+                                        <td>{$vo.nickname}</td>
+                                        <td>{$vo.avatar_url}</td>
+                                        <td>{$vo.mobile}</td>
+                                        <td>{$vo.role_id}</td>
+                                        <td>{$vo.show_status}</td>
+                                        <td>{$vo.last_login_time}</td>
                                         <td>
                                             <a href="{$Request.root}/{$Request.controller}/edit/type/{$Request.action}/id/{$vo.id | default=1}" class="btn-edit" title="编辑">
                                                 <i class="fa fa-edit"></i>
@@ -80,6 +82,8 @@
                                             </a>
                                         </td>
                                     </tr>
+                                    {/volist}
+
                                 </tbody>
                             </table>
                         </div>

@@ -57,7 +57,7 @@ class Menu extends AdminBaseController
         $param = $this->request->param();
         $menu  = new AdminMenu();
         View::assign('menulist', $menu->getMenuList());
-        View::assign('editData', $menu->getAdminAdminMenuInfo($param['id']));
+        View::assign('editData', $menu->getAdminMenuInfo($param['id']));
         return View::fetch();
     }
 

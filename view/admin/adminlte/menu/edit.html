@@ -116,6 +116,12 @@ $('#content').validate({
         error.addClass('invalid-feedback');
         element.closest('.col-sm-10').append(error);
     },
+    submitHandler: function(form) {
+        var valid = $('#content').valid();
+        if (valid) {
+            $('.sub-bindbtn').attr('id', "fromSuccess");
+        }
+    }
     // highlight: function(element, errorClass, validClass) {
     //     $(element).addClass('is-invalid');
     // },

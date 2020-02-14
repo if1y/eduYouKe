@@ -52,10 +52,16 @@
                     var body = layer.getChildFrame('body', index); //得到iframe页面层的BODY
                     var iframeBtn = body.find('.sub-bindbtn'); //得到iframe页面层的提交按钮
                     iframeBtn.click(); //模拟iframe页面层的提交按钮点击
-                    layer.close(index);
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 1000);
+
+                    var body = layer.getChildFrame('body', index); //得到iframe页面层的BODY
+                    var successClose = body.find('#fromSuccess').length;
+                    if (successClose) {
+                        layer.close(index);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
+                    }
+
                 },
                 cancel: function(index, layero) {
                     // 取消的操作
@@ -93,12 +99,17 @@
                 // 确定的操作
                 yes: function(index, layero) {
                     var body = layer.getChildFrame('body', index); //得到iframe页面层的BODY
+
                     var iframeBtn = body.find('.sub-bindbtn'); //得到iframe页面层的提交按钮
                     iframeBtn.click(); //模拟iframe页面层的提交按钮点击
-                    layer.close(index);
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 1000);
+                    var body = layer.getChildFrame('body', index); //得到iframe页面层的BODY
+                    var successClose = body.find('#fromSuccess').length;
+                    if (successClose) {
+                        layer.close(index);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
+                    }
                 },
                 cancel: function(index, layero) {
                     // 取消的操作

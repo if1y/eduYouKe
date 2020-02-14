@@ -5,72 +5,43 @@
     <div class="row">
         <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/editPost">
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">菜单</label>
+                <label class="col-sm-2 col-form-label">管理员昵称</label>
                 <div class="col-sm-10">
-                    <div class="form-group clearfix">
-                        <div class="icheck-success d-inline">
-                            <input type="radio" name="menuType" value="0" {$editData.type==0 ? 'checked' :''} id="ismenu">
-                            <label for="ismenu">
-                                仅作为菜单
-                            </label>
-                        </div>
-                        <div class="icheck-success d-inline">
-                            <input type="radio" name="menuType" value="1" {$editData.type==1 ? 'checked' :''} id="notmenu">
-                            <label for="notmenu">
-                                可访问菜单
-                            </label>
-                        </div>
-                    </div>
+                    <input type="text" class="form-control" name="nickname" value="{$editData.nickname}" placeholder="请输入管理员昵称">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">父级</label>
+                <label class="col-sm-2 col-form-label">管理员密码</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" name="password" placeholder="请输入管理员密码">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">管理员手机号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="mobile" value="{$editData.mobile}" placeholder="请输入管理员手机号">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">所属角色</label>
                 <div class="col-sm-10">
                     <div class="form-group">
-                        <select class="custom-select" name="parent_id">
-                            {if $editData.parent_id == 0 }
-                            <option value="0" selected>无</option>
-                            {else /}
-                            {volist name="menulist" id="vo"}
-                            <option value="{$vo.id}" {$vo.id==$editData.parent_id ? 'selected' :''}>{$vo.showName}</option>
-                            {/volist}
-                            {/if}
+                        <select class="custom-select" name="role_id">
+                            <option value="">无</option>
+                            <option value="1">超级管理员</option>
+                            <option value="2">运营</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">名称</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="title" value="{$editData.title}" placeholder="请输入名称">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">路径</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="url" value="{$editData.url}" placeholder="App/Controller/Action">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">图标</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="icon" value="{$editData.icon}" placeholder="cogs">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">排序</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="sort" value="{$editData.sort}" placeholder="默认为0">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">备注</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="remark" value="{$editData.remark}" placeholder="请输入备注[选填]">
-                </div>
-            </div>
             <div class="form-group" style="display: none;">
                 <input type="hidden" name="id" value="{$editData.id}">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">管理员头像</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="avatar_url" placeholder="管理员头像">
+                </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">显示</label>
@@ -94,21 +65,41 @@
 {include file='public/script' /}
 {load href="/static/common/js/jquery.validate.min.js" /}
 <script type="text/javascript">
+jQuery.validator.addMethod("isMobile", function(value, element) {
+    var length = value.length;
+    var mobile = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+    return this.optional(element) || (length == 11 && mobile.test(value));
+}, "请填写正确的手机号码"); //可以自定义默认提示信息
+
 $('#content').validate({
     rules: {
-        url: {
+        nickname: {
             required: true,
         },
-        title: {
+        password: {
+            required: true,
+        },
+        mobile: {
+            required: true,
+            isMobile: true,
+        },
+        role_id: {
             required: true,
         },
     },
     messages: {
-        url: {
-            required: "请输入路径",
+        nickname: {
+            required: "请输入管理员昵称",
         },
-        title: {
-            required: "请输入菜单名称",
+        password: {
+            required: "请输入管理员密码",
+        },
+        mobile: {
+            required: "请输入管理员手机号",
+            isMobile: "您填写的手机号不正确",
+        },
+        role_id: {
+            required: "请选择所属角色",
         },
     },
     // errorElement: 'span',
@@ -116,6 +107,16 @@ $('#content').validate({
         error.addClass('invalid-feedback');
         element.closest('.col-sm-10').append(error);
     },
+
+
+    submitHandler: function(form) {
+
+        var valid = $('#content').valid();
+        if (valid) {
+            $('.sub-bindbtn').attr('id', "fromSuccess");
+        }
+    }
+
     // highlight: function(element, errorClass, validClass) {
     //     $(element).addClass('is-invalid');
     // },
