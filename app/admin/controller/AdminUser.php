@@ -112,4 +112,10 @@ class AdminUser extends AdminBaseController
 
     }
 
+
+    public function tree()
+    {
+        return View::fetch();
+    }
+
 }
