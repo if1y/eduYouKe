@@ -31,3 +31,8 @@ a {
     background-color: #4b545c !important;
     color: #fff !important;
 }
+
+#defaultUpload img{
+    height: 128px;
+    width: 128px;
+}

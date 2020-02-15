@@ -32,6 +32,7 @@ class AdminUser extends AdminBaseController
     {
 
         $param = $this->request->param();
+        
         $User  = new User();
         $data  = [
             'nickname' => $param['nickname'],
@@ -66,10 +67,10 @@ class AdminUser extends AdminBaseController
         $param = $this->request->param();
         $param['password'] = Tools::userMd5($param['password']);
         $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
-            
+        
         $User  = new User();
         $userData = $User->find($param['id']);
-        $userData->allowField([
+        $result = $userData->allowField([
             'nickname',
             'password',
             'mobile',
@@ -87,8 +88,8 @@ class AdminUser extends AdminBaseController
     public function delete()
     {
         $param = $this->request->param();
-        $menu = new AdminMenu();
-        $result = $menu->update(['delete_status'=> 1],['id'=>$param['id']]);
+        $User  = new User();
+        $result = $User->update(['delete_status'=> 1],['id'=>$param['id']]);
         if ($result) {
             return json(['code'=>1,'msg'=>'删除成功']);
         }else{
@@ -106,8 +107,9 @@ class AdminUser extends AdminBaseController
     public function uploadPost()
     {
         $file = request()->file('file');
-        $savename = \think\facade\Filesystem::putFile( 'topic', $file);
-        print_r($savename);exit();
+        $savename = \think\facade\Filesystem::disk('public')->putFile( 'topic', $file);
+        return json(['code'=>1,'path'=>$savename]);
+
     }
 
 }

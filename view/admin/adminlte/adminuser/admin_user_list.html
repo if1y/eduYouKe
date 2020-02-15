@@ -68,7 +68,7 @@
 
                                     <tr>
                                         <td>{$vo.nickname}</td>
-                                        <td>{$vo.avatar_url}</td>
+                                        <td> <img src="{$vo.avatar_url ? getAvatarUrl($vo.avatar_url) :'/static/common/img/user3-128x128.jpg'}" width="30" height="30"></td>
                                         <td>{$vo.mobile}</td>
                                         <td>{$vo.role_id}</td>
                                         <td>{$vo.show_status}</td>

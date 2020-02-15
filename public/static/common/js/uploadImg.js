@@ -1,3 +1,34 @@
+var uploadConfig = {
+    inputId: 'uploadFile', // 上传图片的inputId
+    triggerId: 'defaultUpload', // 触发上传的元素Id
+    url: "/admin/Adminuser/uploadPost", // 上传地址
+    params: { // 上传需要携带的参数
+        token: 'a8100c30fc194ff275f691336c655ea6'
+    },
+    beforeSend: function() {
+        upload = layer.msg('loadding...', {
+            icon: 16,
+            shade: 0.2,
+            time: false
+        });
+        // 做loadding开始处理
+    },
+    isShowProgress: false, // 是否需要展示上传进度
+    loadProgress: function(progress) { // 上传进度回调
+        // console.log(progress)
+    },
+    base64String: function(base64Str) { // 获取本地的base64字符串做展示
+        $("#defaultUpload img").attr('src', base64Str);
+        // console.log(base64Str)
+    },
+    loadSuccess: function(data) { // 上传完成后回调
+        layer.close(upload);
+        $("#uploadValue").val(data.path);;
+    }
+}
+uploadImage(uploadConfig)
+
+
 function uploadImage(uploadConfig) {
     var uploadConfig = uploadConfig
     // 将base64转换为blob对象
