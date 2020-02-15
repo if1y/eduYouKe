@@ -18,21 +18,32 @@ a {
 }
 
 
-.table-bordered td .fa-edit{
-	color: Dodgerblue;	
+.table-bordered td .fa-edit {
+    color: Dodgerblue;
 }
-.table-bordered td .fa-trash{
-	color: Tomato;	
+
+.table-bordered td .fa-trash {
+    color: Tomato;
 }
-.layui-layer-btn{
+
+.layui-layer-btn {
     background-color: #ecf0f1;
 }
-.layui-layer-title{
+
+.layui-layer-title {
     background-color: #4b545c !important;
     color: #fff !important;
 }
 
-#defaultUpload img{
+#defaultUpload img {
     height: 128px;
     width: 128px;
+}
+
+.ztree li a {
+    height: 26px !important;
+}
+
+#treeDemo a span {
+    font-size: 20px;
 }

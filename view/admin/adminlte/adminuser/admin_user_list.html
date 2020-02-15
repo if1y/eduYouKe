@@ -71,7 +71,7 @@
                                         <td> <img src="{$vo.avatar_url ? getAvatarUrl($vo.avatar_url) :'/static/common/img/user3-128x128.jpg'}" width="30" height="30"></td>
                                         <td>{$vo.mobile}</td>
                                         <td>{$vo.role_id}</td>
-                                        <td>{$vo.show_status}</td>
+                                        <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
                                         <td>{$vo.last_login_time}</td>
                                         <td>
                                             <a href="{$Request.root}/{$Request.controller}/edit/type/{$Request.action}/id/{$vo.id | default=1}" class="btn-edit" title="编辑">

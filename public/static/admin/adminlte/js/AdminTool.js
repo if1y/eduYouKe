@@ -70,6 +70,8 @@
 
 
     //所有的编辑操作,提交数据后关闭页面
+
+
     if ($('.btn-edit').length) {
         $('.btn-edit').on('click', function(e) {
 
@@ -111,6 +113,52 @@
 
         });
     }
+
+    //权限选择
+    if ($('.btn-auth').length) {
+        $('.btn-auth').on('click', function(e) {
+
+            e.preventDefault();
+            var $_this = this,
+                $this = $($_this),
+                href = $this.data('href'),
+                refresh = $this.data('refresh'),
+                msg = $this.data('msg');
+            href = href ? href : $this.attr('href');
+
+            // console.log(window.location.origin+href);
+            layer.open({
+                type: 2,
+                content: href,
+                area: ['800px', '600px'],
+                title: $this.attr("title"),
+                resize: false,
+                btn: ['确认', '取消'],
+
+
+                success: function(layero, index) {},
+                // 确定的操作
+                yes: function(index, layero) {
+
+
+                    var body = layer.getChildFrame('body', index); //得到iframe页面层的BODY
+                    var iframeBtn = body.find('.sub-bindbtn'); //得到iframe页面层的提交按钮
+                    iframeBtn.click(); //模拟iframe页面层的提交按钮点击
+
+                    layer.close(index);
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
+                },
+                cancel: function(index, layero) {
+                    // 取消的操作
+                }
+
+            });
+
+        });
+    }
+
 
 
 
