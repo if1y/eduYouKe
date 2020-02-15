@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-02-13 11:22:07
+Date: 2020-02-15 18:29:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -46,10 +46,8 @@ INSERT INTO `edu_admin_menu` VALUES ('3', '1', '1', '0', '1', '0', 'admin/adminu
 INSERT INTO `edu_admin_menu` VALUES ('4', '1', '1', '1', '1', '0', '123123', '模块管理12111', 'user-cog', '角色列表', '1581491348', '0');
 INSERT INTO `edu_admin_menu` VALUES ('5', '1', '1', '0', '1', '0', 'admin/rbac/rbaclist', '角色组', 'user-cog', '', '1581493975', '0');
 
-
-
 -- ----------------------------
--- Table structure for edu_user_menu
+-- Table structure for edu_admin_user
 -- ----------------------------
 DROP TABLE IF EXISTS `edu_admin_user`;
 CREATE TABLE `edu_admin_user` (
@@ -67,26 +65,9 @@ CREATE TABLE `edu_admin_user` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `nickname` (`nickname`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='管理员用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COMMENT='管理员用户表';
 
-
-
-
-
-DROP TABLE IF EXISTS `sr_capital_record`;
-CREATE TABLE `sr_capital_record` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `from_member_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
-  `to_member_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
-  `type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
-  `order_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户昵称',
-  `money` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '金额',
-  `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
-  `c_type` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '类型',
-  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
-  `type_info` varchar(64) NOT NULL DEFAULT '' COMMENT '状态详情',
-  `remark` varchar(64) NOT NULL DEFAULT '' COMMENT '备注',
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='操作流水表';
-
+-- ----------------------------
+-- Records of edu_admin_user
+-- ----------------------------
+INSERT INTO `edu_admin_user` VALUES ('1', '1', '13274025222', 'topic/20200215\\6321185721061c0f1f60854a6b9e3cad.jpg', 'admin', 'd93a5def7511da3d0f2d171d9c344e91', '1', '0', '', '0', '1581576514', '0');
