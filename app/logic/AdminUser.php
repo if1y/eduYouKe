@@ -1,20 +1,31 @@
 <?php
 namespace app\logic;
-use app\model\AdminUser as AdminUserModel;
-use app\util\Tools;
-use app\util\Menu;
 
+use app\model\AdminUser as AdminUserModel;
 
 class AdminUser extends AdminUserModel
 {
-	// /**
-	//  * [getMenuList 获取当前目录列表]
-	//  * @return [type] [description]
-	//  */
-	// public function getAdminUserList()
-	// {
-	// 	$menu = $this->where('delete_status',0)->order('sort', 'desc')->select()->toArray();
- //        return Tools::formatTree(Tools::listToTree($menu, 'id', 'parent_id'),0,'title');
-	// }
+
+    /**
+     * [getUserList ]
+     * @param  string $value [description]
+     * @return [type]        [description]
+     */
+    public function getAdminUserList()
+    {
+
+        $result = $this->alias('a')
+            ->field([
+                'a.*',
+                'r.role_name',
+            ])
+            ->leftJoin('admin_role r', 'a.role_id = r.id')
+            ->where([
+                'a.delete_status' => 0,
+            ])
+            ->select();
+        return $result;
+        print_r($result);exit();
+    }
 
 }

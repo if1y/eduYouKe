@@ -3,6 +3,7 @@ namespace app\admin\controller;
 
 use app\AdminBaseController;
 use app\logic\AdminUser as User;
+use app\logic\AdminRole as Role;
 use app\util\Tools;
 use think\facade\View;
 use think\Validate;
@@ -16,7 +17,7 @@ class AdminUser extends AdminBaseController
     public function AdminUserList()
     {
         $User = new User();
-        View::assign('userlist', $User->where('delete_status', 0)->select());
+        View::assign('userlist', $User->getAdminUserList());
         return View::fetch();
     }
 
@@ -25,6 +26,8 @@ class AdminUser extends AdminBaseController
      */
     public function add()
     {
+        $role = new Role();
+        View::assign('rolelist', $role->where('delete_status', 0)->select());
         return View::fetch();
     }
 
@@ -54,6 +57,8 @@ class AdminUser extends AdminBaseController
     {
         $param = $this->request->param();
         $User  = new User();
+        $role = new Role();
+        View::assign('rolelist', $role->where('delete_status', 0)->select());
         View::assign('editData', $User->getAdminUserInfo($param['id']));
         return View::fetch();
     }
@@ -65,9 +70,11 @@ class AdminUser extends AdminBaseController
     public function editPost()
     {
         $param = $this->request->param();
-        $param['password'] = Tools::userMd5($param['password']);
+
+        $param['password'] = !empty($param['password']) ? Tools::userMd5($param['password']):0;
         $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
-        
+        if (!$param['password']) {unset($param['password']);}
+
         $User  = new User();
         $userData = $User->find($param['id']);
         $result = $userData->allowField([
