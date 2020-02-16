@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-02-15 22:40:47
+Date: 2020-02-16 20:44:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `edu_admin_menu` (
   PRIMARY KEY (`id`),
   KEY `show_status` (`show_status`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of edu_admin_menu
@@ -45,6 +45,8 @@ INSERT INTO `edu_admin_menu` VALUES ('2', '1', '1', '0', '1', '21', 'admin/menu/
 INSERT INTO `edu_admin_menu` VALUES ('3', '1', '1', '0', '1', '0', 'admin/adminuser/adminuserlist', '管理员列表', 'users-cog', '11', '1581490040', '0');
 INSERT INTO `edu_admin_menu` VALUES ('4', '1', '1', '1', '1', '0', '123123', '模块管理12111', 'user-cog', '角色列表', '1581491348', '0');
 INSERT INTO `edu_admin_menu` VALUES ('5', '1', '1', '0', '1', '0', 'admin/adminrole/adminrolelist', '角色组', 'user-cog', '', '1581493975', '0');
+INSERT INTO `edu_admin_menu` VALUES ('6', '0', '0', '0', '1', '0', 'admin/setting/default', '网站管理', 'laptop', '', '1581834849', '0');
+INSERT INTO `edu_admin_menu` VALUES ('7', '6', '1', '0', '1', '0', 'admin/setting/website', '基础配置', 'cog', '', '1581834952', '0');
 
 -- ----------------------------
 -- Table structure for edu_admin_role
@@ -60,11 +62,12 @@ CREATE TABLE `edu_admin_role` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COMMENT='管理员角色组';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='管理员角色组';
 
 -- ----------------------------
 -- Records of edu_admin_role
 -- ----------------------------
+INSERT INTO `edu_admin_role` VALUES ('1', '超级管理员', '1,2,3,5,6,7', '拥有后台所有权限', '1', '0', '1581830431', '0');
 
 -- ----------------------------
 -- Table structure for edu_admin_user
@@ -85,13 +88,12 @@ CREATE TABLE `edu_admin_user` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `nickname` (`nickname`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COMMENT='管理员用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='管理员用户表';
 
 -- ----------------------------
 -- Records of edu_admin_user
 -- ----------------------------
-INSERT INTO `edu_admin_user` VALUES ('1', '1', '13274025222', 'topic/20200215\\6321185721061c0f1f60854a6b9e3cad.jpg', 'admin', 'd93a5def7511da3d0f2d171d9c344e91', '1', '0', '', '0', '1581576514', '0');
-
+INSERT INTO `edu_admin_user` VALUES ('1', '1', '13274025222', 'topic/20200216\\8faeb459eb13ee09bb23f7abdd9b9cce.jpg', 'admin', 'd93a5def7511da3d0f2d171d9c344e91', '1', '0', '', '0', '1581576514', '0');
 
 -- ----------------------------
 -- Table structure for edu_setting
@@ -109,7 +111,16 @@ CREATE TABLE `edu_setting` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `category` (`category`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
 
-
-
+-- ----------------------------
+-- Records of edu_setting
+-- ----------------------------
+INSERT INTO `edu_setting` VALUES ('31', '基础配置', 'base', 'baseConfig', 'nav导航', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('32', '阿里云配置', 'base', 'aliConfig', 'nav导航', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('33', '支付配置', 'base', 'payConfig', 'nav导航', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('34', '登录配置', 'base', 'loginConfig', 'nav导航', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('35', '图片配置', 'base', 'imageConfig', 'nav导航', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('36', '邮件配置', 'base', 'emailConfig', 'nav导航', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('37', '公众号配置', 'base', 'mpConfig', 'nav导航', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('38', '其他配置', 'base', 'otherConfig', 'nav导航', '1', '0', '0', '0');
