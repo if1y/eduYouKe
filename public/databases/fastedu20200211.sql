@@ -91,3 +91,25 @@ CREATE TABLE `edu_admin_user` (
 -- Records of edu_admin_user
 -- ----------------------------
 INSERT INTO `edu_admin_user` VALUES ('1', '1', '13274025222', 'topic/20200215\\6321185721061c0f1f60854a6b9e3cad.jpg', 'admin', 'd93a5def7511da3d0f2d171d9c344e91', '1', '0', '', '0', '1581576514', '0');
+
+
+-- ----------------------------
+-- Table structure for edu_setting
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_setting`;
+CREATE TABLE `edu_setting` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(20) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `category` varchar(20) NOT NULL DEFAULT '' COMMENT '分类',
+  `category_name` varchar(20) NOT NULL DEFAULT '' COMMENT '分类别名',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `category` (`category`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
+
+
+

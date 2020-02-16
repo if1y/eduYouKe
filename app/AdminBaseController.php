@@ -66,7 +66,7 @@ class AdminBaseController extends BaseController
         $access = DB::name('admin_menu')
             ->where('show_status', 1)
             ->where('delete_status',0)
-            ->order('sort', 'desc')
+            ->order('sort', 'asc')
             ->select()->toArray();
 
         //组装选中状态

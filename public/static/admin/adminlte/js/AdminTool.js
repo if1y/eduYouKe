@@ -130,7 +130,7 @@
             layer.open({
                 type: 2,
                 content: href,
-                area: ['800px', '600px'],
+                area: ['400px', '600px'],
                 title: $this.attr("title"),
                 resize: false,
                 btn: ['确认', '取消'],

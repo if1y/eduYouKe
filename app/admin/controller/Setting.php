@@ -1,19 +1,23 @@
 <?php
+// 千行代码，Bug何处藏。 纵使上线又怎样，朝令改，夕断肠
 namespace app\admin\controller;
 use app\AdminBaseController;
-use think\facade\View;
+use app\logic\Setting as logicSetting;
 
+use think\facade\View;
 class Setting extends AdminBaseController
 {
-	//首页
-    public function index()
-    {
+	//基础配置
+    public function website()
+    {   
+        $setting = new logicSetting();
+        View::assign('settinglist', $setting->getSettingList('base'));
         return View::fetch('');
     }
 
-    public function slide()
+    public function baseConfig($tpl = "")
     {
-        return View::fetch('');
+            return View::fetch('');
     }
 
 
