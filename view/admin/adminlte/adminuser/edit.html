@@ -43,7 +43,7 @@
                 <div class="col-sm-10">
                     <input type="file" name="file" id="uploadFile" style="display: none;">
                     <input type="text" name="avatar_url" id="uploadValue" value="{$editData.avatar_url}" style="display: none;">
-                    <div id="defaultUpload">
+                    <div id="defaultUpload" onclick="uploadImageById('defaultUpload','uploadFile','uploadValue')">
                         <img src="{$editData.avatar_url ? getAvatarUrl($editData.avatar_url) :'/static/common/img/user3-128x128.jpg'}">
                     </div>
                 </div>
