@@ -1,0 +1,123 @@
+{__NOLAYOUT__}
+{include file='public/header' /}
+<div class="container-fluid bg-white">
+    <br>
+    <div class="row">
+        <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/addPost">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">管理员昵称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="nickname" placeholder="请输入管理员昵称">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">管理员密码</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" name="password" placeholder="请输入管理员密码">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">管理员手机号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="mobile" placeholder="请输入管理员手机号">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">所属角色</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <select class="custom-select" name="role_id">
+                            <option value="">无</option>
+                            {volist name="rolelist" id="vo"}
+                            <option value="{$vo.id}">{$vo.role_name}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">管理员头像</label>
+                <div class="col-sm-10">
+                    <input type="file" name="file" id="uploadFile" style="display: none;">
+                    <input type="text" name="avatar_url" id="uploadValue" value="" style="display: none;">
+                    <div id="defaultUpload" onclick="uploadImageById('defaultUpload','uploadFile','uploadValue')">
+                        <img src="__STATIC__/img/user3-128x128.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">显示</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="icheck-success d-inline">
+                            <input type="checkbox" name="show_status" checked id="showStatus">
+                            <label for="showStatus">
+                                是否可用
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <button class="sub-bindbtn" lay-submit lay-filter="bind" style="display: none;">
+    </button>
+    </form>
+</div>
+</div>
+{include file='public/script' /}
+<script src="__STATIC__/js/jquery.validate.min.js"></script>
+<script src="__STATIC__/js/uploadImg.js"></script>
+
+<script type="text/javascript">
+jQuery.validator.addMethod("isMobile", function(value, element) {
+    var length = value.length;
+    var mobile = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+    return this.optional(element) || (length == 11 && mobile.test(value));
+}, "请填写正确的手机号码"); //可以自定义默认提示信息
+
+$('#content').validate({
+    rules: {
+        nickname: {
+            required: true,
+        },
+        password: {
+            required: true,
+        },
+        mobile: {
+            required: true,
+            isMobile: true,
+        },
+        role_id: {
+            required: true,
+        },
+    },
+    messages: {
+        nickname: {
+            required: "请输入管理员昵称",
+        },
+        password: {
+            required: "请输入管理员密码",
+        },
+        mobile: {
+            required: "请输入管理员手机号",
+            isMobile: "您填写的手机号不正确",
+        },
+        role_id: {
+            required: "请选择所属角色",
+        },
+    },
+    // errorElement: 'span',
+    errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.col-sm-10').append(error);
+    },
+    // highlight: function(element, errorClass, validClass) {
+    //     $(element).addClass('is-invalid');
+    // },
+    // unhighlight: function(element, errorClass, validClass) {
+    //     $(element).removeClass('is-invalid');
+    // }
+});
+
+
+</script>

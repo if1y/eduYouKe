@@ -1,0 +1,272 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>首页 {$site_info.site_name|default=''}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    {include file='public/header' /}
+    <link href="/template/web/{$templateName}/public/static/css/course.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.2/skins/default/aliplayer-min.css" />
+</head>
+
+<body class="body-white">
+    {include file='public/nav' /}
+    <div class="container mt-3 aliplayer">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item "><a href="/">首页</a></li>
+                <li class="breadcrumb-item"><a href="#">后端</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="#">Swoole入门到放弃</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="#">1.1 Swoole简介</a></li>
+            </ol>
+        </nav>
+        <div class="prism-player" id="player-con"></div>
+        <div class="chapter bg-dark">
+            <p class="chapter-info text-white">
+                <span class="ml-4">
+                    <i class="fas fa-graduation-cap blink"></i>
+                </span>
+                <span class="ml-4">
+                    <span style="font-weight: 600;">正在学习 :</span>
+                    <a href="#" class="text-white">
+                        Swoole入门到放弃
+                    </a>
+                </span>
+                <span class="float-right mr-4 ">
+                    <span class="text-muted"> <a href="#">下一章</a> &nbsp;&nbsp;</span>
+                    <a href="#" class="text-white chapter-link">
+                        Swoole太难了，我不学了
+                    </a>
+                </span>
+            </p>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="mt-3">
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                <!-- 详情start -->
+                <ul class="nav nav-pills  mt-3 mb-3 bg-white" id="pills-tab" role="tablist">
+                    <li class="nav-item detail-nav-item">
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">章节目录</a>
+                    </li>
+                    <li class="nav-item detail-nav-item">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">资料下载</a>
+                    </li>
+                    <!--   <li class="nav-item">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+                    </li> -->
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title text-body" style="font-weight: 600;">课程简介</h5>
+                                <p class="card-text text-black-50">本课程适合略有编程基础的同学，能灵活运用Python更佳！</p>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <a href="{:url('/course/detail')}">
+                                        <li class="list-group-item float-left">
+                                            <span class="fas fa-play-circle"></span>
+                                            <span>
+                                                1-1 课程导学 (08:33)
+                                            </span>
+                                            <a href="#" class="btn btn-primary btn-sm btn-primary float-right">已完成</a>
+                                        </li>
+                                    </a>
+                                    <a href="#">
+                                        <li class="list-group-item float-left">
+                                            <span class="fas fa-play-circle"></span>
+                                            <span>
+                                                1-2 swoole适用场景 (08:33)
+                                            </span>
+                                            <a href="#" class="btn btn-primary btn-sm btn-danger float-right">学习中</a>
+                                        </li>
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title text-body" style="font-weight: 600;">课程简介</h5>
+                                <p class="card-text text-black-50">本课程适合略有编程基础的同学，能灵活运用Python更佳！</p>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <a href="#">
+                                        <li class="list-group-item float-left">
+                                            <span class="fas fa-play-circle"></span>
+                                            <span>
+                                                1-1 课程导学 (08:33)
+                                            </span>
+                                            <a href="#" class="btn btn-primary btn-sm btn-secondary float-right">未开始</a>
+                                        </li>
+                                    </a>
+                                    <a href="#">
+                                        <li class="list-group-item float-left">
+                                            <span class="fas fa-play-circle"></span>
+                                            <span>
+                                                1-2 swoole适用场景 (08:33)
+                                            </span>
+                                            <a href="#" class="btn btn-primary btn-sm btn-secondary float-right">未开始</a>
+                                        </li>
+                                    </a>
+                                    <a href="#">
+                                        <li class="list-group-item float-left">
+                                            <span class="fas fa-play-circle"></span>
+                                            <span>
+                                                1-2 swoole适用场景 (08:33)
+                                            </span>
+                                            <a href="#" class="btn btn-primary btn-sm btn-secondary float-right">未开始</a>
+                                        </li>
+                                    </a>
+                                    <a href="#">
+                                        <li class="list-group-item float-left">
+                                            <span class="fas fa-play-circle"></span>
+                                            <span>
+                                                1-2 swoole适用场景 (08:33)
+                                            </span>
+                                            <a href="#" class="btn btn-primary btn-sm btn-secondary float-right">未开始</a>
+                                        </li>
+                                    </a>
+                                    <a href="#">
+                                        <li class="list-group-item float-left">
+                                            <span class="fas fa-play-circle"></span>
+                                            <span>
+                                                1-2 swoole适用场景 (08:33)
+                                            </span>
+                                            <a href="#" class="btn btn-primary btn-sm btn-secondary float-right">未开始</a>
+                                        </li>
+                                    </a>
+                                    <a href="#">
+                                        <li class="list-group-item float-left">
+                                            <span class="fas fa-play-circle"></span>
+                                            <span>
+                                                1-2 swoole适用场景 (08:33)
+                                            </span>
+                                            <a href="#" class="btn btn-primary btn-sm btn-secondary float-right">未开始</a>
+                                        </li>
+                                    </a>
+                                    <a href="#">
+                                        <li class="list-group-item float-left">
+                                            <span class="fas fa-play-circle"></span>
+                                            <span>
+                                                1-2 swoole适用场景 (08:33)
+                                            </span>
+                                            <a href="#" class="btn btn-primary btn-sm btn-secondary float-right">未开始</a>
+                                        </li>
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="mt-3">
+                            <div class="mt-3 bg-white resources-down">
+                                <div class="media comment">
+                                    <a href="#">
+                                        <img class="comment-avatart" src="/static/web/detault/img/pan.svg" class="mr-3" alt="...">
+                                    </a>
+                                    <div class="media-body ml-3 mt-3">
+                                        <p class="text-black-50">
+                                            <a href="#">课程中使用到的软件</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="mt-3 bg-white resources-down">
+                                <div class="media comment">
+                                    <a href="#">
+                                        <img class="comment-avatart" src="/static/web/detault/img/git.svg" class="mr-3" alt="...">
+                                    </a>
+                                    <div class="media-body ml-3 mt-3">
+                                        <p class="text-black-50">
+                                            <a href="#">代码地址</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="mt-3 bg-white resources-down">
+                                <div class="media comment">
+                                    <a href="#">
+                                        <img class="comment-avatart" src="/static/web/detault/img/link.svg" class="mr-3" alt="...">
+                                    </a>
+                                    <div class="media-body ml-3 mt-3">
+                                        <p class="text-black-50">
+                                            <a href="#">讲师博客地址</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"></div> -->
+                </div>
+                <!-- 详情end -->
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <div class="card mt-3 detail-card">
+                    <div class="">
+                        <a href="#">
+                            <img src="https://10.url.cn/eth/ajNVdqHZLLD9MnzPTL0GibTVuI0fPLW8cwS59H2Yo3NLgZice8NRZekXLiafoDKtGD9flaJ5XKhnzs/130" width="80" height="80" class="justify-content-center rounded-circle mt-3" alt="...">
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-body"><a class="text-dark" href="#">总有刁民想害朕</a></h5>
+                        <p class="card-text text-black-50"><span class="">bat高级开发工程师</span></p>
+                    </div>
+                    <div class="card-body">
+                        <a href="#" class="tag tag-primary mt-2">Python</a>
+                        <a href="#" class="tag tag-primary mt-2">PHP</a>
+                        <a href="#" class="tag tag-primary mt-2">Mysql</a>
+                        <a href="#" class="tag tag-primary mt-2">Java</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="mt-3">
+                    <p class="ml-2">推荐文章</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item border-0"><a href="#">1 深入简出学习删除数据库</a></li>
+                        <li class="list-group-item border-0"><a href="#">2 本课程适合略有编程基础的同学，能灵活运用Python更佳！</a> </li>
+                        <li class="list-group-item border-0"><a href="#">3 深入简出学习删除数据库</a></li>
+                        <li class="list-group-item border-0"><a href="#">4 深入简出学习删除数据库</a></li>
+                        <li class="list-group-item border-0"><a href="#">5 深入简出学习删除数据库</a></li>
+                    </ul>
+                </div>
+                <div class="mt-3 enlarge-img">
+                    <p class="ml-2">推荐课程</p>
+                    <img class="card-img-top" src="http://fastedu.com/upload/education/20191113/61b68369620284dc41c960416da2d107.png" class="align-self-start mr-3" alt="...">
+                    <p class="ml-2 mt-1"><a href="#">深入简出学习删除数据库</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file='public/footer' /}
+</body>
+<script type="text/javascript" charset="utf-8" src="https://g.alicdn.com/de/prismplayer/2.8.2/aliplayer-min.js"></script>
+<script>
+var player = new Aliplayer({
+    "id": "player-con",
+    "source": "//player.alicdn.com/video/aliyunmedia.mp4",
+    "width": "100%",
+    "height": "500px",
+    "autoplay": true,
+    "isLive": false,
+    "rePlay": false,
+    "playsinline": true,
+    "preload": true,
+    "controlBarVisibility": "hover",
+    "useH5Prism": true
+}, function(player) {
+    console.log("The player is created");
+});
+</script>

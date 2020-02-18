@@ -72,14 +72,14 @@ class Menu
             //
             $hastreeview = !empty($value['type'])  ? '' : 'has-treeview';
             $icon        = !empty($value['icon']) ? $value['icon'] : 'circle';
-            $left        = !empty($hastreeview) || !empty($value['_child']) ?  '<i class="right fas fa-angle-left"></i>' : '';
+            $left        = !empty($hastreeview) || !empty($value['_child']) ?  '<i class="right fa fa-angle-left"></i>' : '';
             $href        = !empty($hastreeview) ? 'javascript:;' : '/' . $value['url'];
             $menuOpen    = !empty($value['active']) && !empty($hastreeview) ? ' menu-open' : '';
 
             //
             $str .= '<li class="nav-item ' . $hastreeview . $menuOpen . '">
             <a href="' . $href . '" class="nav-link ' . $value['active'] . '">
-              <i class="nav-icon fas fa-' . $icon . '"></i>
+              <i class="nav-icon fa fa-' . $icon . '"></i>
               <p>'
                 . $value['title'] . $left . '
               </p>

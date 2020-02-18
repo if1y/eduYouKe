@@ -15,12 +15,17 @@ class AdminBaseController extends BaseController
     //模板继承
     protected $layout = 'default';
 
+    protected $template;
+
+
     // 初始化
     protected function initialize()
     {
         //获取当前配置的模板
         $this->getWebTheme();
         View::assign('adminMenus', $this->getMenus());
+        // print_r($this->template);exit();
+        View::assign('templateName', $this->template);
         View::assign('contentHeader', $this->getContentHeader());
         //模板继承
         if ($this->layout)
@@ -45,6 +50,7 @@ class AdminBaseController extends BaseController
         }
         if (Env::get('DEV.RUNTIME') == 'develop')
         {
+             $this->template = 'adminlte';
             $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/' . app('http')->getName() . '/adminlte/';
 
         }

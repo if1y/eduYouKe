@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-02-17 21:37:37
+Date: 2020-02-18 18:39:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,18 +35,19 @@ CREATE TABLE `edu_admin_menu` (
   PRIMARY KEY (`id`),
   KEY `show_status` (`show_status`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of edu_admin_menu
 -- ----------------------------
 INSERT INTO `edu_admin_menu` VALUES ('1', '0', '0', '0', '1', '20', 'admin/menu/default', '权限管理', 'cogs', '模块管理', '0', '0');
 INSERT INTO `edu_admin_menu` VALUES ('2', '1', '1', '0', '1', '21', 'admin/menu/menulist', '模块列表', 'cog', '模块列表', '0', '0');
-INSERT INTO `edu_admin_menu` VALUES ('3', '1', '1', '0', '1', '0', 'admin/adminuser/adminuserlist', '管理员列表', 'users-cog', '11', '1581490040', '0');
+INSERT INTO `edu_admin_menu` VALUES ('3', '1', '1', '0', '1', '0', 'admin/adminuser/adminuserlist', '管理员列表', 'user-plus', '11', '1581490040', '0');
 INSERT INTO `edu_admin_menu` VALUES ('4', '1', '1', '1', '1', '0', '123123', '模块管理12111', 'user-cog', '角色列表', '1581491348', '0');
-INSERT INTO `edu_admin_menu` VALUES ('5', '1', '1', '0', '1', '0', 'admin/adminrole/adminrolelist', '角色组', 'user-cog', '', '1581493975', '0');
+INSERT INTO `edu_admin_menu` VALUES ('5', '1', '1', '0', '1', '0', 'admin/adminrole/adminrolelist', '角色组', 'users', '', '1581493975', '0');
 INSERT INTO `edu_admin_menu` VALUES ('6', '0', '0', '0', '1', '0', 'admin/setting/default', '网站管理', 'laptop', '', '1581834849', '0');
 INSERT INTO `edu_admin_menu` VALUES ('7', '6', '1', '0', '1', '0', 'admin/setting/website', '基础配置', 'cog', '', '1581834952', '0');
+INSERT INTO `edu_admin_menu` VALUES ('8', '6', '1', '0', '1', '0', 'admin/setting/banner', 'Banner管理', 'picture-o', '轮播图/友情链接', '1581999892', '0');
 
 -- ----------------------------
 -- Table structure for edu_admin_role
@@ -94,6 +95,29 @@ CREATE TABLE `edu_admin_user` (
 -- Records of edu_admin_user
 -- ----------------------------
 INSERT INTO `edu_admin_user` VALUES ('1', '1', '13274025222', 'topic/20200216\\8faeb459eb13ee09bb23f7abdd9b9cce.jpg', 'admin', 'd93a5def7511da3d0f2d171d9c344e91', '1', '0', '', '0', '1581576514', '0');
+
+-- ----------------------------
+-- Table structure for edu_banner
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_banner`;
+CREATE TABLE `edu_banner` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `description` varchar(64) NOT NULL DEFAULT '' COMMENT '描述',
+  `link_url` varchar(255) NOT NULL DEFAULT '' COMMENT '图片链接地址',
+  `image_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '图片地址',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;1:轮播图,1:友情链接',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='轮播图/友情链接表';
+
+-- ----------------------------
+-- Records of edu_banner
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for edu_setting
@@ -156,24 +180,3 @@ INSERT INTO `edu_setting` VALUES ('64', '连接方式\r\n', 'emailConfig', 'emai
 INSERT INTO `edu_setting` VALUES ('65', 'SMTP服务端口\r\n', 'emailConfig', 'smtpPort', 'SMTP服务端口', null, null, 'SMTP服务端口\r\n', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('66', '发件箱帐号', 'emailConfig', 'senderAddress', '', null, null, '发件箱帐号', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('67', '发件箱密码', 'emailConfig', 'senderPassword', '', null, null, '发件箱密码', '1', '0', '0', '0');
-
-
-
-
-DROP TABLE IF EXISTS `edu_banner`;
-CREATE TABLE `edu_banner` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
-  `description` varchar(64) NOT NULL DEFAULT '' COMMENT '描述',
-  `link_url` varchar(255) NOT NULL DEFAULT '' COMMENT '图片链接地址',
-  `image_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '图片地址',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
-  `type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;1:轮播图,1:友情链接',
-  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
-  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='轮播图/友情链接表';
-
-
