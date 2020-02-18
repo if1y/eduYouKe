@@ -1,6 +1,6 @@
 <?php
 // 应用公共文件
-function getAvatarUrl($avatar)
+function getUrlPath($avatar)
 {
     if (!empty($avatar))
     {

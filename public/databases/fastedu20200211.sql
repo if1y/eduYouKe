@@ -156,3 +156,24 @@ INSERT INTO `edu_setting` VALUES ('64', '连接方式\r\n', 'emailConfig', 'emai
 INSERT INTO `edu_setting` VALUES ('65', 'SMTP服务端口\r\n', 'emailConfig', 'smtpPort', 'SMTP服务端口', null, null, 'SMTP服务端口\r\n', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('66', '发件箱帐号', 'emailConfig', 'senderAddress', '', null, null, '发件箱帐号', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('67', '发件箱密码', 'emailConfig', 'senderPassword', '', null, null, '发件箱密码', '1', '0', '0', '0');
+
+
+
+
+DROP TABLE IF EXISTS `edu_banner`;
+CREATE TABLE `edu_banner` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `description` varchar(64) NOT NULL DEFAULT '' COMMENT '描述',
+  `link_url` varchar(255) NOT NULL DEFAULT '' COMMENT '图片链接地址',
+  `image_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '图片地址',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;1:轮播图,1:友情链接',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='轮播图/友情链接表';
+
+

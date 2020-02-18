@@ -54,25 +54,28 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10px">用户名</th>
-                                        <th style="width: 20px">头像</th>
-                                        <th style="width: 10px">手机号</th>
-                                        <th style="width: 10px">所属角色组</th>
+                                        <th style="width: 10px">ID</th>
+                                        <th style="width: 20px">标题</th>
+                                        <th style="width: 10px">描述</th>
+                                        <th style="width: 10px">类型</th>
+                                        <th style="width: 10px">图片预览</th>
+                                        <th style="width: 10px">图片链接地址</th>
+                                        <th style="width: 10px">备注</th>
                                         <th style="width: 10px">状态</th>
-                                        <th style="width: 10px">最后登录时间</th>
-                                        <th style="width: 40px">操作</th>
+                                        <th style="width: 20px">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {volist name="userlist" id="vo"}
-
+                                    {volist name="bannerlist" id="vo"}
                                     <tr>
-                                        <td>{$vo.nickname}</td>
-                                        <td> <img src="{$vo.avatar_url ? getUrlPath($vo.avatar_url) :'/static/common/img/user3-128x128.jpg'}" width="30" height="30"></td>
-                                        <td>{$vo.mobile}</td>
-                                        <td>{$vo.role_name ? $vo.role_name : '未选择'}</td>
+                                        <td>{$vo.id}</td>
+                                        <td>{$vo.title}</td>
+                                        <td>{$vo.description}</td>
+                                        <td>{$vo.type == 1 ? '轮播图':'友情链接'}</td>
+                                        <td><img src="{$vo.image_url ? getUrlPath($vo.image_url) :'/static/common/img/user3-128x128.jpg'}" width="100" height="40"> </td>
+                                        <td>{$vo.link_url}</td>
+                                        <td>{$vo.remark}</td>
                                         <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
-                                        <td>{$vo.last_login_time}</td>
                                         <td>
                                             <a href="{$Request.root}/{$Request.controller}/edit/type/{$Request.action}/id/{$vo.id | default=1}" class="btn-edit" title="编辑">
                                                 <i class="fa fa-edit"></i>
@@ -83,7 +86,6 @@
                                         </td>
                                     </tr>
                                     {/volist}
-
                                 </tbody>
                             </table>
                         </div>
