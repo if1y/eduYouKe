@@ -12,9 +12,13 @@ class Setting extends AdminBaseController
     //基础配置
     public function website()
     {
+        $param   = $this->request->param();
         $setting = new logicSetting();
+        $tpl     = isset($param['tplType']) && !empty($param['tplType']) ? $param['tplType'] : 'baseConfig';
         View::assign('settinglist', $setting->getSettingList());
-        return View::fetch('');
+        View::assign('detail', $setting->getSettingCategoryList($tpl));
+        View::assign('tpl', $tpl);
+        return View::fetch($tpl, ['tplType' => $tpl]);
     }
 
     public function addPost()
@@ -22,8 +26,8 @@ class Setting extends AdminBaseController
         $param   = $this->request->param();
         $setting = new logicSetting();
         $setting->saveSettingPost($param);
-        return redirect('/admin/setting/website');
-
+        $tpl = isset($param['type']) && !empty($param['type']) ? $param['type'] : 'baseConfig';
+        return redirect((string) url('/admin/setting/website', ['tplType' => $tpl]));
     }
 
     /**
@@ -89,19 +93,20 @@ class Setting extends AdminBaseController
 
     }
 
-
     public function delete()
     {
 
-        $param = $this->request->param();
-        $bannerModel          = new Banner();
-        $result = $bannerModel->update(['delete_status'=> 1],['id'=>$param['id']]);
-        if ($result) {
-            return json(['code'=>1,'msg'=>'删除成功']);
-        }else{
-            return json(['code'=>0,'msg'=>'删除失败']);
+        $param       = $this->request->param();
+        $bannerModel = new Banner();
+        $result      = $bannerModel->update(['delete_status' => 1], ['id' => $param['id']]);
+        if ($result)
+        {
+            return json(['code' => 1, 'msg' => '删除成功']);
+        }
+        else
+        {
+            return json(['code' => 0, 'msg' => '删除失败']);
         }
     }
-
 
 }

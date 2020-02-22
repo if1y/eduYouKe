@@ -1,3 +1,6 @@
+{include file='public/script' /}
+<script src="__STATIC__/js/jquery.validate.min.js"></script>
+<script src="__STATIC__/js/uploadImg.js"></script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -35,7 +38,9 @@
                     <div class="tab-pane fade  {$key == 1 ? 'show active':''}" id="pills-{$vo.category_name}" role="tabpanel" aria-labelledby="pills-{$vo.category_name}-tab">
                         <form class="p-3" action="{$Request.root}/{$Request.controller}/addPost/type/{$vo.category_name}">
                             {volist name="vo.child" id="form" key="formKey"}
-                            <div class="form-group row">
+
+                            {:buildConfigHtml($form)}
+                          <!--   <div class="form-group row">
                                 <label for="{$form.category_name}" class="col-sm-1 col-form-label">{$form.title}</label>
                                 <div class="col-sm-5">
                                     <input type="text" class="form-control" name="{$form.category_name}" id="{$form.category_name}" value="{$form.content}" placeholder="请输入{$form.title}">
@@ -46,7 +51,8 @@
                                         {/if}
                                     </small>
                                 </div>
-                            </div>
+                            </div> -->
+
                             {/volist}
                             <div class="form-group row">
                                 <div class="col-sm-10">

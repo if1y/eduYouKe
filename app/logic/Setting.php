@@ -12,18 +12,23 @@ class Setting extends SettingModel
      */
     public function getSettingCategoryList($category)
     {
-        return $this->where([
+        $data = [];
+        $result = $this->field('category_name,content,category')->where([
             'delete_status' => 0,
             'show_status' => 1,
             'category' => $category,
         ])->select()->toArray();
+        foreach ($result as $key => $value) {
+            $data[$value['category_name']] = $value;
+        }
+        return $data;
     }
 
     /**
      * [getSettingList 获取基础列表]
      * @return [type] [description]
      */
-    public function getSettingList()
+    public function getSettingList($base = 'base')
     {
 
         // return
@@ -31,11 +36,12 @@ class Setting extends SettingModel
             ->where([
                 'delete_status' => 0,
                 'show_status' => 1,
-                'category' => 'base',
-            ])->select()->each(function ($item)
-        {
-            $item['child'] = $this->getSettingCategoryList($item['category_name']);
-        });
+                'category' => $base,
+            ])->select();
+        //     ->each(function ($item)
+        // {
+        //     $item['child'] = $this->getSettingCategoryList($item['category_name']);
+        // });
 
         return $result;
 
@@ -49,6 +55,7 @@ class Setting extends SettingModel
      */
     public function saveSettingPost($param)
     {
+        // print_r($param);exit();
         foreach ($param as $key => $value)
         {
             $this->update(['content' => $value], ['category' => $param['type'], 'category_name' => $key]);

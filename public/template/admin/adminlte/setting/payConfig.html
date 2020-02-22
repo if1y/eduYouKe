@@ -1,0 +1,84 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0 text-dark">
+                        <i class="fa fa-{$contentHeader.icon}"></i>
+                        {$contentHeader.title}
+                    </h3>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin">首页</a></li>
+                        <li class="breadcrumb-item active">{$contentHeader.title}</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid p-2">
+            <div class="commonality-card bg-white p-4">
+                <ul class="nav nav-pills">
+                    {volist name="settinglist" id="vo" key="key"}
+                    <li class="nav-item">
+                        <a class="nav-link {:input('param.tplType') == $vo.category_name  ? 'active':''}" href="{$Request.root}/{$Request.controller}/{$Request.action}/tplType/{$vo.category_name | default='baseConfig'}">{$vo.title}</a>
+                    </li>
+                    {/volist}
+                </ul>
+                <div class="tab-content">
+                    <form class="p-3" enctype="multipart/form-data" action="{$Request.root}/{$Request.controller}/addPost/type/{$tpl}" method="post">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">支付宝Key</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="aliPayKey" value="{$detail.aliPayKey.content}" placeholder="请输入{$detail.aliPayKey.category}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">支付宝Secret</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="aliPaySecret" value="{$detail.aliPaySecret.content}" placeholder="请输入{$detail.aliPaySecret.category}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">微信支付Key</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="wxPayKey" value="{$detail.wxPayKey.content}" placeholder="请输入{$detail.wxPayKey.category}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">微信支付Secret</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="wxPaySecret" value="{$detail.wxPaySecret.content}" placeholder="请输入{$detail.wxPaySecret.category}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">个人支付Key</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="otherPayKey" value="{$detail.otherPayKey.content}" placeholder="请输入{$detail.otherPayKey.category}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">个人支付Secret</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="otherPaySecret" value="{$detail.otherPaySecret.content}" placeholder="请输入{$detail.otherPaySecret.category}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-5">
+                                <button type="submit" class="btn btn-info">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file='public/script' /}
+<script src="__STATIC__/js/jquery.validate.min.js"></script>
+<script src="__STATIC__/js/uploadImg.js"></script>
