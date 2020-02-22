@@ -33,7 +33,7 @@ class AdminRole extends AdminBaseController
     {
 
         $param = $this->request->param();
-        
+        print_r($param);exit;
         $role = new Role();
 
         $data  = [
@@ -104,6 +104,18 @@ class AdminRole extends AdminBaseController
         View::assign('id', $id);
         return View::fetch();
     }
+
+    /**
+     * [tree 权限树形结构图]
+     * @return [type] [description]
+     */
+    public function testtree()
+    {
+        $id = $this->request->param('id', 0, 'intval');
+        View::assign('id', $id);
+        return View::fetch();
+    }
+
 
     /**
      * [roleAuthPost 修改用户组权限]
