@@ -36,11 +36,17 @@
                 msg = $this.data('msg');
             href = href ? href : $this.attr('href');
 
-            // console.log(window.location.origin+href);
+            var width = '800px';
+            var height = '600px';
+            if (href.indexOf("biglayer") >= 0) {
+                width = '1000px';
+                height = '800px';
+            }
+
             layer.open({
                 type: 2,
                 content: href,
-                area: ['800px', '600px'],
+                area: [width, height],
                 title: $this.attr("title"),
                 resize: false,
                 btn: ['确认', '取消'],
@@ -49,8 +55,6 @@
                 success: function(layero, index) {},
                 // 确定的操作
                 yes: function(index, layero) {
-
-
 
                     var iframeWin = parent.parent.window[layero.find('iframe')[0]['name']]; // 重点0
                     var content = iframeWin.$("form").attr("id");
@@ -90,11 +94,17 @@
                 msg = $this.data('msg');
             href = href ? href : $this.attr('href');
 
+            var width = '800px';
+            var height = '600px';
+            if (href.indexOf("biglayer") >= 0) {
+                width = '1000px';
+                height = '800px';
+            }
             // console.log(window.location.origin+href);
             layer.open({
                 type: 2,
                 content: href,
-                area: ['800px', '600px'],
+                area: [width, height],
                 title: $this.attr("title"),
                 resize: false,
                 btn: ['确认', '取消'],

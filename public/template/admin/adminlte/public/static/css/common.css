@@ -35,6 +35,7 @@ a {
     color: #fff !important;
 }
 
+#defaultUpload,
 #defaultUpload img {
     height: 128px;
     width: 128px;
