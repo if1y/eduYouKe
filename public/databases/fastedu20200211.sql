@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-02-22 14:45:59
+Date: 2020-02-24 19:03:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `edu_admin_menu` (
   PRIMARY KEY (`id`),
   KEY `show_status` (`show_status`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of edu_admin_menu
@@ -48,6 +48,11 @@ INSERT INTO `edu_admin_menu` VALUES ('5', '1', '1', '0', '1', '0', 'admin/adminr
 INSERT INTO `edu_admin_menu` VALUES ('6', '0', '0', '0', '1', '0', 'admin/setting/default', '网站管理', 'laptop', '', '1581834849', '0');
 INSERT INTO `edu_admin_menu` VALUES ('7', '6', '1', '0', '1', '0', 'admin/setting/website', '基础配置', 'cog', '', '1581834952', '0');
 INSERT INTO `edu_admin_menu` VALUES ('8', '6', '1', '0', '1', '0', 'admin/setting/banner', 'Banner管理', 'picture-o', '轮播图/友情链接', '1581999892', '0');
+INSERT INTO `edu_admin_menu` VALUES ('9', '6', '1', '0', '0', '0', 'admin/file/filelist', '附件管理', 'file', '', '1582515985', '0');
+INSERT INTO `edu_admin_menu` VALUES ('10', '0', '0', '0', '1', '0', 'admin/course/default', '课程管理', 'graduation-cap', '', '1582517857', '0');
+INSERT INTO `edu_admin_menu` VALUES ('11', '10', '1', '0', '1', '0', 'admin/course/courselist', '课程列表', 'television', '', '1582518197', '0');
+INSERT INTO `edu_admin_menu` VALUES ('12', '10', '1', '0', '1', '0', 'admin/course/category', '课程分类', 'sliders', '', '1582518489', '0');
+INSERT INTO `edu_admin_menu` VALUES ('13', '10', '1', '0', '1', '0', 'admin/course/coursevideo', '视频添加', 'file-video-o', '', '1582518574', '0');
 
 -- ----------------------------
 -- Table structure for edu_admin_role
@@ -63,12 +68,13 @@ CREATE TABLE `edu_admin_role` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='管理员角色组';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='管理员角色组';
 
 -- ----------------------------
 -- Records of edu_admin_role
 -- ----------------------------
 INSERT INTO `edu_admin_role` VALUES ('1', '超级管理员', '1,2,3,5,6,7', '拥有后台所有权限', '1', '0', '1581830431', '0');
+INSERT INTO `edu_admin_role` VALUES ('2', '测试', '', '', '1', '1', '1582529680', '0');
 
 -- ----------------------------
 -- Table structure for edu_admin_user
@@ -118,6 +124,69 @@ CREATE TABLE `edu_banner` (
 -- ----------------------------
 -- Records of edu_banner
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for edu_course
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_course`;
+CREATE TABLE `edu_course` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类id',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '课程名称',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '课程简介',
+  `cource_image_url` varchar(64) NOT NULL DEFAULT '' COMMENT '课程封面图片',
+  `sell_price` decimal(10,0) NOT NULL DEFAULT '0' COMMENT '售卖价格',
+  `content` varchar(255) DEFAULT NULL COMMENT '课程简介内容',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `sell_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '收费状态;0:免费,1:收费',
+  `level_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '难度级别;1:初级,2:中级,3:高级,4:炼狱',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程列表';
+
+-- ----------------------------
+-- Records of edu_course
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for edu_course_category
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_course_category`;
+CREATE TABLE `edu_course_category` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父菜单id',
+  `title` varchar(20) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `seoTitle` varchar(255) DEFAULT NULL COMMENT 'SEO标题',
+  `seoKeywords` varchar(255) DEFAULT NULL COMMENT 'SEO关键字',
+  `seoDescription` varchar(255) DEFAULT NULL COMMENT 'SEO描述',
+  `sort` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`parent_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COMMENT='课程分类';
+
+-- ----------------------------
+-- Records of edu_course_category
+-- ----------------------------
+INSERT INTO `edu_course_category` VALUES ('69', '0', '测试分类', '测试SEO标题', '测试SEO关键字', '测试SEO描述', '0', '测试备注', '1', '0', '1582524281', '0');
+INSERT INTO `edu_course_category` VALUES ('70', '69', '测试1', '测试1', '测试1', '测试1', '1', '', '1', '1', '1582524392', '0');
+INSERT INTO `edu_course_category` VALUES ('71', '0', '', '', '', '', '0', '', '1', '1', '1582526528', '0');
+INSERT INTO `edu_course_category` VALUES ('72', '0', '', '', '', '', '0', '', '1', '1', '1582528458', '0');
+INSERT INTO `edu_course_category` VALUES ('73', '0', '', '', '', '', '0', '', '1', '1', '1582528643', '0');
+INSERT INTO `edu_course_category` VALUES ('74', '0', '', '', '', '', '0', '', '1', '1', '1582528648', '0');
+INSERT INTO `edu_course_category` VALUES ('75', '0', '', '', '', '', '0', '', '1', '1', '1582528671', '0');
+INSERT INTO `edu_course_category` VALUES ('76', '0', '', '', '', '', '0', '', '1', '1', '1582528699', '0');
+INSERT INTO `edu_course_category` VALUES ('77', '70', '模块管理1', '', '', '', '0', '', '1', '1', '1582528926', '0');
+INSERT INTO `edu_course_category` VALUES ('78', '69', '胜多负少的飞碟说', '1111213123123', '', '', '0', '', '1', '1', '1582528960', '0');
+INSERT INTO `edu_course_category` VALUES ('79', '69', '王企鹅无群二', '', '', '', '0', '', '1', '1', '1582529551', '0');
 
 -- ----------------------------
 -- Table structure for edu_setting
@@ -182,60 +251,8 @@ INSERT INTO `edu_setting` VALUES ('66', '发件箱帐号', 'emailConfig', 'sende
 INSERT INTO `edu_setting` VALUES ('67', '发件箱密码', 'emailConfig', 'senderPassword', '', null, null, '发件箱密码', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('68', '网站logo', 'baseConfig', 'logoImage', 'topic/20200222\\eca55246b07fb6bd39d0edc6811e2380.png', null, null, '网站logo', '1', '0', '0', '0');
 
-
-
-
 -- ----------------------------
--- Table structure for edu_course_category
--- ----------------------------
-DROP TABLE IF EXISTS `edu_course_category`;
-CREATE TABLE `edu_course_category` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父菜单id',
-  `title` varchar(20) NOT NULL DEFAULT '' COMMENT '分类名称',
-  `seoTitle` varchar(255) DEFAULT NULL COMMENT 'SEO标题',
-  `seoKeywords` varchar(255) DEFAULT NULL COMMENT 'SEO关键字',
-  `seoDescription` varchar(255) DEFAULT NULL COMMENT 'SEO描述',
-  `sort` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
-  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
-  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COMMENT='课程分类';
-
-
-
-
-
--- ----------------------------
--- Table structure for edu_course
--- ----------------------------
-DROP TABLE IF EXISTS `edu_course`;
-CREATE TABLE `edu_course` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类id',
-  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '课程名称',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '课程简介',
-  `cource_image_url` varchar(64) NOT NULL DEFAULT '' COMMENT '课程封面图片',
-  `sell_price` decimal(10.2) NOT NULL DEFAULT '0.00' COMMENT '售卖价格',
-  `content` varchar(255) DEFAULT NULL COMMENT '课程简介内容',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
-  `sell_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '收费状态;0:免费,1:收费',
-  `level_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '难度级别;1:初级,2:中级,3:高级,4:炼狱',
-  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
-  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `category_id` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COMMENT='课程列表';
-
-
--- ----------------------------
--- Table structure for edu_course
+-- Table structure for edu_tag
 -- ----------------------------
 DROP TABLE IF EXISTS `edu_tag`;
 CREATE TABLE `edu_tag` (
@@ -249,10 +266,11 @@ CREATE TABLE `edu_tag` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COMMENT='tag标签表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tag标签表';
 
-
-
+-- ----------------------------
+-- Records of edu_tag
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for edu_tag_relevance
@@ -268,11 +286,8 @@ CREATE TABLE `edu_tag_relevance` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COMMENT='tag关联表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tag关联表';
 
-
-
-
-
-
-
+-- ----------------------------
+-- Records of edu_tag_relevance
+-- ----------------------------
