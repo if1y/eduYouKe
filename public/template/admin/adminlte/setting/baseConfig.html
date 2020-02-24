@@ -40,11 +40,11 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">网站LOGO</label>
-                            <div class="col-sm-5">
+                            <div class="col-sm-5" id="websiteLogo">
                                 <input type="file" name="file" id="uploadFile" style="display: none;">
                                 <input type="text" name="logoImage" id="uploadValue" value="{$detail.logoImage.content}" style="display: none;">
-                                <div id="defaultUpload" onclick="uploadImageById('defaultUpload','uploadFile','uploadValue')">
-                                    <img src="{$detail.logoImage.content ? getUrlPath($detail.logoImage.content) :'__STATIC__/img/user3-128x128.jpg'}" style="width: 240px; height: 60px;">
+                                <div id="defaultUpload" onclick="uploadImageById('defaultUpload','uploadFile','uploadValue')" >
+                                    <img src="{$detail.logoImage.content ? getUrlPath($detail.logoImage.content) :'__STATIC__/img/user3-128x128.jpg'}">
                                 </div>
                             </div>
                         </div>

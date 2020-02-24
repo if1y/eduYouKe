@@ -41,6 +41,11 @@ a {
     width: 128px;
 }
 
+#websiteLogo #defaultUpload,
+#websiteLogo #defaultUpload img{
+    height: 60px;
+    width: 240px;
+}
 .ztree li a {
     height: 26px !important;
 }
