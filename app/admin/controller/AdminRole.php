@@ -33,7 +33,6 @@ class AdminRole extends AdminBaseController
     {
 
         $param = $this->request->param();
-        print_r($param);exit;
         $role = new Role();
 
         $data  = [
@@ -84,8 +83,8 @@ class AdminRole extends AdminBaseController
     public function delete()
     {
         $param = $this->request->param();
-        $User  = new User();
-        $result = $User->update(['delete_status'=> 1],['id'=>$param['id']]);
+        $role  = new Role();
+        $result = $role->update(['delete_status'=> 1],['id'=>$param['id']]);
         if ($result) {
             return json(['code'=>1,'msg'=>'删除成功']);
         }else{

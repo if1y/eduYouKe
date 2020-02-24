@@ -118,6 +118,10 @@ $('#content').validate({
     //     $(element).removeClass('is-invalid');
     // }
 });
-
+function myValidate() {
+    var content = $("form").attr("id");
+    var valid = $("#"+content).valid();
+    return valid;
+}
 
 </script>

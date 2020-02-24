@@ -55,4 +55,9 @@ $('#content').validate({
         element.closest('.col-sm-10').append(error);
     },
 });
+function myValidate() {
+    var content = $("form").attr("id");
+    var valid = $("#"+content).valid();
+    return valid;
+}
 </script>

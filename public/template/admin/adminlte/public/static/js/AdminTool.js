@@ -50,13 +50,20 @@
                 // 确定的操作
                 yes: function(index, layero) {
 
-                    var iframeWin = window[layero.find('iframe')[0]['name']];
+
+
+                    var iframeWin = parent.parent.window[layero.find('iframe')[0]['name']]; // 重点0
                     var content = iframeWin.$("form").attr("id");
                     iframeWin.$("#" + content).submit();
-                    layer.close(index);
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 1000);
+                    var validate = iframeWin.myValidate();
+                    if (validate) {
+
+                        layer.close(index);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
+
+                    }
 
                 },
                 cancel: function(index, layero) {
@@ -100,10 +107,15 @@
                     var iframeWin = window[layero.find('iframe')[0]['name']];
                     var content = iframeWin.$("form").attr("id");
                     iframeWin.$("#" + content).submit();
-                    layer.close(index);
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 1000);
+                    var validate = iframeWin.myValidate();
+                    if (validate) {
+
+                        layer.close(index);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
+
+                    }
                 },
                 cancel: function(index, layero) {
                     // 取消的操作

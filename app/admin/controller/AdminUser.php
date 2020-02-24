@@ -71,7 +71,6 @@ class AdminUser extends AdminBaseController
     {
         $param = $this->request->param();
 
-        print_r($param);exit;
         $param['password'] = !empty($param['password']) ? Tools::userMd5($param['password']):0;
         $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
         if (!$param['password']) {unset($param['password']);}

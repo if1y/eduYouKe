@@ -34,10 +34,6 @@
                             <i class="fa fa-plus"></i>
                             添加
                         </a>
-                        <a href="{$Request.root}/{$Request.controller}/uploadCloud/type/{$Request.action}" class="btn btn-success btn-sm cloud-upload" title="添加">
-                            <i class="fa fa-cloud-upload"></i>
-                            上传云端
-                        </a>
                         <!--   <a href="javascript:;" class="btn btn-success btn-edit btn-sm btn-disabled disabled" title="编辑">
                                 <i class="fa fa-edit"></i>
                                 编辑
@@ -57,11 +53,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 10px">ID</th>
-                                <th style="width: 20px">标题</th>
-                                <th style="width: 10px">描述</th>
-                                <th style="width: 10px">类型</th>
-                                <th style="width: 10px">图片预览</th>
-                                <th style="width: 10px">图片链接地址</th>
+                                <th style="width: 20px">分类名称</th>
+                                <th style="width: 10px">seo标题</th>
+                                <th style="width: 10px">seo关键字</th>
+                                <th style="width: 10px">seo描述</th>
                                 <th style="width: 10px">备注</th>
                                 <th style="width: 10px">状态</th>
                                 <th style="width: 20px">操作</th>
@@ -76,11 +71,7 @@
                                 <td>111</td>
                                 <td>111</td>
                                 <td>111</td>
-                                <td>111</td>
                                 <td>
-                                    <a href="{$Request.root}/{$Request.controller}/uploadCloud/id/{$vo.id | default=1}" class="js-ajax-delete" title="上传云端">
-                                        <i class="fa fa-cloud-upload"></i>
-                                    </a>
                                     <a href="{$Request.root}/{$Request.controller}/edit/type/{$Request.action}/id/{$vo.id | default=1}" class="btn-edit" title="编辑">
                                         <i class="fa fa-edit"></i>
                                     </a>

@@ -181,3 +181,98 @@ INSERT INTO `edu_setting` VALUES ('65', 'SMTP服务端口', 'emailConfig', 'smtp
 INSERT INTO `edu_setting` VALUES ('66', '发件箱帐号', 'emailConfig', 'senderAddress', '', null, null, '发件箱帐号', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('67', '发件箱密码', 'emailConfig', 'senderPassword', '', null, null, '发件箱密码', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('68', '网站logo', 'baseConfig', 'logoImage', 'topic/20200222\\eca55246b07fb6bd39d0edc6811e2380.png', null, null, '网站logo', '1', '0', '0', '0');
+
+
+
+
+-- ----------------------------
+-- Table structure for edu_course_category
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_course_category`;
+CREATE TABLE `edu_course_category` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父菜单id',
+  `title` varchar(20) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `seoTitle` varchar(255) DEFAULT NULL COMMENT 'SEO标题',
+  `seoKeywords` varchar(255) DEFAULT NULL COMMENT 'SEO关键字',
+  `seoDescription` varchar(255) DEFAULT NULL COMMENT 'SEO描述',
+  `sort` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`parent_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COMMENT='课程分类';
+
+
+
+
+
+-- ----------------------------
+-- Table structure for edu_course
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_course`;
+CREATE TABLE `edu_course` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类id',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '课程名称',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '课程简介',
+  `cource_image_url` varchar(64) NOT NULL DEFAULT '' COMMENT '课程封面图片',
+  `sell_price` decimal(10.2) NOT NULL DEFAULT '0.00' COMMENT '售卖价格',
+  `content` varchar(255) DEFAULT NULL COMMENT '课程简介内容',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `sell_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '收费状态;0:免费,1:收费',
+  `level_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '难度级别;1:初级,2:中级,3:高级,4:炼狱',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COMMENT='课程列表';
+
+
+-- ----------------------------
+-- Table structure for edu_course
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_tag`;
+CREATE TABLE `edu_tag` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标签名称',
+  `recommended` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐;1:推荐;0:不推荐',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '标签;0:课程标签,1:文章标签',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COMMENT='tag标签表';
+
+
+
+
+-- ----------------------------
+-- Table structure for edu_tag_relevance
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_tag_relevance`;
+CREATE TABLE `edu_tag_relevance` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `source_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '关联的课程/文章标签',
+  `tag_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'tag_id',
+  `type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '标签;0:课程标签,1:文章标签',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COMMENT='tag关联表';
+
+
+
+
+
+
+

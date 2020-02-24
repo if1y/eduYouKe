@@ -30,13 +30,9 @@
                             刷新
                             <i class="fa fa-refresh"></i>
                         </a>
-                        <a href="{$Request.root}/{$Request.controller}/add/type/{$Request.action}" class="btn btn-success btn-sm btn-add" title="添加">
+                        <a href="{$Request.root}/{$Request.controller}/addCategory" class="btn btn-success btn-sm btn-add" title="添加">
                             <i class="fa fa-plus"></i>
                             添加
-                        </a>
-                        <a href="{$Request.root}/{$Request.controller}/uploadCloud/type/{$Request.action}" class="btn btn-success btn-sm cloud-upload" title="添加">
-                            <i class="fa fa-cloud-upload"></i>
-                            上传云端
                         </a>
                         <!--   <a href="javascript:;" class="btn btn-success btn-edit btn-sm btn-disabled disabled" title="编辑">
                                 <i class="fa fa-edit"></i>
@@ -57,38 +53,35 @@
                         <thead>
                             <tr>
                                 <th style="width: 10px">ID</th>
-                                <th style="width: 20px">标题</th>
-                                <th style="width: 10px">描述</th>
-                                <th style="width: 10px">类型</th>
-                                <th style="width: 10px">图片预览</th>
-                                <th style="width: 10px">图片链接地址</th>
+                                <th style="width: 20px">分类名称</th>
+                                <th style="width: 10px">seo标题</th>
+                                <th style="width: 10px">seo关键字</th>
+                                <th style="width: 10px">seo描述</th>
                                 <th style="width: 10px">备注</th>
                                 <th style="width: 10px">状态</th>
                                 <th style="width: 20px">操作</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {volist name="categorylist" id="vo"}
                             <tr>
-                                <td>111</td>
-                                <td>111</td>
-                                <td>111</td>
-                                <td>111</td>
-                                <td>111</td>
-                                <td>111</td>
-                                <td>111</td>
-                                <td>111</td>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.showName}</td>
+                                <td>{$vo.seoTitle}</td>
+                                <td>{$vo.seoKeywords}</td>
+                                <td>{$vo.seoDescription}</td>
+                                <td>{$vo.remark}</td>
+                                <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
                                 <td>
-                                    <a href="{$Request.root}/{$Request.controller}/uploadCloud/id/{$vo.id | default=1}" class="js-ajax-delete" title="上传云端">
-                                        <i class="fa fa-cloud-upload"></i>
-                                    </a>
-                                    <a href="{$Request.root}/{$Request.controller}/edit/type/{$Request.action}/id/{$vo.id | default=1}" class="btn-edit" title="编辑">
+                                    <a href="{$Request.root}/{$Request.controller}/editCategory/id/{$vo.id | default=1}" class="btn-edit" title="编辑">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="{$Request.root}/{$Request.controller}/delete/type/{$Request.action}/id/{$vo.id | default=1}" class="js-ajax-delete" title="删除">
+                                    <a href="{$Request.root}/{$Request.controller}/delCategory/id/{$vo.id | default=1}" class="js-ajax-delete" title="删除">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>
+                            {/volist}
                         </tbody>
                     </table>
                 </div>
