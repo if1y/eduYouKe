@@ -18,9 +18,6 @@ body {
                     <div class="form-group">
                         <select class="custom-select" name="category_id">
                             <option value="">无</option>
-                            {volist name="categorylist" id="vo"}
-                            <option value="{$vo.id}">{$vo.showName}</option>
-                            {/volist}
                         </select>
                     </div>
                 </div>
@@ -195,5 +192,4 @@ function myValidate() {
     var valid = $("#" + content).valid();
     return valid;
 }
-
 </script>

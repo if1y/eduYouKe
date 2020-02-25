@@ -20,7 +20,7 @@ class File extends AdminBaseController
     {
         $file     = request()->file('file');
         $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        return json(['code' => 1, 'path' => $savename]);
+        return json(['errno' => 0, 'path'=>$savename ,'data' => [getUrlPath($savename)]]);
     }
 
     /**

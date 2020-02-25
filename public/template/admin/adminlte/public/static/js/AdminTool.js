@@ -60,6 +60,8 @@
                     var content = iframeWin.$("form").attr("id");
                     iframeWin.$("#" + content).submit();
                     var validate = iframeWin.myValidate();
+                    console.log(validate)
+                    
                     if (validate) {
 
                         layer.close(index);
@@ -118,6 +120,7 @@
                     var content = iframeWin.$("form").attr("id");
                     iframeWin.$("#" + content).submit();
                     var validate = iframeWin.myValidate();
+                    console.log(validate)
                     if (validate) {
 
                         layer.close(index);
