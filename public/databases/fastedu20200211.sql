@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-02-24 19:03:34
+Date: 2020-02-25 18:53:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `edu_admin_menu` (
   PRIMARY KEY (`id`),
   KEY `show_status` (`show_status`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of edu_admin_menu
@@ -68,7 +68,7 @@ CREATE TABLE `edu_admin_role` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='管理员角色组';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='管理员角色组';
 
 -- ----------------------------
 -- Records of edu_admin_role
@@ -95,7 +95,7 @@ CREATE TABLE `edu_admin_user` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `nickname` (`nickname`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='管理员用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='管理员用户表';
 
 -- ----------------------------
 -- Records of edu_admin_user
@@ -147,11 +147,16 @@ CREATE TABLE `edu_course` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程列表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='课程列表';
 
 -- ----------------------------
 -- Records of edu_course
 -- ----------------------------
+INSERT INTO `edu_course` VALUES ('1', '69', '课程名称1', '课程简介1', '', '1100', '&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;测试文本123213213123&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;img src=&quot;/storage/topic/20200225\\46563ca972e6e684157bd270f2f11272.png&quot; style=&quot;max-width: 100%;&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;', '测试,标签,1', '备注', '1', '1', '1', '0', '1582617516', '0');
+INSERT INTO `edu_course` VALUES ('2', '0', '课程名称122', '课程简介1222', '', '100', '&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;测试文本 123123123123&amp;nbsp; &amp;nbsp;&lt;img src=&quot;/storage/topic/20200225\\cf0caf3dc2233c23c70584580cd3489c.jpg&quot; style=&quot;max-width: 100%;&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;', '测试,标签', '备注', '0', '1', '1', '0', '1582619043', '0');
+INSERT INTO `edu_course` VALUES ('5', '69', '测试课程1', '测试简介1', '', '0', '&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;欢迎使用 &lt;b&gt;wangEditor&lt;/b&gt; 富文本编辑器&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;', 'faltui,这是一个标签', '', '0', '1', '1', '0', '1582619759', '0');
+INSERT INTO `edu_course` VALUES ('6', '69', '测试课程', '测试简介', 'topic/20200225\\0f01f8ca4c5271a461bc9ee5a5da7707.jpg', '0', '&lt;p&gt;欢迎使用 &lt;b&gt;wangEditor&lt;/b&gt; 富文本编辑器&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;', 'faltui,这是一个标签', '', '0', '1', '1', '0', '1582619795', '0');
+INSERT INTO `edu_course` VALUES ('7', '69', '23123123123', '', '', '0', '&lt;p&gt;欢迎使用 &lt;b&gt;wangEditor&lt;/b&gt; 富文本编辑器&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;', 'faltui,这是一个标签', '', '0', '1', '1', '1', '1582620210', '0');
 
 -- ----------------------------
 -- Table structure for edu_course_category
@@ -172,7 +177,7 @@ CREATE TABLE `edu_course_category` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='课程分类';
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COMMENT='课程分类';
 
 -- ----------------------------
 -- Records of edu_course_category
@@ -198,7 +203,7 @@ CREATE TABLE `edu_setting` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `category` (`category`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of edu_setting
