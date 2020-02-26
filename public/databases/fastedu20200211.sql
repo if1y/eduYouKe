@@ -266,3 +266,29 @@ CREATE TABLE `edu_chapter` (
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='课程章节表';
+
+
+
+-- ----------------------------
+-- Table structure for edu_course_video
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_course_video`;
+CREATE TABLE `edu_course_video` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `chapter_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '关联的章节id',
+  `title` varchar(32) NOT NULL DEFAULT '' COMMENT '视频名称',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '视频简介',
+  `seoTitle` varchar(255) DEFAULT NULL COMMENT 'SEO标题',
+  `seoKeywords` varchar(255) DEFAULT NULL COMMENT 'SEO关键字',
+  `seoDescription` varchar(255) DEFAULT NULL COMMENT 'SEO描述',
+  `vide_url` varchar(255) NOT NULL DEFAULT '' COMMENT '视频地址',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `video_type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '视频类型;1:阿里云,2:其他',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `chapter_id` (`chapter_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='课程视频表';
+
