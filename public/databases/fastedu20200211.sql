@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-02-25 18:53:56
+Date: 2020-02-26 18:19:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,7 +52,7 @@ INSERT INTO `edu_admin_menu` VALUES ('9', '6', '1', '0', '0', '0', 'admin/file/f
 INSERT INTO `edu_admin_menu` VALUES ('10', '0', '0', '0', '1', '0', 'admin/course/default', '课程管理', 'graduation-cap', '', '1582517857', '0');
 INSERT INTO `edu_admin_menu` VALUES ('11', '10', '1', '0', '1', '0', 'admin/course/courselist', '课程列表', 'television', '', '1582518197', '0');
 INSERT INTO `edu_admin_menu` VALUES ('12', '10', '1', '0', '1', '0', 'admin/course/category', '课程分类', 'sliders', '', '1582518489', '0');
-INSERT INTO `edu_admin_menu` VALUES ('13', '10', '1', '0', '1', '0', 'admin/course/coursevideo', '视频添加', 'file-video-o', '', '1582518574', '0');
+INSERT INTO `edu_admin_menu` VALUES ('13', '10', '1', '0', '1', '0', 'admin/coursevideo/coursevideolist', '视频添加', 'file-video-o', '', '1582518574', '0');
 
 -- ----------------------------
 -- Table structure for edu_admin_role
@@ -126,6 +126,30 @@ CREATE TABLE `edu_banner` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for edu_chapter
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_chapter`;
+CREATE TABLE `edu_chapter` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `course_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '关联的课程id',
+  `title` varchar(20) NOT NULL DEFAULT '' COMMENT '章节名称',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '章节简介',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `course_id` (`course_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='课程章节表';
+
+-- ----------------------------
+-- Records of edu_chapter
+-- ----------------------------
+INSERT INTO `edu_chapter` VALUES ('1', '1', '第一章1', '第一章的简介1', '备注1', '1', '0', '1582705623', '0');
+INSERT INTO `edu_chapter` VALUES ('2', '1', '第二张', '第二张也是', '123123 ', '1', '1', '1582706899', '0');
+
+-- ----------------------------
 -- Table structure for edu_course
 -- ----------------------------
 DROP TABLE IF EXISTS `edu_course`;
@@ -183,6 +207,33 @@ CREATE TABLE `edu_course_category` (
 -- Records of edu_course_category
 -- ----------------------------
 INSERT INTO `edu_course_category` VALUES ('69', '0', '测试分类', '测试SEO标题', '测试SEO关键字', '测试SEO描述', '0', '测试备注', '1', '0', '1582524281', '0');
+
+-- ----------------------------
+-- Table structure for edu_course_video
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_course_video`;
+CREATE TABLE `edu_course_video` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `chapter_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '关联的章节id',
+  `title` varchar(32) NOT NULL DEFAULT '' COMMENT '视频名称',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '视频简介',
+  `seoTitle` varchar(255) DEFAULT NULL COMMENT 'SEO标题',
+  `seoKeywords` varchar(255) DEFAULT NULL COMMENT 'SEO关键字',
+  `seoDescription` varchar(255) DEFAULT NULL COMMENT 'SEO描述',
+  `vide_url` varchar(255) NOT NULL DEFAULT '' COMMENT '视频地址',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `video_type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '视频类型;1:阿里云,2:其他',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `chapter_id` (`chapter_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程视频表';
+
+-- ----------------------------
+-- Records of edu_course_video
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for edu_setting
@@ -246,49 +297,3 @@ INSERT INTO `edu_setting` VALUES ('65', 'SMTP服务端口', 'emailConfig', 'smtp
 INSERT INTO `edu_setting` VALUES ('66', '发件箱帐号', 'emailConfig', 'senderAddress', '', null, null, '发件箱帐号', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('67', '发件箱密码', 'emailConfig', 'senderPassword', '', null, null, '发件箱密码', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('68', '网站logo', 'baseConfig', 'logoImage', 'topic/20200222\\eca55246b07fb6bd39d0edc6811e2380.png', null, null, '网站logo', '1', '0', '0', '0');
-
-
-
--- ----------------------------
--- Table structure for edu_chapter
--- ----------------------------
-DROP TABLE IF EXISTS `edu_chapter`;
-CREATE TABLE `edu_chapter` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `course_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '关联的课程id',
-  `title` varchar(20) NOT NULL DEFAULT '' COMMENT '章节名称',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '章节简介',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
-  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
-  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `course_id` (`course_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='课程章节表';
-
-
-
--- ----------------------------
--- Table structure for edu_course_video
--- ----------------------------
-DROP TABLE IF EXISTS `edu_course_video`;
-CREATE TABLE `edu_course_video` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `chapter_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '关联的章节id',
-  `title` varchar(32) NOT NULL DEFAULT '' COMMENT '视频名称',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '视频简介',
-  `seoTitle` varchar(255) DEFAULT NULL COMMENT 'SEO标题',
-  `seoKeywords` varchar(255) DEFAULT NULL COMMENT 'SEO关键字',
-  `seoDescription` varchar(255) DEFAULT NULL COMMENT 'SEO描述',
-  `vide_url` varchar(255) NOT NULL DEFAULT '' COMMENT '视频地址',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
-  `video_type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '视频类型;1:阿里云,2:其他',
-  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
-  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `chapter_id` (`chapter_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='课程视频表';
-
