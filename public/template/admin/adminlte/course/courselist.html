@@ -78,7 +78,7 @@
                                 <td>{$vo.remark}</td>
                                 <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
                                 <td>
-                                    <a href="{$Request.root}/{$Request.controller}/Chapter/id/{$vo.id | default=1}" class="btn-add" title="添加章节">
+                                    <a href="{$Request.root}/{$Request.controller}/{$Request.action}/tplType/Chapter/id/{$vo.id | default=1}" title="添加章节">
                                         添加章节
                                     </a>/
                                     <a href="{$Request.root}/{$Request.controller}/addvideo/{$vo.id | default=1}" class="btn-add" title="添加视频">
