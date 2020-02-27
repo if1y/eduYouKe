@@ -31,7 +31,7 @@ class File extends AdminBaseController
     {
         $file     = request()->file('file');
         $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        return json(['code' => 1, 'path' => $savename]);
+        return json(['code' => 1,'image'=>'topic/20200216/8faeb459eb13ee09bb23f7abdd9b9cce.jpg','path' => $savename]);
     }
 
     /**

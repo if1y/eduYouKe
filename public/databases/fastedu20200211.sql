@@ -221,6 +221,7 @@ CREATE TABLE `edu_course_video` (
   `seoKeywords` varchar(255) DEFAULT NULL COMMENT 'SEO关键字',
   `seoDescription` varchar(255) DEFAULT NULL COMMENT 'SEO描述',
   `vide_url` varchar(255) NOT NULL DEFAULT '' COMMENT '视频地址',
+  `image_url` varchar(255) NOT NULL DEFAULT '' COMMENT '图片地址',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
   `video_type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '视频类型;1:阿里云,2:其他',
   `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',

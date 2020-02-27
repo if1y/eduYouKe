@@ -1,9 +1,9 @@
-function uploadImageById(defaultUpload, uploadFile,defaultVaule) {
+function uploadImageById(defaultUpload, uploadFile,defaultVaule,defaultImgValue) {
 
     var uploadConfig = {
         inputId: uploadFile, // 上传图片的inputId
         triggerId: defaultUpload, // 触发上传的元素Id
-        url: "/admin/File/imageUpload", // 上传地址
+        url: "/admin/File/videoUpload", // 上传地址
         params: { // 上传需要携带的参数
             token: 'a8100c30fc194ff275f691336c655ea6'
         },
@@ -19,15 +19,14 @@ function uploadImageById(defaultUpload, uploadFile,defaultVaule) {
         loadProgress: function(progress) { // 上传进度回调
             // console.log(progress)
         },
-        base64String: function(base64Str) { // 获取本地的base64字符串做展示
+        base64String: function(imagePath) { // 获取本地的base64字符串做展示
 
-
-            console.log("#"+defaultUpload+" img");
-            $("#"+defaultUpload+" img").attr('src', base64Str);
-            // console.log(base64Str)
+            console.log(imagePath);
+            $("#"+defaultUpload+" img").attr('src', '/storage/'+imagePath);
         },
         loadSuccess: function(data) { // 上传完成后回调
-            $("#"+ defaultVaule).val(data.path);;
+            $("#"+ defaultImgValue).val(data.image);
+            $("#"+ defaultVaule).val(data.path);
             layer.close(upload);
         }
     }
@@ -36,21 +35,6 @@ function uploadImageById(defaultUpload, uploadFile,defaultVaule) {
 
     function uploadImage(uploadConfig) {
         var uploadConfig = uploadConfig
-        // 将base64转换为blob对象
-        function dataURItoBlob(base64Data) {
-            var byteString;
-            if (base64Data.split(',')[0].indexOf('base64') >= 0)
-                byteString = atob(base64Data.split(',')[1]);
-            else
-                byteString = unescape(base64Data.split(',')[1]);
-
-            var mimeString = base64Data.split(',')[0].split(':')[1].split(';')[0];
-            var ia = new Uint8Array(byteString.length);
-            for (var i = 0; i < byteString.length; i++) {
-                ia[i] = byteString.charCodeAt(i);
-            }
-            return new Blob([ia], { type: mimeString });
-        }
 
         // 获取上传进度
         function getUploadProgress(e) {
@@ -70,16 +54,15 @@ function uploadImageById(defaultUpload, uploadFile,defaultVaule) {
             return myXhr;
         }
 
-        // 转换成base64，上传
-        function uploadImg2Base64() {
-            /*调用示例：document.getElementById("img_upload").addEventListener('change', uni.ImgToBase64, false);！！！必须用原生js*/
+        // 上传
+        function uploadVideo() {
             var file = this.files[0]
-            if (!/image\/\w+/.test(file.type)) {
+            if (!/video\/\w+/.test(file.type)) {
 
                 $.alert({
                     type: 'blue',
                     title: '操作提示',
-                    content: '请确保文件为图像类型',
+                    content: '请确保文件为视频类型',
                     icon: 'glyphicon glyphicon-info-sign'
                 });
                 return false;
@@ -88,16 +71,12 @@ function uploadImageById(defaultUpload, uploadFile,defaultVaule) {
             reader.readAsDataURL(file);
             reader.onload = function(e) {
                 var self = this,
-                    base64String = this.result,
-                    blob = dataURItoBlob(base64String),
-                    canvas = document.createElement('canvas'),
-                    dataURL = canvas.toDataURL('image/jpeg', 0.5),
-                    fd = new FormData(document.forms[0]);
+                fd = new FormData(document.forms[0]);
                 // 构建上传参数
                 for (var i in uploadConfig.params) {
                     fd.append(i, uploadConfig.params[i]);
                 }
-                fd.append("file", blob, file.name);
+                fd.append("file", file.name);
 
                 $.ajax({
                     url: uploadConfig.url,
@@ -109,8 +88,9 @@ function uploadImageById(defaultUpload, uploadFile,defaultVaule) {
                     dataType: "json",
                     xhr: getUploadProgress,
                     success: function(data) {
+                        console.log(data)
                         uploadConfig.loadSuccess(data)
-                        uploadConfig.base64String(self.result)
+                        uploadConfig.base64String(data.image)
                     },
                     error: function(error) {
                         console.log(error)
@@ -125,6 +105,6 @@ function uploadImageById(defaultUpload, uploadFile,defaultVaule) {
         $('#' + uploadConfig.inputId).click()
         // $('#' + uploadConfig.triggerId).click(function() {
         // })
-        document.getElementById(uploadConfig.inputId).addEventListener('change', uploadImg2Base64, false);
+        document.getElementById(uploadConfig.inputId).addEventListener('change', uploadVideo, false);
     }
 }

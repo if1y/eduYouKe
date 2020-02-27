@@ -14,10 +14,10 @@ body {
                 <label class="col-sm-2 col-form-label">所属课程</label>
                 <div class="col-sm-10">
                     <div class="form-group">
-                        <select class="custom-select" name="course_id">
+                        <select class="custom-select" id="courseId" onchange="getSelectChapter()" name="course_id">
 
                             <option value="">无</option>
-                            {volist name="courslist" id="vo"}
+                            {volist name="courselist" id="vo"}
                             <option value="{$vo.id}">{$vo.title}</option>
                             {/volist}
 
@@ -30,7 +30,7 @@ body {
                 <label class="col-sm-2 col-form-label">所属章节</label>
                 <div class="col-sm-10">
                     <div class="form-group">
-                        <select class="custom-select" name="chapter_id">
+                        <select class="custom-select" id="chapterId" name="chapter_id">
                             <option value="">无</option>
                             {volist name="chapterlist" id="vo"}
                             <option value="{$vo.id}">{$vo.title}</option>
@@ -73,8 +73,9 @@ body {
                 <label class="col-sm-2 col-form-label">视频地址</label>
                 <div class="col-sm-10">
                     <input type="file" name="file" id="uploadFile" style="display: none;">
+                    <input type="text" name="image_url" id="uploadImgValue" value="" style="display: none;">
                     <input type="text" name="vide_url" id="uploadValue" value="" style="display: none;">
-                    <div id="defaultUpload" onclick="uploadImageById('defaultUpload','uploadFile','uploadValue')">
+                    <div id="defaultUpload" onclick="uploadImageById('defaultUpload','uploadFile','uploadValue','uploadImgValue')">
                         <img src="__STATIC__/img/video-128x128.png">
                     </div>
                 </div>
@@ -106,8 +107,23 @@ body {
 </div>
 {include file='public/script' /}
 <script src="__STATIC__/js/jquery.validate.min.js"></script>
-<script src="__STATIC__/js/uploadImg.js"></script>
+<script src="__STATIC__/js/uploadVideo.js"></script>
 <script type="text/javascript">
+
+function getSelectChapter() {
+
+    var courseId = $('#courseId option:selected').val();
+    if (courseId) {
+        $("#chapterId option:not(:first)").remove();
+    }
+    $.post("/admin/Coursevideo/getChapterList", { course_id: courseId }, function (json) {
+        $.each(json.data, function (i, item) {
+            $("<option></option>").val(item["id"]).text(item["title"]).appendTo($("#chapterId"));
+        });
+    }, "json");
+
+}
+
 $('#content').validate({
     ignore: [],
     rules: {
