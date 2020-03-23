@@ -188,9 +188,9 @@
 
 
     //所有的删除操作，删除数据后刷新页面
-    if ($('a.js-ajax-delete').length) {
+    if ($('.btn-del').length) {
 
-        $('.js-ajax-delete').on('click', function(e) {
+        $('.btn-del').on('click', function(e) {
             e.preventDefault();
             var $_this = this,
                 $this = $($_this),

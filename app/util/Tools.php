@@ -159,9 +159,11 @@ class Tools
 	 */
 	public static function listToTree($list, $pk = 'id', $pid = 'fid', $child = '_child', $root = '0')
 	{
+		// print_r($list);exit();
 		$tree = [];
 		if (is_array($list))
 		{
+			// print_r($list);exit();
 			$refer = [];
 			foreach ($list as $key => $data)
 			{
@@ -352,5 +354,22 @@ class Tools
 
 		return round($dist * $radius, 2);
 	}
+
+
+
+    /**
+     * @description:根据数据 
+     * @param {dataArr:需要分组的数据；keyStr:分组依据} 
+     * @return: 
+     */
+    public static function dataGroup(array $dataArr,string $keyStr)   :array
+    {
+        $newArr=[];
+        foreach ($dataArr as $k => $val) { 
+            
+            $newArr[$val[$keyStr]][] = $val;
+        }
+        return $newArr;
+    }
 
 }

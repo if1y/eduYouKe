@@ -1,4 +1,4 @@
-function uploadImageById(defaultUpload, uploadFile,defaultVaule) {
+function uploadImageById(defaultUpload, uploadFile,defaultVaule,$param = '') {
 
     var uploadConfig = {
         inputId: uploadFile, // 上传图片的inputId

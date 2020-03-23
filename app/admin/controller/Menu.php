@@ -12,7 +12,7 @@ class Menu extends AdminBaseController
      * [menulist 目录列表]
      * @return [type] [description]
      */
-    public function menulist()
+    public function index()
     {
 
         $menu = new AdminMenu();

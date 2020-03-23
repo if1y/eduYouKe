@@ -21,7 +21,6 @@ class Menu
         $controller = strtolower(Request::controller());
         $action     = strtolower(Request::action());
         $active     = $app . '/' . $controller . '/' . $action;
-
         $ids = [];
         foreach ($access as $key => $v)
         {
@@ -65,7 +64,7 @@ class Menu
      */
     public static function buildMenus($menus, &$str = '')
     {
-        // print_r($menus);exit();
+
         foreach ($menus as $key => $value)
         {
 
@@ -74,7 +73,7 @@ class Menu
             $icon        = !empty($value['icon']) ? $value['icon'] : 'circle';
             $left        = !empty($hastreeview) || !empty($value['_child']) ?  '<i class="right fa fa-angle-left"></i>' : '';
             $href        = !empty($hastreeview) ? 'javascript:;' : '/' . $value['url'];
-            $menuOpen    = !empty($value['active']) && !empty($hastreeview) ? ' menu-open' : '';
+            $menuOpen    = !empty($value['active'])  ? ' menu-open' : '';
 
             //
             $str .= '<li class="nav-item ' . $hastreeview . $menuOpen . '">

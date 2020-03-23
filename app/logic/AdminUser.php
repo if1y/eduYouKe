@@ -25,7 +25,6 @@ class AdminUser extends AdminUserModel
             ])
             ->select();
         return $result;
-        print_r($result);exit();
     }
 
 }
