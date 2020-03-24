@@ -9,15 +9,17 @@ use think\facade\View;
 use think\Validate;
 
 
-class AdminUser extends AdminBaseController
+class Administrator extends AdminBaseController
 {
     /**
      * [AdminUserList 管理员列表]
      */
-    public function AdminUserList()
+    public function index()
     {
         $User = new User();
-        View::assign('userlist', $User->getAdminUserList());
+        $list = $User->getAdminUserList();
+        View::assign('userlist', $list);
+        View::assign('page', $list->render());
         return View::fetch();
     }
 
@@ -26,9 +28,33 @@ class AdminUser extends AdminBaseController
      */
     public function add()
     {
-        $role = new Role();
-        View::assign('rolelist', $role->where('delete_status', 0)->select());
-        return View::fetch();
+        $param = $this->request->param();
+
+        //
+        if ($this->request->isPost()) {
+
+            return json(['code'=>1,'msg'=>'删除失败']);
+            print_r($param);exit();
+            $User  = new User();
+            $data  = [
+                'nickname' => $param['nickname'],
+                'password' => Tools::userMd5($param['password']),
+                'mobile' => $param['mobile'],
+                'user_type' => $param['user_type'],
+                'role_id' => $param['role_id'],
+                'avatar_url' => !empty($param['avatar_url']) ? $param['avatar_url'] : '',
+                'show_status' => !empty($param['show_status']) ? 1 : 0,
+            ];
+            return json(['code'=>1,'msg'=>'删除成功']);
+
+            $User->save($data);
+
+        }else{
+
+            $role = new Role();
+            View::assign('rolelist', $role->where('delete_status', 0)->select());
+            return View::fetch();
+        }
     }
 
     public function addPost()
@@ -41,6 +67,7 @@ class AdminUser extends AdminBaseController
             'nickname' => $param['nickname'],
             'password' => Tools::userMd5($param['password']),
             'mobile' => $param['mobile'],
+            'user_type' => $param['user_type'],
             'role_id' => $param['role_id'],
             'avatar_url' => !empty($param['avatar_url']) ? $param['avatar_url'] : '',
             'show_status' => !empty($param['show_status']) ? 1 : 0,
@@ -78,6 +105,7 @@ class AdminUser extends AdminBaseController
         $User  = new User();
         $userData = $User->find($param['id']);
         $result = $userData->allowField([
+            'user_type',
             'nickname',
             'password',
             'mobile',
@@ -124,5 +152,37 @@ class AdminUser extends AdminBaseController
     {
         return View::fetch();
     }
+
+    /**
+     * [edit 编辑展示页面]
+     * @return [type] [description]
+     */
+    public function editInfo()
+    {
+        $param = $this->request->param();
+        $User  = new User();
+        View::assign('editData', $User->getAdminUserInfo($param['id']));
+        return View::fetch();
+    }
+
+    //
+    public function editInfoPost()
+    {
+
+        $param = $this->request->param();
+
+        $param['password'] = !empty($param['password']) ? Tools::userMd5($param['password']):0;
+        if (!$param['password']) {unset($param['password']);}
+
+        $User  = new User();
+        $userData = $User->find($param['id']);
+        $result = $userData->allowField([
+            'nickname',
+            'password',
+            'mobile',
+            'avatar_url',
+        ])->save($param);
+    }
+
 
 }

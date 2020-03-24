@@ -23,8 +23,9 @@ class AdminUser extends AdminUserModel
             ->where([
                 'a.delete_status' => 0,
             ])
-            ->select();
+            ->paginate(12);
         return $result;
     }
+
 
 }

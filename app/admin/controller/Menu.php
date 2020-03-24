@@ -35,17 +35,7 @@ class Menu extends AdminBaseController
     {
         $param = $this->request->param();
         $menu  = new AdminMenu();
-        $data  = [
-            'parent_id' => $param['parent_id'],
-            'type' => $param['menuType'],
-            'title' => $param['title'],
-            'url' => trim(strtolower($param['url'])),
-            'icon' => !empty($param['icon']) ? trim($param['icon']) : 'circle',
-            'remark' => $param['remark'],
-            'show_status' => !empty($param['show_status']) ? 1 : 0,
-        ];
-        $menu->save($data);
-
+        $menu->addMenu($param);
     }
 
     /**
@@ -56,9 +46,12 @@ class Menu extends AdminBaseController
     {
         $param = $this->request->param();
         $menu  = new AdminMenu();
-        View::assign('menulist', $menu->getMenuList());
-        View::assign('editData', $menu->getAdminMenuInfo($param['id']));
-        return View::fetch();
+        // print_r($menu->getActionCheck($menu->getAdminMenuInfo($param['id'])));exit;
+        return view('', [
+            'menulist' => $menu->getMenuList(),
+            'editData' => $menu->getAdminMenuInfo($param['id']),
+            'actionCheck' => $menu->getActionCheck($menu->getAdminMenuInfo($param['id'])),
+        ]);
     }
 
     /**
@@ -69,21 +62,8 @@ class Menu extends AdminBaseController
     {
         $param = $this->request->param();
 
-        $param['type']        = $param['menuType'];
-        $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
-        $param['url'] = trim(strtolower($param['url']));
-            
         $menu = new AdminMenu();
-        $menuData = $menu->find($param['id']);
-        $menuData->allowField([
-            'parent_id',
-            'type',
-            'show_status',
-            'title',
-            'url',
-            'icon',
-            'remark',
-        ])->save($param);
+        $menu->editMenu($param);
 
     }
 

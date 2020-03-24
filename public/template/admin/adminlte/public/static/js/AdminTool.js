@@ -17,9 +17,10 @@
     }
 
 
-    layui.use('layer', function() {
-        var layer = layui.layer;
-        // var form=layui.form;
+    layui.use(['layer', 'form'], function() {
+        var layer = layui.layer
+
+
     });
 
 
@@ -56,20 +57,60 @@
                 // 确定的操作
                 yes: function(index, layero) {
 
+
                     var iframeWin = parent.parent.window[layero.find('iframe')[0]['name']]; // 重点0
                     var content = iframeWin.$("form").attr("id");
-                    iframeWin.$("#" + content).submit();
                     var validate = iframeWin.myValidate();
-                    console.log(validate)
-                    
+                    var formData = iframeWin.$("form").serialize();
+
+                    //
                     if (validate) {
 
-                        layer.close(index);
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 1000);
+                        $.post(href, getToPost(formData), function(data) {
 
+                            if (data.code == 1) {
+
+                                $.dialog({
+                                    title: '操作提示!',
+                                    content: data.msg,
+                                });
+                                setTimeout(function() {
+                                    layer.close(index);
+                                    window.location.reload();
+                                }, 1500);
+
+                            } else {
+
+                                $.dialog({
+                                    title: '操作提示!',
+                                    content: data.msg,
+                                });
+                                // $.alert({
+                                //         type: 'blue',
+                                //         title: '操作提示',
+                                //         content: data.msg,
+                                //         icon: 'glyphicon glyphicon-info-sign'
+                                // });
+
+                            }
+
+                        });
                     }
+
+                    return;
+
+
+                    // iframeWin.$("#" + content).submit();
+                    // console.log(validate)
+
+                    // if (validate) {
+
+                    //     layer.close(index);
+                    //     setTimeout(function() {
+                    //         window.location.reload();
+                    //     }, 1000);
+
+                    // }
 
                 },
                 cancel: function(index, layero) {
@@ -81,6 +122,16 @@
         });
     }
 
+    function getToPost(str) {
+
+        var arr = str.split('&');
+        var obj = {};
+        for (var item of arr) {
+            var keyarr = item.split('=');
+            obj[keyarr[0]] = keyarr[1];
+        }
+        return obj;
+    }
 
     //所有的编辑操作,提交数据后关闭页面
 

@@ -30,10 +30,9 @@
                             刷新
                             <i class="fa fa-refresh"></i>
                         </a>
-                        <a href="{$Request.root}/{$Request.controller}/add/type/{$Request.action}" class="btn btn-success btn-sm btn-add" title="添加">
-                            <i class="fa fa-plus"></i>
-                            添加
-                        </a>
+
+                        {:checkAuth('add')}
+                        
                         <!--   <a href="javascript:;" class="btn btn-success btn-edit btn-sm btn-disabled disabled" title="编辑">
                                     <i class="fa fa-edit"></i>
                                     编辑
@@ -65,18 +64,14 @@
                             {volist name="userlist" id="vo"}
                             <tr>
                                 <td>{$vo.nickname}</td>
-                                <td> <img src="{$vo.avatar_url ? getUrlPath($vo.avatar_url) :'/static/common/img/user3-128x128.jpg'}" width="30" height="30"></td>
+                                <td> <img src="{$vo.avatar_url ? getUrlPath($vo.avatar_url) :'__STATIC__/img/user3-128x128.jpg'}" width="30" height="30"></td>
                                 <td>{$vo.mobile}</td>
                                 <td>{$vo.role_name ? $vo.role_name : '未选择'}</td>
                                 <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
                                 <td>{$vo.last_login_time}</td>
                                 <td>
-                                    <a href="{$Request.root}/{$Request.controller}/edit/type/{$Request.action}/id/{$vo.id | default=1}" class="btn-edit" title="编辑">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="{$Request.root}/{$Request.controller}/delete/type/{$Request.action}/id/{$vo.id | default=1}" class="js-ajax-delete" title="删除">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                                    {:checkAuth('edit',$vo.id)}
+                                    {:checkAuth('delete',$vo.id)}
                                 </td>
                             </tr>
                             {/volist}
@@ -85,15 +80,18 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
-                    <ul class="pagination pagination-sm m-0 float-right">
-                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                    </ul>
+                    {$page|raw}
                 </div>
             </div>
         </section>
     </div>
 </div>
+<script src="__STATIC__/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.pagination').addClass("pagination-sm m-0 float-right");
+        $('.pagination li').addClass("page-item");
+        $('.pagination li span').addClass("page-link");
+        $('.pagination li a').addClass("page-link");
+    })
+</script>
