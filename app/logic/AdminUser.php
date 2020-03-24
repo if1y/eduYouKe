@@ -28,4 +28,12 @@ class AdminUser extends AdminUserModel
     }
 
 
+    //保存数据
+    public function saveUserData($data)
+    {
+        $result = $this->save($data);
+        print_r($result);exit();
+    }
+
+
 }

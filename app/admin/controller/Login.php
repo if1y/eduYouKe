@@ -25,10 +25,10 @@ class Login extends AdminBaseController
     public function doLogin()
     {
         $param = $this->request->param();
-        if (!captcha_check($param['verifycode']))
-        {
-            $this->error('验证码错误');
-        }
+        // if (!captcha_check($param['verifycode']))
+        // {
+        //     $this->error('验证码错误');
+        // }
         $user   = new User();
         $result = $user->doLogin($param);
         switch ($result)

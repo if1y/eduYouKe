@@ -85,32 +85,12 @@
                                     title: '操作提示!',
                                     content: data.msg,
                                 });
-                                // $.alert({
-                                //         type: 'blue',
-                                //         title: '操作提示',
-                                //         content: data.msg,
-                                //         icon: 'glyphicon glyphicon-info-sign'
-                                // });
 
                             }
 
                         });
                     }
 
-                    return;
-
-
-                    // iframeWin.$("#" + content).submit();
-                    // console.log(validate)
-
-                    // if (validate) {
-
-                    //     layer.close(index);
-                    //     setTimeout(function() {
-                    //         window.location.reload();
-                    //     }, 1000);
-
-                    // }
 
                 },
                 cancel: function(index, layero) {
@@ -167,18 +147,37 @@
                 // 确定的操作
                 yes: function(index, layero) {
 
-                    var iframeWin = window[layero.find('iframe')[0]['name']];
+                    var iframeWin = parent.parent.window[layero.find('iframe')[0]['name']]; // 重点0
                     var content = iframeWin.$("form").attr("id");
-                    iframeWin.$("#" + content).submit();
                     var validate = iframeWin.myValidate();
-                    console.log(validate)
+                    var formData = iframeWin.$("form").serialize();
+
+                    //
                     if (validate) {
 
-                        layer.close(index);
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 1000);
+                        $.post(href, getToPost(formData), function(data) {
 
+                            if (data.code == 1) {
+
+                                $.dialog({
+                                    title: '操作提示!',
+                                    content: data.msg,
+                                });
+                                setTimeout(function() {
+                                    layer.close(index);
+                                    window.location.reload();
+                                }, 1500);
+
+                            } else {
+
+                                $.dialog({
+                                    title: '操作提示!',
+                                    content: data.msg,
+                                });
+
+                            }
+
+                        });
                     }
                 },
                 cancel: function(index, layero) {
