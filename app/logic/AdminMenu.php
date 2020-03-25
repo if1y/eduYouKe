@@ -17,7 +17,7 @@ class AdminMenu extends AdminMenuModel
 
         if (empty($data))
         {
-            $data = $this->where('delete_status', 0)->where('type','in','1,2')->order('sort', 'desc')->select()->toArray();
+            $data = $this->where('delete_status', 0)->where('type','in','1,2')->order('sort', 'asc')->select()->toArray();
         }
         else
         {

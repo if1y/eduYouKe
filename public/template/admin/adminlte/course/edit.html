@@ -51,7 +51,7 @@ body {
                 <div class="col-sm-10">
                     <div class="form-group clearfix">
                         <div class="icheck-success d-inline">
-                            <input type="radio" name="sell_status" value="0" {$editData.sell_status==0 ? 'checked' :''}  id="ismenu">
+                            <input type="radio" name="sell_status" value="0" {$editData.sell_status==0 ? 'checked' :''} id="ismenu">
                             <label for="ismenu">
                                 免费
                             </label>
@@ -100,7 +100,7 @@ body {
                 <div class="col-sm-10">
                     <div class="form-group">
                         <div class="icheck-success d-inline">
-                            <input type="checkbox" name="show_status" {$editData.show_status==1 ? 'checked' :''}  id="showStatus">
+                            <input type="checkbox" name="show_status" {$editData.show_status==1 ? 'checked' :''} value="1" id="showStatus">
                             <label for="showStatus">
                                 是否可用
                             </label>
@@ -108,8 +108,7 @@ body {
                     </div>
                 </div>
             </div>
-            <button class="sub-bindbtn" lay-submit lay-filter="bind" style="display: none;">
-                <!-- <button class="sub-bindbtn" lay-submit lay-filter="bind" style="width: 30px; height: 30px;"> -->
+            <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
             </button>
         </form>
     </div>

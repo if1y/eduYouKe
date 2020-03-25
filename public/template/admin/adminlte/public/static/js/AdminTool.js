@@ -1200,11 +1200,11 @@ function openIframeLayer(url, title, options) {
     };
     params = options ? $.extend(params, options) : params;
 
-    Wind.css('layer');
+    // Wind.css('layer');
 
-    Wind.use("layer", function() {
+    // Wind.use("layer", function() {
         layer.open(params);
-    });
+    // });
 
 }
 

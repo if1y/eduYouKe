@@ -11,21 +11,50 @@ use app\logic\CourseVideo as CourseVideoLogic;
 class CourseVideo extends AdminBaseController
 {
     //视频列表
-    public function coursevideolist()
+    public function index()
     {
         $courseVideo = new CourseVideoLogic();
-        View::assign('coursevideolist', $courseVideo->where('delete_status', 0)->select());
-        return View::fetch('');
+        return view('', [
+                'coursevideolist' => $courseVideo->where('delete_status', 0)->select(),
+            ]);
     }
 
     //视频添加
     public function add($value='')
     {
-    	$course = new Course();
-    	$chapter = new Chapter();
-		View::assign('courselist', $course->field('id,title')->where('delete_status', 0)->select());
-		View::assign('chapterlist', $chapter->field('id,title')->where('delete_status', 0)->select());
-        return View::fetch('');
+
+
+        $param   = $this->request->param();
+        $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
+
+        $course = new Course();
+        $chapter = new Chapter();
+        $courseVideo = new CourseVideoLogic();
+
+
+        if ($this->request->isPost())
+        {
+
+            if ($courseVideo->save($param))
+            {
+                $this->success('操作成功');
+            }
+            else
+            {
+                $this->error('操作失败');
+            }
+
+        }
+        else
+        {
+
+            $course = new Course();
+            return view('', [
+                'courselist' => $course->field('id,title')->where('delete_status', 0)->select(),
+                'chapterlist' => $chapter->field('id,title')->where('delete_status', 0)->select(),
+            ]);
+
+        }
 
     }
 
@@ -37,68 +66,54 @@ class CourseVideo extends AdminBaseController
         $course = new Course();
         $chapter = new Chapter();
         $courseVideo = new CourseVideoLogic();
-        $videoInfo = $courseVideo->getCourseVideoInfo($param['id']);
-        $videoParent = $courseVideo->getCourseOrChapter($param['id']);
 
-        View::assign('editData', $videoInfo);
-        View::assign('courselist', $courseVideo->selectCourseList($videoParent));
-        View::assign('chapterlist', $courseVideo->selectChapterList($videoParent));
 
-        return View::fetch('');
-   	}
+        if ($this->request->isPost())
+        {
 
-   	//视频添加提交
-   	public function addPost()
-   	{
+            if ($courseVideo->where('id',$param['id'])->save($param))
+            {
+                $this->success('操作成功');
+            }
+            else
+            {
+                $this->error('操作失败');
+            }
 
-        $param    = $this->request->param();
-        $courseVideo = new CourseVideoLogic();
+        }
+        else
+        {   
 
-        $data     = [
-            'course_id' => $param['course_id'],
-            'chapter_id' => $param['chapter_id'],
-            'title' => $param['title'],
-            'description' => $param['description'],
-            'seoTitle' => $param['seoTitle'],
-            'seoKeywords' => $param['seoKeywords'],
-            'seoDescription' => $param['seoDescription'],
-            'image_url' => $param['image_url'],
-            'vide_url' => $param['vide_url'],
-            'remark' => $param['remark'],
-            'show_status' => !empty($param['show_status']) ? 1 : 0,
-        ];
-        $courseVideo->save($data);
 
-   	}
+            $videoInfo = $courseVideo->getCourseVideoInfo($param['id']);
+            $videoParent = $courseVideo->getCourseOrChapter($param['id']);
 
-   	//视频编辑提交
-   	public function editPost()
-   	{
-        $param = $this->request->param();
-        $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
+            return view('', [
+                'editData' => $videoInfo,
+                'courselist' => $courseVideo->selectCourseList($videoParent),
+                'chapterlist' => $courseVideo->selectChapterList($videoParent),
+            ]);
 
-        $courseVideo = new CourseVideoLogic();
-        $courseVideoData = $courseVideo->find($param['id']);
-
-        $result = $courseVideoData->allowField([
-            'chapter_id',
-            'description',
-            'image_url',
-            'vide_url',
-            'seoTitle',
-            'seoKeywords',
-            'seoDescription',
-            'remark',
-            'show_status',
-        ])->save($param);
-
+        }
+        
 
    	}
 
    	//视频删除
-	public function delete()
+	public function del()
 	{
-		# code...
+        $param   = $this->request->param();
+        $courseVideo = new CourseVideoLogic();
+        
+        $result  = $courseVideo->update(['delete_status' => 1], ['id' => $param['id']]);
+        if ($result)
+        {
+            return json(['code' => 1, 'msg' => '删除成功']);
+        }
+        else
+        {
+            return json(['code' => 0, 'msg' => '删除失败']);
+        }
 	}
 
 

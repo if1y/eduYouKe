@@ -30,10 +30,7 @@
                             刷新
                             <i class="fa fa-refresh"></i>
                         </a>
-                        <a href="{$Request.root}/{$Request.controller}/add/type/{$Request.action}/biglayer/" class="btn btn-success btn-sm btn-add" title="添加">
-                            <i class="fa fa-plus"></i>
-                            添加
-                        </a>
+                        {:checkAuth('add')}
                         <!--   <a href="javascript:;" class="btn btn-success btn-edit btn-sm btn-disabled disabled" title="编辑">
                                 <i class="fa fa-edit"></i>
                                 编辑
@@ -53,45 +50,28 @@
                         <thead>
                             <tr>
                                 <th style="width: 10px">ID</th>
-                                <th style="width: 20px">课程名称</th>
-                                <th style="width: 10px">课程简介</th>
-                                <th style="width: 10px">封面图片</th>
-                                <th style="width: 10px">收费状态</th>
-                                <th style="width: 10px">售卖价格</th>
-                                <th style="width: 10px">难度级别</th>
+                                <th style="width: 20px">分类名称</th>
+                                <th style="width: 10px">seo标题</th>
+                                <th style="width: 10px">seo关键字</th>
+                                <th style="width: 10px">seo描述</th>
                                 <th style="width: 10px">备注</th>
                                 <th style="width: 10px">状态</th>
-                                <th style="width: 10px">章节/小节</th>
                                 <th style="width: 20px">操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {volist name="courslist" id="vo"}
+                            {volist name="categorylist" id="vo"}
                             <tr>
                                 <td>{$vo.id}</td>
-                                <td>{$vo.title}</td>
-                                <td>{$vo.description}</td>
-                                <td> <img src="{$vo.cource_image_url ? getUrlPath($vo.cource_image_url) :'/static/img/user3-128x128.jpg'}" width="30" height="30"></td>
-                                <td>{$vo.sell_status ? '收费' : '免费'}</td>
-                                <td>{$vo.sell_status ? $vo.sell_price : '免费'}</td>
-                                <td>{$vo.level_status}</td>
+                                <td>{$vo.showName}</td>
+                                <td>{$vo.seoTitle}</td>
+                                <td>{$vo.seoKeywords}</td>
+                                <td>{$vo.seoDescription}</td>
                                 <td>{$vo.remark}</td>
                                 <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
                                 <td>
-                                    <a href="{$Request.root}/{$Request.controller}/{$Request.action}/tplType/Chapter/id/{$vo.id | default=1}" title="添加章节">
-                                        添加章节
-                                    </a>/
-                                    <a href="{$Request.root}/{$Request.controller}/addvideo/{$vo.id | default=1}" class="btn-add" title="添加视频">
-                                        添加视频
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{$Request.root}/{$Request.controller}/edit/type/{$Request.action}/id/{$vo.id | default=1}/biglayer" class="btn-edit" title="编辑">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="{$Request.root}/{$Request.controller}/delete/type/{$Request.action}/id/{$vo.id | default=1}" class="js-ajax-delete" title="删除">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                                    {:checkAuth('edit',$vo.id)}
+                                    {:checkAuth('delete',$vo.id)}
                                 </td>
                             </tr>
                             {/volist}

@@ -32,8 +32,9 @@ function checkAuth($authUrl, $authId = 0)
     $root       = Request::root();
     $controller = Request::controller();
     $authUrl    = $authUrl == 'delete' ? 'del' : $authUrl;
-    $url        = ltrim(strtolower($root . '/' . $controller . '/' . $authUrl), '/');
-    // var_dump($url.'/'.$controller.'/'.$authUrl);
+    $url        = ltrim(($root . '/' . $controller . '/' . $authUrl), '/');
+    // $url        = ltrim(strtolower($root . '/' . $controller . '/' . $authUrl), '/');
+    // var_dump($url.'/'.$controller.'/'.$authUrl);exit();
 
     $Auth     = Session::get('adminAuth');
     $userInfo = json_decode(Session::get('adminUserInfo'), true);

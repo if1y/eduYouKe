@@ -30,22 +30,19 @@
                             刷新
                             <i class="fa fa-refresh"></i>
                         </a>
-                        <a href="{$Request.root}/{$Request.controller}/addCategory" class="btn btn-success btn-sm btn-add" title="添加">
-                            <i class="fa fa-plus"></i>
-                            添加
-                        </a>
+                        {:checkAuth('add')}
                         <!--   <a href="javascript:;" class="btn btn-success btn-edit btn-sm btn-disabled disabled" title="编辑">
-                                <i class="fa fa-edit"></i>
-                                编辑
-                            </a>
-                            <a href="javascript:;" class="btn btn-danger btn-ajax-del btn-sm disabled" title="删除">
-                                <i class="fa fa-trash"></i>
-                                删除
-                            </a>
-                            <a href="javascript:;" class="btn btn-danger btn-sm btn-import" title="导入" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false" initialized="true" style="position: relative; z-index: 1;">
-                                <i class="fa fa-upload"></i>
-                                导入
-                            </a> -->
+                                    <i class="fa fa-edit"></i>
+                                    编辑
+                                </a>
+                                <a href="javascript:;" class="btn btn-danger btn-ajax-del btn-sm disabled" title="删除">
+                                    <i class="fa fa-trash"></i>
+                                    删除
+                                </a>
+                                <a href="javascript:;" class="btn btn-danger btn-sm btn-import" title="导入" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false" initialized="true" style="position: relative; z-index: 1;">
+                                    <i class="fa fa-upload"></i>
+                                    导入
+                                </a> -->
                     </div>
                 </div>
                 <div class="card-body">
@@ -53,32 +50,36 @@
                         <thead>
                             <tr>
                                 <th style="width: 10px">ID</th>
-                                <th style="width: 20px">分类名称</th>
-                                <th style="width: 10px">seo标题</th>
-                                <th style="width: 10px">seo关键字</th>
-                                <th style="width: 10px">seo描述</th>
+                                <th style="width: 20px">课程名称</th>
+                                <th style="width: 10px">章节名称</th>
+                                <th style="width: 10px">视频名称</th>
+                                <th style="width: 10px">视频简介</th>
+                                <th style="width: 10px">视频预览</th>
                                 <th style="width: 10px">备注</th>
                                 <th style="width: 10px">状态</th>
-                                <th style="width: 20px">操作</th>
+                                <th style="width: 10px">SEO标题</th>
+                                <th style="width: 10px">SEO关键字</th>
+                                <th style="width: 10px">SEO描述</th>
+                                <th style="width: 40px">操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {volist name="categorylist" id="vo"}
+                            {volist name="coursevideolist" id="vo"}
                             <tr>
                                 <td>{$vo.id}</td>
-                                <td>{$vo.showName}</td>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.chapter_id}</td>
+                                <td>{$vo.title}</td>
+                                <td>{$vo.description}</td>
+                                <td> <img src="{$vo.image_url ? getUrlPath($vo.image_url) :'/static/common/img/video-128x128.jpg'}" width="30" height="30"></td>
+                                <td>{$vo.remark}</td>
+                                <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
                                 <td>{$vo.seoTitle}</td>
                                 <td>{$vo.seoKeywords}</td>
                                 <td>{$vo.seoDescription}</td>
-                                <td>{$vo.remark}</td>
-                                <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
                                 <td>
-                                    <a href="{$Request.root}/{$Request.controller}/editCategory/id/{$vo.id | default=1}" class="btn-edit" title="编辑">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="{$Request.root}/{$Request.controller}/delCategory/id/{$vo.id | default=1}" class="js-ajax-delete" title="删除">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                                    {:checkAuth('edit',$vo.id)}
+                                    {:checkAuth('delete',$vo.id)}
                                 </td>
                             </tr>
                             {/volist}
