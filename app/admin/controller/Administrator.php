@@ -31,7 +31,6 @@ class Administrator extends AdminBaseController
         //
         if ($this->request->isPost())
         {
-            print_r($param);exit();
             $User = new AdminUser();
 
             $param['password']    = Tools::userMd5($param['password']);
@@ -88,17 +87,6 @@ class Administrator extends AdminBaseController
                 $this->success('操做失败');
             }
 
-            // $userData = $User->find($param['id']);
-            // $result   = $userData->allowField([
-            //     'user_type',
-            //     'nickname',
-            //     'password',
-            //     'mobile',
-            //     'role_id',
-            //     'avatar_url',
-            //     'show_status',
-            // ])->save($param);
-
         }
         else
         {
@@ -109,35 +97,6 @@ class Administrator extends AdminBaseController
         }
     }
 
-    /**
-     * [editPost 编辑提交]
-     * @return [type] [description]
-     */
-    public function editPost()
-    {
-        $param = $this->request->param();
-
-        $param['password']    = !empty($param['password']) ? Tools::userMd5($param['password']) : 0;
-        $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
-        if (!$param['password'])
-        {
-            unset($param['password']);
-        }
-
-        $User     = new AdminUser();
-
-        $userData = $User->find($param['id']);
-        $result   = $userData->allowField([
-            'user_type',
-            'nickname',
-            'password',
-            'mobile',
-            'role_id',
-            'avatar_url',
-            'show_status',
-        ])->save($param);
-
-    }
 
     /**
      * [delete 删除操作]
@@ -158,16 +117,12 @@ class Administrator extends AdminBaseController
         }
     }
 
-
-    public function tree()
-    {
-        return View::fetch();
-    }
-
+    
     /**
      * [edit 编辑展示页面]
      * @return [type] [description]
      */
+    
     public function editInfo()
     {
         $param = $this->request->param();
@@ -175,7 +130,7 @@ class Administrator extends AdminBaseController
         View::assign('editData', $User->getAdminUserInfo($param['id']));
         return View::fetch();
     }
-
+    
     //
     public function editInfoPost()
     {

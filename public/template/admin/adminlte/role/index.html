@@ -30,10 +30,8 @@
                             刷新
                             <i class="fa fa-refresh"></i>
                         </a>
-                        <a href="{$Request.root}/{$Request.controller}/add/type/{$Request.action}" class="btn btn-success btn-sm btn-add" title="添加">
-                            <i class="fa fa-plus"></i>
-                            添加
-                        </a>
+                        {:checkAuth('add')}
+
                         <!--   <a href="javascript:;" class="btn btn-success btn-edit btn-sm btn-disabled disabled" title="编辑">
                                     <i class="fa fa-edit"></i>
                                     编辑
@@ -67,14 +65,10 @@
                                 <td>{$vo.remark}</td>
                                 <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
                                 <td>
-                                    <a href="{$Request.root}/{$Request.controller}/edit/type/{$Request.action}/id/{$vo.id | default=1}" class="btn-edit" title="编辑">
-                                        <i class="fa fa-edit"></i>
-                                    </a>&nbsp;&nbsp;
-                                    <a href="{$Request.root}/{$Request.controller}/delete/type/{$Request.action}/id/{$vo.id | default=1}" class="js-ajax-delete" title="删除">
-                                        <i class="fa fa-trash"></i>
-                                    </a>&nbsp;&nbsp;
+                                    {:checkAuth('edit',$vo.id)}
+                                    {:checkAuth('delete',$vo.id)}
                                     <a href="{$Request.root}/{$Request.controller}/tree/type/{$Request.action}/id/{$vo.id | default=1}" class="btn-auth" title="权限分配">
-                                        <i class="fa fa-sitemap"></i>
+                                        <i class="fa fa-sitemap">权限分配</i>
                                     </a>
                                 </td>
                             </tr>

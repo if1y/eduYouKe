@@ -26,22 +26,26 @@ class Role extends AdminBaseController
      */
     public function add()
     {
-        return View::fetch();
-    }
+        if ($this->request->isPost())
+        {
+            $param = $this->request->param();
+            $role  = new AdminRole();
+            $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
-    public function addPost()
-    {
+            if ($role->save($param))
+            {
+                $this->success('操作成功');
+            }
+            else
+            {
+                $this->success('操做失败');
+            }
 
-        $param = $this->request->param();
-        $role  = new AdminRole();
-
-        $data = [
-            'role_name' => $param['role_name'],
-            'remark' => $param['remark'],
-            'show_status' => !empty($param['show_status']) ? 1 : 0,
-        ];
-        $role->save($data);
-
+        }
+        else
+        {
+            return View::fetch();
+        }
     }
 
     /**
@@ -52,35 +56,34 @@ class Role extends AdminBaseController
     {
         $param = $this->request->param();
         $role  = new AdminRole();
-        View::assign('editData', $role->getAdminRoleInfo($param['id']));
-        return View::fetch();
-    }
+        if ($this->request->isPost())
+        {
 
-    /**
-     * [editPost 编辑提交]
-     * @return [type] [description]
-     */
-    public function editPost()
-    {
-        $param = $this->request->param();
+            $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
-        $role                 = new AdminRole();
-        $roleData             = $role->find($param['id']);
-        $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
+            if ($role->where('id', $param['id'])->save($param))
+            {
+                $this->success('操作成功');
+            }
+            else
+            {
+                $this->success('操做失败');
+            }
 
-        $result = $roleData->allowField([
-            'role_name',
-            'remark',
-            'show_status',
-        ])->save($param);
+        }
+        else
+        {
 
+            View::assign('editData', $role->getAdminRoleInfo($param['id']));
+            return View::fetch();
+        }
     }
 
     /**
      * [delete 删除操作]
      * @return [type] [description]
      */
-    public function delete()
+    public function del()
     {
         $param  = $this->request->param();
         $role   = new AdminRole();

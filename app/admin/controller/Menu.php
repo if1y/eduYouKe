@@ -23,19 +23,27 @@ class Menu extends AdminBaseController
     //添加页面
     public function add()
     {
-        $menu = new AdminMenu();
-        View::assign('menulist', $menu->getMenuList());
-        return View::fetch();
-    }
-
-    /**
-     * [AddPost 提交数据]
-     */
-    public function addPost()
-    {
         $param = $this->request->param();
-        $menu  = new AdminMenu();
-        $menu->addMenu($param);
+
+        $menu = new AdminMenu();
+        if ($this->request->isPost())
+        {
+            if ($menu->addMenu($param))
+            {
+                $this->success('操作成功');
+            }
+            else
+            {
+                $this->success('操做失败');
+            }
+
+        }
+        else
+        {
+
+            View::assign('menulist', $menu->getMenuList());
+            return View::fetch();
+        }
     }
 
     /**
@@ -46,51 +54,47 @@ class Menu extends AdminBaseController
     {
         $param = $this->request->param();
         $menu  = new AdminMenu();
-        // print_r($menu->getActionCheck($menu->getAdminMenuInfo($param['id'])));exit;
-        return view('', [
-            'menulist' => $menu->getMenuList(),
-            'editData' => $menu->getAdminMenuInfo($param['id']),
-            'actionCheck' => $menu->getActionCheck($menu->getAdminMenuInfo($param['id'])),
-        ]);
-    }
 
-    /**
-     * [editPost 编辑提交]
-     * @return [type] [description]
-     */
-    public function editPost()
-    {
-        $param = $this->request->param();
+        if ($this->request->isPost())
+        {
 
-        $menu = new AdminMenu();
-        $menu->editMenu($param);
+            if ($menu->editMenu($param))
+            {
+                $this->success('操作成功');
+            }
+            else
+            {
+                $this->success('操做失败');
+            }
+        }
+        else
+        {
 
+            return view('', [
+                'menulist' => $menu->getMenuList(),
+                'editData' => $menu->getAdminMenuInfo($param['id']),
+                'actionCheck' => $menu->getActionCheck($menu->getAdminMenuInfo($param['id'])),
+            ]);
+        }
     }
 
     /**
      * [delete 删除操作]
      * @return [type] [description]
      */
-    public function delete()
+    public function del()
     {
-        $param = $this->request->param();
-        $menu = new AdminMenu();
-        $result = $menu->update(['delete_status'=> 1],['id'=>$param['id']]);
-        if ($result) {
-            return json(['code'=>1,'msg'=>'删除成功']);
-        }else{
-            return json(['code'=>0,'msg'=>'删除失败']);
+        $param  = $this->request->param();
+        $menu   = new AdminMenu();
+        $result = $menu->update(['delete_status' => 1], ['id' => $param['id']]);
+        if ($result)
+        {
+            return json(['code' => 1, 'msg' => '删除成功']);
         }
-    }
-
-    /**
-     * [adminUserList 管理员列表]
-     * @return [type] [description]
-     */
-    public function adminUserList()
-    {
-        return View::fetch();
-
+        else
+        {
+            return json(['code' => 0, 'msg' => '删除失败']);
+        }
     }
 
 }

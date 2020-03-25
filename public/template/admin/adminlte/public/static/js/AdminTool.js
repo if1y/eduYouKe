@@ -59,14 +59,13 @@
 
 
                     var iframeWin = parent.parent.window[layero.find('iframe')[0]['name']]; // 重点0
-                    var content = iframeWin.$("form").attr("id");
                     var validate = iframeWin.myValidate();
                     var formData = iframeWin.$("form").serialize();
-
+                    var data_params = decodeURIComponent(formData,true);
                     //
                     if (validate) {
 
-                        $.post(href, getToPost(formData), function(data) {
+                        $.post(href, getToPost(data_params), function(data) {
 
                             if (data.code == 1) {
 
@@ -107,6 +106,7 @@
         var arr = str.split('&');
         var obj = {};
         for (var item of arr) {
+            console.log(item);
             var keyarr = item.split('=');
             obj[keyarr[0]] = keyarr[1];
         }
@@ -148,14 +148,14 @@
                 yes: function(index, layero) {
 
                     var iframeWin = parent.parent.window[layero.find('iframe')[0]['name']]; // 重点0
-                    var content = iframeWin.$("form").attr("id");
                     var validate = iframeWin.myValidate();
                     var formData = iframeWin.$("form").serialize();
-
+                    var data_params = decodeURIComponent(formData,true);
+                    
                     //
                     if (validate) {
 
-                        $.post(href, getToPost(formData), function(data) {
+                        $.post(href, getToPost(data_params), function(data) {
 
                             if (data.code == 1) {
 
