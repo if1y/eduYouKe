@@ -1,11 +1,15 @@
-function uploadImageById(defaultUpload, uploadFile,defaultVaule,defaultImgValue) {
+function uploadVideoById(defaultUpload, uploadFile,defaultVaule) {
 
+    var Channel = $('#Channel option:selected').val();
+    console.log(Channel);
+    
     var uploadConfig = {
         inputId: uploadFile, // 上传图片的inputId
         triggerId: defaultUpload, // 触发上传的元素Id
         url: "/admin/File/videoUpload", // 上传地址
         params: { // 上传需要携带的参数
-            token: 'a8100c30fc194ff275f691336c655ea6'
+            token: 'a8100c30fc194ff275f691336c655ea6',
+            type: Channel,
         },
         beforeSend: function() {
             upload = layer.msg('loadding...', {
@@ -20,13 +24,12 @@ function uploadImageById(defaultUpload, uploadFile,defaultVaule,defaultImgValue)
             // console.log(progress)
         },
         base64String: function(imagePath) { // 获取本地的base64字符串做展示
-
-            console.log(imagePath);
-            $("#"+defaultUpload+" img").attr('src', '/storage/'+imagePath);
+        
         },
         loadSuccess: function(data) { // 上传完成后回调
-            $("#"+ defaultImgValue).val(data.image);
+            // $("#"+ defaultImgValue).val(data.image);
             $("#"+ defaultVaule).val(data.path);
+            $("#"+ defaultVaule).attr("disabled", "disabled");
             layer.close(upload);
         }
     }
@@ -90,7 +93,7 @@ function uploadImageById(defaultUpload, uploadFile,defaultVaule,defaultImgValue)
                     success: function(data) {
                         console.log(data)
                         uploadConfig.loadSuccess(data)
-                        uploadConfig.base64String(data.image)
+                        // uploadConfig.base64String(data.image)
                     },
                     error: function(error) {
                         console.log(error)
@@ -101,8 +104,8 @@ function uploadImageById(defaultUpload, uploadFile,defaultVaule,defaultImgValue)
         }
 
         // 点击触发触发上传
-        // $('#' + uploadConfig.inputId).trigger('click')
-        $('#' + uploadConfig.inputId).click()
+        $('#' + uploadConfig.inputId).trigger('click')
+        // $('#' + uploadConfig.inputId).click()
         // $('#' + uploadConfig.triggerId).click(function() {
         // })
         document.getElementById(uploadConfig.inputId).addEventListener('change', uploadVideo, false);

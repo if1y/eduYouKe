@@ -7,6 +7,22 @@ html,
 body {
     background-color: #fff;
 }
+
+.uploadVideo {
+    min-width: 120px;
+}
+
+.select2-container .select2-choice {
+    min-height: 100px !important;
+}
+
+#Channel {
+    border-radius: .1rem;
+}
+
+.uploadVideo option {
+    line-height: 25px;
+}
 </style>
 <div class="container-fluid bg-white h-100">
     <br>
@@ -69,13 +85,20 @@ body {
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">视频地址</label>
+                <label class="col-sm-2 col-form-label">视频上传</label>
                 <div class="col-sm-10">
-                    <input type="file" name="file" id="uploadFile" style="display: none;">
-                    <input type="text" name="image_url" id="uploadImgValue" value="" style="display: none;">
-                    <input type="text" name="vide_url" id="uploadValue" value="" style="display: none;">
-                    <div id="defaultUpload" onclick="uploadImageById('defaultUpload','uploadFile','uploadValue','uploadImgValue')">
-                        <img src="__STATIC__/img/video-128x128.png">
+                    <div class="input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <select class="form-control h-100" id="Channel" style="min-width: 120px;">
+                                <option value="1">本地上传</option>
+                                <option value="2">阿里云上传</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" id="videoUrl" name="video_url">
+                        <span class="input-group-append">
+                            <input type="file" name="file" id="uploadFile" style="display: none;">
+                            <button type="button" onclick="uploadVideoById('','uploadFile','videoUrl')" class="btn btn-info btn-flat">上传</button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -110,8 +133,16 @@ body {
 <script src="__STATIC__/js/uploadVideo.js"></script>
 <script type="text/javascript">
 $(function() {
+
     //Initialize Select2 Elements
     $('.select2').select2()
+
+
+
+    $('#basic').select2({
+        theme: "bootstrap4"
+
+    });
 
 
     // Initialize Select2 Elements
@@ -140,6 +171,7 @@ function getSelectChapter() {
     }, "json");
 
 }
+
 
 $('#content').validate({
     ignore: [],

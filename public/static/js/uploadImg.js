@@ -119,12 +119,14 @@ function uploadImageById(defaultUpload, uploadFile,defaultVaule,$param = '') {
                 return this.result;
             }
         }
+        $('#' + uploadConfig.triggerId).click(function() {
+        $('#' + uploadConfig.inputId).trigger('click')
+    })
+    document.getElementById(uploadConfig.inputId).addEventListener('change', uploadImg2Base64, false);
 
+    
         // 点击触发触发上传
-        // $('#' + uploadConfig.inputId).trigger('click')
-        $('#' + uploadConfig.inputId).click()
-        // $('#' + uploadConfig.triggerId).click(function() {
-        // })
-        document.getElementById(uploadConfig.inputId).addEventListener('change', uploadImg2Base64, false);
+        // $('#' + uploadConfig.inputId).click()
+        // document.getElementById(uploadConfig.inputId).addEventListener('change', uploadImg2Base64, false);
     }
 }

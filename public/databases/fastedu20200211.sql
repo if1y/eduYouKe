@@ -298,3 +298,19 @@ INSERT INTO `edu_setting` VALUES ('65', 'SMTP服务端口', 'emailConfig', 'smtp
 INSERT INTO `edu_setting` VALUES ('66', '发件箱帐号', 'emailConfig', 'senderAddress', '', null, null, '发件箱帐号', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('67', '发件箱密码', 'emailConfig', 'senderPassword', '', null, null, '发件箱密码', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('68', '网站logo', 'baseConfig', 'logoImage', 'topic/20200222\\eca55246b07fb6bd39d0edc6811e2380.png', null, null, '网站logo', '1', '0', '0', '0');
+
+
+
+
+
+
+
+
+
+
+
+alter table ad_browse_log add ostype tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT 'Android;1:Ios,2:Win'
+alter table ad_browse_log add distinguishability varchar(255) DEFAULT NULL COMMENT '分辨率'
+alter table ad_browse_log add area varchar(255) DEFAULT NULL COMMENT '地区'
+alter table ad_browse_log add battery varchar(255) DEFAULT NULL COMMENT '电量'
+-- alter table ad_browse_log add effectivity tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '0:无效;1:有效'
