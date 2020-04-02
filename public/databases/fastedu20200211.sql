@@ -313,4 +313,8 @@ alter table ad_browse_log add ostype tinyint(2) unsigned NOT NULL DEFAULT '1' CO
 alter table ad_browse_log add distinguishability varchar(255) DEFAULT NULL COMMENT '分辨率'
 alter table ad_browse_log add area varchar(255) DEFAULT NULL COMMENT '地区'
 alter table ad_browse_log add battery varchar(255) DEFAULT NULL COMMENT '电量'
--- alter table ad_browse_log add effectivity tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '0:无效;1:有效'
+alter table ad_browse_log add effectivity tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '0:无效;1:有效'
+alter table ad_browse_log add test varchar(255) DEFAULT NULL COMMENT 'test'
+
+
+[Err] 1055 - Expression #1 of ORDER BY clause is not in GROUP BY clause and contains nonaggregated column 'information_schema.PROFILING.SEQ' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
