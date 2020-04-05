@@ -33,31 +33,41 @@
                 <div class="tab-content">
                     <form class="p-3" enctype="multipart/form-data" action="{$Request.root}/{$Request.controller}/addPost/type/{$tpl}" method="post">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">阿里Vod_Key</label>
+                            <label class="col-sm-2 col-form-label">图片上传配置</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="aliPlayerKey" value="{$detail.aliPlayerKey.content}" placeholder="请输入{$detail.aliPlayerKey.category}">
+                                <div class="icheck-success d-inline">
+                                    <input type="radio" name="imageUploader" value="0" {$detail.imageUploader.content==0 ? 'checked' :''} id="is{$detail.imageUploader.category_name}">
+                                    <label for="is{$detail.imageUploader.category_name}">
+                                        本地上传
+                                    </label>
+                                </div>
+                                <div class="icheck-success d-inline">
+                                    <input {$detail.imageUploader.content==1 ? 'checked' :''} type="radio" name="imageUploader" value="1" id="not{$detail.imageUploader.category_name}">
+                                    <label for="not{$detail.imageUploader.category_name}">
+                                        阿里云OSS
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">阿里Vod_Secret</label>
+                            <label class="col-sm-2 col-form-label">视频上传配置</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="aliPlayerSecret" value="{$detail.aliPlayerSecret.content}" placeholder="请输入{$detail.aliPlayerSecret.category}">
+                                <div class="icheck-success d-inline">
+                                    <input type="radio" name="videoUploader" value="0" {$detail.videoUploader.content==0 ? 'checked' :''} id="is{$detail.videoUploader.category_name}">
+                                    <label for="is{$detail.videoUploader.category_name}">
+                                        本地上传
+                                    </label>
+                                </div>
+                                <div class="icheck-success d-inline">
+                                    <input {$detail.videoUploader.content==1 ? 'checked' :''} type="radio" name="videoUploader" value="1" id="not{$detail.videoUploader.category_name}">
+                                    <label for="not{$detail.videoUploader.category_name}">
+                                        阿里云Vod
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">阿里OSS_Key</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" name="aliossKey" value="{$detail.aliossKey.content}" placeholder="请输入{$detail.aliossKey.category}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">阿里OSS_Secret</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" name="aliossSecret" value="{$detail.aliossSecret.content}" placeholder="请输入{$detail.aliossSecret.category}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-5">
+                            <div class="col-sm-2">
                                 <button type="submit" class="btn btn-info">保存</button>
                             </div>
                         </div>

@@ -16,7 +16,7 @@ body {
     min-height: 100px !important;
 }
 
-#Channel {
+#channel {
     border-radius: .1rem;
 }
 
@@ -89,15 +89,18 @@ body {
                 <div class="col-sm-10">
                     <div class="input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <select class="form-control h-100" id="Channel" style="min-width: 120px;">
-                                <option value="1">本地上传</option>
-                                <option value="2">阿里云上传</option>
+                            <select class="form-control h-100" id="channel" name="channel" style="min-width: 120px;">
+                                <option value="local">本地上传</option>
+                                <option value="alivod">阿里云上传</option>
                             </select>
                         </div>
                         <input type="text" class="form-control" id="videoUrl" name="video_url">
                         <span class="input-group-append">
                             <input type="file" name="file" id="uploadFile" style="display: none;">
-                            <button type="button" id="defaultUploads" class="btn btn-info btn-flat">上传</button>
+                            <a href="javascript:void(0);" id="defaultUploads" class="btn btn-info btn-flat">
+                                上传
+                            </a>
+                            <!-- <button type="button" id="defaultUploads" class="btn btn-info btn-flat">上传</button> -->
                         </span>
                     </div>
                 </div>
@@ -132,16 +135,15 @@ body {
 <script src="__STATIC__/js/jquery.validate.min.js"></script>
 <script src="__STATIC__/js/uploadVideo.js"></script>
 <script type="text/javascript">
-var Channel = $('#Channel option:selected').val();
+    
 
 var uploadConfig = {
     inputId: "uploadFile", // 上传图片的inputId
     triggerId: "defaultUploads", // 触发上传的元素Id
-    url: "/admin/File/videoUpload", // 上传地址
-    params: { // 上传需要携带的参数
-        token: 'a8100c30fc194ff275f691336c655ea6',
-        type: Channel,
-    },
+    url: "/admin/File/uploadVideo", // 上传地址
+    // params: { // 上传需要携带的参数
+        // channel: channel,
+    // },
     beforeSend: function() {
         upload = layer.msg('loadding...', {
             icon: 16,
@@ -158,28 +160,18 @@ var uploadConfig = {
 
     },
     loadSuccess: function(data) { // 上传完成后回调
-        // $("#"+ defaultImgValue).val(data.image);
-        // $("#"+ defaultVaule).val(data.path);
-        // $("#"+ defaultVaule).attr("disabled", "disabled");
+        $("#videoUrl").val(data.path);
+        $("#videoUrl").attr("disabled", "disabled");
         layer.close(upload);
     }
 }
-
-uploadImage(uploadConfig)
+videoUploader(uploadConfig)
 
 
 $(function() {
 
     //Initialize Select2 Elements
     $('.select2').select2()
-
-
-
-    $('#basic').select2({
-        theme: "bootstrap4"
-
-    });
-
 
     // Initialize Select2 Elements
     $('.select2bs4').select2({

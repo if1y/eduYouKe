@@ -7,7 +7,6 @@ use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Vod\Vod;
 use OSS\Core\OssException;
 use OSS\OssClient;
-use app\util\Vod as vodTool;
 
 class File
 {
@@ -33,15 +32,36 @@ class File
     }
 
 
-       //
-    public function uploadVideo($file)
+    //视频上传
+    public function uploadVideo($file,$param)
     {	
-        
-    	$auth = $this->CreateUploadVideoAuth('测试',$file->getOriginalName());
 
-    	$uploadAuth = json_decode(base64_decode($auth['UploadAuth']), true);
+        switch ($param['channel']) {
+            case 'alivod':
+                return $this->aliVodUpload($file,$param['file']);
+                break;
+            default:
+                return $this->videoLocalUpload($file,$param);
+                break;
+        }    
+
+    }
+
+    //视频本地上传
+    public function videoLocalUpload($file,$param)
+    {
+        return \think\facade\Filesystem::disk('public')->putFile('tovideo', $file);
+    }
+
+    //上传至阿里云
+    public function aliVodUpload($file,$fileName)
+    {
+
+        $auth = $this->CreateUploadVideoAuth('测试',$fileName);
+        
+        $uploadAuth = json_decode(base64_decode($auth['UploadAuth']), true);
         $UploadAddress = json_decode(base64_decode($auth['UploadAddress']), true);
-    	try {
+        try {
 
             $ossClient = new OssClient(
                 $uploadAuth['AccessKeyId'],
@@ -59,12 +79,10 @@ class File
 
             return $auth['VideoId'];
              
-		} catch (OssException $e) {
-			print $e->getMessage();
-		}
+        } catch (OssException $e) {
+            print $e->getMessage();
+        }
     }
-
-
 
     public function CreateUploadVideoAuth($title,$fileName)
     {

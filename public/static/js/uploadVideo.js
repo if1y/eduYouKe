@@ -1,4 +1,4 @@
-function uploadImage(uploadConfig) {
+function videoUploader(uploadConfig) {
 
 
     var uploadConfig = uploadConfig

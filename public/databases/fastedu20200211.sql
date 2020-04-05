@@ -317,4 +317,27 @@ alter table ad_browse_log add effectivity tinyint(2) unsigned NOT NULL DEFAULT '
 alter table ad_browse_log add test varchar(255) DEFAULT NULL COMMENT 'test'
 
 
-[Err] 1055 - Expression #1 of ORDER BY clause is not in GROUP BY clause and contains nonaggregated column 'information_schema.PROFILING.SEQ' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+
+CREATE TABLE `edu_comment` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '被回复的评论id',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '发表评论的用户id',
+  `to_user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '被评论的用户id',
+  `source_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论内容 id',
+  `table_name` varchar(255) DEFAULT NULL COMMENT '数据库名称',
+  `like_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '点赞数',
+  `dislike_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '不喜欢数',
+  `floor` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '楼层数',
+  `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
+  `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `url` text COMMENT '原文地址',
+  `content` text CHARACTER SET utf8mb4 COMMENT '评论内容',
+  `more` text CHARACTER SET utf8mb4 COMMENT '扩展属性',
+  PRIMARY KEY (`id`),
+  KEY `source_id` (`source_id`) USING BTREE,
+  KEY `show_status` (`show_status`) USING BTREE,
+  KEY `parent_id` (`parent_id`) USING BTREE,
+  KEY `create_time` (`create_time`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论表';
