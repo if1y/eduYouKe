@@ -11,6 +11,8 @@ use think\facade\Env;
 class WebBaseController extends BaseController
 {
 
+    protected $layout = 'default';
+
     protected $template;
 
     // 初始化
@@ -37,9 +39,11 @@ class WebBaseController extends BaseController
         }
         if (Env::get('DEV.RUNTIME') == 'develop')
         {
-            $this->template = 'default';
-        }
 
+            $this->template = 'lte';
+            $path           = WEB_ROOT . '/' . config('view.view_dir_name') . '/' . app('http')->getName() . '/lte/';
+        }
+        
         View::config(['view_path' => $path]);
 
     }
