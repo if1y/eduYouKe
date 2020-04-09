@@ -12,5 +12,4 @@ class Banner extends BannerModel
         ->where(['delete_status'=>0,'show_status'=>1])->select();
     }
     
-
 }

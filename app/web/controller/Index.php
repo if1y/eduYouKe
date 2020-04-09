@@ -2,17 +2,16 @@
 namespace app\web\controller;
 use app\WebBaseController;
 use think\facade\View;
+use app\logic\Banner;
+
 
 class Index extends WebBaseController
 {
     public function index()
     {
-        
-        $list = [1,2];
-        View::assign([
-			'list' => $list,
-        ]);
-        return View::fetch();
+        $banner = new Banner();
+        $bannerList = $banner->getBannerList(['type'=>1],'link_url,image_url');
+        return view('',['bannerlist'=>$bannerList]);
     }
     
     /**
