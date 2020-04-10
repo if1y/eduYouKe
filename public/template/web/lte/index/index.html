@@ -7,9 +7,10 @@
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
     {include file='public/header' /}
     <style type="text/css">
-        
     </style>
 </head>
+
+
 
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
@@ -22,23 +23,29 @@
                             {include file='public/slide' /}
                         </div>
                     </div>
-
                     <h3> <i class="fa fa-bookmark-o" aria-hidden="true"></i> 精品推荐</h3>
                     <hr>
                     <div class="row">
+                        {volist name="recommendcourse" id="vo" key="k"}
                         <div class="col-md-4">
                             <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
+                                <a href="{:url('/course',['id'=>$vo['id']])}">
+                                    <div class="widget-user-header text-white" style="background: url('{$vo.cource_image_url}') center center;">
                                     </div>
                                 </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
+                                <div id="course-title">
+                                    <p class="card-text p-2 d-inline-block text-truncate">
+                                        {$vo.sell_status ?
+                                        '<span class="badge badge-danger">
+                                            ￥120
+                                        </span>'
+                                        :
+                                        '<span class="badge badge-info">
+                                            免费
+                                        </span>'
+                                        }
+                                        <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
+                                            {$vo.title}
                                         </a>
                                     </p>
                                 </div>
@@ -48,69 +55,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e54bebe087fe86d06000338-360-202.jpg') center center;">
-                                    </div>
-                                </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
-                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img4.mukewang.com/szimg/58f57d200001461105400300-360-202.jpg') center center;">
-                                    </div>
-                                </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
-                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
-                            </div>
-                        </div>
+                        {/volist}
                     </div>
-
                     <h3> <i class="fa fa-bookmark-o" aria-hidden="true"></i> 新上好课</h3>
                     <hr>
                     <div class="row">
+                        {volist name="newcourse" id="vo" key="k"}
                         <div class="col-md-3">
                             <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
+                                <a href="{:url('/course',['id'=>$vo['id']])}">
+                                    <div class="widget-user-header text-white" style="background: url('{$vo.cource_image_url}') center center;">
                                     </div>
                                 </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
+                                <div id="course-title">
+                                    <p class="card-text p-2 d-inline-block text-truncate">
+                                        {$vo.sell_status ?
+                                        '<span class="badge badge-danger">
+                                            ￥120
+                                        </span>'
+                                        :
+                                        '<span class="badge badge-info">
+                                            免费
+                                        </span>'
+                                        }
+                                        <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
+                                            {$vo.title}
                                         </a>
                                     </p>
                                 </div>
@@ -120,95 +89,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
-                                    </div>
-                                </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
-                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
-                                    </div>
-                                </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
-                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
-                                    </div>
-                                </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
-                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
-                            </div>
-                        </div>
+                        {/volist}
                     </div>
-
-
-                    
-
-
-
                     <h3> <i class="fa fa-bookmark-o" aria-hidden="true"></i> 热门课程</h3>
                     <hr>
                     <div class="row">
+                        {volist name="hotcourse" id="vo" key="k"}
                         <div class="col-md-3">
                             <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
+                                <a href="{:url('/course',['id'=>$vo['id']])}">
+                                    <div class="widget-user-header text-white" style="background: url('{$vo.cource_image_url}') center center;">
                                     </div>
                                 </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
+                                <div id="course-title">
+                                    <p class="card-text p-2 d-inline-block text-truncate">
+                                        {$vo.sell_status ?
+                                        '<span class="badge badge-danger mb-2">
+                                            ￥120
+                                        </span>'
+                                        :
+                                        '<span class="badge badge-info">
+                                            免费
+                                        </span>'
+                                        }
+                                        <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
+                                            {$vo.title}
                                         </a>
                                     </p>
                                 </div>
@@ -218,90 +123,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
-                                    </div>
-                                </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
-                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
-                                    </div>
-                                </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
-                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
-                                    </div>
-                                </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
-                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
-                            </div>
-                        </div>
+                        {/volist}
                     </div>
-
                     <h3> <i class="fa fa-bookmark-o" aria-hidden="true"></i> 猜你喜欢</h3>
                     <hr>
                     <div class="row">
+                        {volist name="conjecturecourse" id="vo" key="k"}
                         <div class="col-md-3">
                             <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
+                                <a href="{:url('/course',['id'=>$vo['id']])}">
+                                    <div class="widget-user-header text-white" style="background: url('{$vo.cource_image_url}') center center;">
                                     </div>
                                 </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
+                                <div id="course-title">
+                                    <p class="card-text p-2 d-inline-block text-truncate">
+                                        {$vo.sell_status ?
+                                        '<span class="badge badge-danger">
+                                            ￥120
+                                        </span>'
+                                        :
+                                        '<span class="badge badge-info">
+                                            免费
+                                        </span>'
+                                        }
+                                        <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
+                                            {$vo.title}
                                         </a>
                                     </p>
                                 </div>
@@ -311,76 +157,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
-                                    </div>
-                                </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
-                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
-                                    </div>
-                                </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
-                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card card-widget widget-user wider">
-                                <a href="#">
-                                    <div class="widget-user-header text-white" style="background: url('https://img3.mukewang.com/szimg/5e6f2f240847796506000338-360-202.jpg') center center;">
-                                    </div>
-                                </a>
-                                <div>
-                                    <p class="card-text p-2">
-                                        <span class="badge badge-info">
-                                            试看
-                                        </span>
-                                        <a href="{:url('/course')}" class="text-muted">
-                                            Node.js+Koa2框架生态实战 - 从零模拟新浪微博
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
-                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
-                            </div>
-                        </div>
+                        {/volist}
                     </div>
-
-
-
                 </div>
             </div>
         </div>

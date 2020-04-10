@@ -1,0 +1,109 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>用户首页 {$site_info.site_name|default=''}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    {include file='public/header' /}
+    <link href="/template/web/{$templateName}/public/static/css/user.css" rel="stylesheet">
+</head>
+
+<body class="body-white">
+    {include file='public/nav' /}
+    <div class="container container-body">
+        <div class="row mt-4">
+            <div class="col-lg-2 col-md-2 col-auto mt-4 user-nav border-right">
+                <ul class="nav">
+                    <a class="nav-link  mt-2 mb-2" href="{:url('/user/centor')}">
+                        <i class="fa fa-cog mr-2" aria-hidden="true"></i>
+                        个人设置
+                    </a>
+                    <a class="nav-link mt-2 mb-2" href="{:url('/user/order')}">
+                        <i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i>
+                        我的订单
+                    </a>
+                    <a class="nav-link  mt-2 mb-2" href="{:url('/user/history')}">
+                        <i class="fa fahistory mr-2" aria-hidden="true"></i>历史课程
+                    </a>
+                    <a class="nav-link  mt-2 mb-2 active" href="{:url('/user/message')}">
+                        <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
+                        消息列表
+                    </a>
+                </ul>
+            </div>
+            <div class="col-lg-10 col-md-10 col-auto mt-4 user-nav-detail">
+                <!-- <p><strong>我的订单</strong></p> -->
+                <!-- <h5 class="mt-2"><strong>我的订单</strong></h5> -->
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="#"  data-toggle="modal" data-target="#exampleModalCenter">
+                                <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
+                                关于2020春节放假通知</a>
+                        </li>
+
+
+
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">
+                                <i class="fa fa-bell" aria-hidden="true"></i> 
+                                关于2020春节放假通知
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body text-muted">
+                            图标可以根据您的需要使用任何颜色来显示。而Font Awesome专业版更支持全新的双色图标。这些漂亮的图标可以通过继承项目的基色来实现开箱即用，或者根据您的需要进行自定义。
+                          </div>
+                    <!--       <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                        <li class="list-group-item">
+                            <a href="#">
+                                <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
+                                关于2020春节放假通知</a>
+                        </li>
+
+                        <li class="list-group-item">
+                            <a href="#">
+                                <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
+                                关于2020春节放假通知</a>
+                        </li>
+
+                        <li class="list-group-item">
+                            <a href="#">
+                                <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
+                                关于2020春节放假通知</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                <i class="fa fa-envelope-open mr-2" aria-hidden="true"></i>
+                                超级会员限时免费
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    {include file='public/footer' /}
+</body>
+<script type="text/javascript">
+if (IsPhone()) {
+    console.log('phone');
+}
+</script>

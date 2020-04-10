@@ -12,19 +12,30 @@ function getUrlPath($avatar)
         if (!strpos($avatar, "http"))
         {
 
+            $avatar = str_replace('\\', '/', $avatar);
             return '/storage/' . $avatar;
         }
     }
+
     return $avatar;
 }
 
+// //超出展示省略号
+// function cutSubstr($str, $len = 16)
+// {
+//     if (strlen($str) > $len)
+//     {
+//         $str = mb_substr($str, 0, $len) . '...';
+//     }
+//     return $str;
+// }
+
 function buildConfigHtml($value)
 {
-	// print_r($value);exit();
-	return Html::buildHtml($value);
+    // print_r($value);exit();
+    return Html::buildHtml($value);
 
 }
-
 
 //
 function checkAuth($authUrl, $authId = 0)
