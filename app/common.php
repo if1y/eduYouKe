@@ -9,9 +9,8 @@ function getUrlPath($avatar)
 {
     if (!empty($avatar))
     {
-        if (!strpos($avatar, "http"))
+        if (!checkUrl($avatar))
         {
-
             $avatar = str_replace('\\', '/', $avatar);
             return '/storage/' . $avatar;
         }
@@ -19,6 +18,21 @@ function getUrlPath($avatar)
 
     return $avatar;
 }
+
+
+
+function checkUrl($url){
+
+    $pattern="/^(http|https):\/\/.*$/i";
+    
+    if(preg_match($pattern,$url)){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
 
 // //超出展示省略号
 // function cutSubstr($str, $len = 16)

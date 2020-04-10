@@ -4,6 +4,7 @@ namespace app\admin\controller;
 use app\AdminBaseController;
 use think\facade\View;
 use app\logic\File as FileLogic;
+use app\logic\Image;
 
 
 
@@ -27,9 +28,16 @@ class File extends AdminBaseController
      */
     public function imageUpload()
     {
-        $file     = request()->file('file');
-        $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        return json(['errno' => 0, 'path'=>$savename ,'data' => [getUrlPath($savename)]]);
+
+        $file = $this->request->file('file');
+        $param = $this->request->param();
+        $image = new Image();
+        $savename = $image->uploadImage($file,$param);
+        return json([
+            'errno' => 0,
+            'path'=>$savename ,
+            'data' => $image->editorImage($savename)
+        ]);
     }
 
     /**
@@ -41,7 +49,6 @@ class File extends AdminBaseController
 
         $file = $this->request->file('file');
         $param = $this->request->param();
-        // print_r($param);exit();
         $vod = new FileLogic();
         $savename = $vod->uploadVideo($file,$param);
         return json(['code' => 1,'path' => $savename]);
