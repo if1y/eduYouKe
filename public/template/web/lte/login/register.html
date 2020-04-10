@@ -1,4 +1,4 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -9,60 +9,68 @@
     <link href="/template/web/{$templateName}/public/static/css/login.css" rel="stylesheet">
 </head>
 
-<body class="body-white">
-    {include file='public/nav' /}
-    <div class="container container-body">
-        <div class="row mt-4">
-            <div class="col-lg-6 col-md-6 col-auto mt-4 login">
-                <div class="login-img">
-                    <img src="/template/web/{$templateName}/public/static/img/loginLeft.jpg">
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-auto mt-4 login">
-                <div class="login media bg-white">
-                    <div class="align-self-center mx-auto">
-                        <div class="text-with-hr mt-4">
-                            <span style="font-weight: 600;">欢迎注册</span>
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        {include file='public/nav' /}
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-auto mt-4 login">
+                            <div class="login-img">
+                                <img src="/template/web/{$templateName}/public/static/img/loginLeft.jpg">
+                            </div>
                         </div>
-                        <form>
-                            <div id="nickname-login">
-                                <div class="form-group">
-                                    <label><strong class="text-black-50">用户名</strong></label>
-                                    <input type="text" class="form-control">
-                                    <!-- <small id="emailHelp" class="form-text text-muted">We'll neasdsadasdsaaaaaaaaaaaaaaav.</small> -->
-                                </div>
-                                <div class="form-group">
-                                    <label><strong class="text-black-50">请输入密码</strong></label>
-                                    <input type="password" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label><strong class="text-black-50">请再次输入密码</strong></label>
-                                    <input type="password" class="form-control">
+                        <div class="col-lg-6 col-md-6 col-auto mt-4 login">
+                            <div class="login media bg-white">
+                                <div class="align-self-center mx-auto">
+                                    <div class="text-with-hr mt-4">
+                                        <span style="font-weight: 600;">欢迎注册</span>
+                                    </div>
+                                    <form>
+                                        <div id="nickname-login">
+                                            <div class="form-group">
+                                                <label><strong class="text-black-50">用户名</strong></label>
+                                                <input type="text" class="form-control">
+                                                <!-- <small id="emailHelp" class="form-text text-muted">We'll neasdsadasdsaaaaaaaaaaaaaaav.</small> -->
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong class="text-black-50">请输入密码</strong></label>
+                                                <input type="password" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong class="text-black-50">请再次输入密码</strong></label>
+                                                <input type="password" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-check  mt-3">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label text-black-50">我已经阅读并同意</label>
+                                            <label class="form-check-label text-black-50"><a href="#">使用条款</a></label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block">立即注册</button>
+                                    </form>
+                                    <div class="clearfix"></div>
+                                    <div class="forget-password mt-2">
+                                        <p>
+                                            <label class="form-check-label text-black-50">
+                                                <a href="{:url('/login/login')}">
+                                                    账号登录
+                                                </a>
+                                            </label>
+                                        </p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <br>
                                 </div>
                             </div>
-                            <div class="form-group form-check  mt-3">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label text-black-50">我已经阅读并同意</label>
-                                <label class="form-check-label text-black-50"><a href="#">使用条款</a></label>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">立即注册</button>
-                        </form>
-                        <div class="clearfix"></div>
-                        <div class="forget-password mt-2">
-                            <p>
-                                <label class="form-check-label text-black-50">
-                                    <a href="{:url('/login/login')}">
-                                        账号登录
-                                    </a>
-                                </label>
-                            </p>
                         </div>
-                        <div class="clearfix"></div>
-                        <br>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     {include file='public/footer' /}
+    </div>
+    {include file='public/script' /}
 </body>

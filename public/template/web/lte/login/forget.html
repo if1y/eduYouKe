@@ -1,4 +1,4 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -9,65 +9,69 @@
     <link href="/template/web/{$templateName}/public/static/css/login.css" rel="stylesheet">
 </head>
 
-<body class="body-white">
-    {include file='public/nav' /}
-    <div class="container container-body">
-        <div class="row mt-4">
-            <div class="col-lg-6 col-md-6 col-auto mt-4 login">
-                <div class="login-img">
-                    <img src="/template/web/{$templateName}/public/static/img/loginLeft.jpg">
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-auto mt-4 login">
-                <div class="login media bg-white">
-                    <div class="align-self-center mx-auto">
-                        <div class="text-with-hr mt-4">
-                            <span style="font-weight: 600;">找回密码</span>
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        {include file='public/nav' /}
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-auto mt-4 login">
+                            <div class="login-img">
+                                <img src="/template/web/{$templateName}/public/static/img/loginLeft.jpg">
+                            </div>
                         </div>
-                        <form>
-                            <div id="sms-login">
-                                <div class="form-group mb-3">
-                                    <label><strong class="text-black-50">请输入手机号码</strong></label>
-                                    <input type="text" class="form-control mobile">
-                                    <!-- <small id="emailHelp" class="form-text text-muted"></small> -->
-                                </div>
-                                <strong class="text-black-50 ">请输入验证码</strong>
-                                <div class="input-group mt-2 mb-3">
-                                    <input type="text" class="form-control" aria-describedby="basic-addon">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon">
-                                            <a href="javascript:;">获取验证码</a>
-                                        </span>
+                        <div class="col-lg-6 col-md-6 col-auto mt-4 login">
+                            <div class="login media bg-white">
+                                <div class="align-self-center mx-auto">
+                                    <div class="text-with-hr mt-4">
+                                        <span style="font-weight: 600;">找回密码</span>
                                     </div>
+                                    <form>
+                                        <div id="sms-login">
+                                            <div class="form-group mb-3">
+                                                <label><strong class="text-black-50">请输入手机号码</strong></label>
+                                                <input type="text" class="form-control mobile">
+                                                <!-- <small id="emailHelp" class="form-text text-muted"></small> -->
+                                            </div>
+                                            <strong class="text-black-50 ">请输入验证码</strong>
+                                            <div class="input-group mt-2 mb-3">
+                                                <input type="text" class="form-control" aria-describedby="basic-addon">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon">
+                                                        <a href="javascript:;">获取验证码</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block mt-4">重置密码</button>
+                                    </form>
+                                    <div class="clearfix"></div>
+                                    <div class="forget-password mt-2">
+                                        <p>
+                                            <label class="form-check-label text-black-50">
+                                                <a href="{:url('/login/login')}">
+                                                    账号登陆
+                                                </a>
+                                            </label>
+                                            <label class="float-right text-black-50" for="exampleCheck1">
+                                                <a href="{:url('/login/register')}">
+                                                    账号注册
+                                                </a>
+                                            </label>
+                                        </p>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block mt-4">重置密码</button>
-                        </form>
-                        <div class="clearfix"></div>
-                        <div class="forget-password mt-2">
-                            <p>
-                                <label class="form-check-label text-black-50">
-                                    <a href="{:url('/login/login')}">
-                                        账号登陆
-                                    </a>
-                                </label>
-                                <label class="float-right text-black-50" for="exampleCheck1">
-                                    <a href="{:url('/login/register')}">
-                                        账号注册
-                                    </a>
-                                </label>
-                            </p>
                         </div>
-                        <div class="clearfix"></div>
-                        <br>
                     </div>
                 </div>
             </div>
         </div>
+        {include file='public/footer' /}
     </div>
-    <br>
-    <br>
-    {include file='public/footer' /}
+    {include file='public/script' /}
 </body>
 <script type="text/javascript">
 $(".sms-login").click(function() {
