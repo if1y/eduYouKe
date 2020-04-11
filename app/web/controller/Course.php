@@ -1,14 +1,15 @@
 <?php
 namespace app\web\controller;
+
+use app\logic\Chapter;
+use app\logic\Course as CourseLogic;
+use app\logic\CourseVideo;
 use app\WebBaseController;
 use think\facade\View;
-use app\logic\Course as CourseLogic;
-use app\logic\Chapter;
-use app\logic\CourseVideo;
 
 class Course extends WebBaseController
 {
-    
+
     /**
      * [index 课程首页]
      * @return [type] [description]
@@ -17,7 +18,7 @@ class Course extends WebBaseController
     {
         $param = $this->request->param();
 
-        $cours = new CourseLogic();
+        $cours   = new CourseLogic();
         $chapter = new Chapter();
 
         //获取详情
@@ -26,7 +27,6 @@ class Course extends WebBaseController
         $breadcrumb = $cours->getBreadcrumb($param['id']);
 
         $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
-
 
         //获取最近更新
 
@@ -47,7 +47,7 @@ class Course extends WebBaseController
 
         $param = $this->request->param();
 
-        $cours = new CourseLogic();
+        $cours   = new CourseLogic();
         $chapter = new Chapter();
 
         //获取详情
@@ -60,7 +60,7 @@ class Course extends WebBaseController
 
         //获取章节
         $chapterList = $chapter->getChapter($param['id']);
-         
+
         return view('', [
             'coursinfo' => $coursInfo,
             'breadcrumb' => $breadcrumb,
@@ -68,7 +68,6 @@ class Course extends WebBaseController
             'recommend' => $recommendCourse,
         ]);
     }
-
 
     /**
      * [articleList 课程关联文章]
@@ -78,7 +77,6 @@ class Course extends WebBaseController
     {
         return View::fetch('articleList');
     }
-    
 
     /**
      * [commentList 课程评论]
@@ -89,7 +87,7 @@ class Course extends WebBaseController
     {
         $param = $this->request->param();
 
-        $cours = new CourseLogic();
+        $cours   = new CourseLogic();
         $chapter = new Chapter();
 
         //获取详情
@@ -115,9 +113,8 @@ class Course extends WebBaseController
 
         $param = $this->request->param();
 
-
-        $video = new CourseVideo();
-        $cours = new CourseLogic();
+        $video   = new CourseVideo();
+        $cours   = new CourseLogic();
         $chapter = new Chapter();
 
         //获取详情
@@ -139,5 +136,5 @@ class Course extends WebBaseController
             'recommend' => $recommendCourse,
         ]);
     }
-    
+
 }

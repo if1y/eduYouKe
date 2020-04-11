@@ -61,7 +61,7 @@ class CourseVideo extends CourseVideoModel
         }
 
         return $data;
-        
+
     }
 
     public function baseQuery($where = [], $field = '*', $column = 'create_time', $desc = 'asc', $limit = '0')
@@ -72,38 +72,35 @@ class CourseVideo extends CourseVideoModel
             ->limit($limit)->select();
     }
 
-
     //根据videoId获取详情
     public function getVideoInfo($videoId)
     {
-        $video = $this->getCourseVideoInfo($videoId,'id,chapter_id,course_id,title,description,seoTitle,seoKeywords,seoDescription,video_url,image_url,channel');
+        $video = $this->getCourseVideoInfo($videoId, 'id,chapter_id,course_id,title,description,seoTitle,seoKeywords,seoDescription,video_url,image_url,channel');
 
         $next = $this->field('id,title')
-        ->where('id','>',$videoId)
-        ->where('course_id',$video['course_id'])
-        ->order('create_time','asc')->find();
+            ->where('id', '>', $videoId)
+            ->where('course_id', $video['course_id'])
+            ->order('create_time', 'asc')->find();
 
-        $video['next_id'] = $next['id'];
+        $video['next_id']    = $next['id'];
         $video['next_title'] = $next['title'];
         return $this->getVideoUrl($video);
     }
-    
-  
+
     public function getVideoUrl($video)
     {
-        if ($video['channel'] == 'local') {
+        if ($video['channel'] == 'local')
+        {
 
+            $video['video_url'] = get_domain() . '/storage/' . str_replace('\\', '/', $video['video_url']);
 
-            $video['video_url'] = 'tovideo\20200411\e3f21dec356563033d26fdd17e75b01c.mp4';
-            $video['video_url'] =  get_domain() . '/storage/' . str_replace('\\', '/', $video['video_url']);
+        }
+        else
+        {
 
-        }else{
-            $video['video_url'] = 'e69a2dafcb5c4b25a777304eb350fcc8';
-
-            $video_url = (new File())->getPlayInfo($video['video_url']);
+            $video_url          = (new File())->getPlayInfo($video['video_url']);
             $video['video_url'] = $video_url;
         }
-        // print_r($video);exit();
         return $video;
     }
 
