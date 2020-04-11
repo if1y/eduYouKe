@@ -42,6 +42,7 @@ class Course extends AdminBaseController
 
         if ($this->request->isPost())
         {
+        // print_r($param);exit();
             $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
             if ($cours->save($param))
@@ -72,6 +73,8 @@ class Course extends AdminBaseController
         $category = new CourseCategory();
         if ($this->request->isPost())
         {
+            // print_r($param);exit();
+            unset($param['file']);
             $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
             if ($cours->where('id', $param['id'])->save($param))

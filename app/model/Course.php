@@ -21,6 +21,19 @@ class Course extends Model
     }
 
 
+    /**
+     * post_content 自动转化
+     * @param $value
+     * @return string
+     */
+    public function getLevelStatusAttr($value)
+    {
+        $level = ['初级','中级','高级','炼狱'];
+        return $level[$value];
+    }
+
+
+
      /**
      * post_content 自动转化
      * @param $value

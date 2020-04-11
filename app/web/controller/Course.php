@@ -2,6 +2,7 @@
 namespace app\web\controller;
 use app\WebBaseController;
 use think\facade\View;
+use app\logic\Course as CourseLogic;
 
 class Course extends WebBaseController
 {
@@ -12,7 +13,22 @@ class Course extends WebBaseController
      */
     public function index()
     {
-        return View::fetch('index');
+        $param = $this->request->param();
+
+        $cours = new CourseLogic();
+        //获取详情
+        $coursInfo = $cours->getCourseInfo($param['id']);
+        //获取面包屑
+        $breadcrumb = $cours->getBreadcrumb($param['id']);
+
+
+        //获取最近更新
+
+        return view('', [
+            'coursinfo' => $coursInfo,
+            'breadcrumb' => $breadcrumb,
+        ]);
+
     }
 
     /**
@@ -21,7 +37,21 @@ class Course extends WebBaseController
      */
     public function chapter()
     {
-        return View::fetch('chapter');
+
+        $param = $this->request->param();
+
+        $cours = new CourseLogic();
+        //获取详情
+        $coursInfo = $cours->getCourseInfo($param['id']);
+        //获取面包屑
+        $breadcrumb = $cours->getBreadcrumb($param['id']);
+
+        //获取最近更新
+
+        return view('', [
+            'coursinfo' => $coursInfo,
+            'breadcrumb' => $breadcrumb,
+        ]);
     }
 
 
@@ -40,9 +70,22 @@ class Course extends WebBaseController
      * @param  [type] $value [description]
      * @return [type]        [description]
      */
-    public function commentList()
+    public function comment()
     {
-        return View::fetch('commentList');
+        $param = $this->request->param();
+
+        $cours = new CourseLogic();
+        //获取详情
+        $coursInfo = $cours->getCourseInfo($param['id']);
+        //获取面包屑
+        $breadcrumb = $cours->getBreadcrumb($param['id']);
+
+        //获取最近更新
+
+        return view('', [
+            'coursinfo' => $coursInfo,
+            'breadcrumb' => $breadcrumb,
+        ]);
     }
 
     /**

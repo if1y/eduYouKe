@@ -18,18 +18,19 @@
                     <div class="container">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb mt-2">
-                                <li class="breadcrumb-item"><a href="/">首页</a></li>
-                                <li class="breadcrumb-item"><a href="#">后端</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><a href="#">Swoole入门到放弃</a></li>
+                                {volist name="breadcrumb" id="vo" key="k"}
+                                <li class="breadcrumb-item"><a href="/">{$vo.title}</a></li>
+                                {/volist}
+                                <li class="breadcrumb-item active" aria-current="page"><a href="{:url('/course/index',['id'=>$coursinfo['id']])}">{$coursinfo.title}</a></li>
                             </ol>
                         </nav>
                         <div>
-                            <h1 class="p-2 text-white">光棍节脱单佳品2小时上手SpringBoot</h1>
+                            <h1 class="p-2 text-white">{$coursinfo.title}</h1>
                         </div>
                         <div class="mt-4">
                             <div class="text-white">
                                 <p>
-                                    <span class="p-2">难度:初级</span>
+                                    <span class="p-2">难度:{$coursinfo.level_status}</span>
                                     <span class="p-2">时长:2小时</span>
                                     <span class="p-2">学习人数:530</span>
                                 </p>
@@ -41,10 +42,10 @@
             <div class="bg-white course-nav shadow-lg rounded">
                 <div class="container">
                     <nav class="nav">
-                        <a class="nav-link text-muted" href="{:url('/course/index')}">课程介绍</a>
-                        <a class="nav-link active text-muted" href="{:url('/course/chapter')}">课程章节</a>
+                        <a class="nav-link text-muted" href="{:url('/course/index',['id'=>$coursinfo['id']])}">课程介绍</a>
+                        <a class="nav-link active text-muted" href="{:url('/course/chapter',['id'=>$coursinfo['id']])}">课程章节</a>
                         <!-- <a class="nav-link text-muted" href="{:url('/course/articleList')}">关联文章</a> -->
-                        <a class="nav-link text-muted" href="{:url('/course/commentList')}">课程评论</a>
+                        <a class="nav-link text-muted" href="{:url('/course/comment',['id'=>$coursinfo['id']])}">课程评论</a>
                     </nav>
                 </div>
             </div>
@@ -83,11 +84,11 @@
                         </div>
                         <div class="col-lg-3 col-md-12">
                             <div class="card mt-3">
-                                <img src="https://img1.mukewang.com/5dc225df09222b1512000676-240-135.png" class="card-img-top" alt="...">
+                                <img src="{:getUrlPath($coursinfo.cource_image_url)}" class="card-img-top" alt="...">
                                 <div class="p-3">
                                     <div class="card-body">
                                         <h5 class="card-title text-body">课程简介</h5>
-                                        <p class="card-text text-black-50">本课程适合略有编程基础的同学，能灵活运用Python更佳！</p>
+                                        <p class="card-text text-black-50">{$coursinfo.description}</p>
                                     </div>
                                     <div class="card-body">
                                         <!-- <a href="#" class="card-link detail-price">￥200</a> -->

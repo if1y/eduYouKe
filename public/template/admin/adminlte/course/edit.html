@@ -11,7 +11,7 @@ body {
 <div class="container-fluid bg-white h-100">
     <br>
     <div class="row">
-        <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/editPost">
+        <form class="m-auto w-75" id="content" method="post" action="{$Request.root}/{$Request.controller}/edit">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">所属分类</label>
                 <div class="col-sm-10">
@@ -41,7 +41,7 @@ body {
                 <div class="col-sm-10">
                     <input type="file" name="file" id="uploadFile" style="display: none;">
                     <input type="text" name="cource_image_url" id="uploadValue" value="" style="display: none;">
-                    <div id="defaultUpload" onclick="uploadImageById('defaultUpload','uploadFile','uploadValue')">
+                    <div id="defaultUpload">
                         <img src="{$editData.cource_image_url ? getUrlPath($editData.cource_image_url) :'__STATIC__/img/user3-128x128.jpg'}">
                     </div>
                 </div>
@@ -146,6 +146,41 @@ wangeditor_debug_mode = 1
 editor.create()
 // 初始化 textarea 的值
 $text1.val(editor.txt.html())
+
+
+var uploadConfig = {
+    inputId: 'uploadFile', // 上传图片的inputId
+    triggerId: 'defaultUpload', // 触发上传的元素Id
+    url: "/admin/File/imageUpload", // 上传地址
+    params: { // 上传需要携带的参数
+        token: 'a8100c30fc194ff275f691336c655ea6'
+    },
+    beforeSend: function() {
+        upload = layer.msg('loadding...', {
+            icon: 16,
+            shade: 0.2,
+            time: false
+        });
+        // 做loadding开始处理
+    },
+    isShowProgress: false, // 是否需要展示上传进度
+    loadProgress: function(progress) { // 上传进度回调
+        // console.log(progress)
+    },
+    base64String: function(base64Str) { // 获取本地的base64字符串做展示
+
+
+        console.log("#defaultUpload" + " img");
+        $("#defaultUpload" + " img").attr('src', base64Str);
+        // console.log(base64Str)
+    },
+    loadSuccess: function(data) { // 上传完成后回调
+        $("#uploadValue").val(data.path);;
+        layer.close(upload);
+    }
+}
+
+uploadImage(uploadConfig)
 
 
 jQuery.validator.addMethod("isMobile", function(value, element) {

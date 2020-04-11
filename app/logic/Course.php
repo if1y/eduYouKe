@@ -2,6 +2,7 @@
 namespace app\logic;
 
 use app\model\Course as CourseModel;
+use app\util\Tools;
 
 class Course extends CourseModel
 {
@@ -72,6 +73,19 @@ class Course extends CourseModel
             $item['cource_image_url'] = getUrlPath($item['cource_image_url']);
             return $item;
         });
+    }
+
+    //根据课程ID获取面包屑
+    public function getBreadcrumb($id)
+    {   
+        $info = $this->getCourseInfo($id);
+
+        $parent = (new CourseCategory())->field('parent_id')->where('id',$info['category_id'])->find();
+        $data = (new CourseCategory())->field('id,title,parent_id')
+        ->where(['delete_status'=>0,'show_status'=>1])->select()->toArray();
+
+        $result = Tools::getBreadcrumb($data,$parent['parent_id']);
+        return $result;
     }
 
 }

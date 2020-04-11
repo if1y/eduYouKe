@@ -372,4 +372,26 @@ class Tools
         return $newArr;
     }
 
+
+
+	public static function getBreadcrumb($data,$pid)
+	{
+	    //$date:数据表
+	    //$pid:父id
+	    static $daohang = array();
+	    //循环原始的分类数组
+	    foreach ($data as $key=>$value)
+	    {
+	        if($value['id'] == $pid)
+	        {
+	            //递归调用
+	            self::getBreadcrumb($data,$value['parent_id']);
+	            //把数组放到daohang中
+	            $daohang[] = $value;
+	        }
+	    }
+	    //返回结果
+	    return $daohang;
+	}
+
 }

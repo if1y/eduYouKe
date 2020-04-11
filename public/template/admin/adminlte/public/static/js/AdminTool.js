@@ -62,10 +62,14 @@
                     var validate = iframeWin.myValidate();
                     var formData = iframeWin.$("form").serialize();
                     var data_params = decodeURIComponent(formData,true);
+
+
+                    // getToPost(data_params);return;
+
                     //
                     if (validate) {
 
-                        $.post(href, getToPost(data_params), function(data) {
+                        $.post(href, (data_params), function(data) {
 
                             if (data.code == 1) {
 
@@ -110,6 +114,10 @@
             var keyarr = item.split('=');
             obj[keyarr[0]] = keyarr[1];
         }
+
+        console.log(obj);
+        return;
+
         return obj;
     }
 
@@ -151,11 +159,11 @@
                     var validate = iframeWin.myValidate();
                     var formData = iframeWin.$("form").serialize();
                     var data_params = decodeURIComponent(formData,true);
-                    
+                    // getToPost(data_params);return;
                     //
                     if (validate) {
 
-                        $.post(href, getToPost(data_params), function(data) {
+                        $.post(href, (data_params), function(data) {
 
                             if (data.code == 1) {
 
