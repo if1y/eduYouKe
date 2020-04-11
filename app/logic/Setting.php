@@ -80,4 +80,10 @@ class Setting extends SettingModel
             ->select()->toArray();
     }
 
+    //
+    public function getSettingContent($category_name)
+    {
+        $result = $this->getSettingInfo(['category_name'=>$category_name],'content');
+        return $result['content'];
+    }
 }

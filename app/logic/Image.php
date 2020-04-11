@@ -3,12 +3,12 @@ namespace app\logic;
 use OSS\Core\OssException;
 use OSS\OssClient;
 
+
 class Image
 {   
     //上传图片
     public function uploadImage($file,$param)
     {
-
 
         if (is_array($file)) {
 
@@ -18,6 +18,7 @@ class Image
 
 
         $status = $this->getUploadSetting();
+
         if ($status) {
 
             return $this->aliOssUpload($file,$param);
@@ -32,7 +33,7 @@ class Image
     //
     public function getUploadSetting()
     {
-        return 0;
+        return (new Setting())->getSettingContent('imageUploader');
     }
 
     //多图上传
@@ -75,11 +76,14 @@ class Image
     public function aliOssUpload($file,$param)
     {
 
-        $accessKeyId = 'LTAIc9QzMqt4UneS';
-        $accessKeySecret = 'BTxcFrnQw0Q3phgH5lhHkdetEdXANy';
-        $endpoint = 'http://oss-cn-beijing.aliyuncs.com/';
-        $bucket = 'swechat-img';
-        $object = $file->getOriginalName();
+        $set = new Setting();
+
+        $accessKeyId = $set->getSettingContent('aliossKey');
+        $accessKeySecret = $set->getSettingContent('aliossSecret');
+        $endpoint = $set->getSettingContent('ossEndpoint');
+        $bucket = $set->getSettingContent('ossBucket');
+
+        $object = $file->md5().'.'.$file->getOriginalExtension();
         $content = $file->getPathName();
 
         try{
