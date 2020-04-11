@@ -72,13 +72,23 @@ body {
                 <input type="hidden" name="id" value="{$editData.id}">
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">视频地址</label>
+                <label class="col-sm-2 col-form-label">视频上传</label>
                 <div class="col-sm-10">
-                    <input type="file" name="file" id="uploadFile" style="display: none;">
-                    <input type="text" name="image_url" id="uploadImgValue" value="{$editData.image_url}" style="display: none;">
-                    <input type="text" name="vide_url" id="uploadValue" value="{$editData.vide_url}" style="display: none;">
-                    <div id="defaultUpload" onclick="uploadImageById('defaultUpload','uploadFile','uploadValue','uploadImgValue')">
-                        <img src="{$editData.image_url ? getUrlPath($editData.image_url) :'__STATIC__/img/video-128x128.jpg'}">
+                    <div class="input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <select class="form-control h-100" id="channel" name="channel" style="min-width: 120px;">
+                                <option value="local">本地上传</option>
+                                <option value="alivod">阿里云上传</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" id="videoUrl" value="{$editData.video_url}"  name="video_url">
+                        <span class="input-group-append">
+                            <input type="file" name="file" id="uploadFile" style="display: none;">
+                            <a href="javascript:void(0);" id="defaultUploads" class="btn btn-info btn-flat">
+                                上传
+                            </a>
+                            <!-- <button type="button" id="defaultUploads" class="btn btn-info btn-flat">上传</button> -->
+                        </span>
                     </div>
                 </div>
             </div>
@@ -93,7 +103,7 @@ body {
                 <div class="col-sm-10">
                     <div class="form-group">
                         <div class="icheck-success d-inline">
-                            <input type="checkbox" name="show_status" {$editData.show_status==1 ? 'checked' :''}  id="showStatus">
+                            <input type="checkbox" name="show_status" {$editData.show_status==1 ? 'checked' :''}  value="1"  id="showStatus">
                             <label for="showStatus">
                                 是否可用
                             </label>
@@ -130,6 +140,38 @@ $(function() {
     });
 
 })
+
+var uploadConfig = {
+    inputId: "uploadFile", // 上传图片的inputId
+    triggerId: "defaultUploads", // 触发上传的元素Id
+    url: "/admin/File/uploadVideo", // 上传地址
+    // params: { // 上传需要携带的参数
+        // channel: channel,
+    // },
+    beforeSend: function() {
+        upload = layer.msg('loadding...', {
+            icon: 16,
+            shade: 0.2,
+            time: false
+        });
+        // 做loadding开始处理
+    },
+    isShowProgress: false, // 是否需要展示上传进度
+    loadProgress: function(progress) { // 上传进度回调
+        // console.log(progress)
+    },
+    base64String: function(imagePath) { // 获取本地的base64字符串做展示
+
+    },
+    loadSuccess: function(data) { // 上传完成后回调
+        $("#videoUrl").val(data.path);
+        $("#videoUrl").attr("disabled", "disabled");
+        layer.close(upload);
+    }
+}
+videoUploader(uploadConfig)
+
+
 
 function getSelectChapter() {
 

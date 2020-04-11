@@ -49,6 +49,10 @@
                     </nav>
                 </div>
             </div>
+
+            
+
+
             <div class="content">
                 <div class="container">
                     <div class="row">
@@ -61,15 +65,18 @@
                         <div class="col-lg-3 col-md-12">
                             <div class="card mt-3">
                                 <img src="{:getUrlPath($coursinfo.cource_image_url)}" class="card-img-top" alt="...">
-                                <div class="p-3">
+                                <div class="p-2">
                                     <div class="card-body">
                                         <h5 class="card-title text-body">课程简介</h5>
                                         <p class="card-text text-black-50">{$coursinfo.description}</p>
                                     </div>
                                     <div class="card-body">
                                         <!-- <a href="#" class="card-link detail-price">￥200</a> -->
-                                        <span class="detail-price">￥200</span>
-                                        <a href="{:url('/order/createOrder')}" class="btn btn-primary btn-xs btn-danger float-right">立即购买</a>
+                                        {if $coursinfo.sell_price}
+                                        <a href="{:url('/order/createOrder',['id'=>$coursinfo['id']])}" class="btn btn-danger btn-sm btn-block">￥{$coursinfo.sell_price} 立即购买</a>
+                                        {else /}
+                                        <a href="{:url('/course/index',['id'=>$coursinfo['id']])}" class="btn btn-info btn-sm btn-block">立即学习</a>
+                                        {/if}
                                         <!-- <a href="#" class="btn btn-primary btn-lg btn-block btn-danger float-right">开始学习</a> -->
                                     </div>
                                 </div>
@@ -77,84 +84,24 @@
                             </div>
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">最近更新</h3>
-                                    <!-- <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div> -->
+                                    <h3 class="card-title">推荐课程</h3>
                                 </div>
-                                <!-- /.card-header -->
                                 <div class="card-body p-0">
                                     <ul class="products-list product-list-in-card pl-2 pr-2">
+                                        {volist name="recommend" id="vo"}
                                         <li class="item">
                                             <div class="product-img">
-                                                <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
+                                                <img src="{:getUrlPath($vo.cource_image_url)}" alt="Product Image" class="img-size-50">
                                             </div>
                                             <div class="product-info">
-                                                <a href="javascript:void(0)" class="product-title">
-                                                    Swoole第二章节
-                                                    <span class="badge badge-warning float-right">$1800</span></a>
-                                                <span class="product-description">
-                                                    Swoole第二章节
-                                                </span>
+                                                <a href="{:url('/course/index',['id'=>$vo['course_id']])}" class="product-title">
+                                                    {$vo.course_title}
+                                                    <small class="product-description mt-1">
+                                                        {$vo.description}
+                                                    </small>
                                             </div>
                                         </li>
-                                        <li class="item">
-                                            <div class="product-img">
-                                                <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                            </div>
-                                            <div class="product-info">
-                                                <a href="javascript:void(0)" class="product-title">
-                                                    Swoole第二章节
-                                                    <span class="badge badge-warning float-right">$1800</span></a>
-                                                <span class="product-description">
-                                                    Swoole第二章节
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="item">
-                                            <div class="product-img">
-                                                <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                            </div>
-                                            <div class="product-info">
-                                                <a href="javascript:void(0)" class="product-title">
-                                                    Swoole第二章节
-                                                    <span class="badge badge-warning float-right">$1800</span></a>
-                                                <span class="product-description">
-                                                    Swoole第二章节
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="item">
-                                            <div class="product-img">
-                                                <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                            </div>
-                                            <div class="product-info">
-                                                <a href="javascript:void(0)" class="product-title">
-                                                    Swoole第二章节
-                                                    <span class="badge badge-warning float-right">$1800</span></a>
-                                                <span class="product-description">
-                                                    Swoole第二章节
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="item">
-                                            <div class="product-img">
-                                                <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                            </div>
-                                            <div class="product-info">
-                                                <a href="javascript:void(0)" class="product-title">
-                                                    Swoole第二章节
-                                                    <span class="badge badge-warning float-right">$1800</span></a>
-                                                <span class="product-description">
-                                                    Swoole第二章节
-                                                </span>
-                                            </div>
-                                        </li>
+                                        {/volist}
                                     </ul>
                                 </div>
                                 <!-- /.card-body -->

@@ -4,6 +4,7 @@ use think\facade\Db;
 use think\facade\Request;
 use think\facade\Session;
 
+
 // 应用公共文件
 function getUrlPath($avatar)
 {
@@ -19,6 +20,14 @@ function getUrlPath($avatar)
     return $avatar;
 }
 
+/**
+ * 返回带协议的域名
+ */
+function get_domain()
+{
+    $request = Request::instance();
+    return $request->domain();
+}
 
 
 function checkUrl($url){

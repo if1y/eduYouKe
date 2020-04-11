@@ -40,7 +40,7 @@ body {
                 <label class="col-sm-2 col-form-label">课程封面图片</label>
                 <div class="col-sm-10">
                     <input type="file" name="file" id="uploadFile" style="display: none;">
-                    <input type="text" name="cource_image_url" id="uploadValue" value="" style="display: none;">
+                    <input type="text" name="cource_image_url" id="uploadValue" value="{$editData.cource_image_url}" style="display: none;">
                     <div id="defaultUpload">
                         <img src="{$editData.cource_image_url ? getUrlPath($editData.cource_image_url) :'__STATIC__/img/user3-128x128.jpg'}">
                     </div>
@@ -69,7 +69,7 @@ body {
                 <label class="col-sm-2 col-form-label">内容简介</label>
                 <div class="col-sm-10">
                     <div id="editor">
-                        <p>{:html_entity_decode($editData.content)}</p>
+                        {:html_entity_decode($editData.content)}
                     </div>
                     <textarea id="editorcontent" name="content" style="display: none;"></textarea>
                 </div>

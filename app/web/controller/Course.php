@@ -3,6 +3,8 @@ namespace app\web\controller;
 use app\WebBaseController;
 use think\facade\View;
 use app\logic\Course as CourseLogic;
+use app\logic\Chapter;
+use app\logic\CourseVideo;
 
 class Course extends WebBaseController
 {
@@ -16,10 +18,14 @@ class Course extends WebBaseController
         $param = $this->request->param();
 
         $cours = new CourseLogic();
+        $chapter = new Chapter();
+
         //获取详情
         $coursInfo = $cours->getCourseInfo($param['id']);
         //获取面包屑
         $breadcrumb = $cours->getBreadcrumb($param['id']);
+
+        $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
 
 
         //获取最近更新
@@ -27,6 +33,7 @@ class Course extends WebBaseController
         return view('', [
             'coursinfo' => $coursInfo,
             'breadcrumb' => $breadcrumb,
+            'recommend' => $recommendCourse,
         ]);
 
     }
@@ -41,16 +48,24 @@ class Course extends WebBaseController
         $param = $this->request->param();
 
         $cours = new CourseLogic();
+        $chapter = new Chapter();
+
         //获取详情
         $coursInfo = $cours->getCourseInfo($param['id']);
         //获取面包屑
         $breadcrumb = $cours->getBreadcrumb($param['id']);
 
-        //获取最近更新
+        //获取推荐课程
+        $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
 
+        //获取章节
+        $chapterList = $chapter->getChapter($param['id']);
+         
         return view('', [
             'coursinfo' => $coursInfo,
             'breadcrumb' => $breadcrumb,
+            'chapterlist' => $chapterList,
+            'recommend' => $recommendCourse,
         ]);
     }
 
@@ -75,16 +90,19 @@ class Course extends WebBaseController
         $param = $this->request->param();
 
         $cours = new CourseLogic();
+        $chapter = new Chapter();
+
         //获取详情
         $coursInfo = $cours->getCourseInfo($param['id']);
         //获取面包屑
         $breadcrumb = $cours->getBreadcrumb($param['id']);
-
         //获取最近更新
+        $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
 
         return view('', [
             'coursinfo' => $coursInfo,
             'breadcrumb' => $breadcrumb,
+            'recommend' => $recommendCourse,
         ]);
     }
 
@@ -94,7 +112,32 @@ class Course extends WebBaseController
      */
     public function detail()
     {
-        return View::fetch('detail');
+
+        $param = $this->request->param();
+
+
+        $video = new CourseVideo();
+        $cours = new CourseLogic();
+        $chapter = new Chapter();
+
+        //获取详情
+        $coursInfo = $cours->getCourseInfo($param['course_id']);
+        //获取面包屑
+        $breadcrumb = $cours->getBreadcrumb($param['course_id']);
+        //获取最近更新
+        $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
+        //获取章节
+        $chapterList = $chapter->getChapter($param['course_id']);
+
+        $videoInfo = $video->getVideoInfo($param['id']);
+
+        return view('', [
+            'coursinfo' => $coursInfo,
+            'videoinfo' => $videoInfo,
+            'breadcrumb' => $breadcrumb,
+            'chapterlist' => $chapterList,
+            'recommend' => $recommendCourse,
+        ]);
     }
     
 }

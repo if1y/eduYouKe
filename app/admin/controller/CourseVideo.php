@@ -34,7 +34,6 @@ class CourseVideo extends AdminBaseController
 
         if ($this->request->isPost())
         {
-
             if ($courseVideo->save($param))
             {
                 $this->success('操作成功');
@@ -70,7 +69,10 @@ class CourseVideo extends AdminBaseController
 
         if ($this->request->isPost())
         {
-
+            // $param['channel']
+            // unset($param['channel']);
+            // $param['video_type'] = $param['channel'];
+            // print_r($param);exit();
             if ($courseVideo->where('id',$param['id'])->save($param))
             {
                 $this->success('操作成功');
