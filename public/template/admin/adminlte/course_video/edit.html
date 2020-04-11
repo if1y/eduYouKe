@@ -165,7 +165,7 @@ var uploadConfig = {
     },
     loadSuccess: function(data) { // 上传完成后回调
         $("#videoUrl").val(data.path);
-        $("#videoUrl").attr("disabled", "disabled");
+        // $("#videoUrl").attr("disabled", "disabled");
         layer.close(upload);
     }
 }
