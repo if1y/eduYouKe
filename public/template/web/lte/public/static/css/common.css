@@ -25,3 +25,12 @@
 #course-title p,#course-title a{
     max-width: 280px;
 }
+
+.nav #nav-item .active {
+    font-weight: 600;
+    font-size: 14px;
+    color: red;
+    background-color: rgba(242, 13, 13, .06);
+    border-radius: 12px;
+}
+

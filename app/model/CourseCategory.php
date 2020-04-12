@@ -23,4 +23,15 @@ class CourseCategory extends Model
 
     }
 
+    //
+    public function baseQuery($where = [], $field = '*', $column = 'create_time', $desc = 'asc', $limit = '0')
+    {
+        return $this->field($field)->where($where)
+            ->where(['delete_status' => 0, 'show_status' => 1])
+            ->order($column, $desc)
+            // ->order($column, 'asc')
+            ->limit($limit)->select();
+    }
+
+
 }

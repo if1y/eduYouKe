@@ -3,6 +3,7 @@ namespace app\web\controller;
 use app\WebBaseController;
 use think\facade\View;
 use app\logic\Banner;
+use app\logic\Nav;
 use app\logic\Course;
 
 
@@ -29,7 +30,17 @@ class Index extends WebBaseController
      */
     public function list()
     {
-        return View::fetch('list');
+        $param = $this->request->param();
+
+        $nav = new Nav();
+        $navView = $nav->getNavView($param);
+        $list = $nav->getListData($param);
+        // print_r($list->render());exit();
+        return view('',[
+            'navview'=>$navView,
+            'list'=>$list,
+            'page'=>$list->render('paht')
+        ]);
     }
 
     /**
