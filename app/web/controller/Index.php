@@ -35,7 +35,7 @@ class Index extends WebBaseController
         $nav = new Nav();
         $navView = $nav->getNavView($param);
         $list = $nav->getListData($param);
-        // print_r($list->render());exit();
+
         return view('',[
             'navview'=>$navView,
             'list'=>$list,
@@ -57,8 +57,21 @@ class Index extends WebBaseController
      * @return [type] [description]
      */
     public function search()
-    {
-        return View::fetch('search');
+    {   
+        $param = $this->request->param();
+        $course = new Course();
+
+        if (isset($param['keywords'])) {
+            $title = $param['keywords'];
+            $list = $course->baseQuery([['title','like', '%'.$title.'%']]);
+        }else{
+            $list = [];
+        }
+
+        return view('',[
+            'list'=>$list,
+            'count'=>count($list),
+        ]);
     }
 
 }

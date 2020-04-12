@@ -341,3 +341,18 @@ CREATE TABLE `edu_comment` (
   KEY `parent_id` (`parent_id`) USING BTREE,
   KEY `create_time` (`create_time`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论表';
+
+
+
+DROP TABLE IF EXISTS `edu_record_log`;
+CREATE TABLE `edu_record_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(20) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `category` varchar(20) NOT NULL DEFAULT '' COMMENT '分类',
+  `content` varchar(255) DEFAULT NULL COMMENT '输入内容',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `category` (`category`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COMMENT='系统Log流水表';
+

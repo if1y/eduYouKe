@@ -27,27 +27,27 @@
                                     <div class="text-with-hr mt-4">
                                         <span style="font-weight: 600;">欢迎登录</span>
                                     </div>
-                                    <form>
+                                    <form id="content">
                                         <div id="nickname-login">
                                             <div class="form-group">
                                                 <label><strong class="text-black-50">手机号/用户名</strong></label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" name="username" class="form-control username">
                                                 <!-- <small id="emailHelp" class="form-text text-muted">We'll neasdsadasdsaaaaaaaaaaaaaaav.</small> -->
                                             </div>
                                             <div class="form-group">
                                                 <label><strong class="text-black-50">请输入密码</strong></label>
-                                                <input type="password" class="form-control">
+                                                <input type="password" name="password" class="form-control password">
                                             </div>
                                         </div>
                                         <div id="sms-login" style="display: none;">
                                             <div class="form-group mb-3">
                                                 <label><strong class="text-black-50">请输入手机号码</strong></label>
-                                                <input type="text" class="form-control mobile">
+                                                <input type="text" name="mobile" class="form-control mobile">
                                                 <!-- <small id="emailHelp" class="form-text text-muted">We'll neasdsadasdsaaaaaaaaaaaaaaav.</small> -->
                                             </div>
                                             <strong class="text-black-50 ">请输入验证码</strong>
                                             <div class="input-group mt-2 mb-3">
-                                                <input type="text" class="form-control" aria-describedby="basic-addon">
+                                                <input type="text" name="smscode" class="form-control smscode" aria-describedby="basic-addon">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="basic-addon">
                                                         <a href="javascript:;">获取验证码</a>
@@ -59,19 +59,19 @@
                                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                             <label class="form-check-label text-black-50">记住我</label>
                                             <label class="float-right text-primary sms-login">
-                                                <i class="fas fa-mobile-alt text-primary" aria-hidden="true"></i>
+                                                <i class="fa fa-mobile text-primary" aria-hidden="true"></i>
                                                 短信验证登录
                                             </label>
                                             <label class="float-right text-primary nickname-login" style="display: none;">
-                                                <i class="fas fa-user text-primary" aria-hidden="true"></i>
+                                                <i class="fa fa-user text-primary" aria-hidden="true"></i>
                                                 用户名/手机号登录
                                             </label>
+                                            <input type="hidden" value="0" class="logintype">
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-block">登录</button>
+                                        <!-- <button type="submit" class="btn btn-primary btn-block">登录</button> -->
+                                        <button id="formLogin" class="btn btn-primary btn-block">登录</button>
                                     </form>
                                     <div class="clearfix"></div>
-
-
                                     <div class="forget-password mt-2">
                                         <p>
                                             <label class="form-check-label text-black-50">
@@ -86,8 +86,6 @@
                                             </label>
                                         </p>
                                     </div>
-
-
                                     <div class="clearfix"></div>
                                     <div class="text-with-hr">
                                         <span class="text-black-50">其他方式登录</span>
@@ -99,8 +97,6 @@
                                             <!-- <img class="other-login-img flex-fill" src="/static/web/detault/img/qqLogin.svg" /> -->
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -115,6 +111,7 @@
 </body>
 <script type="text/javascript">
 $(".sms-login").click(function() {
+    $(".logintype").val("1");
     $("#nickname-login").hide();
     $("#sms-login").show();
     $(".sms-login").hide();
@@ -122,6 +119,8 @@ $(".sms-login").click(function() {
 });
 
 $(".nickname-login").click(function() {
+
+    $(".logintype").val("0");
     $("#nickname-login").show();
     $("#sms-login").hide();
     $(".sms-login").show();
@@ -149,14 +148,16 @@ $("#basic-addon").click(function() {
 
 
 
-    success('验证码获取成功');
+    // success('验证码获取成功');
     //请求短信接口
-    $.post("/user/verification_code/sends.html", {}, function(data) {
+    $.post("{:url('/login/getSmsCode')}", { mobile: mobile }, function(data) {
         if (data.code == 1) {
-
             //展示文案
-            return success('验证码获取成功');
+            return success(data.message);
             //todo
+        } else {
+
+            return error(data.message);
         }
     });
 
@@ -175,6 +176,54 @@ $("#basic-addon").click(function() {
             clearInterval(interval);
         }
     }, 1000);
+
+
+
+});
+
+
+
+$("#formLogin").click(function(event) {
+
+    event.preventDefault();
+
+    var username = $('.username').val();
+    var password = $('.password').val();
+    var smscode = $('.smscode').val();
+    var mobile = $('.mobile').val();
+    var type = $('.logintype').val();
+
+    if (type == 1) {
+
+        if (mobile == '' || smscode == '') {
+            return error('请填写手机号/验证码');
+        }
+
+    } else {
+
+        if (username == '' || password == '') {
+            return error('请填写用户名/密码');
+        }
+
+
+    }
+
+
+    $.post("{:url('/login/doLogin')}", { username: username, password: password, mobile: mobile, smscode: smscode, type: type }, function(json) {
+        if (json.code == 1) {
+
+            success(json.message);
+            setTimeout(function() {
+                window.location.href = "/"
+            }, 1000);
+
+
+        } else {
+
+            return error(json.message);
+        }
+
+    }, "json");
 
 
 

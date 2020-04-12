@@ -2,9 +2,27 @@
 namespace app\logic;
 
 use app\model\AdminUser as AdminUserModel;
+use think\facade\Session;
+use app\util\Tools;
 
 class AdminUser extends AdminUserModel
 {
+
+    //
+    public function doLogin($param)
+    {   
+        $result = 0;
+        $userInfo = (new AdminUser())->getAdminUserInfo(['nickname'=>$param['username']]);
+        if ($userInfo) {
+            $userInfo = $userInfo->toArray();
+            if ($userInfo['password'] == Tools::userMd5($param['password'])) {
+                Session::set('adminUserInfo',json_encode($userInfo));
+                $result = 1;
+            }
+
+        }
+        return $result;
+    }
 
     /**
      * [getUserList ]

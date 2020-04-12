@@ -2,7 +2,7 @@
 namespace app\admin\controller;
 
 use app\AdminBaseController;
-use app\logic\User;
+use app\logic\AdminUser;
 use think\facade\Session;
 use think\facade\View;
 
@@ -29,7 +29,7 @@ class Login extends AdminBaseController
         // {
         //     $this->error('验证码错误');
         // }
-        $user   = new User();
+        $user   = new AdminUser();
         $result = $user->doLogin($param);
         switch ($result)
         {

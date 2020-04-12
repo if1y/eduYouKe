@@ -14,4 +14,50 @@ $(function() {
     $('.pagination li span').addClass("page-link");
     $('.pagination li a').addClass("page-link");
 })
+
+
+function success(message = 'success', timeout = 2000) {
+
+
+    $modal({
+        type: 'message',
+        icon: 'success',
+        timeout: timeout,
+        content: message,
+        center: false,
+        top: 100,
+        transition: 300,
+        closable: true,
+    })
+}
+
+
+function error(message = 'error', timeout = 2000) {
+
+    $modal({
+
+        type: 'message',
+        icon: 'error',
+        content: '验证码发送成功,请注意查收',
+        content: message,
+        center: false,
+        top: 100,
+        transition: 300,
+        closable: true,
+    })
+}
+
+function CheckMobile(mobile) {
+
+    if (!mobile) {
+        return 0;
+    }
+    var reg = /[a-zA-Z0-9]{1,10}@[a-zA-Z0-9]{1,5}\.[a-zA-Z0-9]{1,5}|^1[3578]\d{9}$|^[\u4e00-\u9fa5]{2,4}$/;
+    if (!reg.test(mobile)) {
+        return 2;
+    } else {
+        return mobile;
+    }
+
+}
 </script>

@@ -4,7 +4,6 @@ use think\facade\Db;
 use think\facade\Request;
 use think\facade\Session;
 
-
 // 应用公共文件
 function getUrlPath($avatar)
 {
@@ -23,25 +22,27 @@ function getUrlPath($avatar)
 /**
  * 返回带协议的域名
  */
-function get_domain()
+function getDomain()
 {
     $request = Request::instance();
     return $request->domain();
 }
 
+function checkUrl($url)
+{
 
-function checkUrl($url){
+    $pattern = "/^(http|https):\/\/.*$/i";
 
-    $pattern="/^(http|https):\/\/.*$/i";
-    
-    if(preg_match($pattern,$url)){
+    if (preg_match($pattern, $url))
+    {
         return true;
-    }else{
+    }
+    else
+    {
         return false;
     }
 
 }
-
 
 // //超出展示省略号
 // function cutSubstr($str, $len = 16)
@@ -138,6 +139,55 @@ function getAdminAuth($authUrl, $url, $authId)
                         ' . $config[$authUrl]['name'] . '
                 </a>';
 
+    return $result;
+
+}
+
+/**
+ * 检查手机格式，中国手机不带国家代码，国际手机号格式为：国家代码-手机号
+ * @param $mobile
+ * @return bool
+ */
+function checkMobile($mobile)
+{
+    if (preg_match('/(^(13\d|14\d|15\d|16\d|17\d|18\d|19\d)\d{8})$/', $mobile))
+    {
+        return true;
+    }
+    else
+    {
+        if (preg_match('/^\d{1,4}-\d{5,11}$/', $mobile))
+        {
+            if (preg_match('/^\d{1,4}-0+/', $mobile))
+            {
+                //不能以0开头
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+}
+
+function getRoundCode($length = 6)
+{
+
+    switch ($length)
+    {
+        case 4:
+            $result = rand(1000, 9999);
+            break;
+        case 6:
+            $result = rand(100000, 999999);
+            break;
+        case 8:
+            $result = rand(10000000, 99999999);
+            break;
+        default:
+            $result = rand(100000, 999999);
+    }
     return $result;
 
 }

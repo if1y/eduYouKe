@@ -3,14 +3,14 @@ namespace app\model;
 
 use think\Model;
 
-class User extends Model
+class RecordLog extends Model
 {
 
     protected $autoWriteTimestamp = true;
     protected $updateTime         = false;
 
     //获取详情
-    public function getUserInfo($id, $fields = '*')
+    public function getRecordLogInfo($id, $fields = '*')
     {
         if (is_array($id))
         {
