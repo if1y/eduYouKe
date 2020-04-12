@@ -90,7 +90,7 @@ class User extends UserModel
         }
 
         if ($userInfo['password'] == Tools::userMd5($param['password'])) {
-            Session::set('adminUserInfo',json_encode($userInfo));
+            Session::set('UserInfo',json_encode($userInfo));
             return 1;
         }
 
@@ -118,7 +118,7 @@ class User extends UserModel
             return 4; //验证码无效
         }
 
-        Session::set('adminUserInfo',json_encode($userInfo));
+        Session::set('UserInfo',json_encode($userInfo));
 
         return 1;
 

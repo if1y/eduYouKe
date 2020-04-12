@@ -92,7 +92,7 @@ class CourseVideo extends CourseVideoModel
         if ($video['channel'] == 'local')
         {
 
-            $video['video_url'] = get_domain() . '/storage/' . str_replace('\\', '/', $video['video_url']);
+            $video['video_url'] = getDomain() . '/storage/' . str_replace('\\', '/', $video['video_url']);
 
         }
         else

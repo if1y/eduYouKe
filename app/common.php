@@ -191,3 +191,22 @@ function getRoundCode($length = 6)
     return $result;
 
 }
+
+function getUserInfoData($admin = 0, $column = 'id')
+{
+    $key = $admin ? 'adminUserInfo' :'UserInfo';
+    $userInfo  = Session::get($key);
+    if (!empty($userInfo)) {
+        $info = json_decode($userInfo,true);
+        // print_r($info[$column]);exit();
+        return $info[$column];
+    }else{
+        return false;
+    }
+}
+
+//获取用户头像
+function getUserAvatarUrl()
+{
+    return getUrlPath(getUserInfoData(0,'avatar_url'));
+}
