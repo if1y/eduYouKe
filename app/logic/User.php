@@ -25,7 +25,7 @@ class User extends UserModel
 
         $count = $log->where([
             'category'=>'smsCode',
-            'title'=>$param['mobile']]
+            'key'=>$param['mobile']]
         )->whereDay('create_time')->count();
 
         if ($count >= 5) {
@@ -33,9 +33,9 @@ class User extends UserModel
         }
         $log->save(
             [
-                'title'=>$param['mobile'],
+                'key'=>$param['mobile'],
                 'category'=>'smsCode',
-                'content'=>$code,
+                'value'=>$code,
                 'create_time'=>time()
             ]);
 
@@ -88,15 +88,33 @@ class User extends UserModel
         if (empty($userInfo)) {
             return 2; //暂无此用户
         }
-
+        // print_r(Tools::userMd5($param['password']));exit();
         if ($userInfo['password'] == Tools::userMd5($param['password'])) {
+            
+            $this->updateExperience($userInfo);
             Session::set('UserInfo',json_encode($userInfo));
             return 1;
         }
-
         return 5;
 
     }
+
+    //
+    public function updateExperience($userInfo)
+    {
+
+        $log = new RecordLog();
+        $result = $log->where([
+            'category'=>'loginExperience','user_id'=>$userInfo['id']
+        ])->whereDay('create_time')->find();
+
+        if (empty($result)) {
+            $log->baseSave('loginExperience',$userInfo['id']);
+            $this->where('id',$userInfo['id'])->inc('empirical',1000)->update();
+        }
+
+    }
+
 
     //手机号登录
     public function mobileLogin($param)
@@ -106,8 +124,8 @@ class User extends UserModel
             return 2; //暂无此用户
         }
         $log  = new RecordLog();
-        $content = $log->field('content,create_time')
-        ->where(['category'=>'smsCode','title'=>$param['mobile'],'content'=>$param['smscode']])
+        $content = $log->field('value,create_time')
+        ->where(['category'=>'smsCode','key'=>$param['mobile'],'value'=>$param['smscode']])
         ->order('create_time','desc')->find();
         if (empty($content)) {
             return 3; //验证码有误
@@ -119,11 +137,26 @@ class User extends UserModel
         }
 
         Session::set('UserInfo',json_encode($userInfo));
+        $this->updateExperience($userInfo);
 
         return 1;
 
 
     }
 
+    //根据用户ID更新session
+    public function updateSession($admin,$column,$value)
+    {
+
+        $key = $admin ? 'adminUserInfo' :'UserInfo';
+        $userInfo  = Session::get($key);
+
+        if (!empty($userInfo)) {
+            $info = json_decode($userInfo,true);
+            $info[$column] = $value;
+            Session::set($key,json_encode($info));
+        }
+
+    }
 
 }

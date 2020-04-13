@@ -39,7 +39,7 @@ class Index extends WebBaseController
         return view('',[
             'navview'=>$navView,
             'list'=>$list,
-            'page'=>$list->render('paht')
+            'page'=>$list->render()
         ]);
     }
 

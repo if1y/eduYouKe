@@ -198,7 +198,6 @@ function getUserInfoData($admin = 0, $column = 'id')
     $userInfo  = Session::get($key);
     if (!empty($userInfo)) {
         $info = json_decode($userInfo,true);
-        // print_r($info[$column]);exit();
         return $info[$column];
     }else{
         return false;

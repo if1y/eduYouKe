@@ -22,69 +22,44 @@
                             <div class="card card-primary card-outline">
                                 <div class="card-body box-profile">
                                     <div class="text-center">
-                                        <img class="profile-user-img img-fluid img-circle" src="__STATIC__/img/user4-128x128.jpg" alt="User profile picture">
+                                        <input type="file" name="file" id="uploadFile" style="display: none;">
+                                        <div id="defaultUpload">
+                                            <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
+                                        </div>
                                     </div>
-                                    <h3 class="profile-username text-center">总有刁民想害朕</h3>
-                                    <p class="text-muted text-center">高级PHP开发工程师</p>
+                                    <h3 class="profile-username text-center">{$userinfo.nickname}</h3>
+                                    <p class="text-muted text-center">{$userinfo.introduce ? $userinfo.introduce :'这个人懒蛋蛋...'}</p>
                                     <ul class="list-group list-group-unbordered mb-3">
-                                        <li class="list-group-item">
+                                        <!-- <li class="list-group-item">
                                             <b>关注</b> <a class="float-right">1,322</a>
-                                        </li>
+                                        </li> -->
                                         <li class="list-group-item">
                                             <b>学习时长</b> <a class="float-right">543小时</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>经验</b> <a class="float-right">13,287</a>
+                                            <b>经验</b> <a class="float-right">{$userinfo.empirical}</a>
                                         </li>
                                     </ul>
-                                    <a href="#" class="btn btn-primary btn-block"><b>关注</b></a>
+                                    <a href="#" class="btn btn-primary btn-block"><b>私信</b></a>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card -->
-                            <!-- About Me Box -->
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">总有刁民想害朕</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <strong><i class="fa fa-book mr-1"></i>简介</strong>
-                                    <p class="text-muted">
-                                        这个人懒蛋蛋...
-                                    </p>
-                                    <hr>
-                                    <strong><i class="fa fa-map-marker-alt mr-1"></i>地区</strong>
-                                    <p class="text-muted">河南--New York</p>
-                                    <!-- <hr>
-                                    <strong><i class="fa fa-pencil-alt mr-1"></i> 技能</strong>
-                                    <p class="text-muted">
-                                        <span class="tag tag-danger">UI Design</span>
-                                        <span class="tag tag-success">Coding</span>
-                                        <span class="tag tag-info">Javascript</span>
-                                        <span class="tag tag-warning">PHP</span>
-                                        <span class="tag tag-primary">Node.js</span>
-                                    </p>
-                                    <hr>
-                                    <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p> -->
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
+                          
                         </div>
-                        <!-- /.col -->
                         <div class="col-md-9 mt-3">
                             <div class="card">
                                 <div class="card-header p-2">
                                     <ul class="nav nav-pills">
-                                        <!--  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li> -->
-                                        <li class="nav-item"><a class="nav-link active " href="#timeline" data-toggle="tab">足迹</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#order" data-toggle="tab">订单</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#message" data-toggle="tab">消息</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">设置</a></li>
+                                        <li class="nav-item"><a class="nav-link active" href="{:url('/user/history',['user_id'=>$userinfo.id ])}">足迹</a></li>
+                                        {if $userinfo.myself == 1}
+                                        <li class="nav-item"><a class="nav-link " href="{:url('/user/order',['user_id'=> $userinfo.id ])}">订单</a></li>
+                                        <li class="nav-item"><a class="nav-link  " href="{:url('/user/message',['user_id'=>$userinfo.id ])}">消息</a></li>
+                                        <li class="nav-item"><a class="nav-link " href="{:url('/user/setting',['user_id'=>$userinfo.id ])}">设置</a></li>
+                                        {else /}
+                                        
+                                        {/if}
+
                                     </ul>
-                                </div><!-- /.card-header -->
+                                </div>
                                 <div class="card-body">
                                     <div class="tab-content">
                                         <!-- /.tab-pane -->
@@ -310,6 +285,40 @@
     {include file='public/footer' /}
     </div>
     {include file='public/script' /}
+    <script src="__STATIC__/js/uploadImg.js"></script>
+    <script type="text/javascript">
+    var uploadConfig = {
+        inputId: 'uploadFile', // 上传图片的inputId
+        triggerId: 'defaultUpload', // 触发上传的元素Id
+        url: "{:url('/user/avatar')}", // 上传地址
+        // params: { // 上传需要携带的参数
+        //     token: 'a8100c30fc194ff275f691336c655ea6'
+        // },
+        beforeSend: function() {
+            // upload = layer.msg('loadding...', {
+            //     icon: 16,
+            //     shade: 0.2,
+            //     time: false
+            // });
+            // 做loadding开始处理
+        },
+        isShowProgress: false, // 是否需要展示上传进度
+        loadProgress: function(progress) { // 上传进度回调
+            // console.log(progress)
+        },
+        base64String: function(base64Str) { // 获取本地的base64字符串做展示
+            $("#defaultUpload" + " img").attr('src', base64Str);
+        },
+        loadSuccess: function(data) { // 上传完成后回调
+            success(data.message);
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
+        }
+    }
+
+    uploadImage(uploadConfig)
+    </script>
 </body>
 
 </html>

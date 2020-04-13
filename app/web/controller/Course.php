@@ -4,6 +4,7 @@ namespace app\web\controller;
 use app\logic\Chapter;
 use app\logic\Course as CourseLogic;
 use app\logic\CourseVideo;
+use app\logic\Comment;
 use app\WebBaseController;
 use think\facade\View;
 
@@ -26,10 +27,12 @@ class Course extends WebBaseController
         //获取面包屑
         $breadcrumb = $cours->getBreadcrumb($param['id']);
 
+        //获取最近更新
         $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
 
-        //获取最近更新
-
+        //更新观看日志&&观看次数
+        $cours->updateViewAndLog($param);
+        
         return view('', [
             'coursinfo' => $coursInfo,
             'breadcrumb' => $breadcrumb,
@@ -89,6 +92,8 @@ class Course extends WebBaseController
 
         $cours   = new CourseLogic();
         $chapter = new Chapter();
+        $comment = new Comment();
+
 
         //获取详情
         $coursInfo = $cours->getCourseInfo($param['id']);
@@ -96,11 +101,15 @@ class Course extends WebBaseController
         $breadcrumb = $cours->getBreadcrumb($param['id']);
         //获取最近更新
         $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
+        //获取评论
+        $commentList = $comment->getCommentList('course',$param['id']);
 
         return view('', [
             'coursinfo' => $coursInfo,
             'breadcrumb' => $breadcrumb,
             'recommend' => $recommendCourse,
+            'commentlist' => $commentList,
+            'page' => $commentList->render(),
         ]);
     }
 

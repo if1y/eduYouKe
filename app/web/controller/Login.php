@@ -100,7 +100,7 @@ class Login extends WebBaseController
     // 忘记密码
     public function logout()
     {
-        Session::set('adminUserInfo', null);
+        Session::delete('UserInfo');
     	return redirect('/');
     }
 

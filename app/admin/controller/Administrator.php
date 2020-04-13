@@ -140,7 +140,8 @@ class Administrator extends AdminBaseController
         $param['password'] = !empty($param['password']) ? Tools::userMd5($param['password']) : 0;
         if (!$param['password'])
         {
-            unset($param['password']);}
+            unset($param['password']);
+        }
 
         $User     = new AdminUser();
         $userData = $User->find($param['id']);

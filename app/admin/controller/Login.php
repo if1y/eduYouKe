@@ -45,7 +45,7 @@ class Login extends AdminBaseController
     // 退出登录
     public function logout()
     {
-        Session::set('adminUserInfo', null);
+        Session::delete('adminUserInfo');
         return json(['code' => 1, 'msg' => '退出成功']);
     }
 

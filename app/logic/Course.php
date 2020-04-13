@@ -20,7 +20,7 @@ class Course extends CourseModel
         return $this->field($field)->where($where)
             ->where(['delete_status' => 0, 'show_status' => 1])
             ->order($column, $desc)
-            // ->order($column, 'asc')
+        // ->order($column, 'asc')
             ->limit($limit)->select();
     }
 
@@ -77,15 +77,46 @@ class Course extends CourseModel
 
     //根据课程ID获取面包屑
     public function getBreadcrumb($id)
-    {   
+    {
         $info = $this->getCourseInfo($id);
 
-        $parent = (new CourseCategory())->field('parent_id')->where('id',$info['category_id'])->find();
-        $data = (new CourseCategory())->field('id,title,parent_id')
-        ->where(['delete_status'=>0,'show_status'=>1])->select()->toArray();
+        $parent = (new CourseCategory())->field('parent_id')->where('id', $info['category_id'])->find();
+        $data   = (new CourseCategory())->field('id,title,parent_id')
+            ->where(['delete_status' => 0, 'show_status' => 1])->select()->toArray();
 
-        $result = Tools::getBreadcrumb($data,$parent['parent_id']);
+        $result = Tools::getBreadcrumb($data, $parent['parent_id']);
         return $result;
+    }
+
+    //更新观看日志&&观看次数
+    public function updateViewAndLog($param)
+    {
+        if (isset($param['id']))
+        {
+            $this->where('id', $param['id'])->inc('views')->update();
+        }
+        if (getUserInfoData())
+        {
+
+            //查询是否已经记录过
+            $logs = (new RecordLog())->where([
+                'user_id' => getUserInfoData(),
+                'key' => $param['id'],
+                'category' => 'courseView',
+            ])->whereDay('create_time')
+                ->find();
+
+            //
+            if (empty($logs))
+            {
+                (new RecordLog())->save([
+                    'user_id' => getUserInfoData(),
+                    'key' => $param['id'],
+                    'category' => 'courseView',
+                    'create_time' => time(),
+                ]);
+            }
+        }
     }
 
 }
