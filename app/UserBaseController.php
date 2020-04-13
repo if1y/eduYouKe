@@ -9,7 +9,7 @@ use think\facade\Env;
 use app\util\Nav;
 use app\util\Tools;
 use think\facade\Request;
-
+use think\facade\Session;
 
 
 class UserBaseController extends WebBaseController

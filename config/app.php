@@ -36,4 +36,7 @@ return [
     'error_message'    => '页面错误！请稍后再试～',
     // 显示错误信息
     'show_error_msg'   => true,
+        // 默认跳转页面对应的模板文件【新增】
+    'dispatch_success_tmpl' => app()->getRootPath() . '/public/tpl/dispatch_jump.tpl',
+    'dispatch_error_tmpl' => app()->getRootPath() . '/public/tpl/dispatch_jump.tpl',
 ];

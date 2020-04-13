@@ -41,7 +41,7 @@
                 {/if}
                 <div class="dropdown-menu dropdown-menu-right">
                     {if $Request.session.UserInfo}
-                    <a class="dropdown-item" href="{:url('/user/centor')}"><i class="fa fa-user" aria-hidden="true"></i> </i>否定先生</a>
+                    <a class="dropdown-item" href="{:url('/user/centor')}"><i class="fa fa-user" aria-hidden="true"></i> </i>{:getUserInfoData(0,'nickname')}</a>
                     <!-- <a class="dropdown-item" href="{:url('/user/message')}"><i class="fa fa-bell" aria-hidden="true"></i> 消息</a> -->
                     <a class="dropdown-item" href="{:url('/login/logout')}"><i class="fa fa-sign-out" aria-hidden="true"></i> </i>退出</a>
                     {else /}
