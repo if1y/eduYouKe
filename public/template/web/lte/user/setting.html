@@ -22,10 +22,16 @@
                             <div class="card card-primary card-outline">
                                 <div class="card-body box-profile">
                                     <div class="text-center">
+                                        {if $userinfo.myself == 1}
                                         <input type="file" name="file" id="uploadFile" style="display: none;">
                                         <div id="defaultUpload">
                                             <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
                                         </div>
+                                        {else /}
+                                            <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
+                                        
+                                        {/if}
+                                        
                                     </div>
                                     <h3 class="profile-username text-center">{$userinfo.nickname}</h3>
                                     <p class="text-muted text-center">{$userinfo.introduce ? $userinfo.introduce :'这个人懒蛋蛋...'}</p>
@@ -42,7 +48,6 @@
                                     </ul>
                                     <a href="#" class="btn btn-primary btn-block"><b>私信</b></a>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
                             <!-- /.card -->
                         </div>

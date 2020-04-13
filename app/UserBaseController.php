@@ -33,7 +33,6 @@ class UserBaseController extends WebBaseController
         if (empty($userId)) {
             if ($this->request->isAjax()) {
                 return json(['code'=>0,'message'=>'您尚未登录']);
-                // $this->error("您尚未登录", cmf_url("user/Login/index"));
             } else {
                 header('location:/login/login');exit();
             }
@@ -59,6 +58,9 @@ class UserBaseController extends WebBaseController
             Session::set('UserInfo','null');
         }
         $userInfo = DB::name('user')->where('id',$userId)->find();
+        if (empty($userInfo)) {
+            header('location:/user/centor');exit();
+        }
         $userInfo['myself'] = $mySelf;
         return $userInfo;
     }
