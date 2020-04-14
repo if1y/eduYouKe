@@ -21,7 +21,7 @@ class Comment extends CommentModel
         (new RecordLog())->baseSave(
         	'comment',
         	getUserInfoData(),
-        	$param['source_id'],
+        	$this->id,
         	$param['table_name']
         );
         
@@ -45,6 +45,7 @@ class Comment extends CommentModel
             ->join('course co', 'c.source_id = co.id')
             ->join('user u', 'u.id = c.user_id')
             ->order('c.create_time','desc')
+            ->where('c.source_id',$id)
             ->paginate(['query' => ['id' => $id], 'list_rows' => 15]);
 
 

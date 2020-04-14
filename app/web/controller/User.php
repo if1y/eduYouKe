@@ -4,8 +4,8 @@ namespace app\web\controller;
 use app\logic\Image;
 use app\logic\User as UserLogic;
 use app\UserBaseController;
-use think\facade\View;
 use app\util\Tools;
+use think\facade\View;
 
 class User extends UserBaseController
 {
@@ -21,7 +21,16 @@ class User extends UserBaseController
     //用户中心
     public function centor()
     {
-        return view('');
+        $param = $this->request->param();
+
+        $user    = new UserLogic();
+        $history = $user->getUserHistory($param);
+
+        // print_r($history);exit();
+        return view('', [
+            'history' => $history,
+            'page' => $history->render(),
+        ]);
     }
 
     //用户订单
@@ -68,7 +77,14 @@ class User extends UserBaseController
                 unset($param['password']);
             }
 
-            $res = $user->where('id', getUserInfoData())->save($param);
+            $user->where('id', getUserInfoData())->save($param);
+
+            //更新session
+            if ($param['nickname'])
+            {
+                $user->updateSession(0, 'nickname', $param['nickname']);
+            }
+
             return redirect((string) url('user/setting', ['user_id' => getUserInfoData()]));
         }
         else

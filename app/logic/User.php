@@ -3,6 +3,7 @@ namespace app\logic;
 
 use app\model\User as UserModel;
 use app\util\Tools;
+use think\facade\Db;
 use think\facade\Session;
 
 class User extends UserModel
@@ -232,4 +233,58 @@ class User extends UserModel
         ]);
 
     }
+
+    //获取用户历史足迹
+    public function getUserHistory($param)
+    {
+        $userId = isset($param['user_id']) ? $param['user_id'] : getUserInfoData(0, 'id');
+
+        $arr = ['courseView', 'comment'];
+
+        $whereOr = [];
+        foreach ($arr as $key => $value)
+        {
+            $whereOr[$key] = ['log.category', '=', $value];
+            $whereOr[$key] = ['log.category', '=', $value];
+        }
+
+        // print_r($whereOr);
+
+        $result = $this->alias('u')
+            ->field([
+                'log.*',
+            ])
+            ->join('record_log log', 'u.id = log.user_id')
+            ->order('log.create_time', 'desc')
+            ->whereOr($whereOr)
+            ->where('log.user_id', $userId)
+            ->paginate(['query' => ['user_id' => $userId], 'list_rows' => 3])->each(function ($item)
+        {
+            // print_r($item);exit();
+            $item['source_id'] = $item['key'];
+            switch ($item['category'])
+            {
+                case 'comment':
+                    $result  = DB::name('comment')->where('id', $item['key'])->find();
+                    $url     = $result['url'];
+                    $content = $result['content'];
+                    break;
+                default:
+                    $result = DB::name('course')
+                        ->where('id', $item['key'])->find();
+                    $title = $result['title'];
+                    $image = $result['cource_image_url'];
+                    break;
+            }
+
+            $item['title']          = isset($title) ? $title : '';
+            $item['image']          = isset($image) ? $image : '';
+            $item['url']            = isset($url) ? $url : '';
+            $item['content']        = isset($content) ? $content : '';
+            $item['recent_updates'] = Tools::getDate(strtotime($item['create_time']));
+            return $item;
+        });
+        return $result;
+    }
+
 }

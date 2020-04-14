@@ -28,9 +28,8 @@
                                             <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
                                         </div>
                                         {else /}
-                                            <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
+                                        <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
                                         {/if}
-                                        
                                     </div>
                                     <h3 class="profile-username text-center">{$userinfo.nickname}</h3>
                                     <p class="text-muted text-center">{$userinfo.introduce ? $userinfo.introduce :'这个人懒蛋蛋...'}</p>
@@ -48,21 +47,18 @@
                                     <a href="#" class="btn btn-primary btn-block"><b>私信</b></a>
                                 </div>
                             </div>
-                          
                         </div>
                         <div class="col-md-9 mt-3">
                             <div class="card">
                                 <div class="card-header p-2">
                                     <ul class="nav nav-pills">
-                                        <li class="nav-item"><a class="nav-link active" href="{:url('/user/history',['user_id'=>$userinfo.id ])}">足迹</a></li>
+                                        <li class="nav-item"><a class="nav-link active" href="{:url('/user/centor',['user_id'=>$userinfo.id ])}">足迹</a></li>
                                         {if $userinfo.myself == 1}
                                         <li class="nav-item"><a class="nav-link " href="{:url('/user/order',['user_id'=> $userinfo.id ])}">订单</a></li>
                                         <li class="nav-item"><a class="nav-link  " href="{:url('/user/message',['user_id'=>$userinfo.id ])}">消息</a></li>
                                         <li class="nav-item"><a class="nav-link " href="{:url('/user/setting',['user_id'=>$userinfo.id ])}">设置</a></li>
                                         {else /}
-                                        
                                         {/if}
-
                                     </ul>
                                 </div>
                                 <div class="card-body">
@@ -72,200 +68,55 @@
                                             <!-- The timeline -->
                                             <div class="timeline timeline-inverse">
                                                 <!-- timeline time label -->
+                                                {volist name="history" id="vo" }
                                                 <div class="time-label">
-                                                    <span class="bg-danger">
-                                                        2020-01-02
+                                                    <span class="bg-info">
+                                                        {:date('Y-m-d',strtotime($vo.create_time))}
                                                     </span>
                                                 </div>
+                                                {switch $vo.category }
+                                                {case courseView }
+                                                <div>
+                                                    <i class="fa fa-television bg-purple"></i>
+                                                    <div class="timeline-item">
+                                                        <span class="time"><i class="far fa-clock"></i> {$vo.recent_updates}</span>
+                                                        <h3 class="timeline-header">
+                                                            观看了
+                                                            <a href="#">【{$vo.title}】</a>
+                                                        </h3>
+                                                        <div class="timeline-body">
+                                                            <a href="{:url('/course',['id'=>$vo['source_id']])}">
+                                                                <img src="{:getUrlPath($vo.image)}" alt="...">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {/case}
+                                                {default /}
                                                 <div>
                                                     <i class="fa fa-comments bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                        <span class="time"><i class="far fa-clock"></i> {$vo.recent_updates}</span>
                                                         <h3 class="timeline-header">
                                                             <!-- <a href="#">Jay White</a> -->
                                                             发布了评论
                                                         </h3>
                                                         <div class="timeline-body">
-                                                            学医救人,教书治心
+                                                            {$vo.content}
                                                         </div>
                                                         <div class="timeline-footer">
-                                                            <a href="#" class="btn btn-warning btn-flat btn-sm">查看来源</a>
+                                                            <a href="{$vo.url}" class="btn btn-warning btn-flat btn-sm">查看来源</a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- END timeline item -->
-                                                <!-- timeline time label -->
-                                                <div class="time-label">
-                                                    <span class="bg-success">
-                                                        2020-01-01
-                                                    </span>
-                                                </div>
-                                                <!-- /.timeline-label -->
-                                                <!-- timeline item -->
-                                                <div>
-                                                    <i class="fa fa-television bg-purple"></i>
-                                                    <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 2天前</span>
-                                                        <h3 class="timeline-header">
-                                                            观看了
-                                                            <a href="#">【PHP入门到放弃】</a>
-                                                        </h3>
-                                                        <div class="timeline-body">
-                                                            <img src="__STATIC__/img/user4-128x128.jpg" alt="...">
-                                                            <!-- <img src="http://placehold.it/150x100" alt="...">
-                                                            <img src="http://placehold.it/150x100" alt="...">
-                                                            <img src="http://placehold.it/150x100" alt="..."> -->
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {/switch}
+                                                {/volist}
                                                 <!-- END timeline item -->
                                                 <div>
                                                     <i class="far fa-clock bg-gray"></i>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- /.tab-pane -->
-                                        <div class="tab-pane" id="order">
-                                            <!-- /.card-header -->
-                                            <div class="card-body p-0">
-                                                <ul class="products-list product-list-in-card pl-2 pr-2">
-                                                    <li class="item">
-                                                        <div class="product-img">
-                                                            <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <a href="javascript:void(0)" class="product-title">
-                                                                Swoole第二章节
-                                                                <span class="badge badge-warning float-right">$1800</span></a>
-                                                            <span class="product-description">
-                                                                Swoole第二章节
-                                                            </span>
-                                                        </div>
-                                                    </li>
-                                                    <li class="item">
-                                                        <div class="product-img">
-                                                            <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <a href="javascript:void(0)" class="product-title">
-                                                                Swoole第二章节
-                                                                <span class="badge badge-warning float-right">$1800</span></a>
-                                                            <span class="product-description">
-                                                                Swoole第二章节
-                                                            </span>
-                                                        </div>
-                                                    </li>
-                                                    <li class="item">
-                                                        <div class="product-img">
-                                                            <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <a href="javascript:void(0)" class="product-title">
-                                                                Swoole第二章节
-                                                                <span class="badge badge-warning float-right">$1800</span></a>
-                                                            <span class="product-description">
-                                                                Swoole第二章节
-                                                            </span>
-                                                        </div>
-                                                    </li>
-                                                    <li class="item">
-                                                        <div class="product-img">
-                                                            <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <a href="javascript:void(0)" class="product-title">
-                                                                Swoole第二章节
-                                                                <span class="badge badge-warning float-right">$1800</span></a>
-                                                            <span class="product-description">
-                                                                Swoole第二章节
-                                                            </span>
-                                                        </div>
-                                                    </li>
-                                                    <li class="item">
-                                                        <div class="product-img">
-                                                            <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <a href="javascript:void(0)" class="product-title">
-                                                                Swoole第二章节
-                                                                <span class="badge badge-warning float-right">$1800</span></a>
-                                                            <span class="product-description">
-                                                                Swoole第二章节
-                                                            </span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- /.card-body -->
-                                            <!-- <div class="card-footer text-center">
-                                    <a href="javascript:void(0)" class="uppercase">查看全部课程</a>
-                                </div> -->
-                                            <!-- /.card-footer -->
-                                        </div>
-                                        <div class="tab-pane" id="message">
-                                            <div class="card-body p-0">
-                                                <ul class="nav nav-pills flex-column">
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link">
-                                                            <i class="fa fa-envelope"></i> Sent
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link">
-                                                            <i class="fa fa-envelope-open"></i> Trash
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- /.card-body -->
-                                        </div>
-                                        <div class="tab-pane" id="settings">
-                                            <form class="form-horizontal">
-                                                <div class="form-group row">
-                                                    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="email" class="form-control" id="inputName" placeholder="Name">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                                                    <div class="col-sm-10">
-                                                        <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="offset-sm-2 col-sm-10">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="offset-sm-2 col-sm-10">
-                                                        <button type="submit" class="btn btn-danger">Submit</button>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                            {$page|raw}
                                         </div>
                                         <!-- /.tab-pane -->
                                     </div>
@@ -273,6 +124,8 @@
                                 </div><!-- /.card-body -->
                             </div>
                             <!-- /.nav-tabs-custom -->
+                            <div>
+                            </div>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -323,8 +176,6 @@
     }
 
     uploadImage(uploadConfig)
-
-
     </script>
 </body>
 
