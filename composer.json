@@ -24,7 +24,8 @@
         "topthink/think-captcha": "^3.0",
         "alibabacloud/sdk": "^1.8",
         "aliyuncs/oss-sdk-php": "^2.3",
-        "php-ffmpeg/php-ffmpeg": "^0.15.0"
+        "php-ffmpeg/php-ffmpeg": "^0.15.0",
+        "riverslei/payment": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
