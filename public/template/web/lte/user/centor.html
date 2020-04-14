@@ -82,7 +82,7 @@
                                                         <span class="time"><i class="far fa-clock"></i> {$vo.recent_updates}</span>
                                                         <h3 class="timeline-header">
                                                             观看了
-                                                            <a href="#">【{$vo.title}】</a>
+                                                            <a href="{:url('/course',['id'=>$vo['source_id']])}">【{$vo.title}】</a>
                                                         </h3>
                                                         <div class="timeline-body">
                                                             <a href="{:url('/course',['id'=>$vo['source_id']])}">

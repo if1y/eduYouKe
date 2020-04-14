@@ -2,6 +2,7 @@
 namespace app\logic;
 
 use app\model\User as UserModel;
+use app\service\AliSms;
 use app\util\Tools;
 use think\facade\Db;
 use think\facade\Session;
@@ -60,7 +61,9 @@ class User extends UserModel
                 ]);
         }
 
-        return $code;
+        $aliSms = new AliSms();
+        $res    = $aliSms->sendSms(array_merge($param, ['code' => $code]));
+        return !$res ? 3 : $code;
     }
 
     //用户登录

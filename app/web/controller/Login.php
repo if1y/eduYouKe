@@ -30,9 +30,12 @@ class Login extends WebBaseController
                 case 2:
                     $json = ['code' => 0, 'message' => '今日发送次数较多...'];
                     break;
+                case 3:
+                    $json = ['code' => 0, 'message' => '验证码获取失败...'];
+                    break;
                 default:
-                    // $json = ['code' => 1, 'message' => '验证码获取成功'];
-                    $json = ['code' => 1, 'message' => '验证码获取成功', 'smscode' => $result];
+                    $json = ['code' => 1, 'message' => '验证码获取成功'];
+                    // $json = ['code' => 1, 'message' => '验证码获取成功', 'smscode' => $result];
                     break;
             }
 
@@ -41,7 +44,6 @@ class Login extends WebBaseController
         {
 
             $json = ['code' => 0, 'message' => '请输入手机号'];
-
             //
         }
         return json($json);
