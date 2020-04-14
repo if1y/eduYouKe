@@ -10,6 +10,7 @@ class WxPay
 
         $wxConfig = config('WxPay');
 
+        // print_r($wxConfig);exit();
         $tradeNo = time() . rand(1000, 9999);
         // 订单信息
         $payData = [
