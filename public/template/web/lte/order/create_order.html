@@ -29,6 +29,7 @@
                             <hr>
                         </div>
                         <div class="col-md-12">
+                            <div class="row">
                             <div class="col-md-4 col-sm-12">
                                 <a href="#">
                                     <img src="{$course.cource_image_url}" width="100%">
@@ -52,7 +53,8 @@
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-12">
-                                <img src="" id="payImage">
+                                <div class="p-2" id="payImage"></div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -122,6 +124,7 @@
     {include file='public/footer' /}
     </div>
     {include file='public/script' /}
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <script type="text/javascript">
     $(".info-box").click(function() {
 
@@ -145,14 +148,18 @@
                 console.log(json)
             if (json.code == 1) {
 
-                $("#payImage").attr("src", json.data.src);
-                $("#payImage").show();
-                // console.log(json.url);
-                // return;
-                // success(json.message);
-                // setTimeout(function() {
-                //     window.open(json.data.url)
-                // }, 1000);
+                if (json.data.mobile == 1) {
+
+                    success(json.msg);
+                    setTimeout(function() {
+                        window.open(json.data.src)
+                    }, 1000);
+                    // StatisticsPanel
+
+                }else{
+                    $("#payImage").qrcode(json.data.src);
+                    $("#payImage").show();
+                }
 
             } else {
 

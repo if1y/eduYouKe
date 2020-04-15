@@ -24,12 +24,19 @@ class AliPay
             'terminal_id' => '', // 终端设备号(门店号或收银设备ID) 默认值 web
         ];
 
-// 使用
+        // 使用
         try {
-            $client = new \Payment\Client(\Payment\Client::ALIPAY, $aliConfig);
-            $res    = $client->pay(\Payment\Client::ALI_CHANNEL_QR, $payData);
-        return $res['qr_code'];
             
+            $client = new \Payment\Client(\Payment\Client::ALIPAY, $aliConfig);
+            switch ($data['isMobile']) {
+                case '1':
+                    $res    = $client->pay(\Payment\Client::ALI_CHANNEL_WAP, $payData);
+                    break;
+                default:
+                    $res    = $client->pay(\Payment\Client::ALI_CHANNEL_QR, $payData);
+                    break;
+            }
+            return isset($res['qr_code']) ? $res['qr_code'] :$res;
         }
         catch (InvalidArgumentException $e)
         {

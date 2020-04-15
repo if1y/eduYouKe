@@ -13,8 +13,9 @@ class Pay extends UserBaseController
     {   
         $service = new PayService();
         $param   = $this->request->param();
+        $param['isMobile']  = $this->request->isMobile() ? 1:2;
         $result = $service->pay($param);
-        $this->success('success','',['src'=> $result]);
+        $this->success('正在跳转...','',['mobile'=>$param['isMobile'],'src'=> $result]);
     }
 
 }
