@@ -246,9 +246,9 @@
 
 
     //所有的删除操作，删除数据后刷新页面
-    if ($('.btn-del').length) {
+    if ($('.btn-dialog').length) {
 
-        $('.btn-del').on('click', function(e) {
+        $('.btn-dialog').on('click', function(e) {
             e.preventDefault();
             var $_this = this,
                 $this = $($_this),
@@ -257,9 +257,11 @@
                 msg = $this.data('msg');
             href = href ? href : $this.attr('href');
 
+            console.log(msg);
+
             $.confirm({
                 title: '确认!',
-                content: '是否删除!',
+                content: '是否'+msg+'？',
                 type: 'red',
                 typeAnimated: true,
                 closeIcon: true,

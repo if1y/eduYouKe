@@ -132,9 +132,10 @@ function getAdminAuth($authUrl, $url, $authId)
     ];
 
     $class = $authUrl == 'add' ? "btn btn-success btn-sm" : '';
+    $class = $authUrl == 'del' ? 'btn-dialog':$class;
     $url   = $authId ? $url . '/id/' . $authId : $url;
 
-    $result = '<a href=/' . $url . ' class=" ' . $class . ' btn-' . $authUrl . '" title="' . $config[$authUrl]['name'] . '">
+    $result = '<a href=/' . $url . ' class=" ' . $class . ' btn-' . $authUrl . '" title="' . $config[$authUrl]['name'] . '" data-msg="'.$config[$authUrl]['name'].'">
                         <i class="fa fa-' . $config[$authUrl]['icon'] . '"></i>
                         ' . $config[$authUrl]['name'] . '
                 </a>';

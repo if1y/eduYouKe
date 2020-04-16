@@ -53,16 +53,16 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th style="width: 10px">ID</th>
-                                <th style="width: 20px">课程名称</th>
-                                <th style="width: 10px">课程简介</th>
-                                <th style="width: 10px">封面图片</th>
-                                <th style="width: 10px">收费状态</th>
-                                <th style="width: 10px">售卖价格</th>
-                                <th style="width: 10px">难度级别</th>
-                                <th style="width: 10px">备注</th>
-                                <th style="width: 10px">状态</th>
-                                <th style="width: 20px">操作</th>
+                                <th width="10">ID</th>
+                                <th width="100">课程名称</th>
+                                <th width="10">课程简介</th>
+                                <th width="10">封面图片</th>
+                                <th width="10">收费状态</th>
+                                <th width="10">售卖价格</th>
+                                <th width="10">难度级别</th>
+                                <th width="10">备注</th>
+                                <th width="10">状态</th>
+                                <th width="100">操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,7 +70,7 @@
                             <tr>
                                 <td>{$vo.id}</td>
                                 <td>{$vo.title}</td>
-                                <td>{$vo.description}</td>
+                                <td ><small>{$vo.description}</small></td>
                                 <td> <img src="{$vo.cource_image_url ? getUrlPath($vo.cource_image_url) :'/static/img/user3-128x128.jpg'}" width="30" height="30"></td>
                                 <td>{$vo.sell_status ? '收费' : '免费'}</td>
                                 <td>{$vo.sell_status ? $vo.sell_price : '免费'}</td>
