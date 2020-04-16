@@ -290,4 +290,12 @@ class User extends UserModel
         return $result;
     }
 
+    //获取后台用户列表
+    public function getUserList()
+    {
+        return $this->where('delete_status',0)
+        ->order('create_time desc')->paginate();
+    }
+    
+
 }

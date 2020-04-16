@@ -27,7 +27,7 @@ class User extends Model
     public function baseQuery($where = [], $field = '*', $column = 'create_time', $desc = 'asc', $limit = '0')
     {
         return $this->field($field)->where($where)
-            ->where(['delete_status' => 0, 'show_status' => 1])
+            ->where(['delete_status' => 0])
             ->order($column, $desc)
             ->limit($limit)->select();
     }
