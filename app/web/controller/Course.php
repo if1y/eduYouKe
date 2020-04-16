@@ -31,8 +31,10 @@ class Course extends WebBaseController
         $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
 
         //更新观看日志&&观看次数
-        $cours->updateViewAndLog($param);
-        
+        if (!empty($coursInfo)) {
+            $cours->updateViewAndLog($param);
+        }
+                
         return view('', [
             'coursinfo' => $coursInfo,
             'breadcrumb' => $breadcrumb,
