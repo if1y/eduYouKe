@@ -51,15 +51,15 @@
                                 </a>
                                 <div id="course-title">
                                     <p class="card-text p-2 d-inline-block text-truncate">
-                                        {$vo.sell_status ?
-                                        '<span class="badge badge-danger">
-                                            ￥120
-                                        </span>'
-                                        :
-                                        '<span class="badge badge-info">
+                                        {if $vo.sell_status}
+                                        <span class="badge badge-danger">
+                                            ￥{$vo.sell_price}
+                                        </span>
+                                        {else /}
+                                        <span class="badge badge-info">
                                             免费
-                                        </span>'
-                                        }
+                                        </span>
+                                        {/if}
                                         <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
                                             {$vo.title}
                                         </a>
