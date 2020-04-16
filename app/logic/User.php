@@ -45,6 +45,10 @@ class User extends UserModel
         if (!empty($info))
         {
             //更新用户最后登录
+            $this->where('id',$info['id'])->save([
+                'last_login_ip'=>$param['ip'],
+                'last_login_time'=>time()
+            ]);
         }
         else
         {

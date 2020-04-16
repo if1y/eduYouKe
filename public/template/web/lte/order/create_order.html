@@ -169,6 +169,37 @@
 
                     $("#payImage").empty();
                     $("#payImage").qrcode(json.data.src);
+
+
+                    var getting = {
+
+                        url: "{:url('/pay/payStatus')}",
+                        dataType: 'json',
+                        data: { "order_id": json.data.order_id },
+                        success: function(res) {
+                            if (res.code == 1) {
+
+                                success(json.msg);
+                                setTimeout(function() {
+                                    window.location.href = "/";
+                                }, 1000);
+
+                            }
+                        }
+                    };
+
+
+
+                    var timesRun = 0;
+                    var interval = setInterval(function() {
+                        timesRun += 1; //每刷新一次 timesRun 就+1
+                        if (timesRun === 9) {
+                            clearInterval(interval);
+                        }
+                        $.ajax(getting)
+                        //这里写你的代码
+                    }, 2000);
+
                 }
 
             } else {

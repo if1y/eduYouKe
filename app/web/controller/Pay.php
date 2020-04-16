@@ -24,8 +24,29 @@ class Pay extends UserBaseController
         	//商品为空跳转
         	$this->error('操作有误');
         }
+
+        $orderId = $order->createOrder($param);
+
         $result = $service->pay($param);
-        $this->success('正在跳转...','',['mobile'=>$param['isMobile'],'src'=> $result]);
+        
+        $this->success('正在跳转...','',[
+            'mobile'=>$param['isMobile'],
+            'order_id'=>$orderId,
+            'src'=> $result
+        ]);
+    }
+
+    //查询订单状态
+    public function payStatus()
+    {
+        $param   = $this->request->param();
+        $order = new Order();
+        $result = $order->getOrderInfo([
+            'order_no'=>$param['order_id'],
+            'order_status'=>1
+        ]);
+
+        return $result ? $this->success('支付成功') : $this->error('未成功');
     }
 
 }

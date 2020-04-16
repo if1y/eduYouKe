@@ -1,7 +1,8 @@
 <?php
 namespace app\logic;
+use app\model\Order as OrderModel;
 
-class Order
+class Order extends OrderModel
 {
     //获取当前商品详情
     public function getCommodityInfo($param)
@@ -32,4 +33,26 @@ class Order
         }
 
     }
+
+    //创建订单
+    public function createOrder($param)
+    {
+        //获取订单号
+        $snowflake = new \Godruoyi\Snowflake\Snowflake;
+        $orderId = $snowflake->id();
+
+        $info = $this->getCommodityInfo($param);
+
+        $this->save([
+            'order_no'=>$orderId,
+            'user_id'=>getUserInfoData(),
+            'amount_total'=>$info['price'],
+            'order_type'=>$info['type'] == 'course' ? 1:2,
+            'create_time'=>time(),
+        ]);
+
+        return $orderId;
+
+    }
+
 }

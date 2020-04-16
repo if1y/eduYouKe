@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f92aade63a0bed2a6b92d3582a6acc32",
+    "content-hash": "5430e465769ace2afef00947feabeb93",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -755,6 +755,58 @@
                 "event-emitter"
             ],
             "time": "2017-07-23T21:35:13+00:00"
+        },
+        {
+            "name": "godruoyi/php-snowflake",
+            "version": "1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/godruoyi/php-snowflake.git",
+                "reference": "10e4dda04f49cfeedef6c1e600a4863e0a972983"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/godruoyi/php-snowflake/zipball/10e4dda04f49cfeedef6c1e600a4863e0a972983",
+                "reference": "10e4dda04f49cfeedef6c1e600a4863e0a972983",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Godruoyi\\Snowflake\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Godruoyi",
+                    "email": "g@godruoyi.com"
+                }
+            ],
+            "description": "An ID Generator for PHP based on Snowflake Algorithm (Twitter announced).",
+            "homepage": "https://github.com/godruoyi/php-snowflake",
+            "keywords": [
+                "Unique ID",
+                "laravel snowflake",
+                "order id",
+                "php snowflake",
+                "php unique id",
+                "snowflake algorithm",
+                "unique order id"
+            ],
+            "time": "2019-12-03T03:45:08+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
