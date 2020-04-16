@@ -8,7 +8,7 @@ class Pay
 	public function pay($param)
 	{	
 
-		switch ($param['type']) {
+		switch ($param['payType']) {
 			case 1:
 				return (new AliPay())->pay($param);
 				break;

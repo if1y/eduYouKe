@@ -8,7 +8,7 @@
     {include file='public/header' /}
     <link href="/template/web/{$templateName}/public/static/css/course.css" rel="stylesheet">
     <style type="text/css">
-    .info-box .ribbon-wrapper, #payImage {
+    .info-box .ribbon-wrapper {
         display: none;
     }
     </style>
@@ -30,31 +30,39 @@
                         </div>
                         <div class="col-md-12">
                             <div class="row">
-                            <div class="col-md-4 col-sm-12">
-                                <a href="#">
-                                    <img src="{$course.cource_image_url}" width="100%">
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="p-2">
-                                    <p class="text-muted font-weight-bold">
-                                        <a href="{:url('/course',['id'=>$course['id']])}">
-                                            {$course.title}
-                                        </a>
-                                    </p>
-                                    <p class="text-muted">
-                                        <small>
-                                            {$course.description}
-                                        </small>
-                                    </p>
-                                    <p>
-                                        <strong class="font-weight-bold">¥{$course.sell_price}</strong>
-                                    </p>
+                                <div class="col-md-4 col-sm-12">
+                                    <a href="javascript:;">
+                                        <img src="{$info.image_url ? getUrlPath($info.image_url) :'__STATIC__/img/paybg.png'}" width="100%">
+                                    </a>
                                 </div>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="p-2" id="payImage"></div>
-                            </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="p-2">
+                                        <p class="text-muted font-weight-bold">
+                                            {if input('param.type') == 'vip'}
+                                            <p class="text-warning">
+                                                <strong>
+                                                    {$info.title}
+                                                </strong>
+                                            </p>
+                                            {else /}
+                                            <a href="{:url('/course',['id'=>$info['id']])}">
+                                                {$info.title}
+                                            </a>
+                                            {/if}
+                                        </p>
+                                        <p class="text-muted">
+                                            <small>
+                                                {$info.description}
+                                            </small>
+                                        </p>
+                                        <p>
+                                            <strong class="font-weight-bold">¥{$info.price}</strong>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="p-2" id="payImage"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -79,7 +87,7 @@
                                 <input type="hidden" value="1" id="pay">
                                 <div class="info-box-content">
                                     <span class="info-box-text">使用支付宝支付</span>
-                                    <span class="info-box-number text-danger">¥{$course.sell_price}</span>
+                                    <span class="info-box-number text-danger">¥{$info.price}</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -99,7 +107,7 @@
                                 <input type="hidden" value="2" id="pay">
                                 <div class="info-box-content">
                                     <span class="info-box-text">使用微信支付</span>
-                                    <span class="info-box-number text-danger">¥{$course.sell_price}</span>
+                                    <span class="info-box-number text-danger">¥{$info.price}</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -140,12 +148,13 @@
 
         event.preventDefault();
 
-        var type = $('#payType').val();
-        var course_id = "{$course.id}";
+        var payType = $('#payType').val();
+        var id = "{$info.id}";
+        var type = "{$info.type}";
 
-        $.post("{:url('/pay/pay')}", { type: type, course_id: course_id }, function(json) {
+        $.post("{:url('/pay/pay')}", { payType: payType, id: id, type: type }, function(json) {
 
-                console.log(json)
+            console.log(json)
             if (json.code == 1) {
 
                 if (json.data.mobile == 1) {
@@ -156,14 +165,18 @@
                     }, 1000);
                     // StatisticsPanel
 
-                }else{
+                } else {
+
+                    $("#payImage").empty();
                     $("#payImage").qrcode(json.data.src);
-                    $("#payImage").show();
                 }
 
             } else {
 
-                return error(json.message);
+                error(json.msg);
+                setTimeout(function() {
+                    window.location.href = "/";
+                }, 1000);
             }
 
         }, "json");
