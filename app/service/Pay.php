@@ -5,15 +5,15 @@ namespace app\service;
 class Pay
 {
 	//支付
-	public function pay($param)
+	public function pay($orderInfo)
 	{	
 
-		switch ($param['payType']) {
+		switch ($orderInfo['payType']) {
 			case 1:
-				return (new AliPay())->pay($param);
+				return (new AliPay())->pay($orderInfo);
 				break;
 			default:
-				(new WxPay())->pay($param);
+				(new WxPay())->pay($orderInfo);
 				break;
 		}
 	}

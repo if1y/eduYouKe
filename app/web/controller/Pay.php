@@ -28,7 +28,12 @@ class Pay extends UserBaseController
 
         $orderId = $order->createOrder($param);
 
-        $result = $service->pay($param);
+        $orderInfo = $order->getOrderInfo(['order_no'=>$orderId]);
+        $result = $service->pay(array_merge([
+            'title'=>$check['title'],
+            'payType'=>$param['payType'],
+            'isMobile'=>$param['isMobile'],
+        ],$orderInfo->toArray()));
         
         $this->success('正在跳转...','',[
             'mobile'=>$param['isMobile'],

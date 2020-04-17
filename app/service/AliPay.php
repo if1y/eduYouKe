@@ -10,12 +10,12 @@ class AliPay
         $aliConfig = config('AliPay');
         $tradeNo   = time() . rand(1000, 9999);
         $payData   = [
-            'body' => 'ali qr pay',
-            'subject' => '测试支付宝扫码支付',
-            'trade_no' => $tradeNo,
+            'body' => $data['title'],
+            'subject' => $data['title'],
+            'trade_no' => $data['order_no'],
             'time_expire' => time() + 1000, // 表示必须 1000s 内付款
-            'amount' => '0.01', // 单位为元 ,最小为0.01
-            'return_param' => '123123',
+            'amount' => $data['amount_total'], // 单位为元 ,最小为0.01
+            'return_param' => $data['user_id'],
             // 'client_ip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1',// 客户地址
             'goods_type' => '1', // 0—虚拟类商品，1—实物类商品
             'store_id' => '',

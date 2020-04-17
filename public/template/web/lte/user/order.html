@@ -78,33 +78,34 @@
                                                             <img src="{$vo.image_url ? getUrlPath($vo.image_url) :'__STATIC__/img/paybg.png'}" alt="Product Image" class="img-size-50">
                                                         </div>
                                                         <div class="product-info">
-
                                                             {if $vo.order_type == 1}
                                                             <a href="{:url('/course',['id'=>$vo['commodity_id']])}" class="product-title">
                                                                 {$vo.title}
-                                                              </a>
+                                                            </a>
                                                             {else /}
                                                             <a href="javascript:void(0)" class="product-title">
                                                                 {$vo.title}
-                                                              </a>
+                                                            </a>
                                                             {/if}
                                                             <span class="product-description">
-
                                                                 {if $vo.order_status}
-                                                                    <small>已完成</small>
+                                                                <small>已完成</small>
                                                                 {else /}
-                                                                    <strong class="text-danger">
+                                                                <strong class="text-danger">
                                                                     ￥{$vo.price}
-                                                                    </strong>
-                                                                    <a class="badge badge-warning float-right" href="{:url('/order/createOrder',['id'=>$vo['id'],'type'=>'order'])}">
-                                                                       去付款 
-                                                                    </a>
+                                                                </strong>
+                                                                <a class="badge badge-warning float-right" href="{:url('/order/createOrder',['id'=>$vo['id'],'type'=>'order'])}">
+                                                                    去付款
+                                                                </a>
                                                                 {/if}
                                                             </span>
                                                         </div>
                                                     </li>
                                                     {/volist}
                                                 </ul>
+                                                <div>
+                                                    {$page|raw}
+                                                </div>
                                             </div>
                                             <!-- /.card-footer -->
                                         </div>

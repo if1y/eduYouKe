@@ -95,4 +95,32 @@ class Order extends OrderModel
         return $list;
     }
 
+    //获取后台订单列表
+    
+    public function getOrderList()
+    {
+
+        $list = $this->where([
+            'delete_status' => 0,
+            'show_status' => 1,
+        ])->paginate()->each(function ($item)
+        {
+
+            $info = $this->getCommodityInfo([
+                'id' => $item['commodity_id'],
+                'type' => $item['order_type'] == 1 ? 'course' : 'vip',
+            ]);
+            $item['title']       = $info['title'];
+            $item['description'] = $info['description'];
+            $item['price']       = $info['price'];
+            $item['image_url']   = isset($info['image_url']) ? $info['image_url'] : '';
+            $user = (new User())->getUserInfo($item['user_id'],'nickname');
+            $item['nickname']   = $user['nickname'];
+            
+            return $item;
+        });
+
+        return $list;
+    }
+
 }
