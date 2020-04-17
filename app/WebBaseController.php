@@ -45,11 +45,11 @@ class WebBaseController extends BaseController
         if (Env::get('DEV.RUNTIME') == 'develop')
         {
 
-            $this->template = '/lte/'.app('http')->getName().'/';
+            $this->template = 'lte';
             
             $path           = WEB_ROOT . '/' . config('view.view_dir_name') . '/web/' . '/lte/'.app('http')->getName().'/';
         }
-        
+        // print_r($this->template);exit();
         View::config(['view_path' => $path]);
 
     }
