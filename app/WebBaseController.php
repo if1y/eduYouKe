@@ -36,17 +36,18 @@ class WebBaseController extends BaseController
         $res = DB::name('user')->find();
         if ($res)
         {
-            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/' . app('http')->getName() . '/default/';
+            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/web/' . '/default/';
         }
         else
         {
-            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/' . app('http')->getName() . '/default/';
+            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/web/' . '/default/';
         }
         if (Env::get('DEV.RUNTIME') == 'develop')
         {
 
-            $this->template = 'lte';
-            $path           = WEB_ROOT . '/' . config('view.view_dir_name') . '/' . app('http')->getName() . '/lte/';
+            $this->template = '/lte/'.app('http')->getName().'/';
+            
+            $path           = WEB_ROOT . '/' . config('view.view_dir_name') . '/web/' . '/lte/'.app('http')->getName().'/';
         }
         
         View::config(['view_path' => $path]);

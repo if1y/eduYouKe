@@ -1,0 +1,132 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0 text-dark">
+                        <i class="fa fa-{$contentHeader.icon}"></i>
+                        {$contentHeader.title}
+                    </h3>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin">首页</a></li>
+                        <li class="breadcrumb-item active">{$contentHeader.title}</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid p-2">
+            <div class="commonality-card bg-white p-4">
+                <ul class="nav nav-pills">
+                    {volist name="settinglist" id="vo" key="key"}
+                    <li class="nav-item">
+                        <a class="nav-link {:input('param.tplType') == $vo.category_name  ? 'active':''}" href="{$Request.root}/{$Request.controller}/{$Request.action}/tplType/{$vo.category_name | default='baseConfig'}">{$vo.title}</a>
+                    </li>
+                    {/volist}
+                </ul>
+                <div class="tab-content">
+                    <form class="p-3" enctype="multipart/form-data" action="{$Request.root}/{$Request.controller}/addPost/type/{$tpl}" method="post">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">网站名称</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="webSiteName" value="{$detail.webSiteName.content}" placeholder="请输入{$detail.webSiteName.category}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">网站LOGO</label>
+                            <div class="col-sm-5" id="websiteLogo">
+                                <input type="file" name="file" id="uploadFile" style="display: none;">
+                                <input type="text" name="logoImage" id="uploadValue" value="{$detail.logoImage.content}" style="display: none;">
+                                <div id="defaultUpload">
+                                    <img src="{$detail.logoImage.content ? getUrlPath($detail.logoImage.content) :'__STATIC__/img/user3-128x128.jpg'}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">SEO标题</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="seoTitle" value="{$detail.seoTitle.content}" placeholder="请输入{$detail.seoTitle.category}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">SEO描述</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="seoKeywords" value="{$detail.seoKeywords.content}" placeholder="请输入{$detail.seoKeywords.category}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">SEO关键字</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="seoDescription" value="{$detail.seoDescription.content}" placeholder="请输入{$detail.seoDescription.category}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">ICP备案</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="icpString" value="{$detail.icpString.content}" placeholder="请输入{$detail.icpString.category}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">统计代码</label>
+                            <div class="col-sm-5">
+                                <textarea class="form-control" rows="3" name="countCode" placeholder="请输入{$detail.countCode.category} ...">{$detail.countCode.content}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-5">
+                                <button type="submit" class="btn btn-info">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file='public/script' /}
+<script src="__STATIC__/js/jquery.validate.min.js"></script>
+<script src="__STATIC__/js/uploadImg.js"></script>
+
+<script type="text/javascript">
+    
+    var uploadConfig = {
+    inputId: 'uploadFile', // 上传图片的inputId
+    triggerId: 'defaultUpload', // 触发上传的元素Id
+    url: "/admin/File/imageUpload", // 上传地址
+    params: { // 上传需要携带的参数
+        token: 'a8100c30fc194ff275f691336c655ea6'
+    },
+    beforeSend: function() {
+        upload = layer.msg('loadding...', {
+            icon: 16,
+            shade: 0.2,
+            time: false
+        });
+        // 做loadding开始处理
+    },
+    isShowProgress: false, // 是否需要展示上传进度
+    loadProgress: function(progress) { // 上传进度回调
+        // console.log(progress)
+    },
+    base64String: function(base64Str) { // 获取本地的base64字符串做展示
+
+
+        console.log("#defaultUpload" + " img");
+        $("#defaultUpload" + " img").attr('src', base64Str);
+        // console.log(base64Str)
+    },
+    loadSuccess: function(data) { // 上传完成后回调
+        $("#uploadValue").val(data.path);;
+        layer.close(upload);
+    }
+}
+
+uploadImage(uploadConfig)
+
+</script>

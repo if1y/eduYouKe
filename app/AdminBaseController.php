@@ -53,18 +53,19 @@ class AdminBaseController extends BaseController
         $res = DB::name('user')->find();
         if ($res)
         {
-            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/' . app('http')->getName() . '/' . $this->layout . '/';
+            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/admin/' . app('http')->getName() . '/' . $this->layout . '/';
         }
         else
         {
-            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/' . app('http')->getName() . '/' . $this->layout . '/';
+            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/admin/' . app('http')->getName() . '/' . $this->layout . '/';
         }
         if (Env::get('DEV.RUNTIME') == 'develop')
         {
             $this->template = 'adminlte';
-            $path           = WEB_ROOT . '/' . config('view.view_dir_name') . '/' . app('http')->getName() . '/adminlte/';
+            $path           = WEB_ROOT . '/' . config('view.view_dir_name') . '/admin/'  . '/adminlte/'.app('http')->getName().'/';
 
         }
+        // print_r(View::config('view_path'));
         View::config(['view_path' => $path]);
 
     }

@@ -1,0 +1,254 @@
+{__NOLAYOUT__}
+{include file='public/header' /}
+<link rel="stylesheet" type="text/css" href="__STATIC__/common/select2/css/select2.min.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/common/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<style type="text/css">
+html,
+body {
+    background-color: #fff;
+}
+
+.uploadVideo {
+    min-width: 120px;
+}
+
+.select2-container .select2-choice {
+    min-height: 100px !important;
+}
+
+#channel {
+    border-radius: .1rem;
+}
+
+.uploadVideo option {
+    line-height: 25px;
+}
+</style>
+<div class="container-fluid bg-white h-100">
+    <br>
+    <div class="row">
+        <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/addPost">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">所属课程</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <select class="custom-select select2bs4" id="courseId" onchange="getSelectChapter()" name="course_id">
+                            <option value="">无</option>
+                            {volist name="courselist" id="vo"}
+                            <option value="{$vo.id}">{$vo.title}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">所属章节</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <select class="custom-select select2bs4" id="chapterId" name="chapter_id">
+                            <option value="">无</option>
+                            {volist name="chapterlist" id="vo"}
+                            <option value="{$vo.id}">{$vo.title}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">视频名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="title" placeholder="请输入视频名称">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">视频简介</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" name="description" placeholder="请输入视频简介"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">SEO标题</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="seoTitle" placeholder="请输入SEO标题">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">SEO关键字</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="seoKeywords" placeholder="请输入SEO关键字">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">SEO描述</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="seoDescription" placeholder="请输入SEO描述">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">视频上传</label>
+                <div class="col-sm-10">
+                    <div class="input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <select class="form-control h-100" id="channel" name="channel" style="min-width: 120px;">
+                                <option value="local">本地上传</option>
+                                <option value="alivod">阿里云上传</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" id="videoUrl" name="video_url">
+                        <span class="input-group-append">
+                            <input type="file" name="file" id="uploadFile" style="display: none;">
+                            <a href="javascript:void(0);" id="defaultUploads" class="btn btn-info btn-flat">
+                                上传
+                            </a>
+                            <!-- <button type="button" id="defaultUploads" class="btn btn-info btn-flat">上传</button> -->
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">备注</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="remark" placeholder="请输入备注">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">显示</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="icheck-success d-inline">
+                            <input type="checkbox" name="show_status" value="1" checked id="showStatus">
+                            <label for="showStatus">
+                                是否可用
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <button class="sub-bindbtn" lay-submit lay-filter="bind" style="display: none;"> -->
+            <button class="sub-bindbtn" lay-submit lay-filter="bind" style="width: 30px; height: 30px;">
+            </button>
+        </form>
+    </div>
+</div>
+{include file='public/script' /}
+<script src="__STATIC__/common/select2/js/select2.full.min.js"></script>
+<script src="__STATIC__/js/jquery.validate.min.js"></script>
+<script src="__STATIC__/js/uploadVideo.js"></script>
+<script type="text/javascript">
+    
+
+var uploadConfig = {
+    inputId: "uploadFile", // 上传图片的inputId
+    triggerId: "defaultUploads", // 触发上传的元素Id
+    url: "/admin/File/uploadVideo", // 上传地址
+    // params: { // 上传需要携带的参数
+        // channel: channel,
+    // },
+    beforeSend: function() {
+        upload = layer.msg('loadding...', {
+            icon: 16,
+            shade: 0.2,
+            time: false
+        });
+        // 做loadding开始处理
+    },
+    isShowProgress: false, // 是否需要展示上传进度
+    loadProgress: function(progress) { // 上传进度回调
+        // console.log(progress)
+    },
+    base64String: function(imagePath) { // 获取本地的base64字符串做展示
+
+    },
+    loadSuccess: function(data) { // 上传完成后回调
+        $("#videoUrl").val(data.path);
+        // $("#videoUrl").attr("disabled", "disabled");
+        layer.close(upload);
+    }
+}
+videoUploader(uploadConfig)
+
+
+$(function() {
+
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    // Initialize Select2 Elements
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
+    })
+
+
+    $(".select2").change(function() {
+        select_ops = $(".select2").val();
+        console.log(select_ops);
+    });
+
+})
+
+function getSelectChapter() {
+
+    var courseId = $('#courseId option:selected').val();
+    if (courseId) {
+        $("#chapterId option:not(:first)").remove();
+    }
+    $.post("/admin/Coursevideo/getChapterList", { course_id: courseId }, function(json) {
+        $.each(json.data, function(i, item) {
+            $("<option></option>").val(item["id"]).text(item["title"]).appendTo($("#chapterId"));
+        });
+    }, "json");
+
+}
+
+
+$('#content').validate({
+    ignore: [],
+    rules: {
+        course_id: {
+            required: true,
+        },
+        chapter_id: {
+            required: true,
+        },
+        title: {
+            required: true,
+        },
+        vide_url: {
+            required: true,
+        },
+    },
+    messages: {
+        course_id: {
+            required: "请选择课程",
+        },
+        chapter_id: {
+            required: "请选择章节",
+        },
+        title: {
+            required: "请填写标题",
+        },
+        vide_url: {
+            required: "请上传视频",
+        },
+
+    },
+    // errorElement: 'span',
+    errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.col-sm-10').append(error);
+    },
+    // highlight: function(element, errorClass, validClass) {
+    //     $(element).addClass('is-invalid');
+    // },
+    // unhighlight: function(element, errorClass, validClass) {
+    //     $(element).removeClass('is-invalid');
+    // }
+});
+
+
+function myValidate() {
+    var content = $("form").attr("id");
+    var valid = $("#" + content).valid();
+    return valid;
+}
+</script>

@@ -10,7 +10,7 @@ class Nav
         foreach ($nav as $key => $value)
         {
 
-            $js     = '/list/?list_id='.$value['id'];
+            $js     = '/index/list/?list_id='.$value['id'];
             $class  = !empty($value['_child']) ? ' nav-item dropdown ' : ' nav-item ';
             $toggle = !empty($value['_child']) ? ' dropdown-toggle ' : '';
             $aTag   = !empty($value['_child']) ? 'id="dropdownSubMenu' . $value['id'] . '"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '';
