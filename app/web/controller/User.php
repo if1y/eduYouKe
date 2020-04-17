@@ -5,6 +5,7 @@ use app\logic\Image;
 use app\logic\User as UserLogic;
 use app\UserBaseController;
 use app\util\Tools;
+use app\logic\Order;
 use think\facade\View;
 
 class User extends UserBaseController
@@ -40,7 +41,14 @@ class User extends UserBaseController
         {
             return redirect((string) url('user/centor', ['user_id' => $this->userId]));
         }
-        return view('');
+
+        $order = new Order();
+        $list = $order->getUserOrderList();
+        return view('', [
+            'list' => $list,
+            'page' => $list->render(),
+        ]);
+
     }
 
     //用户学习历史

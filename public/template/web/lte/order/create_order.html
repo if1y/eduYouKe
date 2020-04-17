@@ -149,7 +149,7 @@
         event.preventDefault();
 
         var payType = $('#payType').val();
-        var id = "{$info.id}";
+        var id = "{:input('param.id')}";
         var type = "{$info.type}";
 
         $.post("{:url('/pay/pay')}", { payType: payType, id: id, type: type }, function(json) {

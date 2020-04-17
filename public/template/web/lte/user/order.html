@@ -28,10 +28,8 @@
                                             <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
                                         </div>
                                         {else /}
-                                            <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
-                                        
+                                        <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
                                         {/if}
-                                        
                                     </div>
                                     <h3 class="profile-username text-center">{$userinfo.nickname}</h3>
                                     <p class="text-muted text-center">{$userinfo.introduce ? $userinfo.introduce :'这个人懒蛋蛋...'}</p>
@@ -51,7 +49,6 @@
                             </div>
                             <!-- /.card -->
                             <!-- About Me Box -->
-                            
                             <!-- /.card -->
                         </div>
                         <!-- /.col -->
@@ -65,9 +62,7 @@
                                         <li class="nav-item"><a class="nav-link  " href="{:url('/user/message',['user_id'=>$userinfo.id ])}">消息</a></li>
                                         <li class="nav-item"><a class="nav-link " href="{:url('/user/setting',['user_id'=>$userinfo.id ])}">设置</a></li>
                                         {else /}
-                                        
                                         {/if}
-
                                     </ul>
                                 </div>
                                 <div class="card-body">
@@ -77,71 +72,38 @@
                                             <!-- /.card-header -->
                                             <div class="card-body p-0">
                                                 <ul class="products-list product-list-in-card pl-2 pr-2">
+                                                    {volist name="list" id="vo"}
                                                     <li class="item">
                                                         <div class="product-img">
-                                                            <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
+                                                            <img src="{$vo.image_url ? getUrlPath($vo.image_url) :'__STATIC__/img/paybg.png'}" alt="Product Image" class="img-size-50">
                                                         </div>
                                                         <div class="product-info">
+
+                                                            {if $vo.order_type == 1}
+                                                            <a href="{:url('/course',['id'=>$vo['commodity_id']])}" class="product-title">
+                                                                {$vo.title}
+                                                              </a>
+                                                            {else /}
                                                             <a href="javascript:void(0)" class="product-title">
-                                                                Swoole第二章节
-                                                                <span class="badge badge-warning float-right">$1800</span></a>
+                                                                {$vo.title}
+                                                              </a>
+                                                            {/if}
                                                             <span class="product-description">
-                                                                Swoole第二章节
+
+                                                                {if $vo.order_status}
+                                                                    <small>已完成</small>
+                                                                {else /}
+                                                                    <strong class="text-danger">
+                                                                    ￥{$vo.price}
+                                                                    </strong>
+                                                                    <a class="badge badge-warning float-right" href="{:url('/order/createOrder',['id'=>$vo['id'],'type'=>'order'])}">
+                                                                       去付款 
+                                                                    </a>
+                                                                {/if}
                                                             </span>
                                                         </div>
                                                     </li>
-                                                    <li class="item">
-                                                        <div class="product-img">
-                                                            <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <a href="javascript:void(0)" class="product-title">
-                                                                Swoole第二章节
-                                                                <span class="badge badge-warning float-right">$1800</span></a>
-                                                            <span class="product-description">
-                                                                Swoole第二章节
-                                                            </span>
-                                                        </div>
-                                                    </li>
-                                                    <li class="item">
-                                                        <div class="product-img">
-                                                            <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <a href="javascript:void(0)" class="product-title">
-                                                                Swoole第二章节
-                                                                <span class="badge badge-warning float-right">$1800</span></a>
-                                                            <span class="product-description">
-                                                                Swoole第二章节
-                                                            </span>
-                                                        </div>
-                                                    </li>
-                                                    <li class="item">
-                                                        <div class="product-img">
-                                                            <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <a href="javascript:void(0)" class="product-title">
-                                                                Swoole第二章节
-                                                                <span class="badge badge-warning float-right">$1800</span></a>
-                                                            <span class="product-description">
-                                                                Swoole第二章节
-                                                            </span>
-                                                        </div>
-                                                    </li>
-                                                    <li class="item">
-                                                        <div class="product-img">
-                                                            <img src="__STATIC__/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <a href="javascript:void(0)" class="product-title">
-                                                                Swoole第二章节
-                                                                <span class="badge badge-warning float-right">$1800</span></a>
-                                                            <span class="product-description">
-                                                                Swoole第二章节
-                                                            </span>
-                                                        </div>
-                                                    </li>
+                                                    {/volist}
                                                 </ul>
                                             </div>
                                             <!-- /.card-footer -->
@@ -170,7 +132,7 @@
     {include file='public/footer' /}
     </div>
     {include file='public/script' /}
-        <script src="__STATIC__/js/uploadImg.js"></script>
+    <script src="__STATIC__/js/uploadImg.js"></script>
     <script type="text/javascript">
     var uploadConfig = {
         inputId: 'uploadFile', // 上传图片的inputId

@@ -20,6 +20,7 @@ class Pay extends UserBaseController
         $order = new Order();
 
         $check = $order->getCommodityInfo($param);
+        // print_r($check);exit();
         if (!$check) {
         	//商品为空跳转
         	$this->error('操作有误');
