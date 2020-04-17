@@ -56,11 +56,11 @@
                             <div class="card">
                                 <div class="card-header p-2">
                                     <ul class="nav nav-pills">
-                                        <li class="nav-item"><a class="nav-link" href="{:url('/user/centor',['user_id'=>$userinfo.id ])}">足迹</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{:url('/user/user/centor',['user_id'=>$userinfo.id ])}">足迹</a></li>
                                         {if $userinfo.myself == 1}
-                                        <li class="nav-item"><a class="nav-link " href="{:url('/user/order',['user_id'=> $userinfo.id ])}">订单</a></li>
-                                        <li class="nav-item"><a class="nav-link  " href="{:url('/user/message',['user_id'=>$userinfo.id ])}">消息</a></li>
-                                        <li class="nav-item"><a class="nav-link active" href="{:url('/user/setting',['user_id'=>$userinfo.id ])}">设置</a></li>
+                                        <li class="nav-item"><a class="nav-link " href="{:url('/user/user/order',['user_id'=> $userinfo.id ])}">订单</a></li>
+                                        <li class="nav-item"><a class="nav-link  " href="{:url('/user/user/message',['user_id'=>$userinfo.id ])}">消息</a></li>
+                                        <li class="nav-item"><a class="nav-link active" href="{:url('/user/user/setting',['user_id'=>$userinfo.id ])}">设置</a></li>
                                         {else /}
                                         
                                         {/if}
@@ -143,7 +143,7 @@
     var uploadConfig = {
         inputId: 'uploadFile', // 上传图片的inputId
         triggerId: 'defaultUpload', // 触发上传的元素Id
-        url: "{:url('/user/avatar')}", // 上传地址
+        url: "{:url('/user/user/avatar')}", // 上传地址
         // params: { // 上传需要携带的参数
         //     token: 'a8100c30fc194ff275f691336c655ea6'
         // },
