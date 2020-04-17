@@ -5,14 +5,14 @@
     <title>首页 {$site_info.site_name|default=''}</title>
     <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
-    {include file='public/header' /}
+    {include file='../public/header' /}
     <!-- <link href="/static/web/detault/css/course.css" rel="stylesheet"> -->
     <link href="/template/web/{$templateName}/public/static/css/course.css" rel="stylesheet">
     
 </head>
 
 <body class="body-white">
-    {include file='public/nav' /}
+    {include file='../public/nav' /}
     <div class="container-body">
         <div class="detail-info">
             <div class="detail-img">
@@ -164,5 +164,5 @@
             </div>
         </div>
     </div>
-    {include file='public/footer' /}
+    {include file='../public/footer' /}
 </body>

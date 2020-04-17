@@ -5,12 +5,12 @@
     <title>用户首页 {$site_info.site_name|default=''}</title>
     <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
-    {include file='public/header' /}
+    {include file='../public/header' /}
     <link href="/template/web/{$templateName}/public/static/css/article.css" rel="stylesheet">
 </head>
 
 <body class="body-white">
-    {include file='public/nav' /}
+    {include file='../public/nav' /}
     <div class="container container-body">
         <div class="mt-2">
             <nav aria-label="breadcrumb">
@@ -366,7 +366,7 @@
             </div>
         </div>
     </div>
-    {include file='public/footer' /}
+    {include file='../public/footer' /}
 </body>
 <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
 <script type="text/javascript">

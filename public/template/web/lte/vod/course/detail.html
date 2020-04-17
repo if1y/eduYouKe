@@ -5,14 +5,14 @@
     <title>首页 {$site_info.site_name|default=''}</title>
     <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
-    {include file='public/header' /}
+    {include file='../public/header' /}
     <link href="/template/web/{$templateName}/public/static/css/course.css" rel="stylesheet">
     <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.2/skins/default/aliplayer-min.css" />
 </head>
 
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
-        {include file='public/nav' /}
+        {include file='../public/nav' /}
         <div class="container mt-2 aliplayer">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -206,8 +206,8 @@
             </div>
         </div>
         <!-- http://edu.com/storage/tovideo/20200411\e3f21dec356563033d26fdd17e75b01c.mp4 -->
-        {include file='public/footer' /}
-        {include file='public/script' /}
+        {include file='../public/footer' /}
+        {include file='../public/script' /}
 </body>
 <script type="text/javascript" charset="utf-8" src="https://g.alicdn.com/de/prismplayer/2.8.2/aliplayer-min.js"></script>
 <script>
