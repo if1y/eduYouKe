@@ -1,0 +1,189 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>首页 {$site_info.site_name|default=''}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    {include file='public/header' /}
+    <link href="__TEMPSTATIC__/css/course.css" rel="stylesheet">
+    <link href="__TEMPSTATIC__/css/editor.css" rel="stylesheet">
+</head>
+
+<body class="body-white">
+    {include file='public/nav' /}
+    <div class="container-body">
+        <div class="detail-info">
+            <div class="detail-img">
+                <div class="container">
+                    <div class="mt-3">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">首页</a></li>
+                                <li class="breadcrumb-item"><a href="#">后端</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><a href="#">Swoole入门到放弃</a></li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div>
+                        <h1 class="float-left" style="color: #fff">【光棍节脱单佳品】2小时上手SpringBoot</h1>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <div class="float-left">
+                        <div class="detail-attribute">
+                            <p>
+                                <span>难度初级</span><span>时长 2小时</span><span>学习人数530</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="detail-nav">
+            <div class="container">
+                <nav class="nav">
+                    <a class="nav-link text-muted" href="{:url('/course/index')}">课程介绍</a>
+                    <a class="nav-link text-muted" href="{:url('/course/chapter')}">课程章节</a>
+                    <a class="nav-link text-muted" href="{:url('/course/articleList')}">关联文章</a>
+                    <a class="nav-link active text-muted" href="{:url('/course/commentList')}">课程评论</a>
+                </nav>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <!-- 评论列表 start-->
+                    <div class="mt-3 comment-list">
+                        <div class="mt-3 bg-white">
+                            <div class="media comment">
+                                <img class="comment-avatart rounded-circle" src="https://10.url.cn/eth/ajNVdqHZLLD9MnzPTL0GibTVuI0fPLW8cwS59H2Yo3NLgZice8NRZekXLiafoDKtGD9flaJ5XKhnzs/130" class="mr-3" alt="...">
+                                <div class="media-body ml-3">
+                                    <h5 class="mt-0">总有刁民想害朕</h5>
+                                    <p class="text-black-50">
+                                        疑问：阿里云域名解析服务器扮演的角色是什么，属于图中哪一块儿，后面那堆13个顶级域名什么的，是不是都是域名解析服务器商干的活儿啊？
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 bg-white">
+                            <div class="media comment">
+                                <img class="comment-avatart rounded-circle" src="https://10.url.cn/eth/ajNVdqHZLLD9MnzPTL0GibTVuI0fPLW8cwS59H2Yo3NLgZice8NRZekXLiafoDKtGD9flaJ5XKhnzs/130" class="mr-3" alt="...">
+                                <div class="media-body ml-3">
+                                    <h5 class="mt-0">总有刁民想害朕</h5>
+                                    <p class="text-black-50">
+                                        过于基础，干货太少，最起码的A记录、CNAME概念都没有
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 bg-white">
+                            <div class="media comment">
+                                <img class="comment-avatart rounded-circle" src="https://10.url.cn/eth/ajNVdqHZLLD9MnzPTL0GibTVuI0fPLW8cwS59H2Yo3NLgZice8NRZekXLiafoDKtGD9flaJ5XKhnzs/130" class="mr-3" alt="...">
+                                <div class="media-body ml-3">
+                                    <h5 class="mt-0">总有刁民想害朕</h5>
+                                    <p class="text-black-50">
+                                        虽然没听很懂，但是表白楼下小可爱
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 bg-white">
+                            <div class="media comment">
+                                <img class="comment-avatart rounded-circle" src="https://10.url.cn/eth/ajNVdqHZLLD9MnzPTL0GibTVuI0fPLW8cwS59H2Yo3NLgZice8NRZekXLiafoDKtGD9flaJ5XKhnzs/130" class="mr-3" alt="...">
+                                <div class="media-body ml-3">
+                                    <form>
+                                        <div class="form-group">
+                                            <textarea class="form-control " name="content" id="FormControTextarea" rows="3" placeholder="写下你对课程的评价..."></textarea>
+                                            <button type="button" class="btn btn-primary btn-sm float-right bnt-textarea js-ajax-submit disabled " onclick="creatComment()" style="margin-top: 10px;">立即发布</button>
+                                        </div>
+                                    </form>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 分页start -->
+                        <div id="pagination">
+                            <nav>
+                                <ul class="pagination  mt-4">
+                                    <!-- <ul class="pagination justify-content-center mt-4"> -->
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active" aria-current="page">
+                                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- 分页end -->
+                    </div>
+                    <!-- 评论列表 end-->
+                    <!-- 评论框start -->
+                    <!--               <div class="mt-4">
+                    <div class="border commentEditor bg-white">
+                        <div id="commentEditor" class="border-bottom">
+                        </div>
+                        <div id="commentEditorContent">
+                            <p>请输入内容</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm float-right bnt-textarea js-ajax-submit disabled " onclick="creatComment()" style="margin-top: 10px;">立即发布</button>
+                </div>
+                <div class="clearfix"></div> -->
+                    <!-- 评论框end -->
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="card mt-3">
+                        <img src="https://img1.mukewang.com/5dc225df09222b1512000676-240-135.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title text-body">课程简介</h5>
+                            <p class="card-text text-black-50">本课程适合略有编程基础的同学，能灵活运用Python更佳！</p>
+                        </div>
+                        <div class="card-body">
+                            <!-- <a href="#" class="card-link detail-price">￥200</a> -->
+                            <!-- btn btn-primary btn-sm -->
+                            <!-- <a href="#" class="btn btn-primary btn-sm btn-danger float-right">立即购买</a> -->
+                            <a href="#" class="btn btn-primary btn-lg btn-block btn-danger float-right">开始学习</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="mt-3">
+                        <p class="ml-2">推荐文章</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item border-0"><a href="#">1 深入简出学习删除数据库</a></li>
+                            <li class="list-group-item border-0"><a href="#">2 本课程适合略有编程基础的同学，能灵活运用Python更佳！</a> </li>
+                            <li class="list-group-item border-0"><a href="#">3 深入简出学习删除数据库</a></li>
+                            <li class="list-group-item border-0"><a href="#">4 深入简出学习删除数据库</a></li>
+                            <li class="list-group-item border-0"><a href="#">5 深入简出学习删除数据库</a></li>
+                        </ul>
+                    </div>
+                    <div class="mt-3 enlarge-img">
+                        <p class="ml-2">推荐课程</p>
+                        <img class="card-img-top" src="http://fastedu.com/upload/education/20191113/61b68369620284dc41c960416da2d107.png" class="align-self-start mr-3" alt="...">
+                        <p class="ml-2 mt-1"><a href="#">深入简出学习删除数据库</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file='public/footer' /}
+</body>
+<script type="text/javascript">
+var E = window.wangEditor
+var editor = new E('#commentEditor', '#commentEditorContent') // 两个参数也可以传入 elem 对象，class 选择器
+// 自定义菜单配置
+editor.customConfig.menus = [
+    'head',
+    'bold',
+    'italic',
+    'underline'
+]
+editor.create()
+</script>

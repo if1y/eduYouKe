@@ -3,14 +3,11 @@ declare (strict_types = 1);
 namespace app;
 
 use app\BaseController;
-use think\facade\DB;
-use think\facade\View;
-use think\facade\Env;
 use app\util\Nav;
 use app\util\Tools;
-use think\exception\HttpResponseException;
-
-
+use think\facade\DB;
+use think\facade\Env;
+use think\facade\View;
 
 class WebBaseController extends BaseController
 {
@@ -18,6 +15,10 @@ class WebBaseController extends BaseController
     protected $layout = 'default';
 
     protected $template;
+
+    protected $templateStatic;
+
+    protected $webTemplateDir = 'website';
 
     // 初始化
     protected function initialize()
@@ -46,11 +47,29 @@ class WebBaseController extends BaseController
         {
 
             $this->template = 'lte';
-            
-            $path           = WEB_ROOT . '/' . config('view.view_dir_name') . '/web/' . '/lte/'.app('http')->getName().'/';
+
+            $path = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . 'lte' . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
+
         }
-        // print_r($this->template);exit();
+
+        //模板字符串替换
+        $this->viewTplReplaceString();
         View::config(['view_path' => $path]);
+
+    }
+
+    //模板字符串替换
+    public function viewTplReplaceString()
+    {
+        $viewConfig = config('view');
+
+        $tempStr = str_replace("public", "", $viewConfig['view_dir_name']) . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . 'lte' . DIRECTORY_SEPARATOR . 'public/static';
+
+        $viewReplaceStr = [
+            '__TEMPSTATIC__' => $tempStr,
+        ];
+
+        View::config(['tpl_replace_string' => array_merge($viewConfig['tpl_replace_string'], $viewReplaceStr)]);
 
     }
 
@@ -63,120 +82,12 @@ class WebBaseController extends BaseController
             ->order('sort', 'asc')
             ->select()->toArray();
 
-        // print_r($access);exit();
-
         //组装选中状态
-
-         $nav = Nav::buildNav(
+        $nav = Nav::buildNav(
             Tools::listToTree($access, 'id', 'parent_id')
         );
-        return $nav;        
+        return $nav;
 
-
-    }
-
-
-            /**
-     * 操作成功跳转的快捷方法
-     * @access protected
-     * @param  mixed     $msg 提示信息
-     * @param  string    $url 跳转的URL地址
-     * @param  mixed     $data 返回的数据
-     * @param  integer   $wait 跳转等待时间
-     * @param  array     $header 发送的Header信息
-     * @return void
-     */
-    protected function success($msg = '', string $url = null, $data = '', int $wait = 3, array $header = [])
-    {
-        if (is_null($url) && isset($_SERVER["HTTP_REFERER"])) {
-            $url = $_SERVER["HTTP_REFERER"];
-        } elseif ($url) {
-            $url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : app('route')->buildUrl($url);
-        }
-
-        $result = [
-            'code' => 1,
-            'msg'  => $msg,
-            'data' => $data,
-            'url'  => $url,
-            'wait' => $wait,
-        ];
-
-        $type = $this->getResponseType();
-        if ($type == 'html'){
-            $response = view($this->app->config->get('app.dispatch_success_tmpl'), $result);
-        } else if ($type == 'json') {
-            $response = json($result);
-        }
-        throw new HttpResponseException($response);
-    }
-
-    /**
-     * 操作错误跳转的快捷方法
-     * @access protected
-     * @param  mixed     $msg 提示信息
-     * @param  string    $url 跳转的URL地址
-     * @param  mixed     $data 返回的数据
-     * @param  integer   $wait 跳转等待时间
-     * @param  array     $header 发送的Header信息
-     * @return void
-     */
-    protected function error($msg = '', string $url = null, $data = '', int $wait = 3, array $header = [])
-    {
-        if (is_null($url)) {
-            $url = $this->request->isAjax() ? '' : 'javascript:history.back(-1);';
-        } elseif ($url) {
-            $url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : $this->app->route->buildUrl($url);
-        }
-
-        $result = [
-            'code' => 0,
-            'msg'  => $msg,
-            'data' => $data,
-            'url'  => $url,
-            'wait' => $wait,
-        ];
-
-        $type = $this->getResponseType();
-        if ($type == 'html'){
-            $response = view($this->app->config->get('app.dispatch_error_tmpl'), $result);
-        } else if ($type == 'json') {
-            $response = json($result);
-        }
-        throw new HttpResponseException($response);
-    }
-
-    /**
-     * URL重定向  自带重定向无效
-     * @access protected
-     * @param  string         $url 跳转的URL表达式
-     * @param  array|integer  $params 其它URL参数
-     * @param  integer        $code http code
-     * @param  array          $with 隐式传参
-     * @return void
-     */
-    protected function redirect($url, $params = [], $code = 302, $with = [])
-    {
-        $response = Response::create($url, 'redirect');
-
-        if (is_integer($params)) {
-            $code   = $params;
-            $params = [];
-        }
-
-        $response->code($code)->params($params)->with($with);
-
-        throw new HttpResponseException($response);
-    }
-
-    /**
-     * 获取当前的response 输出类型
-     * @access protected
-     * @return string
-     */
-    protected function getResponseType()
-    {
-        return $this->request->isJson() || $this->request->isAjax() ? 'json' : 'html';
     }
 
 

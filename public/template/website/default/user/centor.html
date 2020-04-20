@@ -1,0 +1,186 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>用户首页 {$site_info.site_name|default=''}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    {include file='public/header' /}
+    <link href="__TEMPSTATIC__/css/user.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+</head>
+
+<body class="body-white">
+    {include file='public/nav' /}
+    <div class="container container-body">
+        <div class="row mt-4">
+            <div class="col-lg-2 col-md-12 col-auto mt-4 user-nav border-right">
+                <ul class="nav">
+                    <a class="nav-link  mt-2 mb-2 active" href="{:url('/user/centor')}">
+                        <i class="fa fa-cog mr-2" aria-hidden="true"></i>
+                        个人设置
+                    </a>
+                    <a class="nav-link mt-2 mb-2" href="{:url('/user/order')}">
+                        <i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i>
+                        我的订单
+                    </a>
+                    <a class="nav-link  mt-2 mb-2" href="{:url('/user/history')}">
+                        <i class="fa fa-history mr-2" aria-hidden="true"></i>历史课程
+                    </a>
+                    <a class="nav-link  mt-2 mb-2" href="{:url('/user/message')}">
+                        <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
+                        消息列表
+                    </a>
+                </ul>
+            </div>
+            <div class="col-lg-10 col-md-12 col-auto mt-4 user-nav-detail">
+                <div class="card">
+                    <div class="user-info">
+                        <form>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">头像</label>
+                                <div class="col-sm-10">
+                                    <img class="rounded-circle shadow-lg avatar-image" for="avatar_uploder" src="https://thirdwx.qlogo.cn/mmopen/s4Vlu8DjOS4CIzrh2YYwOdVol0PLSjVgFdBAkFibVvWiaWF3jzza8GHib5YXgl1EFmdoibH65pFQvmDuvr41enRMjxzSmc72lc4n/132" width="128" />
+                                    <input type="file" class="custom-file-input" onchange="avatar_upload(this)" name="file" id="avatar_uploder">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">昵称</label>
+                                <div class="col-sm-10">
+                                    <input type="email" value="总有刁民想害朕" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">性别</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control">
+                                        <option>保密</option>
+                                        <option>男</option>
+                                        <option>女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">生日</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control datetimepicker-input" id="date" data-toggle="datetimepicker" data-target="#datetimepicker5" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">个性签名</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="validationTextarea">完犊子了,啥也没有~</textarea>
+                                    <!-- <div class="invalid-feedback">
+                                        Please enter a message in the textarea.
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">修改密码</label>
+                                <div class="col-sm-10">
+                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">点击修改</button>
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">
+                                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                                        修改密码
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body text-muted">
+                                                    <div class="container-fluid mb-4">
+                                                        <div class="row">
+                                                            <div class="col-md-2 ml-auto"></div>
+                                                            <div class="col-md-8 ml-auto">
+                                                                <form>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">
+                                                                            <strong>请输入原密码</strong>
+                                                                        </label>
+                                                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                                        <!-- <small id="emailHelp" class="form-text text-muted"></small> -->
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputPassword1">
+                                                                            <strong>请输入新密码</strong>
+                                                                        </label>
+                                                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputPassword1">
+                                                                            <strong>请再次输入新密码</strong>
+                                                                        </label>
+                                                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                                                    </div>
+                                                                    
+                                                                    <button type="submit" class="btn btn-primary">修改密码</button>
+                                                                </form>
+                                                                    <br>
+                                                            </div>
+                                                            <div class="col-md-2 ml-auto"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">修改资料</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    {include file='public/footer' /}
+</body>
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">
+if (IsPhone()) {
+    console.log('phone');
+}
+
+$(function() {
+    $('#date').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale: 'zh-CN'
+    });
+});
+
+//头像上传
+function avatar_upload(obj) {
+    var $fileinput = $(obj);
+    var file = obj.files[0];
+    var formData = new FormData();
+    formData.set("file", file);
+    console.log(formData);
+    $.ajax({
+        url: "{:url('user/avatarUpload')}",
+        type: "POST",
+        data: formData,
+        dataType: 'json',
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            console.log(data);
+        },
+        success: function(data) {
+            console.log(data);
+        }
+    });
+}
+</script>
