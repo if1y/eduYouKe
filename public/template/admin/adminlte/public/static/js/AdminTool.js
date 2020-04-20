@@ -61,7 +61,7 @@
                     var iframeWin = parent.parent.window[layero.find('iframe')[0]['name']]; // 重点0
                     var validate = iframeWin.myValidate();
                     var formData = iframeWin.$("form").serialize();
-                    var data_params = decodeURIComponent(formData,true);
+                    var data_params = decodeURIComponent(formData, true);
 
 
                     // getToPost(data_params);return;
@@ -158,7 +158,7 @@
                     var iframeWin = parent.parent.window[layero.find('iframe')[0]['name']]; // 重点0
                     var validate = iframeWin.myValidate();
                     var formData = iframeWin.$("form").serialize();
-                    var data_params = decodeURIComponent(formData,true);
+                    var data_params = decodeURIComponent(formData, true);
                     // getToPost(data_params);return;
                     //
                     if (validate) {
@@ -209,11 +209,10 @@
                 msg = $this.data('msg');
             href = href ? href : $this.attr('href');
 
-            // console.log(window.location.origin+href);
             layer.open({
                 type: 2,
                 content: href,
-                area: ['400px', '600px'],
+                area: ['480px', '600px'],
                 title: $this.attr("title"),
                 resize: false,
                 btn: ['确认', '取消'],
@@ -223,15 +222,34 @@
                 // 确定的操作
                 yes: function(index, layero) {
 
+                    var iframeWin = parent.parent.window[layero.find('iframe')[0]['name']]; // 重点0
+                    var formData = iframeWin.$("form").serialize();
+                    var data_params = decodeURIComponent(formData, true);
 
-                    var body = layer.getChildFrame('body', index); //得到iframe页面层的BODY
-                    var iframeBtn = body.find('.sub-bindbtn'); //得到iframe页面层的提交按钮
-                    iframeBtn.click(); //模拟iframe页面层的提交按钮点击
+                    $.post(href, (data_params), function(data) {
 
-                    layer.close(index);
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 1000);
+                        if (data.code == 1) {
+
+                            $.dialog({
+                                title: '操作提示!',
+                                content: data.msg,
+                            });
+                            setTimeout(function() {
+                                layer.close(index);
+                                window.location.reload();
+                            }, 1500);
+
+                        } else {
+
+                            $.dialog({
+                                title: '操作提示!',
+                                content: data.msg,
+                            });
+
+                        }
+
+                    });
+
                 },
                 cancel: function(index, layero) {
                     // 取消的操作
@@ -261,7 +279,7 @@
 
             $.confirm({
                 title: '确认!',
-                content: '是否'+msg+'？',
+                content: '是否' + msg + '？',
                 type: 'red',
                 typeAnimated: true,
                 closeIcon: true,
@@ -1213,7 +1231,7 @@ function openIframeLayer(url, title, options) {
     // Wind.css('layer');
 
     // Wind.use("layer", function() {
-        layer.open(params);
+    layer.open(params);
     // });
 
 }

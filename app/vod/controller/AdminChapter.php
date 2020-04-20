@@ -5,6 +5,8 @@ use app\AdminBaseController;
 use app\logic\Chapter as ChapterLogic;
 use app\logic\Course;
 use think\facade\View;
+use app\vod\validate\AdminChapter as AdminChapterValidate;
+
 
 class AdminChapter extends AdminBaseController
 {
@@ -26,6 +28,14 @@ class AdminChapter extends AdminBaseController
 
         if ($this->request->isPost())
         {
+
+            //验证数据
+            $validate = new AdminChapterValidate();
+            if (!$validate->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
             if ($chapter->save($param))
             {
                 $this->success('操作成功');
@@ -57,6 +67,14 @@ class AdminChapter extends AdminBaseController
 
         if ($this->request->isPost())
         {
+
+            //验证数据
+            $validate = new AdminChapterValidate();
+            if (!$validate->check($param))
+            {
+                $this->error($validate->getError());
+            }
+            
             $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
 
             if ($chapter->where('id', $param['id'])->save($param))
@@ -84,9 +102,10 @@ class AdminChapter extends AdminBaseController
      */
     public function del()
     {
-        $param   = $this->request->param();
+        $id = $this->request->param('id', 0, 'intval');
+
         $chapter = new ChapterLogic();
-        $result  = $chapter->update(['delete_status' => 1], ['id' => $param['id']]);
+        $result  = $chapter->update(['delete_status' => 1], ['id' => $id]);
         if ($result)
         {
             return json(['code' => 1, 'msg' => '删除成功']);

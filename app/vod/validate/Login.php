@@ -1,5 +1,5 @@
 <?php
-namespace app\web\validate;
+namespace app\vod\validate;
 
 use think\Validate;
 

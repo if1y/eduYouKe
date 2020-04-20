@@ -4,6 +4,8 @@ namespace app\admin\controller;
 use app\AdminBaseController;
 use app\logic\AdminMenu;
 use think\facade\View;
+use app\admin\validate\Menu as MenuValidate;
+
 
 class Menu extends AdminBaseController
 {
@@ -28,6 +30,21 @@ class Menu extends AdminBaseController
         $menu = new AdminMenu();
         if ($this->request->isPost())
         {
+
+            //验证数据
+            $validate = new MenuValidate();
+            if (!$validate->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
+            $exsit = $menu->where('title', $param['title'])
+                ->whereOr('url', $param['url'])->find();
+            if ($exsit)
+            {
+                $this->error('路径或标题已存在');
+            }
+
             if ($menu->addMenu($param))
             {
                 $this->success('操作成功');
@@ -56,7 +73,22 @@ class Menu extends AdminBaseController
         $menu  = new AdminMenu();
 
         if ($this->request->isPost())
-        {
+        {   
+
+            $validate = new MenuValidate();
+            if (!$validate->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
+            $exsit = $menu->where('url', $param['url'])
+                ->where('id', '<>', $param['id'])->find();
+
+            if ($exsit)
+            {
+                $this->error('路径已存在');
+            }
+
 
             if ($menu->editMenu($param))
             {

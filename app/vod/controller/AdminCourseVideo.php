@@ -6,6 +6,8 @@ use think\facade\View;
 use app\logic\Chapter;
 use app\logic\Course;
 use app\logic\CourseVideo as CourseVideoLogic;
+use app\vod\validate\AdminCourseVideo as AdminCourseVideoValidate;
+
 
 
 class AdminCourseVideo extends AdminBaseController
@@ -34,6 +36,14 @@ class AdminCourseVideo extends AdminBaseController
 
         if ($this->request->isPost())
         {
+
+            //验证数据
+            $validate = new AdminCourseVideoValidate();
+            if (!$validate->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
             if ($courseVideo->save($param))
             {
                 $this->success('操作成功');
@@ -69,10 +79,14 @@ class AdminCourseVideo extends AdminBaseController
 
         if ($this->request->isPost())
         {
-            // $param['channel']
-            // unset($param['channel']);
-            // $param['video_type'] = $param['channel'];
-            // print_r($param);exit();
+
+            //验证数据
+            $validate = new AdminCourseVideoValidate();
+            if (!$validate->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
             if ($courseVideo->where('id',$param['id'])->save($param))
             {
                 $this->success('操作成功');
@@ -104,10 +118,11 @@ class AdminCourseVideo extends AdminBaseController
    	//视频删除
 	public function del()
 	{
-        $param   = $this->request->param();
+        $id = $this->request->param('id', 0, 'intval');
+
         $courseVideo = new CourseVideoLogic();
         
-        $result  = $courseVideo->update(['delete_status' => 1], ['id' => $param['id']]);
+        $result  = $courseVideo->update(['delete_status' => 1], ['id' => $id]);
         if ($result)
         {
             return json(['code' => 1, 'msg' => '删除成功']);

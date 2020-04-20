@@ -16,8 +16,6 @@ class WebBaseController extends BaseController
 
     protected $template;
 
-    protected $templateStatic;
-
     protected $webTemplateDir = 'website';
 
     // 初始化
@@ -48,7 +46,7 @@ class WebBaseController extends BaseController
 
             $this->template = 'lte';
 
-            $path = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . 'lte' . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
+            $path = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
 
         }
 
@@ -63,7 +61,7 @@ class WebBaseController extends BaseController
     {
         $viewConfig = config('view');
 
-        $tempStr = str_replace("public", "", $viewConfig['view_dir_name']) . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . 'lte' . DIRECTORY_SEPARATOR . 'public/static';
+        $tempStr = str_replace("public", "", $viewConfig['view_dir_name']) . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . 'public/static';
 
         $viewReplaceStr = [
             '__TEMPSTATIC__' => $tempStr,

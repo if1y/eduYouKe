@@ -2,7 +2,9 @@
 namespace app\admin\controller;
 
 use app\AdminBaseController;
+use app\logic\AdminMenu;
 use app\logic\AdminRole;
+use app\util\Tools;
 use think\facade\View;
 
 class Role extends AdminBaseController
@@ -28,8 +30,8 @@ class Role extends AdminBaseController
     {
         if ($this->request->isPost())
         {
-            $param = $this->request->param();
-            $role  = new AdminRole();
+            $param                = $this->request->param();
+            $role                 = new AdminRole();
             $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
             if ($role->save($param))
@@ -85,9 +87,10 @@ class Role extends AdminBaseController
      */
     public function del()
     {
-        $param  = $this->request->param();
+        $id = $this->request->param('id', 0, 'intval');
+
         $role   = new AdminRole();
-        $result = $role->update(['delete_status' => 1], ['id' => $param['id']]);
+        $result = $role->update(['delete_status' => 1], ['id' => $id]);
         if ($result)
         {
             return json(['code' => 1, 'msg' => '删除成功']);
@@ -104,20 +107,42 @@ class Role extends AdminBaseController
      */
     public function tree()
     {
-        $id = $this->request->param('id', 0, 'intval');
-        View::assign('id', $id);
-        return View::fetch();
+        $param = $this->request->param();
+
+        $menu = new AdminMenu();
+
+        if ($this->request->isPost())
+        {
+            if (isset($param['authids'])) {
+
+                $role = new AdminRole();
+                if ($role->where('id',$param['id'])->save([
+                    'role_auth'=>implode(',',$param['authids'])
+                ])) {
+                    $this->success('操作成功');
+                }
+
+            }
+            $this->error('操作失败');
+        }
+        else
+        {
+            View::assign('id', $param['id']);
+            return View::fetch();
+        }
     }
 
-    /**
-     * [tree 权限树形结构图]
-     * @return [type] [description]
-     */
-    public function testtree()
+
+
+    //获取当前用户的tree权限
+    public function getAuthTree()
     {
-        $id = $this->request->param('id', 0, 'intval');
-        View::assign('id', $id);
-        return View::fetch();
+
+        $roleId = $this->request->param('id', 0, 'intval');
+        $menu = new AdminMenu();
+        $tress = $menu->getUserAuthTree($roleId);
+        return $this->success('获取成功...','',['trees'=>$tress]);
+
     }
 
     /**

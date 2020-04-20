@@ -26,7 +26,7 @@
                 <ul class="nav nav-pills">
                     {volist name="settinglist" id="vo" key="key"}
                     <li class="nav-item">
-                        <a class="nav-link {:input('param.tplType') == $vo.category_name  ? 'active':''}" href="{$Request.root}/{$Request.controller}/{$Request.action}/tplType/{$vo.category_name | default='baseConfig'}">{$vo.title}</a>
+                        <a class="nav-link {:input('param.tplType') == $vo.category_name || $key == 1 && $tpl == 'baseConfig'  ? 'active':''}" href="{$Request.root}/{$Request.controller}/{$Request.action}/tplType/{$vo.category_name | default='baseConfig'}">{$vo.title}</a>
                     </li>
                     {/volist}
                 </ul>

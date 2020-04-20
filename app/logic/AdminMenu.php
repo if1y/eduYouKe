@@ -8,6 +8,11 @@ use app\util\Tools;
 class AdminMenu extends AdminMenuModel
 {
 
+
+    public $menuConfig = ['add'=>'添加','edit'=>'编辑','del'=>'删除'];
+    public $rabcConfig = ['add', 'del', 'edit'];
+
+
     /**
      * [getMenuList 获取当前目录列表]
      * @return [type] [description]
@@ -32,10 +37,9 @@ class AdminMenu extends AdminMenuModel
     {
         $data = $edit->toArray();
         $uriPath    = explode('/', $data['url']);
-        $rabcConfig = ['add', 'del', 'edit', 'info'];
 
         $rbac = [];
-        foreach ($rabcConfig as $key => $value) {
+        foreach ($this->rabcConfig as $key => $value) {
             
             $rbacAction = $uriPath[0] . '/' . $uriPath[1] . '/' . $value;
             $rbac[$value] = 0;
@@ -64,7 +68,7 @@ class AdminMenu extends AdminMenuModel
             'type' => $param['menuType'],
             'title' => $param['title'],
             'url' => trim($param['url']),
-            'icon' => 'circle',
+            'icon' => isset($param['icon']) ? $param['icon'] : 'circle',
             'remark' => $param['remark'],
             'show_status' => !empty($param['show_status']) ? 1 : 0,
         ];
@@ -116,11 +120,13 @@ class AdminMenu extends AdminMenuModel
                 else
                 {
 
+                    $action = isset($urlArr[2]) ? $urlArr[2] : 'action';
+
                     //添加当前操作权限
                     $this->insert([
                         'parent_id' => $lastId,
                         'type' => 3,
-                        'title' => $data['title'] . "_" . isset($urlArr[2]) ? $urlArr[2] : 'action',
+                        'title' => $this->menuConfig[$action] ,
                         'url' => $value,
                         'icon' => !empty($param['icon']) ? trim($param['icon']) : 'circle',
                         'show_status' => 1,
@@ -153,10 +159,9 @@ class AdminMenu extends AdminMenuModel
         {
 
             $uriPath    = explode('/', $data['url']);
-            $rabcConfig = ['add', 'del', 'edit', 'info'];
 
             $rbac = [];
-            foreach ($rabcConfig as $key => $value)
+            foreach ($this->rabcConfig as $key => $value)
             {
                 if (isset($param['rbac_' . $value]))
                 {
@@ -248,11 +253,12 @@ class AdminMenu extends AdminMenuModel
                 else
                 {
 
+                    $action = isset($urlArr[2]) ? $urlArr[2] : 'action';
                     //添加当前操作权限
                     $this->insert([
                         'parent_id' => $param['id'],
                         'type' => 3,
-                        'title' => $data['title'] . "_" . isset($urlArr[2]) ? $urlArr[2] : 'action',
+                        'title' => $this->menuConfig[$action],
                         'url' => $value,
                         'icon' => 'circle',
                         'show_status' => 1,
@@ -276,6 +282,42 @@ class AdminMenu extends AdminMenuModel
 
 
 
+    }
+
+    //获取已选择的权限
+    public function getUserAuthTree($roleId)
+    {
+
+        $list = $this
+        ->field('id,title as name, parent_id as p_id,id as value')
+        ->where('show_status', 1)
+        ->where('delete_status', 0)
+        ->order('sort', 'asc')
+        ->select()->toArray();
+
+        $access = $this->getActiveAuth($list,$roleId);
+        //获取用户
+        return Tools::listToTree($access, 'id', 'p_id','list');
+    }
+
+
+    //获取已经选择的权限
+    public function getActiveAuth($access,$roleId)
+    {
+
+        $roleInfo = (new AdminRole)->getAdminRoleInfo($roleId,'role_auth');
+        $roleAuth = isset($roleInfo['role_auth']) ? $roleInfo['role_auth']:[];
+        $authArr   = !empty($roleAuth) ? explode(',', $roleAuth) : [];
+
+        foreach ($access as $key => $value) {
+
+            $value['checked']  = in_array($value['id'],$authArr) || $roleId == 1  ? 1:0;
+            $value['disabled'] =  $roleId == 1  ? 1:0;
+
+            $access[$key] = $value;
+        }
+
+        return $access;
     }
 
 

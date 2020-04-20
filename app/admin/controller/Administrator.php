@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 
 use app\AdminBaseController;
+use app\admin\validate\Administrator as AdministratorValidate;
 use app\logic\AdminRole as Role;
 use app\logic\AdminUser;
 use app\util\Tools;
@@ -31,7 +32,21 @@ class Administrator extends AdminBaseController
         //
         if ($this->request->isPost())
         {
-            $User = new AdminUser();
+
+            //验证数据
+            $validate = new AdministratorValidate();
+            if (!$validate->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
+            $User  = new AdminUser();
+            $exsit = $User->where('nickname', $param['nickname'])
+                ->whereOr('mobile', $param['mobile'])->find();
+            if ($exsit)
+            {
+                $this->error('用户名或手机号已存在');
+            }
 
             $param['password']    = Tools::userMd5($param['password']);
             $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
@@ -42,7 +57,7 @@ class Administrator extends AdminBaseController
             }
             else
             {
-                $this->success('操做失败');
+                $this->error('操做失败');
             }
 
             $User->save($data);
@@ -71,6 +86,22 @@ class Administrator extends AdminBaseController
         if ($this->request->isPost())
         {
 
+            //验证数据
+            $validate = new AdministratorValidate();
+            if (!$validate->scene('edit')->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
+            $User  = new AdminUser();
+            $exsit = $User->where('mobile', $param['mobile'])
+                ->where('id', '<>', $param['id'])->find();
+
+            if ($exsit)
+            {
+                $this->error('手机号重复');
+            }
+
             $param['password']    = !empty($param['password']) ? Tools::userMd5($param['password']) : 0;
             $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
@@ -78,7 +109,7 @@ class Administrator extends AdminBaseController
             {
                 unset($param['password']);
             }
-            if ($User->where('id',$param['id'])->save($param))
+            if ($User->where('id', $param['id'])->save($param))
             {
                 $this->success('操作成功');
             }
@@ -97,16 +128,16 @@ class Administrator extends AdminBaseController
         }
     }
 
-
     /**
      * [delete 删除操作]
      * @return [type] [description]
      */
     public function del()
     {
-        $param  = $this->request->param();
+        $id = $this->request->param('id', 0, 'intval');
+
         $User   = new AdminUser();
-        $result = $User->update(['delete_status' => 1], ['id' => $param['id']]);
+        $result = $User->update(['delete_status' => 1], ['id' => $id]);
         if ($result)
         {
             return json(['code' => 1, 'msg' => '删除成功']);
@@ -117,12 +148,11 @@ class Administrator extends AdminBaseController
         }
     }
 
-    
     /**
      * [edit 编辑展示页面]
      * @return [type] [description]
      */
-    
+
     public function editInfo()
     {
         $param = $this->request->param();
@@ -130,7 +160,7 @@ class Administrator extends AdminBaseController
         View::assign('editData', $User->getAdminUserInfo($param['id']));
         return View::fetch();
     }
-    
+
     //
     public function editInfoPost()
     {

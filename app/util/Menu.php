@@ -72,7 +72,7 @@ class Menu
             $hastreeview = !empty($value['type'])  ? '' : 'has-treeview';
             $icon        = !empty($value['icon']) ? $value['icon'] : 'circle';
             $left        = !empty($hastreeview) || !empty($value['_child']) ?  '<i class="right fa fa-angle-left"></i>' : '';
-            $href        = !empty($hastreeview) ? 'javascript:;' : '/' . $value['url'];
+            $href        = !empty($hastreeview) || $left ? 'javascript:;' : '/' . $value['url'];
             $menuOpen    = !empty($value['active'])  ? ' menu-open' : '';
 
             //

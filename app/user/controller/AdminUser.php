@@ -5,6 +5,8 @@ use app\AdminBaseController;
 use app\logic\User as UserLogic;
 use app\util\Tools;
 use think\facade\View;
+use app\user\validate\AdminUser as AdminUserValidate;
+
 
 class AdminUser extends AdminBaseController
 {
@@ -30,8 +32,16 @@ class AdminUser extends AdminBaseController
         //
         if ($this->request->isPost())
         {
-            $User = new UserLogic();
 
+
+            //验证数据
+            $validate = new AdminUserValidate();
+            if (!$validate->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
+            $User = new UserLogic();
             $param['password'] = Tools::userMd5($param['password']);
 
             if ($User->save($param))
@@ -63,6 +73,14 @@ class AdminUser extends AdminBaseController
         //
         if ($this->request->isPost())
         {
+
+
+            //验证数据
+            $validate = new AdminUserValidate();
+            if (!$validate->scene('edit')->check($param))
+            {
+                $this->error($validate->getError());
+            }
 
             $param['password'] = !empty($param['password']) ? Tools::userMd5($param['password']) : 0;
 

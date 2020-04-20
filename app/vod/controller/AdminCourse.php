@@ -2,14 +2,13 @@
 namespace app\vod\controller;
 
 use app\AdminBaseController;
-use app\logic\Chapter;
 use app\logic\Course as CourseLogic;
 use app\logic\CourseCategory;
 use think\facade\View;
+use app\vod\validate\AdminCourse as AdminCourseValidate;
 
 class AdminCourse extends AdminBaseController
 {
-
 
     /**
      * [courselist 课程列表/章节列表]
@@ -18,19 +17,13 @@ class AdminCourse extends AdminBaseController
     public function index()
     {
         $param = $this->request->param();
-        if (isset($param['tplType']))
-        {
-            $chapter = new Chapter();
-            View::assign('id', $param['id']);
-            View::assign('chapterlist', $chapter->where('delete_status', 0)->select());
-            return View::fetch($param['tplType']);
-        }
-        else
-        {
-            $cours = new CourseLogic();
-            View::assign('courslist', $cours->where('delete_status', 0)->select());
-            return View::fetch();
-        }
+
+        $cours = new CourseLogic();
+
+        return view('', [
+            'courslist' => $cours->where('delete_status', 0)->select(),
+        ]);
+
     }
 
     //添加课程
@@ -42,7 +35,14 @@ class AdminCourse extends AdminBaseController
 
         if ($this->request->isPost())
         {
-        // print_r($param);exit();
+
+            //验证数据
+            $validate = new AdminCourseValidate();
+            if (!$validate->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
             $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
             if ($cours->save($param))
@@ -73,8 +73,15 @@ class AdminCourse extends AdminBaseController
         $category = new CourseCategory();
         if ($this->request->isPost())
         {
-            // print_r($param);exit();
+
             unset($param['file']);
+            //验证数据
+            $validate = new AdminCourseValidate();
+            if (!$validate->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
             $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
             if ($cours->where('id', $param['id'])->save($param))
@@ -102,9 +109,10 @@ class AdminCourse extends AdminBaseController
      */
     public function del()
     {
-        $param  = $this->request->param();
+        $id = $this->request->param('id', 0, 'intval');
+
         $cours  = new CourseLogic();
-        $result = $cours->update(['delete_status' => 1], ['id' => $param['id']]);
+        $result = $cours->update(['delete_status' => 1], ['id' => $id]);
         if ($result)
         {
             return json(['code' => 1, 'msg' => '删除成功']);

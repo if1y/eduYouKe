@@ -18,7 +18,8 @@ class AdminBaseController extends BaseController
 
     protected $template;
 
-    protected $rbacConditionUserId;
+    //
+    protected $webTemplateDir = 'admin';
 
     // 初始化
     protected function initialize()
@@ -33,10 +34,16 @@ class AdminBaseController extends BaseController
         }
         else
         {
+            if (!$this->checkAccess(Session::get('adminUserInfo'))) {
+                $this->error("您没有访问权限！");
+            }
+
             View::assign('templateName', $this->template);
             View::assign('adminMenus', $this->getMenus());
             View::assign('contentHeader', $this->getContentHeader());
+            
         }
+
         //模板继承
         if ($this->layout)
         {
@@ -60,14 +67,34 @@ class AdminBaseController extends BaseController
         }
         if (Env::get('DEV.RUNTIME') == 'develop')
         {
+            
             $this->template = 'adminlte';
-            $path           = WEB_ROOT . '/' . config('view.view_dir_name') . '/admin/'  . '/adminlte/'.app('http')->getName().'/';
+            $path = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
 
         }
-        // print_r(View::config('view_path'));
+        $this->viewTplReplaceString();
+
         View::config(['view_path' => $path]);
 
     }
+
+
+
+    //模板字符串替换
+    public function viewTplReplaceString()
+    {
+        $viewConfig = config('view');
+
+        $tempStr = str_replace("public", "", $viewConfig['view_dir_name']) . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR .  $this->template . DIRECTORY_SEPARATOR . 'public/static';
+
+        $viewReplaceStr = [
+            '__ADMINSTATIC__' => $tempStr,
+        ];
+
+        View::config(['tpl_replace_string' => array_merge($viewConfig['tpl_replace_string'], $viewReplaceStr)]);
+
+    }
+
 
     //contentHeader获取当前header头的内容
     public function getContentHeader()
@@ -115,36 +142,68 @@ class AdminBaseController extends BaseController
             ->order('sort', 'asc')
             ->select()->toArray();
 
-        // print_r($access);exit();
 
         //组装选中状态
         $access = Menu::getActiveStatus($access);
-        // print_r($access);exit();
+        // // print_r($access);exit();
 
-        //判断当前权限
+        // //判断当前权限
 
-        // if ($type)
+        // if ($role_id == 1)
         // {
-        //     $roleObj = new AdminRole();
+        //     $auth = DB::name('admin_role')->field('')->where('id',$role_id)->find();
+        //     // $roleObj = new AdminRole();
         //     $adminRoleResult = $userInfo['module_id'];
         //     // $adminRoleResult = cache('adminRoleResult:' . $userInfo['id']);
         //     $adminRoleResult = explode(',', str_replace("，", ",", $adminRoleResult));
 
+        //     print_r($adminRoleResult);exit();
         //     foreach ($access as $key => $value)
         //     {
         //         $value['auth'] = in_array($value['id'], $adminRoleResult) ? 1 : 0;
         //         $access[$key]  = $value;
         //     }
         // }
-        //
+
 
         //组装目录
-        
         $menus = Menu::buildMenus(
             Tools::listToTree($access, 'id', 'parent_id')
         );
         return $menus;
     }
 
+
+    //检查用户是否拥有权限
+    public function checkAccess()
+    {
+
+        $userId = getUserInfoData(1,'id');
+
+        if ($userId) {
+
+            $roleInfo = DB::name('admin_role')
+            ->field('role_auth,id')
+            ->where('delete_status', 0)
+            ->where('id', $userId)
+            ->find();
+
+            if (isset($roleInfo['role_auth']) && !empty($roleInfo['role_auth'])) {
+                    
+                $module     = app('http')->getName();
+                $controller = $this->request->controller();
+                $action     = $this->request->action();
+                $url       = $module .DIRECTORY_SEPARATOR. $controller .DIRECTORY_SEPARATOR. $action;
+                
+                $menuInfo = DB::name('admin_menu')->field('id')->where('url',$url)->find();
+                if (in_array($menuInfo['id'], explode(',', $roleInfo['role_auth'])) || $roleInfo['id'] == 1) {
+                    return 1;
+                }
+
+            }
+
+        }
+        return 0;
+    }
 
 }

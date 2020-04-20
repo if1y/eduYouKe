@@ -3,7 +3,7 @@ namespace app\vod\controller;
 
 use app\logic\User;
 use app\WebBaseController;
-use app\web\validate\Login as LoginValidate;
+use app\vod\validate\Login as LoginValidate;
 use think\facade\Session;
 use think\facade\View;
 
