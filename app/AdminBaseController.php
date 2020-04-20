@@ -178,9 +178,10 @@ class AdminBaseController extends BaseController
     public function checkAccess()
     {
 
-        $userId = getUserInfoData(1,'id');
+        $userId = getUserInfoData(1,'role_id');
 
         if ($userId) {
+            // print_r($userId);exit();
 
             $roleInfo = DB::name('admin_role')
             ->field('role_auth,id')
@@ -188,14 +189,18 @@ class AdminBaseController extends BaseController
             ->where('id', $userId)
             ->find();
 
+
+            // print_r($roleInfo);exit();
             if (isset($roleInfo['role_auth']) && !empty($roleInfo['role_auth'])) {
                     
                 $module     = app('http')->getName();
                 $controller = $this->request->controller();
                 $action     = $this->request->action();
-                $url       = $module .DIRECTORY_SEPARATOR. $controller .DIRECTORY_SEPARATOR. $action;
+                $url       = $module .'/'. $controller .'/'. $action;
                 
-                $menuInfo = DB::name('admin_menu')->field('id')->where('url',$url)->find();
+
+                $menuInfo = DB::name('admin_menu')->field('id,lower(url)')->where('url',strtolower($url))->find();
+                
                 if (in_array($menuInfo['id'], explode(',', $roleInfo['role_auth'])) || $roleInfo['id'] == 1) {
                     return 1;
                 }

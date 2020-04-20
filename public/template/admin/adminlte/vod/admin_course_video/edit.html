@@ -179,7 +179,7 @@ function getSelectChapter() {
     if (courseId) {
         $("#chapterId option:not(:first)").remove();
     }
-    $.post("/admin/Coursevideo/getChapterList", { course_id: courseId }, function(json) {
+    $.post("/vod/AdminCoursevideo/getChapterList", { course_id: courseId }, function(json) {
         $.each(json.data, function(i, item) {
             $("<option></option>").val(item["id"]).text(item["title"]).appendTo($("#chapterId"));
         });
