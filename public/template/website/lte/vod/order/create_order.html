@@ -115,7 +115,10 @@
                         </div>
                         <input type="hidden" name="payType" id="payType" value="0">
                         <div class="col-md-12 mt-4 mb-4">
-                            <button id="coursePay" class="btn btn-primary btn-sm btn-danger">立即支付</button>
+
+
+                            <a href="{:url('/pay/pay',['id'=>input('param.id'),'type'=>$info['type']])}" onclick='coursePay()' class="btn btn-primary btn-sm btn-danger" id="coursePay">立即支付</a>
+
                         </div>
                     </div>
                 </div>
@@ -126,89 +129,17 @@
     {include file='../public/footer' /}
     </div>
     {include file='../public/script' /}
-    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script src="__STATIC__/js/jquery.qrcode.min.js"></script>
+    <script src="__TEMPSTATIC__/js/order.js"></script>
     <script type="text/javascript">
-    $(".info-box").click(function() {
+        $(".info-box").click(function() {
 
-        $('.ribbon-wrapper').hide();
-        $(this).find('.ribbon-wrapper').toggle();
-        var value = $(this).find('#pay').val();
-        $("#payType").val(value);
+            $('.ribbon-wrapper').hide();
+            $(this).find('.ribbon-wrapper').toggle();
+            var value = $(this).find('#pay').val();
+            $("#payType").val(value);
 
-    });
-
-
-    $("#coursePay").click(function(event) {
-
-        event.preventDefault();
-
-        var payType = $('#payType').val();
-        var id = "{:input('param.id')}";
-        var type = "{$info.type}";
-
-        $.post("{:url('/pay/pay')}", { payType: payType, id: id, type: type }, function(json) {
-
-            console.log(json)
-            if (json.code == 1) {
-
-                if (json.data.mobile == 1) {
-
-                    success(json.msg);
-                    setTimeout(function() {
-                        window.open(json.data.src)
-                    }, 1000);
-                    // StatisticsPanel
-
-                } else {
-
-                    $("#payImage").empty();
-                    $("#payImage").qrcode(json.data.src);
-
-
-                    var getting = {
-
-                        url: "{:url('/pay/payStatus')}",
-                        dataType: 'json',
-                        data: { "order_id": json.data.order_id },
-                        success: function(res) {
-                            if (res.code == 1) {
-
-                                success(json.msg);
-                                setTimeout(function() {
-                                    window.location.href = "/";
-                                }, 1000);
-
-                            }
-                        }
-                    };
-
-
-
-                    var timesRun = 0;
-                    var interval = setInterval(function() {
-                        timesRun += 1; //每刷新一次 timesRun 就+1
-                        if (timesRun === 9) {
-                            clearInterval(interval);
-                        }
-                        $.ajax(getting)
-                        //这里写你的代码
-                    }, 2000);
-
-                }
-
-            } else {
-
-                error(json.msg);
-                setTimeout(function() {
-                    window.location.href = "/";
-                }, 1000);
-            }
-
-        }, "json");
-
-
-
-    });
+        });
     </script>
 </body>
 

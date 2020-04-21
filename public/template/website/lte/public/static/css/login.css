@@ -68,3 +68,8 @@
     pointer-events: none;
     cursor: not-allowed;
 }
+
+
+#sms-login , .nickname-login{
+    display: none;
+}

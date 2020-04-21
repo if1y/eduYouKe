@@ -25,7 +25,7 @@
                             <div class="login media bg-white">
                                 <div class="align-self-center mx-auto">
                                     <div class="text-with-hr mt-4">
-                                        <span style="font-weight: 600;">欢迎登录</span>
+                                        <span><strong>欢迎登录</strong></span>
                                     </div>
                                     <form id="content">
                                         <div id="nickname-login">
@@ -39,7 +39,7 @@
                                                 <input type="password" name="password" class="form-control password">
                                             </div>
                                         </div>
-                                        <div id="sms-login" style="display: none;">
+                                        <div id="sms-login">
                                             <div class="form-group mb-3">
                                                 <label><strong class="text-black-50">请输入手机号码</strong></label>
                                                 <input type="text" name="mobile" class="form-control mobile">
@@ -50,7 +50,7 @@
                                                 <input type="text" name="smscode" class="form-control smscode" aria-describedby="basic-addon">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="basic-addon">
-                                                        <a href="javascript:;">获取验证码</a>
+                                                        <a href="{:url('/user/login/getSmsCode')}" id="sendSms" onclick='sendSms()'>获取验证码</a>
                                                     </span>
                                                 </div>
                                             </div>
@@ -58,29 +58,28 @@
                                         <div class="form-group form-check  mt-3">
                                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                             <label class="form-check-label text-black-50">记住我</label>
-                                            <label class="float-right text-primary sms-login">
+                                            <label onclick="changingLogin()" class="float-right text-primary sms-login">
                                                 <i class="fa fa-mobile text-primary" aria-hidden="true"></i>
                                                 短信验证登录
                                             </label>
-                                            <label class="float-right text-primary nickname-login" style="display: none;">
+                                            <label class="float-right text-primary nickname-login" onclick="changingLogin()">
                                                 <i class="fa fa-user text-primary" aria-hidden="true"></i>
                                                 用户名/手机号登录
                                             </label>
-                                            <input type="hidden" value="0" class="logintype">
+                                            <input type="hidden" value="0" name="logintype" class="logintype">
                                         </div>
-                                        <!-- <button type="submit" class="btn btn-primary btn-block">登录</button> -->
-                                        <button id="formLogin" class="btn btn-primary btn-block">登录</button>
+                                        <a href="{:url('/user/login/doLogin')}" onclick='formLogin()' class="btn btn-primary btn-block" id="formLogin">登录</a>
                                     </form>
                                     <div class="clearfix"></div>
                                     <div class="forget-password mt-2">
                                         <p>
                                             <label class="form-check-label text-black-50">
-                                                <a href="{:url('/login/register')}">
+                                                <a href="{:url('/user/login/register')}">
                                                     账号注册
                                                 </a>
                                             </label>
                                             <label class="float-right text-black-50" for="exampleCheck1">
-                                                <a href="{:url('/login/forget')}">
+                                                <a href="{:url('/user/login/forget')}">
                                                     忘记密码
                                                 </a>
                                             </label>
@@ -108,124 +107,5 @@
     {include file='../public/footer' /}
     </div>
     {include file='../public/script' /}
+    <script src="__TEMPSTATIC__/js/login.js"></script>
 </body>
-<script type="text/javascript">
-$(".sms-login").click(function() {
-    $(".logintype").val("1");
-    $("#nickname-login").hide();
-    $("#sms-login").show();
-    $(".sms-login").hide();
-    $(".nickname-login").show();
-});
-
-$(".nickname-login").click(function() {
-
-    $(".logintype").val("0");
-    $("#nickname-login").show();
-    $("#sms-login").hide();
-    $(".sms-login").show();
-    $(".nickname-login").hide();
-});
-
-
-
-
-$("#basic-addon").click(function() {
-    var mobile;
-    mobile = $(".mobile").val();
-
-
-    //验证手机号
-    switch (CheckMobile(mobile)) {
-        case 0:
-            return error('手机号不能为空')
-            break;
-        case 2:
-            return error('请输入正确的手机号')
-            break;
-        default:
-    }
-
-
-
-    // success('验证码获取成功');
-    //请求短信接口
-    $.post("{:url('/login/getSmsCode')}", { mobile: mobile }, function(data) {
-        if (data.code == 1) {
-            //展示文案
-            return success(data.message);
-            //todo
-        } else {
-
-            return error(data.message);
-        }
-    });
-
-    //更改点击状态
-    $("#basic-addon").addClass('sms-second');
-
-    //验证码定时器
-    timesRun = 30;
-    $("#basic-addon").find("a").text("剩余" + timesRun + 's');
-    var interval = setInterval(function() {
-        timesRun -= 1;
-        $("#basic-addon").find("a").text("剩余" + timesRun + 's');
-        if (timesRun === 0) {
-            $("#basic-addon").find("a").text('重新获取');
-            $("#basic-addon").removeClass('sms-second');
-            clearInterval(interval);
-        }
-    }, 1000);
-
-
-
-});
-
-
-
-$("#formLogin").click(function(event) {
-
-    event.preventDefault();
-
-    var username = $('.username').val();
-    var password = $('.password').val();
-    var smscode = $('.smscode').val();
-    var mobile = $('.mobile').val();
-    var type = $('.logintype').val();
-
-    if (type == 1) {
-
-        if (mobile == '' || smscode == '') {
-            return error('请填写手机号/验证码');
-        }
-
-    } else {
-
-        if (username == '' || password == '') {
-            return error('请填写用户名/密码');
-        }
-
-
-    }
-
-
-    $.post("{:url('/login/doLogin')}", { username: username, password: password, mobile: mobile, smscode: smscode, type: type }, function(json) {
-        if (json.code == 1) {
-
-            success(json.message);
-            setTimeout(function() {
-                window.location.href = "/"
-            }, 1000);
-
-
-        } else {
-
-            return error(json.message);
-        }
-
-    }, "json");
-
-
-
-});
-</script>

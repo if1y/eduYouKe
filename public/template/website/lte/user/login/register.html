@@ -25,7 +25,7 @@
                             <div class="login media bg-white">
                                 <div class="align-self-center mx-auto">
                                     <div class="text-with-hr mt-4">
-                                        <span style="font-weight: 600;">欢迎注册</span>
+                                        <span ><strong>欢迎注册</strong></span>
                                     </div>
                                     <form action="" method="post">
                                         <div id="nickname-login">
@@ -48,13 +48,14 @@
                                             <label class="form-check-label text-black-50">我已经阅读并同意</label>
                                             <label class="form-check-label text-black-50"><a href="#">使用条款</a></label>
                                         </div>
-                                        <button id="registerForm" class="btn btn-primary btn-block">立即注册</button>
+                                        <a href="{:url('/user/login/register')}" onclick='Register()' class="btn btn-primary btn-block" id="register">立即注册</a>
+
                                     </form>
                                     <div class="clearfix"></div>
                                     <div class="forget-password mt-2">
                                         <p>
                                             <label class="form-check-label text-black-50">
-                                                <a href="{:url('/login/login')}">
+                                                <a href="{:url('/user/login/login')}">
                                                     账号登录
                                                 </a>
                                             </label>
@@ -72,40 +73,9 @@
     </div>
     {include file='../public/footer' /}
     </div>
+
     {include file='../public/script' /}
-    <script type="text/javascript">
-    $("#registerForm").click(function(event) {
-
-        event.preventDefault();
-
-        var nickname = $('input[name="nickname"]').val();
-        var password = $('input[name="password"]').val();
-        var repassword = $('input[name="repassword"]').val();
-        var clause = $("input[type='checkbox']").is(':checked');
-
-        if (!clause) {
-            return error('请勾选使用条款');
-        }
-
-        $.post("{:url('/login/register')}", { nickname: nickname, password: password, repassword: repassword ,clause:clause }, function(json) {
-
-            if (json.code == 1) {
-
-                success(json.msg);
-                setTimeout(function() {
-                    window.location.href = "/"
-                }, 1000);
 
 
-            } else {
-
-                return error(json.msg);
-            }
-
-        }, "json");
-
-
-
-    });
-    </script>
+    <script src="__TEMPSTATIC__/js/login.js"></script>
 </body>

@@ -32,9 +32,9 @@ class UserBaseController extends WebBaseController
         $userId = getUserInfoData();
         if (empty($userId)) {
             if ($this->request->isAjax()) {
-                return json(['code'=>0,'message'=>'您尚未登录']);
+                $this->error("您尚未登录",'/user/login/login');
             } else {
-                header('location:/login/login');exit();
+                header('location:/user/login/login');exit();
             }
         }
         $this->userId = $userId;

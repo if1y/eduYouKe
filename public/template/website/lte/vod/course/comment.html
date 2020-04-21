@@ -87,7 +87,7 @@
                                             </div>
                                             <!-- /.user-block -->
                                             <textarea class="form-control" id="introduce" name="introduce" rows="3"></textarea>
-                                            <a href="javascript:;" class="float-right btn-primary btn-sm mt-2" id="addComment">
+                                            <a href="{:url('/comment/addComment',['source_id'=>$coursinfo.id])}" class="float-right btn-primary btn-sm mt-2" onclick="addComment('course')" id="addComment">
                                                 发布
                                             </a>
                                         </div>
@@ -156,51 +156,7 @@
     {include file='../public/footer' /}
     </div>
     {include file='../public/script' /}
-    <script type="text/javascript">
-    $("#addComment").click(function() {
-
-
-        //判断当前用户时候否登录
-        var loginStatus = "{:getUserInfoData()}";
-        if (loginStatus) {
-            //发布评论
-            var text = $("#introduce").val();
-            var id = "{$coursinfo.id}";
-            var table_name = "{$Request.controller}";
-            var url = window.location.href;
-            if (text) {
-
-                // console.log(text)
-
-                $.post("/comment/addComment", { content: text, table_name: table_name, source_id: id, url: url }, function(data) {
-                    console.log(data);
-                    if (data.code == 1) {
-                        //展示文案
-                        success(data.msg);
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 1000);
-                        //todo
-                    } else {
-                        error(data.msg);
-                    }
-                });
-
-
-
-            } else {
-                error('评论内容不能为空...');
-            }
-
-        } else {
-            //跳转登陆
-            error('暂未登陆...');
-            setTimeout(function() {
-                window.location.href = "{:url('/login/login')}"
-            }, 1000);
-        }
-    });
-    </script>
+    <script src="__TEMPSTATIC__/js/comment.js"></script>
 </body>
 
 </html>

@@ -1,9 +1,9 @@
 <?php
-namespace app\vod\controller;
+namespace app\user\controller;
 
 use app\logic\User;
 use app\WebBaseController;
-use app\vod\validate\Login as LoginValidate;
+use app\user\validate\Login as LoginValidate;
 use think\facade\Session;
 use think\facade\View;
 
