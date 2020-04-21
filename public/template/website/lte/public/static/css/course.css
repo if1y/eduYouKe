@@ -12,7 +12,7 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-/*    background: #2b333b url(http://fastedu.com/upload/education/20191113/61b68369620284dc41c960416da2d107.png) center center;*/
+    /*    background: #2b333b url(http://fastedu.com/upload/education/20191113/61b68369620284dc41c960416da2d107.png) center center;*/
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -64,13 +64,11 @@
     font-weight: 700;
 }
 
-.card-body{
+.card-body {
     padding: 0.15rem;
 }
 
-.card-body .fa{
-    
-}
+.card-body .fa {}
 
 .card-body .list-group-item {
     border: 0px none;
@@ -206,12 +204,17 @@
     .chapter-link {
         display: none;
     }
+
     .course-nav a {
         font-size: 13px;
         /*margin: 15px;*/
     }
 }
 
-.aliplayer .breadcrumb li a{
+.aliplayer .breadcrumb li a {
     color: #6c757d !important
+}
+
+.info-box .ribbon-wrapper {
+    display: none;
 }
