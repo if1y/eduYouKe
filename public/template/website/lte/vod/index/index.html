@@ -31,22 +31,24 @@
                                 </a>
                                 <div id="course-title">
                                     <p class="card-text p-2 d-inline-block text-truncate">
-                                        {if $vo.sell_status}
-                                        <span class="badge badge-danger">
-                                            ￥{$vo.sell_price}
-                                        </span>
-                                        {else /}
-                                        <span class="badge badge-info">
-                                            免费
-                                        </span>
-                                        {/if}
                                         <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
                                             {$vo.title}
                                         </a>
                                     </p>
                                 </div>
                                 <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
+                                    <span class="text-black-50 ml-2"> <small>
+                                            {if $vo.sell_status}
+                                            <span class="badge badge-danger">
+                                                ￥{$vo.sell_price}
+                                            </span>
+                                            {else /}
+                                            <span class="badge badge-info">
+                                                免费
+                                            </span>
+                                            {/if}
+                                            <span class="badge badge-secondary">{$vo.level_status}</span>
+                                        </small></span>
                                     <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
                                 </div>
                             </div>
@@ -65,22 +67,23 @@
                                 </a>
                                 <div id="course-title">
                                     <p class="card-text p-2 d-inline-block text-truncate">
-                                        {if $vo.sell_status}
-                                        <span class="badge badge-danger">
-                                            ￥{$vo.sell_price}
-                                        </span>
-                                        {else /}
-                                        <span class="badge badge-info">
-                                            免费
-                                        </span>
-                                        {/if}
                                         <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
                                             {$vo.title}
                                         </a>
                                     </p>
                                 </div>
                                 <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
+                                    <span class="text-black-50 ml-2"> <small>{if $vo.sell_status}
+                                            <span class="badge badge-danger">
+                                                ￥{$vo.sell_price}
+                                            </span>
+                                            {else /}
+                                            <span class="badge badge-info">
+                                                免费
+                                            </span>
+                                            {/if}
+                                            <span class="badge badge-secondary">{$vo.level_status}</span>
+                                        </small></span>
                                     <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
                                 </div>
                             </div>
@@ -99,22 +102,23 @@
                                 </a>
                                 <div id="course-title">
                                     <p class="card-text p-2 d-inline-block text-truncate">
-                                        {if $vo.sell_status}
-                                        <span class="badge badge-danger">
-                                            ￥{$vo.sell_price}
-                                        </span>
-                                        {else /}
-                                        <span class="badge badge-info">
-                                            免费
-                                        </span>
-                                        {/if}
                                         <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
                                             {$vo.title}
                                         </a>
                                     </p>
                                 </div>
                                 <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
+                                    <span class="text-black-50 ml-2"> <small>{if $vo.sell_status}
+                                            <span class="badge badge-danger">
+                                                ￥{$vo.sell_price}
+                                            </span>
+                                            {else /}
+                                            <span class="badge badge-info">
+                                                免费
+                                            </span>
+                                            {/if}
+                                            <span class="badge badge-secondary">{$vo.level_status}</span>
+                                        </small></span>
                                     <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
                                 </div>
                             </div>
@@ -133,22 +137,23 @@
                                 </a>
                                 <div id="course-title">
                                     <p class="card-text p-2 d-inline-block text-truncate">
-                                        {if $vo.sell_status}
-                                        <span class="badge badge-danger">
-                                            ￥{$vo.sell_price}
-                                        </span>
-                                        {else /}
-                                        <span class="badge badge-info">
-                                            免费
-                                        </span>
-                                        {/if}
                                         <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
                                             {$vo.title}
                                         </a>
                                     </p>
                                 </div>
                                 <div class="mb-2">
-                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
+                                    <span class="text-black-50 ml-2"> <small>{if $vo.sell_status}
+                                            <span class="badge badge-danger">
+                                                ￥{$vo.sell_price}
+                                            </span>
+                                            {else /}
+                                            <span class="badge badge-info">
+                                                免费
+                                            </span>
+                                            {/if}
+                                            <span class="badge badge-secondary">{$vo.level_status}</span>
+                                        </small></span>
                                     <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
                                 </div>
                             </div>
@@ -159,13 +164,6 @@
             </div>
         </div>
     </div>
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-        <div class="p-3">
-            <h5>Title</h5>
-            <p>Sidebar content</p>
-        </div>
-    </aside>
     {include file='../public/footer' /}
     </div>
     {include file='../public/script' /}

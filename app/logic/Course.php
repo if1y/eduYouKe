@@ -27,7 +27,7 @@ class Course extends CourseModel
     //获取最新课程
     public function getNewCourse()
     {
-        $field = 'id,category_id,title,cource_image_url,sell_price,cource_tag,sell_status,views,create_time';
+        $field = 'id,category_id,title,cource_image_url,sell_price,cource_tag,level_status,sell_status,views,create_time';
         return $this->baseQuery([], $field, 'create_time', '', 4)->each(function ($item)
         {
             $item['cource_image_url'] = getUrlPath($item['cource_image_url']);
@@ -39,7 +39,7 @@ class Course extends CourseModel
     public function getRecommendCourse()
     {
 
-        $field = 'id,category_id,title,cource_image_url,sell_price,cource_tag,sell_status,views,create_time';
+        $field = 'id,category_id,title,cource_image_url,sell_price,level_status,cource_tag,sell_status,views,create_time';
 
         return $this->baseQuery([], $field, 'create_time', 'asc', 3)->each(function ($item)
         {
@@ -52,7 +52,7 @@ class Course extends CourseModel
     //热门课程
     public function getHotCourse()
     {
-        $field = 'id,category_id,title,cource_image_url,sell_price,cource_tag,sell_status,views,create_time';
+        $field = 'id,category_id,title,cource_image_url,sell_price,level_status,cource_tag,sell_status,views,create_time';
 
         return $this->baseQuery([], $field, 'create_time', 'desc', 4)->each(function ($item)
         {
@@ -66,7 +66,7 @@ class Course extends CourseModel
     public function getConjectureCourse()
     {
 
-        $field = 'id,category_id,title,cource_image_url,sell_price,cource_tag,sell_status,views,create_time';
+        $field = 'id,category_id,title,cource_image_url,sell_price,level_status,cource_tag,sell_status,views,create_time';
 
         return $this->baseQuery([], $field, 'create_time', 'asc', 4)->each(function ($item)
         {
