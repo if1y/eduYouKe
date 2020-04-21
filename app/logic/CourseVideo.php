@@ -87,8 +87,10 @@ class CourseVideo extends CourseVideoModel
         return $this->getVideoUrl($video);
     }
 
+    //获取视频详情
     public function getVideoUrl($video)
     {
+        // print_r($video);exit();
         if ($video['channel'] == 'local')
         {
 
@@ -103,5 +105,6 @@ class CourseVideo extends CourseVideoModel
         }
         return $video;
     }
+
 
 }

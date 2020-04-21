@@ -24,13 +24,29 @@ class Chapter extends ChapterModel
 		foreach ($result as $key => $value) {
 
 			$value['video'] = (new CourseVideo())
-			->baseQuery(['chapter_id'=>$value['id']],'id,chapter_id,course_id,title');
-
+			->baseQuery(['chapter_id'=>$value['id']],'id,chapter_id,course_id,title')->each(function($item) use($value){
+                $item['study_status'] = $this->getUserStudyStatus($item);
+                return $item;
+            });
+            // $value['study_status'] = $this->getUserStudyStatus($value);
 			$result[$key] = $value;
 		}
 		// print_r($result->toArray());exit();
 		return $result;
 	}
+
+    //获取当前用户的章节学习状态
+    public function getUserStudyStatus($value)
+    {
+        $log = (new RecordLog())->getRecordLogInfo([
+            'user_id'=>getUserInfoData(0,'id'),
+            'key'=>$value['course_id'],
+            'value'=>$value['id'],
+            'category'=> 'studyCourse',
+        ]);
+
+        return empty($log) ? 0:1;
+    }
 
 	//获取推荐课程
 	public function getRecommendRoundCourse($categoryId)

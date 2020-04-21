@@ -9,12 +9,21 @@ class Comment extends CommentModel
 	public function saveComment($param)
 	{
 
+        if (strtolower($param['table_name']) == 'course') {
+
+            $course= new Course();
+            $isBuy = $course->getCourseAuth($course->getCourseInfo($param['source_id']));
+            if (!$isBuy) {
+                return 2;
+            }
+        }
+
 		$result = $this->save([
 			'user_id'=>getUserInfoData(),
 			'source_id'=> $param['source_id'],
 			'content'=> $param['content'],
 			'url'=>$param['url'],
-			'table_name'=>$param['table_name'],
+			'table_name'=> strtolower($param['table_name']),
 			'create_time'=>time(),
 		]);
 

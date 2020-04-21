@@ -171,22 +171,23 @@
             //发布评论
             var text = $("#introduce").val();
             var id = "{$coursinfo.id}";
+            var table_name = "{$Request.controller}";
             var url = window.location.href;
             if (text) {
 
                 // console.log(text)
 
-                $.post("/comment/addComment", { content: text, source_id: id, url: url }, function(data) {
+                $.post("/comment/addComment", { content: text, table_name: table_name, source_id: id, url: url }, function(data) {
                     console.log(data);
                     if (data.code == 1) {
                         //展示文案
-                        success(data.message);
+                        success(data.msg);
                         setTimeout(function() {
                             window.location.reload();
                         }, 1000);
                         //todo
                     } else {
-                        error(data.message);
+                        error(data.msg);
                     }
                 });
 

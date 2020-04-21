@@ -20,7 +20,7 @@
                     <li class="breadcrumb-item"><a href="{:url('index/list',['list_id'=>$vo['id']])}">{$vo.title}</a></li>
                     {/volist}
                     <li class="breadcrumb-item " aria-current="page"><a href="{:url('/course/index',['id'=>$coursinfo['id']])}">{$coursinfo.title}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="{:url('/course/detail',['id'=>$videoinfo['id'],'course_id'=>$coursinfo['id'] ])}">{$videoinfo.title}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="{:url('/detail/index',['id'=>$videoinfo['id'],'course_id'=>$coursinfo['id'] ])}">{$videoinfo.title}</a></li>
                 </ol>
             </nav>
             <div class="prism-player" id="player-con"></div>
@@ -37,8 +37,8 @@
                     </span>
                     <span class="float-right mr-4 ">
                         {if $videoinfo['next_id']}
-                        <span> <a href="{:url('/course/detail',['id'=>$videoinfo['next_id'],'course_id'=>$coursinfo['id'] ])}" class="text-secondary chapter-link">下一章节</a> &nbsp;&nbsp;</span>
-                        <a href="{:url('/course/detail',['id'=>$videoinfo['next_id'],'course_id'=>$coursinfo['id'] ])}" class="text-white chapter-link">
+                        <span> <a href="{:url('/detail/index',['id'=>$videoinfo['next_id'],'course_id'=>$coursinfo['id'] ])}" class="text-secondary chapter-link">下一章节</a> &nbsp;&nbsp;</span>
+                        <a href="{:url('/detail/index',['id'=>$videoinfo['next_id'],'course_id'=>$coursinfo['id'] ])}" class="text-white chapter-link">
                             {$videoinfo.next_title}
                         </a>
                         {else/}
@@ -55,19 +55,16 @@
             <div class="row">
                 <div class="col-lg-9 col-md-12">
                     <!-- 详情start -->
-                    
                     <div class="card mt-3">
-                        
-                    <ul class="nav nav-pills  mt-3 mb-3  bg-white" id="pills-tab" role="tablist">
-                        <li class="nav-item detail-nav-item">
-                            <a class="nav-link active ml-2" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">章节目录</a>
-                        </li>
-                        <li class="nav-item detail-nav-item">
-                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">资料下载</a>
-                        </li>
-                    </ul>
-            </div>
-
+                        <ul class="nav nav-pills  mt-3 mb-3  bg-white" id="pills-tab" role="tablist">
+                            <li class="nav-item detail-nav-item">
+                                <a class="nav-link active ml-2" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">章节目录</a>
+                            </li>
+                            <li class="nav-item detail-nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">资料下载</a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             {volist name="chapterlist" id="vo" key="keys" }
@@ -79,16 +76,20 @@
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
                                         {volist name="vo['video']" id="v" key="k"}
-                                        <a href="{:url('/course/detail',['id'=>$v['id'],'course_id'=>$vo['course_id'] ])}" class="text-muted">
+                                        <a href="{:url('/detail/index',['id'=>$v['id'],'course_id'=>$vo['course_id'] ])}" class="text-muted">
                                             <li class="list-group-item float-left">
                                                 <span class="fa fa-play-circle"></span>
                                                 <span>
                                                     {$keys}-{$k} {$v.title} (08:33)
                                                 </span>
                                                 {if (input('param.id') == $v.id ) }
-                                                <a href="{:url('/course/detail',['id'=>$v['id'],'course_id'=>$vo['course_id'] ])}" class="btn btn-xs btn-info float-right">正在学习</a>
+                                                <a href="{:url('/detail/index',['id'=>$v['id'],'course_id'=>$vo['course_id'] ])}" class="btn btn-xs btn-info float-right">进行中</a>
                                                 {else/}
-                                                <a href="{:url('/course/detail',['id'=>$v['id'],'course_id'=>$vo['course_id'] ])}" class="btn btn-xs btn-danger float-right">开始学习</a>
+                                                {if $v.study_status}
+                                                <a href="{:url('/detail/index',['id'=>$v['id'],'course_id'=>$vo['course_id'] ])}" class="btn btn-xs btn-secondary float-right">已学习</a>
+                                                {else/}
+                                                <a href="{:url('/detail/index',['id'=>$v['id'],'course_id'=>$vo['course_id'] ])}" class="btn btn-xs btn-danger float-right">未开始</a>
+                                                {/if}
                                                 {/if}
                                             </li>
                                         </a>

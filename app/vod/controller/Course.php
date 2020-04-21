@@ -29,11 +29,8 @@ class Course extends WebBaseController
 
         //获取最近更新
         $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
-
-        //更新观看日志&&观看次数
-        if (!empty($coursInfo)) {
-            $cours->updateViewAndLog($param);
-        }
+        
+        event('LogViewCourse',$param);
                 
         return view('', [
             'coursinfo' => $coursInfo,
@@ -52,13 +49,16 @@ class Course extends WebBaseController
 
         $param = $this->request->param();
 
-        $cours   = new CourseLogic();
+        $course   = new CourseLogic();
         $chapter = new Chapter();
 
         //获取详情
-        $coursInfo = $cours->getCourseInfo($param['id']);
+        $coursInfo = $course->getCourseInfo($param['id']);
+        //查看当前用户的购买状态
+        $isBuy = $course->getCourseAuth($coursInfo);
+
         //获取面包屑
-        $breadcrumb = $cours->getBreadcrumb($param['id']);
+        $breadcrumb = $course->getBreadcrumb($param['id']);
 
         //获取推荐课程
         $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
@@ -68,6 +68,7 @@ class Course extends WebBaseController
 
         return view('', [
             'coursinfo' => $coursInfo,
+            'isbuy' => $isBuy,
             'breadcrumb' => $breadcrumb,
             'chapterlist' => $chapterList,
             'recommend' => $recommendCourse,
@@ -92,15 +93,16 @@ class Course extends WebBaseController
     {
         $param = $this->request->param();
 
-        $cours   = new CourseLogic();
+        $course   = new CourseLogic();
         $chapter = new Chapter();
         $comment = new Comment();
 
 
         //获取详情
-        $coursInfo = $cours->getCourseInfo($param['id']);
+        $coursInfo = $course->getCourseInfo($param['id']);
+
         //获取面包屑
-        $breadcrumb = $cours->getBreadcrumb($param['id']);
+        $breadcrumb = $course->getBreadcrumb($param['id']);
         //获取最近更新
         $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
         //获取评论
@@ -115,37 +117,6 @@ class Course extends WebBaseController
         ]);
     }
 
-    /**
-     * [detail 获取课程详情]
-     * @return [type] [description]
-     */
-    public function detail()
-    {
 
-        $param = $this->request->param();
-
-        $video   = new CourseVideo();
-        $cours   = new CourseLogic();
-        $chapter = new Chapter();
-
-        //获取详情
-        $coursInfo = $cours->getCourseInfo($param['course_id']);
-        //获取面包屑
-        $breadcrumb = $cours->getBreadcrumb($param['course_id']);
-        //获取最近更新
-        $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
-        //获取章节
-        $chapterList = $chapter->getChapter($param['course_id']);
-
-        $videoInfo = $video->getVideoInfo($param['id']);
-
-        return view('', [
-            'coursinfo' => $coursInfo,
-            'videoinfo' => $videoInfo,
-            'breadcrumb' => $breadcrumb,
-            'chapterlist' => $chapterList,
-            'recommend' => $recommendCourse,
-        ]);
-    }
 
 }

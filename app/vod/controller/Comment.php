@@ -14,12 +14,23 @@ class Comment extends UserBaseController
 		//
         $param = $this->request->param();
 		$comment = new CommentLogic();
-		$param['table_name']  = 'course';
+		// $param['table_name']  = 'course';
 		$result = $comment->saveComment($param);
-		if ($result) {
-			return json(['code'=>1,'message'=>"评论成功"]);
-		}else{
-			return json(['code'=>0,'message'=>"评论失败"]);
+		switch ($result) {
+			case '0':
+				$this->error('评论失败');
+				break;
+			case '2':
+				$this->error('暂不能评论');
+				break;
+			default:
+				$this->success('评论成功');
+				break;
 		}
+		// if ($result) {
+		// 	return json(['code'=>1,'message'=>"评论成功"]);
+		// }else{
+		// 	return json(['code'=>0,'message'=>"评论失败"]);
+		// }
 	}
 }

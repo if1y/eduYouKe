@@ -88,35 +88,29 @@ class Course extends CourseModel
         return $result;
     }
 
-    //更新观看日志&&观看次数
-    public function updateViewAndLog($param)
+    //获取当前课程播放权限
+    public function getCourseAuth($courseInfo)
     {
-        if (isset($param['id']))
-        {
-            $this->where('id', $param['id'])->inc('views')->update();
-        }
-        if (getUserInfoData())
+        if ($courseInfo['sell_status'])
         {
 
-            //查询是否已经记录过
-            $logs = (new RecordLog())->where([
-                'user_id' => getUserInfoData(),
-                'key' => $param['id'],
-                'category' => 'courseView',
-            ])->whereDay('create_time')
-                ->find();
-
-            //
-            if (empty($logs))
+            //查看当前用户是否为会员
+            if (getUserInfoData(0, 'user_type') == 2 && getUserInfoData(0, 'vip_expiration_time') > time())
             {
-                (new RecordLog())->save([
-                    'user_id' => getUserInfoData(),
-                    'key' => $param['id'],
-                    'category' => 'courseView',
-                    'create_time' => time(),
-                ]);
+
+                return 1;
             }
+            //查看当前用户是否已经订购课程
+            $order = (new Order())->where([
+                'commodity_id' => $courseInfo['id'],
+                'user_id' => getUserInfoData(0, 'id'),
+                'order_status' => 1,
+                'order_type' => 1,
+            ])->find();
+
+            return empty($order) ? 0 : 1;
         }
+        return 1;
     }
 
 }

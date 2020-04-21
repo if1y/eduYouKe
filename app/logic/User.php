@@ -33,22 +33,15 @@ class User extends UserModel
         {
             return 2;
         }
-        $log->save(
-            [
-                'key' => $param['mobile'],
-                'category' => 'smsCode',
-                'value' => $code,
-                'create_time' => time(),
-            ]);
+
+        //发送短信添加log
+        event('LogSendSMS',['mobile'=>$param['mobile'],'code'=>$code]);
 
         //检测今天发送次数
         if (!empty($info))
         {
             //更新用户最后登录
-            $this->where('id',$info['id'])->save([
-                'last_login_ip'=>$param['ip'],
-                'last_login_time'=>time()
-            ]);
+            event('UserLogin',['user_id'=>$info['id'],'ip'=>$param['ip']]);
         }
         else
         {

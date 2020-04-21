@@ -90,6 +90,7 @@ class Nav extends NavModel
                 'co.title',
                 'co.description',
                 'co.sell_price',
+                'co.sell_status',
                 'co.cource_image_url',
                 'co.id',
             ])

@@ -14,11 +14,11 @@ class RecordLog extends Model
     {
         if (is_array($id))
         {
-            return $this->field($fields)->where($id)->where('delete_status', 0)->find();
+            return $this->field($fields)->where($id)->find();
         }
         else
         {
-            return $this->field($fields)->where('id', $id)->where('delete_status', 0)->find();
+            return $this->field($fields)->where('id', $id)->find();
         }
 
     }

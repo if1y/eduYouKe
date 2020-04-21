@@ -10,8 +10,14 @@ return [
         'HttpEnd'  => [],
         'LogLevel' => [],
         'LogWrite' => [],
+        'UserLogin' => [],
+        'LogSendSMS' => [],
+        'LogViewCourse' => [],
+        'LogViewVideo' => [],
     ],
 
     'subscribe' => [
+        app\subscribe\User::class,
+        app\subscribe\Record::class,
     ],
 ];

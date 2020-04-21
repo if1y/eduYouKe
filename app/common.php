@@ -5,18 +5,18 @@ use think\facade\Request;
 use think\facade\Session;
 
 // 应用公共文件
-function getUrlPath($avatar)
+function getUrlPath($url)
 {
-    if (!empty($avatar))
+    if (!empty($url))
     {
-        if (!checkUrl($avatar))
+        if (!checkUrl($url))
         {
-            $avatar = str_replace('\\', '/', $avatar);
-            return '/storage/' . $avatar;
+            $url = str_replace('\\', '/', $url);
+            return '/storage/' . $url;
         }
     }
 
-    return $avatar;
+    return $url;
 }
 
 /**
@@ -44,19 +44,8 @@ function checkUrl($url)
 
 }
 
-// //超出展示省略号
-// function cutSubstr($str, $len = 16)
-// {
-//     if (strlen($str) > $len)
-//     {
-//         $str = mb_substr($str, 0, $len) . '...';
-//     }
-//     return $str;
-// }
-
 function buildConfigHtml($value)
 {
-    // print_r($value);exit();
     return Html::buildHtml($value);
 
 }
