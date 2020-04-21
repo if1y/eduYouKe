@@ -19,7 +19,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb mt-2">
                                 {volist name="breadcrumb" id="vo" key="k"}
-                                <li class="breadcrumb-item"><a href="{:url('/list',['list_id'=>$vo['id']])}">{$vo.title}</a></li>
+                                <li class="breadcrumb-item"><a href="{:url('index/list',['list_id'=>$vo['id']])}">{$vo.title}</a></li>
                                 {/volist}
                                 <li class="breadcrumb-item active" aria-current="page"><a href="{:url('/course/index',['id'=>$coursinfo['id']])}">{$coursinfo.title}</a></li>
                             </ol>
