@@ -9,7 +9,7 @@
         {volist name="bannerlist" id="vo" key="k"}
         <div class="carousel-item {$k == 1 ? 'active' : ''}">
             <a href="{$vo.link_url}"  target="_blank">
-                <img class="d-block w-100 rounded" height="400" src="{:getUrlPath($vo.image_url)}">
+                <img class="d-block w-100 rounded" height="400" src="{:getUrlPath($vo.image_url)}">;
             </a>
         </div>
         {/volist}
