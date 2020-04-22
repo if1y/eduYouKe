@@ -22,6 +22,7 @@ class Banner extends AdminBaseController
 
         return view('', [
             'bannerlist' => $list,
+            'search_time' => isset($param['search_time']) ? $param['search_time']:'',
             'page' => $list->render(),
         ]);
     }
