@@ -108,6 +108,8 @@ function uploadImage(uploadConfig) {
     $('#' + uploadConfig.triggerId).click(function() {
         $('#' + uploadConfig.inputId).trigger('click')
     })
+
+    
     document.getElementById(uploadConfig.inputId).addEventListener('change', uploadImg2Base64, false);
 
 

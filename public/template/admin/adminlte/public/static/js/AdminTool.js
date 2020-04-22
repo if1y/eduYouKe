@@ -52,6 +52,7 @@
                 area: [width, height],
                 title: $this.attr("title"),
                 resize: false,
+                zIndex: 0, //层优先级
                 btn: ['确认', '取消'],
 
 
@@ -74,14 +75,19 @@
                         $.post(href, (data_params), function(data) {
 
                             if (data.code == 1) {
+
                                 success(data.msg)
+
                                 setTimeout(function() {
                                     layer.close(index);
                                     window.location.reload();
                                 }, 1500);
 
                             } else {
+
                                 error(data.msg)
+
+
                             }
 
                         });
@@ -141,6 +147,7 @@
                 area: [width, height],
                 title: $this.attr("title"),
                 resize: false,
+                zIndex: 0, //层优先级
                 btn: ['确认', '取消'],
 
 
@@ -162,7 +169,7 @@
 
                                 success(data.msg)
 
-                                
+
                                 setTimeout(function() {
                                     layer.close(index);
                                     window.location.reload();
@@ -171,6 +178,7 @@
                             } else {
 
                                 error(data.msg)
+
 
                             }
 
@@ -204,6 +212,7 @@
                 area: ['480px', '600px'],
                 title: $this.attr("title"),
                 resize: false,
+                zIndex: 0, //层优先级
                 btn: ['确认', '取消'],
 
 
@@ -219,10 +228,8 @@
 
                         if (data.code == 1) {
 
+                            success(data.msg)
 
-                                success(data.msg)
-
-                            
                             setTimeout(function() {
                                 layer.close(index);
                                 window.location.reload();
@@ -230,9 +237,7 @@
 
                         } else {
 
-                                error(data.msg)
-
-                            
+                            error(data.msg)
 
                         }
 
@@ -281,11 +286,7 @@
                             $.getJSON(href).done(function(data) {
 
                                 if (data.code == '1') {
-
-                                success(data.msg)
-
-
-                                   
+                                    success(data.msg)
 
 
 
@@ -294,10 +295,9 @@
                                     }, 1000);
 
                                 } else if (data.code == '0') {
+                                    error(data.msg)
 
-                                error(data.msg)
 
-                                    
                                 }
                             });
                         }
@@ -490,19 +490,23 @@ function myValidate() {
 }
 
 $(function() {
-    //Initialize Select2 Elements
-    $('.select2').select2()
 
 
-    // Initialize Select2 Elements
-    $('.select2bs4').select2({
-        theme: 'bootstrap4'
-    })
+    var has = $('select').hasClass("select2bs4");
+    if (has) {
 
+        //Initialize Select2 Elements
+        $('.select2').select2()
 
-    $(".select2").change(function() {
-        select_ops = $(".select2").val();
-        console.log(select_ops);
-    });
+        // Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+        $(".select2").change(function() {
+            select_ops = $(".select2").val();
+            console.log(select_ops);
+        });
+    }
+
 
 })
