@@ -14,9 +14,7 @@ var uploadConfig = {
     },
     loadSuccess: function(data) { // 上传完成后回调
         success(data.message);
-        // setTimeout(function() {
-        //     window.location.reload();
-        // }, 1000);
+        $("#uploadValue").val(data.path);;
     }
 }
 

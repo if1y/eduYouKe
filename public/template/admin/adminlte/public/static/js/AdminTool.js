@@ -74,23 +74,14 @@
                         $.post(href, (data_params), function(data) {
 
                             if (data.code == 1) {
-
-                                $.dialog({
-                                    title: '操作提示!',
-                                    content: data.msg,
-                                });
+                                success(data.msg)
                                 setTimeout(function() {
                                     layer.close(index);
                                     window.location.reload();
                                 }, 1500);
 
                             } else {
-
-                                $.dialog({
-                                    title: '操作提示!',
-                                    content: data.msg,
-                                });
-
+                                error(data.msg)
                             }
 
                         });
@@ -169,10 +160,9 @@
 
                             if (data.code == 1) {
 
-                                $.dialog({
-                                    title: '操作提示!',
-                                    content: data.msg,
-                                });
+                                success(data.msg)
+
+                                
                                 setTimeout(function() {
                                     layer.close(index);
                                     window.location.reload();
@@ -180,10 +170,7 @@
 
                             } else {
 
-                                $.dialog({
-                                    title: '操作提示!',
-                                    content: data.msg,
-                                });
+                                error(data.msg)
 
                             }
 
@@ -232,10 +219,10 @@
 
                         if (data.code == 1) {
 
-                            $.dialog({
-                                title: '操作提示!',
-                                content: data.msg,
-                            });
+
+                                success(data.msg)
+
+                            
                             setTimeout(function() {
                                 layer.close(index);
                                 window.location.reload();
@@ -243,10 +230,9 @@
 
                         } else {
 
-                            $.dialog({
-                                title: '操作提示!',
-                                content: data.msg,
-                            });
+                                error(data.msg)
+
+                            
 
                         }
 
@@ -295,12 +281,11 @@
                             $.getJSON(href).done(function(data) {
 
                                 if (data.code == '1') {
-                                    $.alert({
-                                        type: 'blue',
-                                        title: '操作提示',
-                                        content: data.msg,
-                                        icon: 'glyphicon glyphicon-info-sign'
-                                    });
+
+                                success(data.msg)
+
+
+                                   
 
 
 
@@ -310,12 +295,9 @@
 
                                 } else if (data.code == '0') {
 
-                                    $.alert({
-                                        type: 'red',
-                                        title: '操作提示',
-                                        content: data.msg,
-                                        icon: 'glyphicon glyphicon-info-sign'
-                                    });
+                                error(data.msg)
+
+                                    
                                 }
                             });
                         }
@@ -342,7 +324,7 @@
             $(".btn-refresh .fa-sync-alt").addClass("fa-spin");
         });
     }
-    
+
 
     /*复选框全选(支持多个，纵横双控全选)。
      *实例：版块编辑-权限相关（双控），验证机制-验证策略（单控）
@@ -498,5 +480,29 @@ $(function() {
     })
 
     $('#reservation').val('')
+
+})
+
+function myValidate() {
+    var content = $("form").attr("id");
+    var valid = $("#" + content).valid();
+    return valid;
+}
+
+$(function() {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+
+    // Initialize Select2 Elements
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
+    })
+
+
+    $(".select2").change(function() {
+        select_ops = $(".select2").val();
+        console.log(select_ops);
+    });
 
 })

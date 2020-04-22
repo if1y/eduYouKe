@@ -120,7 +120,6 @@ body {
 
 {include file='../public/script' /}
 <script src="__STATIC__/common/select2/js/select2.full.min.js"></script>
-<script src="__STATIC__/js/jquery.validate.min.js"></script>
 <script src="__STATIC__/js/uploadVideo.js"></script>
 <script type="text/javascript">
 $(function() {
@@ -231,10 +230,4 @@ $('#content').validate({
     // }
 });
 
-
-function myValidate() {
-    var content = $("form").attr("id");
-    var valid = $("#" + content).valid();
-    return valid;
-}
 </script>

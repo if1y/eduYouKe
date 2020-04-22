@@ -19,7 +19,7 @@ class Banner extends AdminBaseController
             'title','description','link_url','image_url']);
         
         $list   = $banner->getBannerList($where);
-
+        
         return view('', [
             'bannerlist' => $list,
             'search_time' => isset($param['search_time']) ? $param['search_time']:'',

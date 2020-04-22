@@ -130,6 +130,8 @@
 </div>
 {include file='../public/script' /}
 <script src="__STATIC__/js/jquery.validate.min.js"></script>
+<script src="__ADMINSTATIC__/js/validate/menuValidate.js"></script>
+
 <script type="text/javascript">
 $("#notmenu").click(function() {
     $("#rbacAction").show();
@@ -138,41 +140,4 @@ $("#notmenu").click(function() {
 $("#ismenu,#isAction").click(function() {
     $("#rbacAction").hide();
 });
-
-$('#content').validate({
-    rules: {
-        url: {
-            required: true,
-        },
-        title: {
-            required: true,
-        },
-    },
-    messages: {
-        url: {
-            required: "请输入路径",
-        },
-        title: {
-            required: "请输入菜单名称",
-        },
-    },
-    // errorElement: 'span',
-    errorPlacement: function(error, element) {
-        error.addClass('invalid-feedback');
-        element.closest('.col-sm-10').append(error);
-    },
-
-    // highlight: function(element, errorClass, validClass) {
-    //     $(element).addClass('is-invalid');
-    // },
-    // unhighlight: function(element, errorClass, validClass) {
-    //     $(element).removeClass('is-invalid');
-    // }
-});
-
-function myValidate() {
-    var content = $("form").attr("id");
-    var valid = $("#" + content).valid();
-    return valid;
-}
 </script>

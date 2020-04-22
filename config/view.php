@@ -18,6 +18,7 @@ return [
     'tpl_begin' => '{',
     // 模板引擎普通标签结束标记
     'tpl_end' => '}',
+    'tpl_cache' => false,
     // 标签库标签开始标记
     'taglib_begin' => '{',
     // 标签库标签结束标记
