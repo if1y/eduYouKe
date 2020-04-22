@@ -13,7 +13,9 @@
 
 <!-- ------公共js end------- -->
 <!-- ------模板js start------- -->
+<script src="__ADMINSTATIC__/js/modal_dialog.js"></script>
 <script src="__ADMINSTATIC__/js/AdminTool.js"></script>
+
 <!-- ------模板js end------- -->
 <script type="text/javascript">
 jconfirm.defaults = {
@@ -52,5 +54,37 @@ $(function() {
     $('.pagination li span').addClass("page-link");
     $('.pagination li a').addClass("page-link");
 })
+
+function success(message = 'success', timeout = 2000) {
+
+
+    $modal({
+        type: 'message',
+        icon: 'success',
+        timeout: timeout,
+        content: message,
+        center: false,
+        top: 100,
+        transition: 300,
+        closable: true,
+    })
+}
+
+
+function error(message = 'error', timeout = 2000) {
+
+    $modal({
+
+        type: 'message',
+        icon: 'error',
+        content: '验证码发送成功,请注意查收',
+        content: message,
+        center: false,
+        top: 100,
+        transition: 300,
+        closable: true,
+    })
+}
+
 
 </script>

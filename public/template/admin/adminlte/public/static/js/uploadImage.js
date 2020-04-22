@@ -1,7 +1,7 @@
 var uploadConfig = {
     inputId: 'uploadFile', // 上传图片的inputId
     triggerId: 'defaultUpload', // 触发上传的元素Id
-    url: "/user/user/avatar", // 上传地址
+    url: "/admin/File/imageUpload", // 上传地址
     beforeSend: function() {
     
     },
@@ -14,9 +14,9 @@ var uploadConfig = {
     },
     loadSuccess: function(data) { // 上传完成后回调
         success(data.message);
-        setTimeout(function() {
-            window.location.reload();
-        }, 1000);
+        // setTimeout(function() {
+        //     window.location.reload();
+        // }, 1000);
     }
 }
 
