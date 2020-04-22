@@ -96,11 +96,10 @@ class Order extends OrderModel
     }
 
     //获取后台订单列表
-    
-    public function getOrderList()
+    public function getOrderList($where = [], $field = '*')
     {
 
-        $list = $this->where([
+        $list = $this->field($field)->where($where)->where([
             'delete_status' => 0,
             'show_status' => 1,
         ])->paginate()->each(function ($item)

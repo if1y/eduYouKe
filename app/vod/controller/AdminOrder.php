@@ -4,15 +4,21 @@ namespace app\vod\controller;
 use app\AdminBaseController;
 use app\logic\Order as OrderLogic;
 use think\facade\View;
+use app\util\Tools;
+
 
 class AdminOrder extends AdminBaseController
 {
 	//订单列表
 	public function index()
     {
-        $order = new OrderLogic();
 
-        $list = $order->getOrderList();
+        $param  = $this->request->param();
+        $where = Tools::buildSearchWhere($param,[
+            'order_no']);
+
+        $order = new OrderLogic();
+        $list = $order->getOrderList($where);
 
         return view('', [
             'orderlist' => $list,

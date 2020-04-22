@@ -5,14 +5,15 @@
 <script src="__STATIC__/js/jquery-confirm.min.js"></script>
 <script src="__STATIC__/js/adminlte.min.js"></script>
 <script src="__STATIC__/common/layui/layui.js"></script>
-<!-- <script src="https://www.layuicdn.com/layui/layui.js"></script> -->
+<script src="__STATIC__/common/moment/moment.min.js"></script>
+<script src="__STATIC__/common/daterangepicker/daterangepicker.js"></script>
+
 
 
 
 <!-- ------公共js end------- -->
 <!-- ------模板js start------- -->
-<script src="/template/admin/{$templateName}/public/static/js/AdminTool.js"></script>
-<script src="/template/admin/{$templateName}/public/static/js/common.js"></script>
+<script src="__ADMINSTATIC__/js/AdminTool.js"></script>
 <!-- ------模板js end------- -->
 <script type="text/javascript">
 jconfirm.defaults = {
@@ -44,4 +45,12 @@ jconfirm.defaults = {
     onClose: function() {},
     onAction: function() {}
 };
+
+$(function() {
+    $('.pagination').addClass("pagination-sm m-0 float-right");
+    $('.pagination li').addClass("page-item");
+    $('.pagination li span').addClass("page-link");
+    $('.pagination li a').addClass("page-link");
+})
+
 </script>

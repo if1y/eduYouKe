@@ -2,26 +2,35 @@
 namespace app\admin\controller;
 
 use app\AdminBaseController;
+use app\admin\validate\Banner as BannerValidate;
 use app\logic\Banner as BannerLogic;
 use think\facade\View;
-use app\admin\validate\Banner as BannerValidate;
+use app\util\Tools;
 
 class Banner extends AdminBaseController
 {
 
-	public function index()
-	{
-		$banner = new BannerLogic();
-		return view('',['bannerlist'=>$banner->getBannerList()]);
+    public function index()
+    {
+        $param  = $this->request->param();
+        
+        $banner = new BannerLogic();
+        $where = Tools::buildSearchWhere($param,[
+            'title','description','link_url','image_url']);
+        
+        $list   = $banner->getBannerList($where);
 
-	}
+        return view('', [
+            'bannerlist' => $list,
+            'page' => $list->render(),
+        ]);
+    }
 
-	public function add()
-	{
+    public function add()
+    {
 
-
-		$param   = $this->request->param();
-		$banner = new BannerLogic();
+        $param  = $this->request->param();
+        $banner = new BannerLogic();
 
         if ($this->request->isPost())
         {
@@ -47,18 +56,17 @@ class Banner extends AdminBaseController
         }
         else
         {
-        	$banner = new BannerLogic();
-			return view('',['menulist'=>[]]);
+            $banner = new BannerLogic();
+            return view('', ['menulist' => []]);
         }
 
+    }
 
-	}
+    public function edit()
+    {
 
-	public function edit()
-	{
-
-		$param    = $this->request->param();
-		$banner = new BannerLogic();
+        $param  = $this->request->param();
+        $banner = new BannerLogic();
 
         if ($this->request->isPost())
         {
@@ -69,7 +77,7 @@ class Banner extends AdminBaseController
             {
                 $this->error($validate->getError());
             }
-            
+
             $param['show_status'] = isset($param['show_status']) ? 1 : 0;
 
             if ($banner->where('id', $param['id'])->save($param))
@@ -84,11 +92,10 @@ class Banner extends AdminBaseController
         }
         else
         {
-			return view('',['editData'=>$banner->getBannerInfo($param['id'])]);
+            return view('', ['editData' => $banner->getBannerInfo($param['id'])]);
         }
 
-	}
-
+    }
 
     /**
      * [delete 删除操作]

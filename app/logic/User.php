@@ -288,11 +288,12 @@ class User extends UserModel
     }
 
     //获取后台用户列表
-    public function getUserList()
+    public function getUserList($where = [], $field = '*')
     {
-        return $this->where('delete_status',0)
-        ->order('create_time desc')->paginate();
+        return $this->field($field)->where($where)
+            ->where(['delete_status' => 0])->order('create_time desc')->paginate();
     }
+
     
 
 }

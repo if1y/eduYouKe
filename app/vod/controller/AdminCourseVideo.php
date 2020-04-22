@@ -5,6 +5,7 @@ use app\AdminBaseController;
 use think\facade\View;
 use app\logic\Chapter;
 use app\logic\Course;
+use app\util\Tools;
 use app\logic\CourseVideo as CourseVideoLogic;
 use app\vod\validate\AdminCourseVideo as AdminCourseVideoValidate;
 
@@ -15,10 +16,21 @@ class AdminCourseVideo extends AdminBaseController
     //视频列表
     public function index()
     {
+
+        $param   = $this->request->param();
+
+        $where = Tools::buildSearchWhere($param,[
+            'title','description']);
+        
         $courseVideo = new CourseVideoLogic();
+        $list   = $courseVideo->getVideoList($where);
+
         return view('', [
-                'coursevideolist' => $courseVideo->where('delete_status', 0)->select(),
-            ]);
+            'coursevideolist' => $list,
+            'page' => $list->render(),
+        ]);
+
+
     }
 
     //视频添加

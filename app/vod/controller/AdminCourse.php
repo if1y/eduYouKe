@@ -5,6 +5,7 @@ use app\AdminBaseController;
 use app\logic\Course as CourseLogic;
 use app\logic\CourseCategory;
 use think\facade\View;
+use app\util\Tools;
 use app\vod\validate\AdminCourse as AdminCourseValidate;
 
 class AdminCourse extends AdminBaseController
@@ -20,8 +21,14 @@ class AdminCourse extends AdminBaseController
 
         $cours = new CourseLogic();
 
+        $where = Tools::buildSearchWhere($param,[
+            'title','description']);
+        
+        $list   = $cours->getCourseList($where);
+
         return view('', [
-            'courslist' => $cours->where('delete_status', 0)->select(),
+            'courslist' => $list,
+            'page' => $list->render(),
         ]);
 
     }

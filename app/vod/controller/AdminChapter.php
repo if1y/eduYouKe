@@ -5,6 +5,7 @@ use app\AdminBaseController;
 use app\logic\Chapter as ChapterLogic;
 use app\logic\Course;
 use think\facade\View;
+use app\util\Tools;
 use app\vod\validate\AdminChapter as AdminChapterValidate;
 
 
@@ -13,10 +14,21 @@ class AdminChapter extends AdminBaseController
     //首页
     public function index()
     {
+
+        $param = $this->request->param();
+
+        $where = Tools::buildSearchWhere($param,[
+            'title','description']);
+        
+
         $chapter = new ChapterLogic();
+        $list   = $chapter->getChapterList($where);
+        
         return view('', [
-                'chapterlist' => $chapter->where('delete_status', 0)->select(),
-            ]);
+            'chapterlist' => $list,
+            'page' => $list->render(),
+        ]);
+
     }
 
     //添加
@@ -51,7 +63,7 @@ class AdminChapter extends AdminBaseController
 
             $course = new Course();
             return view('', [
-                'courselist' => $course->getCourseList([], 'id,title'),
+                'courselist' => $course->baseQuery([], 'id,title'),
             ]);
 
         }

@@ -18,6 +18,13 @@ class CourseVideo extends CourseVideoModel
 
     }
 
+    //获取分页列表
+    public function getVideoList($where = [], $field = '*')
+    {
+        return $this->field($field)->where($where)
+            ->where(['delete_status' => 0, 'show_status' => 1])->paginate();
+    }
+
     //
     public function selectCourseList($videoInfo)
     {

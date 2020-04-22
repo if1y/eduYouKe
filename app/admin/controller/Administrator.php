@@ -15,11 +15,17 @@ class Administrator extends AdminBaseController
      */
     public function index()
     {
+
+        $param = $this->request->param();
+        $where = Tools::buildSearchWhere($param,[
+            'a.mobile','a.nickname']);
+        
         $User = new AdminUser();
-        $list = $User->getAdminUserList();
-        View::assign('userlist', $list);
-        View::assign('page', $list->render());
-        return View::fetch();
+        $list = $User->getAdminUserList($where);
+        return view('',[
+            'userlist'=>$list,
+            'page'=>$list->render(),
+        ]);
     }
 
     /**

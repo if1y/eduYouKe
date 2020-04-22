@@ -12,16 +12,21 @@ class AdminUser extends AdminBaseController
 {
     public function index()
     {
-        $user = new UserLogic();
 
-        $list = $user->getUserList();
+        $param  = $this->request->param();
+        $where = Tools::buildSearchWhere($param,[
+            'mobile','nickname']);
+        
+        $user = new UserLogic();
+        $list   = $user->getUserList($where);
 
         return view('', [
             'userlist' => $list,
             'page' => $list->render(),
         ]);
-    }
 
+    }
+    
     /**
      * [add 添加用户]
      */

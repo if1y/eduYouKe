@@ -24,12 +24,21 @@ class AdminUser extends AdminUserModel
         return $result;
     }
 
+
+
+    public function getBannerList($where = [], $field = '*')
+    {
+        return $this->field($field)->where($where)
+        ->where(['delete_status'=>0,'show_status'=>1])
+        ->paginate();
+    }
+
     /**
      * [getUserList ]
      * @param  string $value [description]
      * @return [type]        [description]
      */
-    public function getAdminUserList()
+    public function getAdminUserList($where = [])
     {
 
         $result = $this->alias('a')
@@ -41,6 +50,7 @@ class AdminUser extends AdminUserModel
             ->where([
                 'a.delete_status' => 0,
             ])
+            ->where($where)
             ->paginate(12);
         return $result;
     }

@@ -395,7 +395,7 @@ class Tools
     // 父id查询分类下所有子id
     public static function getUpTree($array, $pid = 0, $leave = 0)
     {
-    	// print_r($pid);exit();
+        // print_r($pid);exit();
         // $f_name = __FUNCTION__;
         static $list = [];
         foreach ($array as $key => $value)
@@ -413,7 +413,7 @@ class Tools
         return array_unique($list);
     }
 
-	//子id查询以上父id
+    //子id查询以上父id
     public static function getOnTree($array, $id, $leave = 0)
     {
         static $list = [];
@@ -427,6 +427,52 @@ class Tools
             }
         }
         return $list;
+    }
+
+    /**
+     * [buildSearchWhere 组装搜索数据]
+     * @param  [type] $data        [description]
+     * @param  array  $searchField [description]
+     * @return [type]              [description]
+     */
+    public static function buildSearchWhere($data, $searchField = [])
+    {
+        $searchWhere = [];
+
+        if (isset($data['search_time']) && !empty($data['search_time']))
+        {
+            $time          = explode('-', $data['search_time']);
+            $searchWhere[] = ["create_time", "between", [
+                strtotime($time[0]),
+                strtotime($time[1]),
+            ]];
+        }
+
+        if (isset($data['keywords']) && !empty($data['keywords']))
+        {
+
+            if (is_array($searchField))
+            {
+                $field         = implode('|', $searchField);
+                $searchWhere[] = [
+                    $field,
+                    'like',
+                    '%' . $data['keywords'] . '%',
+                ];
+
+            }
+            else
+            {
+                $searchWhere[] = [
+                    $searchField,
+                    'like',
+                    '%' . $data['keywords'] . '%',
+                ];
+            }
+
+        }
+
+        return $searchWhere;
     }
 
 }
