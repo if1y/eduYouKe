@@ -29,7 +29,7 @@ class AdminBaseController extends BaseController
         $this->getWebTheme();
         if (empty(Session::get('adminUserInfo')))
         {
-            redirect('admin/login/login')->send();exit;
+            redirect(getDomain().'/admin/login/login')->send();exit;
         }
         else
         {
