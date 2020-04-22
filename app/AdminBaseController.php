@@ -29,8 +29,7 @@ class AdminBaseController extends BaseController
         $this->getWebTheme();
         if (empty(Session::get('adminUserInfo')))
         {
-            header("Location:" . url("admin/login/login"));
-            exit();
+            redirect('admin/login/login')->send();exit;
         }
         else
         {

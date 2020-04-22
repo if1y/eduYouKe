@@ -34,7 +34,8 @@ class UserBaseController extends WebBaseController
             if ($this->request->isAjax()) {
                 $this->error("您尚未登录",'/user/login/login');
             } else {
-                header('location:/user/login/login');exit();
+                // session('complete', true);
+                redirect('/user/login/login')->send();
             }
         }
         $this->userId = $userId;

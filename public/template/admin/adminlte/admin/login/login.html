@@ -59,7 +59,7 @@
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label text-black-50">保持登陆</label>
                                 </div>
-                                <button id="formLogin" class="btn btn-primary btn-block">登录</button>
+                                <a href="{:url('admin/login/doLogin')}" id="formLogin" onclick="formLogin()" class="btn btn-primary btn-block">登录</a>
                             </div>
                         </form>
                         <br>
@@ -72,80 +72,4 @@
 
 </html>
 {include file='../public/script' /}
-<script src="__STATIC__/js/jquery.validate.min.js"></script>
-<script type="text/javascript">
-$('#content').validate({
-    rules: {
-        username: {
-            required: true,
-        },
-        password: {
-            required: true,
-        },
-    },
-    messages: {
-        username: {
-            required: "请输入用户名",
-        },
-        password: {
-            required: "请输入密码",
-        },
-    },
-    // errorElement: 'span',
-    errorPlacement: function(error, element) {
-        error.addClass('invalid-feedback');
-        element.closest('.form-group').append(error);
-    },
-    // highlight: function(element, errorClass, validClass) {
-    //     $(element).addClass('is-invalid');
-    // },
-    // unhighlight: function(element, errorClass, validClass) {
-    //     $(element).removeClass('is-invalid');
-    // }
-});
-
-$("#formLogin").click(function(event) {
-
-    var content = $("form").attr("id");
-    var valid = $("#" + content).valid();
-    if (valid) {
-
-        event.preventDefault();
-        var href = $("#content").attr("action");
-        var username = $('.username').val();
-        var password = $('.password').val();
-        var verifycode = $('.verifycode').val();
-
-
-        $.post(href, { username: username, password: password, verifycode: verifycode }, function(json) {
-            if (json.code == 1) {
-
-                $.alert({
-                    type: 'blue',
-                    title: '操作提示',
-                    content: json.msg,
-                    icon: 'glyphicon glyphicon-info-sign'
-                });
-                setTimeout(function() {
-                    // window.location.reload();
-                    window.location.href="/admin" 
-                }, 1000);
-
-
-            } else {
-                $.alert({
-                    type: 'blue',
-                    title: '操作提示',
-                    content: json.msg,
-                    icon: 'glyphicon glyphicon-info-sign'
-                });
-
-            }
-
-        }, "json");
-
-
-    }
-
-});
 </script>

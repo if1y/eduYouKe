@@ -27,7 +27,7 @@
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
 
-            <a class="nav-link" id="sign-out" data-toggle="" href="javascript:void(0)">
+            <a class="nav-link" id="sign-out" data-toggle="" href="{:url('admin/login/logout')}">
                 <i class="fa fa-sign-out"></i>
                 <span>退出</span>
 
@@ -120,40 +120,3 @@
         </li> -->
     </ul>
 </nav>
-<script src="__STATIC__/js/jquery.min.js"></script>
-<script type="text/javascript">
-$("#sign-out").click(function() {
-
-    $.post("/admin/login/logout", function(json) {
-
-            if (json.code == 1) {
-
-                $.alert({
-                    type: 'blue',
-                    title: '操作提示',
-                    content: json.msg,
-                    icon: 'glyphicon glyphicon-info-sign'
-                });
-                setTimeout(function() {
-                    // window.location.reload();
-                    window.location.href = "/admin"
-                }, 1000);
-
-
-            } else {
-                $.alert({
-                    type: 'blue',
-                    title: '操作提示',
-                    content: json.msg,
-                    icon: 'glyphicon glyphicon-info-sign'
-                });
-
-            }
-
-
-
-        });
-
-});
-
-</script>
