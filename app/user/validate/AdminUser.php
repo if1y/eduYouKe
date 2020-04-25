@@ -21,7 +21,7 @@ class AdminUser extends Validate
     ];
     
     protected $scene = [
-        'edit' => ['nickname', 'mobile','avatar_url'],
+        'edit' => ['nickname','mobile','avatar_url'],
     ];
 
 }

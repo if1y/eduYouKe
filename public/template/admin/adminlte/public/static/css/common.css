@@ -42,10 +42,11 @@ a {
 }
 
 #websiteLogo #defaultUpload,
-#websiteLogo #defaultUpload img{
+#websiteLogo #defaultUpload img {
     height: 60px;
     width: 240px;
 }
+
 .ztree li a {
     height: 26px !important;
 }
@@ -53,11 +54,20 @@ a {
 #treeDemo a span {
     font-size: 20px;
 }
-#debug{
+
+#debug {
     width: 20px !important;
     height: 20px !important;
     background-color: #ccc !important;
 }
-#nodebug{
-    
+
+#nodebug {}
+
+#img_upload {
+    display: none;
+}
+
+#preview_image,
+#preview_image img {
+    max-width: 128px;
 }

@@ -83,7 +83,7 @@ class Image
         $endpoint = $set->getSettingContent('ossEndpoint');
         $bucket = $set->getSettingContent('ossBucket');
 
-        $object = $file->md5().'.'.$file->getOriginalExtension();
+        $object = $file->md5().'.'.$file->extension();
         $content = $file->getPathName();
 
         try{

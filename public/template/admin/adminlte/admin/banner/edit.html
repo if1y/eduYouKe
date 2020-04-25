@@ -38,17 +38,22 @@
                     <input type="text" class="form-control" name="description" value="{$editData.description}" placeholder="请输入图片描述">
                 </div>
             </div>
+
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">图片上传</label>
                 <div class="col-sm-10">
-                    <input type="file" name="file" id="uploadFile" style="display: none;">
-                    <input type="text" name="image_url" id="uploadValue" value="{$editData.image_url}" style="display: none;">
-                    <div id="defaultUpload">
+                    <input id="img_upload" type="file" onchange="uploadImg('image_url','img_upload','preview_image','img_label')" accept="image/*" />
+                    <input type="hidden" name="image_url" id="image_url" value="{$editData.image_url}">
+                    <div id="preview_image">
                         <img src="{$editData.image_url ? getUrlPath($editData.image_url) :'__STATIC__/img/user3-128x128.jpg'}">
-                        <small id="emailHelp" class="form-text text-muted">轮播图推荐900X400</small>
                     </div>
+                    <label for="img_upload" class="btn btn-warning btn-sm mt-2" id="img_label">图片上传
+                    </label>
+                        <small class="form-text text-muted mb-2">轮播图推荐900X400</small>
+
                 </div>
             </div>
+
             <div class="form-group row mt-4">
                 <label class="col-sm-2 col-form-label">链接地址</label>
                 <div class="col-sm-10">
@@ -81,5 +86,4 @@
 </div>
 </div>
 {include file='../public/script' /}
-<script src="__ADMINSTATIC__/js/uploadImage.js"></script>
 <script src="__ADMINSTATIC__/js/validate/bannerValidate.js"></script>
