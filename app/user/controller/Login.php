@@ -16,64 +16,83 @@ class Login extends WebBaseController
         $param       = $this->request->param();
         $param['ip'] = $this->request->ip();
 
-        //查询手机号是否注册
-        if (isset($param['mobile']))
-        {
+        if ($this->request->isPost()){
+
+            $validate    = new LoginValidate();
+            // print_r($param);exit;
+            // !$validate->check($param)
+            if (!$validate->scene('sms')->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
             $user   = new User();
+            //查询手机号是否注册
             $result = $user->getMobileCode($param);
 
             switch ($result)
             {
                 case 1:
-                    $json = ['code' => 0, 'message' => '手机号有误'];
+                    $this->error('手机号有误');
                     break;
                 case 2:
-                    $json = ['code' => 0, 'message' => '今日发送次数较多...'];
+                    $this->error('今日发送次数较多');
                     break;
                 case 3:
-                    $json = ['code' => 0, 'message' => '验证码获取失败...'];
+                    $this->error('验证码获取失败');
                     break;
                 default:
-                    $json = ['code' => 1, 'message' => '验证码获取成功'];
-                    // $json = ['code' => 1, 'message' => '验证码获取成功', 'smscode' => $result];
+                    $this->success('验证码获取成功');
                     break;
             }
-
         }
-        else
-        {
-
-            $json = ['code' => 0, 'message' => '请输入手机号'];
-            //
-        }
-        return json($json);
 
     }
+
 
     //登录验证
     public function doLogin()
     {
         $param       = $this->request->param();
-        $param['ip'] = $this->request->ip();
-        $user        = new User();
-        $result      = $user->doLogin($param);
-        switch ($result)
+        if ($this->request->isPost())
         {
-            case 1:
-                $this->success('登录成功', $this->redirectUrl());
-                break;
-            case 2:
-                $this->error('暂无此用户');
-                break;
-            case 3:
-                $this->error('验证码有误');
-                break;
-            case 4:
-                $this->error('验证码无效');
-                break;
-            default:
-                $this->error('账号或密码有误');
-                break;
+            $param['ip'] = $this->request->ip();
+            $user        = new User();
+            
+            $validate    = new LoginValidate();
+            if ($param['type']) {
+
+                if (!$validate->scene('mobileLogin')->check($param))
+                {
+                    $this->error($validate->getError());
+                }
+            }else{
+                if (!$validate->scene('userLogin')->check($param))
+                {
+                    $this->error($validate->getError());
+                }
+
+            }
+
+            $result      = $user->doLogin($param);
+            switch ($result)
+            {
+                case 1:
+                    $this->success('登录成功', $this->redirectUrl());
+                    break;
+                case 2:
+                    $this->error('暂无此用户');
+                    break;
+                case 3:
+                    $this->error('验证码有误');
+                    break;
+                case 4:
+                    $this->error('验证码无效');
+                    break;
+                default:
+                    $this->error('账号或密码有误');
+                    break;
+            }
         }
 
     }

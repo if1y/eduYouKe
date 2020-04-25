@@ -83,8 +83,8 @@ class User extends UserModel
     {
         // print_r($param);exit();
         $whereOr = [
-            ['mobile', '=', trim($param['username'])],
-            ['nickname', '=', trim($param['username'])],
+            ['mobile', '=', trim($param['nickname'])],
+            ['nickname', '=', trim($param['nickname'])],
         ];
 
         $userInfo = $this->whereOr($whereOr)->find();

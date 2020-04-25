@@ -1,35 +1,184 @@
-function Register() {
+;
+(function() {
+    //全局ajax处理
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-    event.preventDefault();
 
-    url = $("#register").attr('href');
-    var nickname = $('input[name="nickname"]').val();
-    var password = $('input[name="password"]').val();
-    var repassword = $('input[name="repassword"]').val();
-    var clause = $("input[type='checkbox']").is(':checked');
 
-    if (!clause) {
-        return error('请勾选使用条款');
+
+
+
+    if ($('#register').length) {
+        $('#register').on('click', function(e) {
+
+            e.preventDefault();
+            url = $("#register").attr('href');
+            var nickname = $('input[name="nickname"]').val();
+            var password = $('input[name="password"]').val();
+            var repassword = $('input[name="repassword"]').val();
+            var clause = $("input[type='checkbox']").is(':checked');
+
+            if (!clause) {
+                return error('请勾选使用条款');
+            }
+
+            $.post(url, { nickname: nickname, password: password, repassword: repassword, clause: clause }, function(json) {
+
+                if (json.code == 1) {
+
+                    success(json.msg);
+                    // $('meta[name="csrf-token"]').val(json.data.token);
+                    // $('meta[name="csrf-token"]').val('8888888888');
+                    setTimeout(function() {
+                        window.location.href = "/"
+                    }, 1000);
+
+
+                } else {
+
+                    return error(json.msg);
+                }
+
+            }, "json");
+        });
     }
 
-    $.post(url, { nickname: nickname, password: password, repassword: repassword, clause: clause }, function(json) {
 
-        if (json.code == 1) {
 
-            success(json.msg);
-            setTimeout(function() {
-                window.location.href = "/"
+    if ($('#sendSms').length) {
+        $('#sendSms').on('click', function(e) {
+
+            e.preventDefault();
+
+            url = $("#sendSms").attr('href');
+
+            var mobile;
+            mobile = $(".mobile").val();
+            //验证手机号
+            switch (CheckMobile(mobile)) {
+                case 0:
+                    return error('手机号不能为空')
+                    break;
+                case 2:
+                    return error('请输入正确的手机号')
+                    break;
+                default:
+            }
+
+            //请求短信接口
+            $.post(url, { mobile: mobile }, function(data) {
+                if (data.code == 1) {
+                    //展示文案
+                    return success(data.msg);
+                    //todo
+                } else {
+
+                    return error(data.msg);
+                }
+            });
+
+            //更改点击状态
+            $("#basic-addon").addClass('sms-second');
+
+            //验证码定时器
+            timesRun = 30;
+            $("#basic-addon").find("a").text("剩余" + timesRun + 's');
+            var interval = setInterval(function() {
+                timesRun -= 1;
+                $("#basic-addon").find("a").text("剩余" + timesRun + 's');
+                if (timesRun === 0) {
+                    $("#basic-addon").find("a").text('重新获取');
+                    $("#basic-addon").removeClass('sms-second');
+                    clearInterval(interval);
+                }
             }, 1000);
 
 
-        } else {
 
-            return error(json.msg);
-        }
+        });
+    }
 
-    }, "json");
 
-}
+    if ($('#formLogin').length) {
+        $('#formLogin').on('click', function(e) {
+
+            e.preventDefault();
+            url = $("#formLogin").attr('href');
+
+            var nickname = $('input[name="nickname"]').val();
+            var mobile = $('input[name="mobile"]').val();
+            var password = $('input[name="password"]').val();
+            var smscode = $('input[name="smscode"]').val();
+            var type = $('input[name="logintype"]').val();
+
+
+            $.post(url, { nickname: nickname, password: password, mobile: mobile, smscode: smscode, type: type }, function(json) {
+                if (json.code == 1) {
+
+                    console.log(json.url);
+                    success(json.msg);
+                    setTimeout(function() {
+                        window.location.href = json.url
+                    }, 1000);
+
+
+                } else {
+                    
+                    $('meta[name="csrf-token"]').empty().attr('content', "9999999")
+                    // console.log($('meta[name="csrf-token"]').attr('content'));
+                    return error(json.msg);
+                }
+
+            }, "json");
+
+
+        });
+    }
+
+
+    if ($('#forgetForm').length) {
+        $('#forgetForm').on('click', function(e) {
+
+            e.preventDefault();
+            url = $("#forgetForm").attr('href');
+
+            var mobile = $('input[name="mobile"]').val();
+            var password = $('input[name="password"]').val();
+            var smscode = $('input[name="smscode"]').val();
+
+            $.post(url, { mobile: mobile, password: password, smscode: smscode }, function(json) {
+
+                if (json.code == 1) {
+
+                    success(json.msg);
+                    setTimeout(function() {
+                        window.location.href = "/user/login/login"
+                    }, 1000);
+
+
+                } else {
+
+                    return error(json.msg);
+                }
+
+            }, "json");
+
+
+        });
+    }
+
+
+
+    //
+
+
+
+})();
+
 
 function changingLogin() {
 
@@ -41,116 +190,5 @@ function changingLogin() {
     $("#sms-login").toggle();
     $(".nickname-login").toggle();
     $(".sms-login").toggle();
-
-}
-
-
-function sendSms() {
-
-
-    event.preventDefault();
-    url = $("#sendSms").attr('href');
-
-    var mobile;
-    mobile = $(".mobile").val();
-    //验证手机号
-    switch (CheckMobile(mobile)) {
-        case 0:
-            return error('手机号不能为空')
-            break;
-        case 2:
-            return error('请输入正确的手机号')
-            break;
-        default:
-    }
-
-    //请求短信接口
-    $.post(url, { mobile: mobile }, function(data) {
-        if (data.code == 1) {
-            //展示文案
-            return success(data.msg);
-            //todo
-        } else {
-
-            return error(data.msg);
-        }
-    });
-
-    //更改点击状态
-    $("#basic-addon").addClass('sms-second');
-
-    //验证码定时器
-    timesRun = 30;
-    $("#basic-addon").find("a").text("剩余" + timesRun + 's');
-    var interval = setInterval(function() {
-        timesRun -= 1;
-        $("#basic-addon").find("a").text("剩余" + timesRun + 's');
-        if (timesRun === 0) {
-            $("#basic-addon").find("a").text('重新获取');
-            $("#basic-addon").removeClass('sms-second');
-            clearInterval(interval);
-        }
-    }, 1000);
-
-}
-
-//
-function formLogin() {
-
-
-    event.preventDefault();
-    url = $("#formLogin").attr('href');
-
-    var username = $('input[name="username"]').val();
-    var mobile = $('input[name="mobile"]').val();
-    var password = $('input[name="password"]').val();
-    var smscode = $('input[name="smscode"]').val();
-    var type = $('input[name="logintype"]').val();
-
-
-    $.post(url, { username: username, password: password, mobile: mobile, smscode: smscode, type: type }, function(json) {
-        if (json.code == 1) {
-
-            console.log(json.url);
-            success(json.msg);
-            setTimeout(function() {
-                window.location.href = json.url
-            }, 1000);
-
-
-        } else {
-
-            return error(json.msg);
-        }
-
-    }, "json");
-
-}
-
-function forget() {
-
-    event.preventDefault();
-    url = $("#forgetForm").attr('href');
-
-    var mobile = $('input[name="mobile"]').val();
-    var password = $('input[name="password"]').val();
-    var smscode = $('input[name="smscode"]').val();
-
-    $.post(url, { mobile: mobile, password: password, smscode: smscode }, function(json) {
-
-        if (json.code == 1) {
-
-            success(json.msg);
-            setTimeout(function() {
-                window.location.href = "/user/login/login"
-            }, 1000);
-
-
-        } else {
-
-            return error(json.msg);
-        }
-
-    }, "json");
 
 }
