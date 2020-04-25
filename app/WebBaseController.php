@@ -7,6 +7,7 @@ use app\util\Nav;
 use app\util\Tools;
 use think\facade\DB;
 use think\facade\Env;
+use think\facade\Request;
 use think\facade\View;
 
 class WebBaseController extends BaseController
@@ -101,6 +102,30 @@ class WebBaseController extends BaseController
         }
 
         return '/';
+    }
+
+    //
+    public function getUserCentor()
+    {
+        $userId = getUserInfoData();
+        $mySelf = 1;
+
+        $request = Request::instance();
+        $param = $request->param();
+        if (isset($param['user_id'])) {
+            //判断是否为本人
+            $mySelf = $userId == $param['user_id'] ? 1 : 0;
+            $userId = $param['user_id']; 
+        }
+        if (empty($userId)) {
+            Session::set('UserInfo','null');
+        }
+        $userInfo = DB::name('user')->where('id',$userId)->find();
+        if (empty($userInfo)) {
+            header('location:/user/centor');exit();
+        }
+        $userInfo['myself'] = $mySelf;
+        return $userInfo;
     }
 
 }
