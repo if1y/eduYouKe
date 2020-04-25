@@ -2,8 +2,8 @@
 namespace app\user\controller;
 
 use app\logic\User;
-use app\WebBaseController;
 use app\user\validate\Login as LoginValidate;
+use app\WebBaseController;
 use think\facade\Session;
 use think\facade\View;
 
@@ -60,7 +60,7 @@ class Login extends WebBaseController
         switch ($result)
         {
             case 1:
-                $this->success('登录成功');
+                $this->success('登录成功', $this->redirectUrl());
                 break;
             case 2:
                 $this->error('暂无此用户');
@@ -81,7 +81,16 @@ class Login extends WebBaseController
     //登录
     public function login()
     {
-        return View::fetch('');
+        if (session('userInfo'))
+        {
+
+            return redirect('/');
+
+        }
+        else
+        {
+            return View::fetch('');
+        }
     }
 
     // 注册

@@ -1,11 +1,14 @@
 <?php
 namespace app\vod\controller;
-use app\UserBaseController;
+
+use app\WebBaseController;
 use app\logic\Order as OrderLogic;
 use think\facade\View;
 
-class Order extends UserBaseController
+class Order extends WebBaseController
 {
+    protected $middleware = ['auth'];
+    
     public function createOrder()
     {
     	

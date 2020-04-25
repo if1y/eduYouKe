@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="card-body">
                                         <!-- <a href="#" class="card-link detail-price">￥200</a> -->
-                                        {if $coursinfo.sell_price}
+                                        {if $coursinfo.sell_status}
                                         <a href="{:url('/order/createOrder',['id'=>$coursinfo['id'],'type'=>'course'])}" class="btn btn-danger btn-sm btn-block">￥{$coursinfo.sell_price} 立即购买</a>
                                         {else /}
                                         <a href="{:url('/course/chapter',['id'=>$coursinfo['id']])}" class="btn btn-info btn-sm btn-block">立即学习</a>

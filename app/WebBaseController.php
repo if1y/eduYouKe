@@ -88,5 +88,19 @@ class WebBaseController extends BaseController
 
     }
 
+    //获取重定向地址
+    public function redirectUrl()
+    {
+
+        $uri = session('redirect_url');
+
+        if ($uri)
+        {
+            session('redirect_url', null);
+            return $uri;
+        }
+
+        return '/';
+    }
 
 }

@@ -33,8 +33,8 @@ function Register() {
 
 function changingLogin() {
 
-    var val =  $(".logintype").val();
-    var setval =  val == 0 ? 1  :  0;
+    var val = $(".logintype").val();
+    var setval = val == 0 ? 1 : 0;
 
     $(".logintype").val(setval);
     $("#nickname-login").toggle();
@@ -111,9 +111,10 @@ function formLogin() {
     $.post(url, { username: username, password: password, mobile: mobile, smscode: smscode, type: type }, function(json) {
         if (json.code == 1) {
 
+            console.log(json.url);
             success(json.msg);
             setTimeout(function() {
-                window.location.href = "/"
+                window.location.href = json.url
             }, 1000);
 
 
@@ -153,5 +154,3 @@ function forget() {
     }, "json");
 
 }
-
-

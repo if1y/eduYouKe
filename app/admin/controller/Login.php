@@ -6,8 +6,10 @@ use app\logic\AdminUser;
 use think\facade\Session;
 use think\facade\View;
 
+
 class Login extends AdminBaseController
 {
+    
     //
     public function initialize()
     {

@@ -11,7 +11,6 @@ function addComment(table_name) {
     if (text) {
 
         $.post(uri, { content: text, table_name: table_name, url: url }, function(data) {
-            console.log(data);
             if (data.code == 1) {
                 //展示文案
                 success(data.msg);
@@ -21,8 +20,8 @@ function addComment(table_name) {
                 //todo
             } else {
             	
+                error(data.msg);
                 if (data.url) {
-                    error(data.msg);
                     setTimeout(function() {
                         window.location.href = data.url
                     }, 1500);

@@ -1,17 +1,18 @@
 <?php
 namespace app\vod\controller;
 
-use app\UserBaseController;
+use app\WebBaseController;
 use app\util\Tools;
 use app\logic\Chapter;
 use app\logic\Course as CourseLogic;
 use app\logic\CourseVideo;
 use think\facade\View;
 
-class Detail extends UserBaseController
+class Detail extends WebBaseController
 {
 
-
+    protected $middleware = ['auth'];
+    
 	/**
      * [index 获取课程详情]
      * @return [type] [description]

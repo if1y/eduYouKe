@@ -3,10 +3,13 @@ namespace app\vod\controller;
 
 use app\logic\Order;
 use app\service\Pay as PayService;
-use app\UserBaseController;
+use app\WebBaseController;
 
-class Pay extends UserBaseController
+
+class Pay extends WebBaseController
 {
+    protected $middleware = ['auth'];
+    
     //支付
     public function pay()
     {
