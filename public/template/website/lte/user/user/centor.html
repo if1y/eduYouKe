@@ -23,12 +23,13 @@
                                 <div class="card-body box-profile">
                                     <div class="text-center">
                                         {if $userinfo.myself == 1}
-                                        <input type="file" name="file" id="uploadFile" style="display: none;">
                                         <div id="defaultUpload">
                                             <a href="{:url('/user/user/avatar')}">
-                                            <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
+                                                <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
                                             </a>
                                         </div>
+                                        <input id="img_upload" type="file" onchange="uploadImg('image_url','img_upload','defaultUpload','img_label')" accept="image/*" />
+                                        <label for="img_upload" class="btn btn-warning btn-sm mt-2" id="img_label">头像上传</label>
                                         {else /}
                                         <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
                                         {/if}
@@ -88,7 +89,7 @@
                                                         </h3>
                                                         <div class="timeline-body">
                                                             <a href="{:url('/course',['id'=>$vo['source_id']])}">
-                                                                <img src="{:getUrlPath($vo.image)}" alt="...">
+                                                                <img src="{:getUrlPath($vo.image)}" alt="{$vo.title}" width="100%">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -138,7 +139,7 @@
     {include file='../public/footer' /}
     </div>
     {include file='../public/script' /}
-    <script src="__TEMPSTATIC__/js/avatarUpload.js"></script>
+    <script src="__TEMPSTATIC__/js/avatar.js"></script>
 </body>
 
 </html>

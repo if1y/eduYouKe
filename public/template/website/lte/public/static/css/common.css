@@ -34,3 +34,11 @@
     border-radius: 12px;
 }
 
+#img_upload {
+    display: none;
+}
+
+#preview_img,
+#preview_img img {
+    max-width: 128px;
+}
