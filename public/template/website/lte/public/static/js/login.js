@@ -68,11 +68,11 @@ function sendSms() {
     $.post(url, { mobile: mobile }, function(data) {
         if (data.code == 1) {
             //展示文案
-            return success(data.message);
+            return success(data.msg);
             //todo
         } else {
 
-            return error(data.message);
+            return error(data.msg);
         }
     });
 
@@ -111,7 +111,7 @@ function formLogin() {
     $.post(url, { username: username, password: password, mobile: mobile, smscode: smscode, type: type }, function(json) {
         if (json.code == 1) {
 
-            success(json.message);
+            success(json.msg);
             setTimeout(function() {
                 window.location.href = "/"
             }, 1000);
@@ -119,7 +119,7 @@ function formLogin() {
 
         } else {
 
-            return error(json.message);
+            return error(json.msg);
         }
 
     }, "json");

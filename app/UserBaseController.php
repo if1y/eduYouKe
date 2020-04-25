@@ -55,7 +55,7 @@ class UserBaseController extends WebBaseController
             $userId = $param['user_id']; 
         }
         if (empty($userId)) {
-            Session::set('UserInfo','null');
+            Session::delete('UserInfo');
         }
         $userInfo = DB::name('user')->where('id',$userId)->find();
         if (empty($userInfo)) {

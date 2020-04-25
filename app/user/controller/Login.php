@@ -60,24 +60,21 @@ class Login extends WebBaseController
         switch ($result)
         {
             case 1:
-                $json = ['code' => 1, 'message' => '登录成功'];
+                $this->success('登录成功');
                 break;
             case 2:
-                $json = ['code' => 0, 'message' => '暂无此用户...'];
+                $this->error('暂无此用户');
                 break;
             case 3:
-                $json = ['code' => 0, 'message' => '验证码有误...'];
+                $this->error('验证码有误');
                 break;
             case 4:
-                $json = ['code' => 0, 'message' => '验证码无效...'];
+                $this->error('验证码无效');
                 break;
-
             default:
-                $json = ['code' => 0, 'message' => '账号或密码有误'];
+                $this->error('账号或密码有误');
                 break;
         }
-
-        return json($json);
 
     }
 

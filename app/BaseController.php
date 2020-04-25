@@ -7,6 +7,8 @@ use think\App;
 use think\exception\ValidateException;
 use think\exception\HttpResponseException;
 use think\Validate;
+use think\Response;
+
 
 /**
  * 控制器基础类
@@ -195,7 +197,7 @@ abstract class BaseController
             $params = [];
         }
 
-        $response->code($code)->params($params)->with($with);
+        $response->code($code)->with($with);
 
         throw new HttpResponseException($response);
     }
