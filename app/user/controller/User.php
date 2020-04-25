@@ -3,14 +3,16 @@ namespace app\user\controller;
 
 use app\logic\Image;
 use app\logic\User as UserLogic;
-use app\UserBaseController;
+use app\WebBaseController;
 use app\util\Tools;
 use app\logic\Order;
 use think\facade\View;
 
-class User extends UserBaseController
+class User extends WebBaseController
 {
 
+    protected $middleware = ['auth'];
+    
     protected function initialize()
     {
         parent::initialize();
