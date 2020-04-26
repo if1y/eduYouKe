@@ -10,7 +10,8 @@ class Nav
         foreach ($nav as $key => $value)
         {
 
-            $js     = '/index/list/?list_id='.$value['id'];
+            $js     =  $value['nav_type'] == 1  ? '/index/list/?list_id='.$value['category_id']: fixUrl($value['url']);
+            
             $class  = !empty($value['_child']) ? ' nav-item dropdown ' : ' nav-item ';
             $toggle = !empty($value['_child']) ? ' dropdown-toggle ' : '';
             $aTag   = !empty($value['_child']) ? 'id="dropdownSubMenu' . $value['id'] . '"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '';
@@ -18,7 +19,7 @@ class Nav
             $class = $lv ? 'dropdown-submenu dropdown-hover' : $class;
 
             $str .= '<li class="' . $class . '">
-            <a href="' . $js . '" ' . $aTag . ' class="nav-link ' . $toggle . ' ">'
+            <a href="' . $js . '" ' . $aTag . ' class="nav-link ' . $toggle . ' " target="_blank" >'
                 . $value['title'] . '</a>';
 
             if (isset($value['_child']))

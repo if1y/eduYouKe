@@ -3,27 +3,21 @@
 <div class="container-fluid bg-white h-100">
     <br>
     <div class="row">
-        <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/addPost">
+        <form class="m-auto w-75" id="content" method="post" action="{$Request.root}/{$Request.controller}/add">
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">菜单</label>
+                <label class="col-sm-2 col-form-label">关联</label>
                 <div class="col-sm-10">
                     <div class="form-group clearfix">
                         <div class="icheck-success d-inline">
-                            <input type="radio" name="menuType" value="1" checked id="ismenu">
-                            <label for="ismenu">
-                                仅作为菜单
+                            <input type="radio" name="nav_type" value="1" checked id="is-category">
+                            <label for="is-category">
+                                分类
                             </label>
                         </div>
                         <div class="icheck-success d-inline">
-                            <input type="radio" name="menuType" value="2" id="notmenu">
-                            <label for="notmenu">
-                                可访问菜单
-                            </label>
-                        </div>
-                        <div class="icheck-success d-inline">
-                            <input type="radio" name="menuType" value="3" id="isAction">
-                            <label for="isAction">
-                                操作权限
+                            <input type="radio" name="nav_type" value="2" id="is-link">
+                            <label for="is-link">
+                                自定义链接
                             </label>
                         </div>
                     </div>
@@ -33,32 +27,36 @@
                 <label class="col-sm-2 col-form-label">父级</label>
                 <div class="col-sm-10">
                     <div class="form-group">
-                        <select class="custom-select" name="parent_id">
+                        <select class="custom-select select2bs4" name="parent_id">
                             <option value="0">无</option>
-                            {volist name="menulist" id="vo"}
+                            {volist name="navlist" id="vo"}
                             <option value="{$vo.id}">{$vo.showName}</option>
                             {/volist}
                         </select>
                     </div>
                 </div>
             </div>
+            <div class="form-group row" id="nav-type" style="display: none;">
+                <label class="col-sm-2 col-form-label">链接地址</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="url" placeholder="请输入自定义链接地址">
+                </div>
+            </div>
+            <div class="form-group row" id="nav-category">
+                <label class="col-sm-2 col-form-label">关联导航</label>
+                <div class="col-sm-10">
+                    <select class="custom-select select2bs4" name="category_id">
+                        <option value="0">无</option>
+                        {volist name="category" id="vo"}
+                        <option value="{$vo.id}">{$vo.showName}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">名称</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="title" placeholder="请输入名称">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">路径</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="url" placeholder="App/Controller/Action">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">图标</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="icon" placeholder="cogs">
-                    <small id="emailHelp" class="form-text text-muted"><a href="http://www.fontawesome.com.cn/faicons/" target="_blank">获取图标</a></small>
                 </div>
             </div>
             <div class="form-group row">
@@ -71,37 +69,6 @@
                 <label class="col-sm-2 col-form-label">备注</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="remark" placeholder="请输入备注[选填]">
-                </div>
-            </div>
-            <div class="form-group row" id="rbacAction" style="display: none;">
-                <label class="col-sm-2 col-form-label">权限细化</label>
-                <div class="col-sm-10">
-
-                    <div class="icheck-success d-inline">
-                        <input type="checkbox" name="rbac_add" id="rbacAdd" checked>
-                        <label for="rbacAdd">
-                            增加
-                        </label>
-                    </div>
-                    <div class="icheck-success d-inline">
-                        <input type="checkbox" name="rbac_del" id="rbacDel" checked>
-                        <label for="rbacDel">
-                            删除
-                        </label>
-                    </div>
-                    <div class="icheck-success d-inline">
-                        <input type="checkbox" name="rbac_edit" id="rbacEdit" checked>
-                        <label for="rbacEdit">
-                            修改
-                        </label>
-                    </div>
-                    <div class="icheck-success d-inline">
-                        <input type="checkbox" name="rbac_info" id="rbacInfo" checked>
-                        <label for="rbacInfo">
-                            查询
-                        </label>
-                    </div>
-                    <small id="emailHelp" class="form-text text-muted">对应后台控制器:{add/edit/del/info}</small>
                 </div>
             </div>
             <div class="form-group row">
@@ -126,13 +93,14 @@
 {include file='../public/script' /}
 <script src="__STATIC__/js/jquery.validate.min.js"></script>
 <script type="text/javascript">
-
-$("#notmenu").click(function(){
-  $("#rbacAction").show();
+$("#is-link").click(function() {
+    $("#nav-type").show();
+    $("#nav-category").hide();
 });
 
-$("#ismenu,#isAction").click(function(){
-  $("#rbacAction").hide();
+$("#is-category,#isAction").click(function() {
+    $("#nav-type").hide();
+    $("#nav-category").show();
 });
 
 $('#content').validate({

@@ -52,20 +52,20 @@
                                 <tr>
                                     <th style="width: 10px">ID</th>
                                     <th style="width: 20px">菜单名称</th>
-                                    <th style="width: 10px">路径</th>
-                                    <th style="width: 10px">图标</th>
+                                    <th style="width: 10px">地址</th>
+                                    <th style="width: 10px">关联菜单</th>
                                     <th style="width: 10px">排序</th>
                                     <th style="width: 10px">状态</th>
                                     <th style="width: 40px">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {volist name="menulist" id="vo"}
+                                {volist name="navlist" id="vo"}
                                 <tr>
                                     <td>{$vo.id}</td>
                                     <td>{$vo.showName}</td>
                                     <td>{$vo.url}</td>
-                                    <td><i class="fa fa-{$vo.icon}"></i></td>
+                                    <td>{$vo.category_id}</td>
                                     <td>{$vo.sort}</td>
                                     <td>
                                         {$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}

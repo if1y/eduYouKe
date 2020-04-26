@@ -44,6 +44,24 @@ function checkUrl($url)
 
 }
 
+function fixUrl($url, $def = false, $prefix = false)
+{
+
+    $url = trim($url);
+    if (empty($url))
+    {
+        return $def;
+    }
+    if (count(explode('://', $url)) > 1)
+    {
+        return $url;
+    }
+    else
+    {
+        return $prefix === false ? 'http://' . $url : $prefix . $url;
+    }
+}
+
 function buildConfigHtml($value)
 {
     return Html::buildHtml($value);

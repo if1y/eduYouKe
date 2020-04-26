@@ -75,7 +75,7 @@ class WebBaseController extends BaseController
     public function getNav()
     {
 
-        $access = DB::name('course_category')
+        $access = DB::name('nav')
             ->where('show_status', 1)
             ->where('delete_status', 0)
             ->order('sort', 'asc')
