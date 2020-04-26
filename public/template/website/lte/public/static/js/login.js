@@ -1,12 +1,11 @@
 ;
 (function() {
     //全局ajax处理
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('[name="__token__"]').val()
+    //     }
+    // });
 
 
 
@@ -70,13 +69,15 @@
             }
 
             //请求短信接口
-            $.post(url, { mobile: mobile }, function(data) {
+            $.post(url, { mobile: mobile, __token__: $('[name="__token__"]').val() }, function(data) {
                 if (data.code == 1) {
                     //展示文案
+                    $('[name="__token__"]').val(data.data.token)
                     return success(data.msg);
                     //todo
                 } else {
 
+                    $('[name="__token__"]').val(data.data.token)
                     return error(data.msg);
                 }
             });
@@ -116,7 +117,7 @@
             var type = $('input[name="logintype"]').val();
 
 
-            $.post(url, { nickname: nickname, password: password, mobile: mobile, smscode: smscode, type: type }, function(json) {
+            $.post(url, { __token__: $('[name="__token__"]').val(), nickname: nickname, password: password, mobile: mobile, smscode: smscode, type: type }, function(json) {
                 if (json.code == 1) {
 
                     console.log(json.url);
@@ -127,9 +128,8 @@
 
 
                 } else {
-                    
-                    $('meta[name="csrf-token"]').empty().attr('content', "9999999")
-                    // console.log($('meta[name="csrf-token"]').attr('content'));
+
+                    // console.log($('[name="__token__"]').val())
                     return error(json.msg);
                 }
 
@@ -150,7 +150,7 @@
             var password = $('input[name="password"]').val();
             var smscode = $('input[name="smscode"]').val();
 
-            $.post(url, { mobile: mobile, password: password, smscode: smscode }, function(json) {
+            $.post(url, { mobile: mobile, password: password, smscode: smscode, __token__: $('[name="__token__"]').val() }, function(json) {
 
                 if (json.code == 1) {
 

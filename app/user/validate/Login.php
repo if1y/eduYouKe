@@ -6,9 +6,9 @@ use think\Validate;
 class Login extends Validate
 {
     protected $rule = [
-        'nickname' => 'require|token|max:25|min:8',
+        'nickname' => 'require|max:25|min:8',
         'password' => 'require|max:25|min:8',
-        'repassword' => 'require|number',
+        'repassword' => 'require|max:25|min:8',
         'clause' => 'require',
         'mobile' => 'require|mobile|token',
         'smscode' => 'require',
@@ -22,12 +22,13 @@ class Login extends Validate
         'password.require' => '密码能为空',
         'password.max' => '密码不能超过25个字符',
         'password.min' => '密码不能小于8个字符',
+        'repassword.max' => '密码不能超过25个字符',
+        'repassword.min' => '密码不能小于8个字符',
         'repassword.require' => '请重复输入密码',
         'clause.require' => '请选择用户条款',
         'mobile.require' => '手机号不能为空',
         'mobile.mobile' => '手机号不正确',
         'mobile.token' => '请刷新页面后重试',
-        'nickname.token' => '请刷新页面后重试',
         'smscode.require' => '验证码不能为空',
     ];
 

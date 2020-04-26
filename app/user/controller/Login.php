@@ -33,16 +33,16 @@ class Login extends WebBaseController
             switch ($result)
             {
                 case 1:
-                    $this->error('手机号有误');
+                    $this->error('手机号有误','',['token'=>token()]);
                     break;
                 case 2:
-                    $this->error('今日发送次数较多');
+                    $this->error('今日发送次数较多','',['token'=>token()]);
                     break;
                 case 3:
-                    $this->error('验证码获取失败');
+                    $this->error('验证码获取失败','',['token'=>token()]);
                     break;
                 default:
-                    $this->success('验证码获取成功');
+                    $this->success('验证码获取成功','',['token'=>token()]);
                     break;
             }
         }
