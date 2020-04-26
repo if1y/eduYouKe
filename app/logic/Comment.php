@@ -2,7 +2,7 @@
 namespace app\logic;
 
 use app\model\Comment as CommentModel;
-
+use app\util\Tools;
 class Comment extends CommentModel
 {
 	//添加评论
@@ -12,10 +12,21 @@ class Comment extends CommentModel
         if (strtolower($param['table_name']) == 'course') {
 
             $course= new Course();
-            $isBuy = $course->getCourseAuth($course->getCourseInfo($param['source_id']));
-            if (!$isBuy) {
-                return 2;
+            $courseInfo = $course->getCourseInfo($param['source_id']);
+
+            $isBuy = $course->getCourseAuth($courseInfo);
+
+            if ($courseInfo['sell_status']) {
+                if (!$isBuy) {
+                    return 2;
+                }
             }
+
+            $content = Tools::badWordsFilter($param['content']);
+            if ($content) {
+                return 3;
+            }
+
         }
 
 		$result = $this->save([
@@ -55,7 +66,7 @@ class Comment extends CommentModel
             ->join('user u', 'u.id = c.user_id')
             ->order('c.create_time','desc')
             ->where('c.source_id',$id)
-            ->paginate(['query' => ['id' => $id], 'list_rows' => 15]);
+            ->paginate(['query' => ['id' => $id], 'list_rows' => 8]);
 
 
         return $result;

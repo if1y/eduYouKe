@@ -19,14 +19,17 @@ class Comment extends WebBaseController
         $result = $comment->saveComment($param);
         switch ($result)
         {
-            case '0':
+            case 0:
                 $this->error('评论失败');
                 break;
-            case '2':
+            case 1:
+                $this->success('评论成功');
+                break;
+            case 2:
                 $this->error('暂不能评论');
                 break;
             default:
-                $this->success('评论成功');
+                $this->error('您输入的内容含敏感词，请修改后重新提交');
                 break;
         }
         // if ($result) {

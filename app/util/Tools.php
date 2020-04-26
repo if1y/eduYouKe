@@ -1,7 +1,7 @@
 <?php
 namespace app\util;
 
-use think\Db;
+use think\facade\Db;
 use think\facade\Cache;
 
 class Tools
@@ -287,9 +287,15 @@ class Tools
         $fake    = Cache::get($key);
         if (empty($fake))
         {
-            $fuckArr = DB::name('edu_dict')
+
+            $fuckArr = DB::name('dict')
                 ->field('value')
-                ->where(['category' => 'bad_words', 'status' => 1])->select()->toArray();
+                ->where([
+                    'category' => 'bad_words',
+                    'show_status' => 1,
+                    'delete_status' => 0
+                ])->select()->toArray();
+
             if (!empty($fuckArr))
             {
                 Cache::set($key, json_encode($fuckArr), 3600);
@@ -313,6 +319,7 @@ class Tools
         }
 
         $fuckArr = $res;
+        
         for ($i = 0; $i < count($fuckArr); $i++)
         {
             $fuckArr[$i] = trim($fuckArr[$i]);
@@ -325,8 +332,10 @@ class Tools
                 return $fuckArr[$i]; //如果匹配到关键字就返回关键字
             }
         }
+        
         return 0;
-        // print_r($res);exit();
+        // print_r($fuckArr);exit;
+        // // print_r($res);exit();
         // $badWord = array_combine($res, array_fill(0, count($res), '***'));
         // return strtr($content, $badWord);
     }
