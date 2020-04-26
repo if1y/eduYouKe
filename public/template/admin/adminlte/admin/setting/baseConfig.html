@@ -69,6 +69,34 @@
                                 <input type="text" class="form-control" name="seoDescription" value="{$detail.seoDescription.content}" placeholder="请输入{$detail.seoDescription.category}">
                             </div>
                         </div>
+
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">前端模板选择</label>
+                            <div class="col-sm-5">
+                                {php}$template = getTemplate('website'); {/php}
+                                <select class="custom-select" id="chapterId" name="template">
+                                    {volist name="template" id="v"}
+                                    <option value="{$v}" {$v == $detail.template.content ? 'selected' :''} >{$v}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">后端模板选择</label>
+                            <div class="col-sm-5">
+                                {php}$template = getTemplate('admin'); {/php}
+                                <select class="custom-select" id="chapterId" name="adminTemplate">
+                                    {volist name="template" id="v"}
+                                    <option value="{$v}" {$v == $detail.adminTemplate.content ? 'selected' :''} >{$v}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">ICP备案</label>
                             <div class="col-sm-5">

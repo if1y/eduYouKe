@@ -6,7 +6,6 @@ use app\BaseController;
 use app\util\Nav;
 use app\util\Tools;
 use think\facade\DB;
-use think\facade\Env;
 use think\facade\Request;
 use think\facade\View;
 
@@ -33,23 +32,13 @@ class WebBaseController extends BaseController
      */
     public function getWebTheme()
     {
-        $res = DB::name('user')->find();
-        if ($res)
-        {
-            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/web/' . '/default/';
-        }
-        else
-        {
-            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/web/' . '/default/';
-        }
-        if (Env::get('DEV.RUNTIME') == 'develop')
-        {
 
-            $this->template = 'lte';
+        $template = DB::name('setting')->field('content')
+            ->where(['category_name' => 'template'])->find();
 
-            $path = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
+        $this->template = $template['content'];
 
-        }
+        $path = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
 
         //模板字符串替换
         $this->viewTplReplaceString();
@@ -111,17 +100,20 @@ class WebBaseController extends BaseController
         $mySelf = 1;
 
         $request = Request::instance();
-        $param = $request->param();
-        if (isset($param['user_id'])) {
+        $param   = $request->param();
+        if (isset($param['user_id']))
+        {
             //判断是否为本人
             $mySelf = $userId == $param['user_id'] ? 1 : 0;
-            $userId = $param['user_id']; 
+            $userId = $param['user_id'];
         }
-        if (empty($userId)) {
-            Session::set('UserInfo','null');
+        if (empty($userId))
+        {
+            Session::set('UserInfo', 'null');
         }
-        $userInfo = DB::name('user')->where('id',$userId)->find();
-        if (empty($userInfo)) {
+        $userInfo = DB::name('user')->where('id', $userId)->find();
+        if (empty($userInfo))
+        {
             header('location:/user/centor');exit();
         }
         $userInfo['myself'] = $mySelf;

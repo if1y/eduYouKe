@@ -139,10 +139,10 @@ function getAdminAuth($authUrl, $url, $authId)
     ];
 
     $class = $authUrl == 'add' ? "btn btn-success btn-sm" : '';
-    $class = $authUrl == 'del' ? 'btn-dialog':$class;
+    $class = $authUrl == 'del' ? 'btn-dialog' : $class;
     $url   = $authId ? $url . '/id/' . $authId : $url;
 
-    $result = '<a href=/' . $url . ' class=" ' . $class . ' btn-' . $authUrl . '" title="' . $config[$authUrl]['name'] . '" data-msg="'.$config[$authUrl]['name'].'">
+    $result = '<a href=/' . $url . ' class=" ' . $class . ' btn-' . $authUrl . '" title="' . $config[$authUrl]['name'] . '" data-msg="' . $config[$authUrl]['name'] . '">
                         <i class="fa fa-' . $config[$authUrl]['icon'] . '"></i>
                         ' . $config[$authUrl]['name'] . '
                 </a>';
@@ -202,12 +202,15 @@ function getRoundCode($length = 6)
 
 function getUserInfoData($admin = 0, $column = 'id')
 {
-    $key = $admin ? 'adminUserInfo' :'UserInfo';
-    $userInfo  = Session::get($key);
-    if (!empty($userInfo)) {
-        $info = json_decode($userInfo,true);
+    $key      = $admin ? 'adminUserInfo' : 'UserInfo';
+    $userInfo = Session::get($key);
+    if (!empty($userInfo))
+    {
+        $info = json_decode($userInfo, true);
         return $info[$column];
-    }else{
+    }
+    else
+    {
         return false;
     }
 }
@@ -215,5 +218,21 @@ function getUserInfoData($admin = 0, $column = 'id')
 //获取用户头像
 function getUserAvatarUrl()
 {
-    return getUrlPath(getUserInfoData(0,'avatar_url'));
+    return getUrlPath(getUserInfoData(0, 'avatar_url'));
+}
+
+function getTemplate($name)
+{
+
+    $templateDir = config('view.view_dir_name');
+
+    $dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . '../' . $templateDir . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR;
+    $dir = str_replace('\\', '/', $dir);
+
+    if (is_dir($dir))
+    {
+        return array_slice(scandir($dir), 2);
+    }
+
+    return ['default'];
 }
