@@ -125,18 +125,19 @@
                                 <div class="card-body p-0">
                                     <ul class="products-list product-list-in-card pl-2 pr-2">
                                         {volist name="recommend" id="vo"}
-                                        <li class="item">
-                                            <div class="product-img">
-                                                <img src="{:getUrlPath($vo.cource_image_url)}" alt="Product Image" class="img-size-50">
+                                        <div class="attachment-block mt-2 clearfix">
+                                            <img class="attachment-img" src="{:getUrlPath($vo.cource_image_url)}" alt="{$vo.title}">
+                                            <div class="attachment-pushed product-info">
+                                                <a href="{:url('/course/index',['id'=>$vo['course_id']])}" class="product-description mt-1"> 
+                                                    <strong>
+                                                        {$vo.course_title}
+                                                    </strong>
+                                                </a>
+                                                <div class="attachment-text">
+                                                    <small class="product-description mt-1">{$vo.description}</small>
+                                                </div>
                                             </div>
-                                            <div class="product-info">
-                                                <a href="{:url('/course/index',['id'=>$vo['course_id']])}" class="product-title">
-                                                    {$vo.course_title}
-                                                    <small class="product-description mt-1">
-                                                        {$vo.description}
-                                                    </small>
-                                            </div>
-                                        </li>
+                                        </div>
                                         {/volist}
                                     </ul>
                                 </div>

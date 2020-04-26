@@ -139,7 +139,7 @@ class User extends UserModel
         }
 
         //
-        if ((time() - strtotime($content['create_time'])) > 360)
+        if ((time() - strtotime($content['create_time'])) > 300)
         {
             return 4; //验证码无效
         }
@@ -223,7 +223,7 @@ class User extends UserModel
         }
 
         //
-        if ((time() - strtotime($content['create_time'])) > 360)
+        if ((time() - strtotime($content['create_time'])) > 300)
         {
             return 4; //验证码无效
         }

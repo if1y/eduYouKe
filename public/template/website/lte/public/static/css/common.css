@@ -13,16 +13,17 @@
 }
 
 /*#edu-overflow{
-	overflow: hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }*/
 
-#course-title{
+#course-title {
     max-height: 46px;
 }
 
-#course-title p,#course-title a{
+#course-title p,
+#course-title a {
     max-width: 280px;
 }
 
@@ -41,4 +42,14 @@
 #preview_img,
 #preview_img img {
     max-width: 128px;
+}
+
+
+@media (max-width: 768px) {
+
+
+    .timeline-body img {
+        width: 100%;
+    }
+
 }
