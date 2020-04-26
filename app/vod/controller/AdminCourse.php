@@ -120,14 +120,24 @@ class AdminCourse extends AdminBaseController
 
         $cours  = new CourseLogic();
         $result = $cours->update(['delete_status' => 1], ['id' => $id]);
-        if ($result)
-        {
-            return json(['code' => 1, 'msg' => '删除成功']);
-        }
-        else
-        {
-            return json(['code' => 0, 'msg' => '删除失败']);
-        }
+        $result ? $this->success('删除成功') : $this->error('删除失败');
+       
+    }
+
+
+    //操作
+    public function operation()
+    {
+
+        $param = $this->request->param();
+
+        $key = isset($param['hot_status']) ? 'hot_status':'recommend_status';
+        $value = isset($param['hot_status']) ? $param['hot_status']:$param['recommend_status'];
+
+        $cours  = new CourseLogic();
+        $result = $cours->update([$key => ($value ? 0:1) ], ['id' => $param['id']]);
+        $result ? $this->success('操作成功') : $this->error('操作失败');
+
     }
 
 }

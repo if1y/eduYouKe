@@ -50,7 +50,7 @@
                         <thead>
                             <tr>
                                 <th width="10">ID</th>
-                                <th width="100">课程名称</th>
+                                <th width="10">课程名称</th>
                                 <th width="10">课程简介</th>
                                 <th width="10">封面图片</th>
                                 <th width="10">收费状态</th>
@@ -66,7 +66,7 @@
                             <tr>
                                 <td>{$vo.id}</td>
                                 <td>{$vo.title}</td>
-                                <td ><small>{$vo.description}</small></td>
+                                <td><small>{$vo.description}</small></td>
                                 <td> <img src="{$vo.cource_image_url ? getUrlPath($vo.cource_image_url) :'/static/img/user3-128x128.jpg'}" width="30" height="30"></td>
                                 <td>{$vo.sell_status ? '收费' : '免费'}</td>
                                 <td>{$vo.sell_status ? $vo.sell_price : '免费'}</td>
@@ -76,6 +76,29 @@
                                 <td>
                                     {:checkAuth('edit',$vo.id)}
                                     {:checkAuth('delete',$vo.id)}
+
+                                    {if !$vo.hot_status}
+                                    <a href="{:url('/vod/AdminCourse/operation',['id'=>$vo.id,'hot_status'=>$vo.hot_status])}" class="btn-dialog" title="设置热门" data-msg='设置热门'>
+                                        <i class="fa fa-fire text-secondary"></i>
+                                        热门
+                                    </a>
+                                    {else /}
+                                    <a href="{:url('/vod/AdminCourse/operation',['id'=>$vo.id,'hot_status'=>$vo.hot_status])}" class=" btn-dialog" title="取消热门" data-msg='取消热门'>
+                                        <i class="fa fa-fire text-danger"></i>
+                                        取消
+                                    </a>
+                                    {/if}
+                                    {if !$vo.recommend_status}
+                                    <a href="{:url('/vod/AdminCourse/operation',['id'=>$vo.id,'recommend_status'=>$vo.recommend_status])}" class="btn-dialog" title="设置推荐" data-msg='设置推荐'>
+                                        <i class="fa fa-heart text-secondary"></i>
+                                        推荐
+                                    </a>
+                                    {else /}
+                                    <a href="{:url('/vod/AdminCourse/operation',['id'=>$vo.id,'recommend_status'=>$vo.recommend_status])}" class=" btn-dialog" title="取消推荐" data-msg='取消推荐'>
+                                        <i class="fa fa-heart text-danger"></i>
+                                        取消
+                                    </a>
+                                    {/if}
                                 </td>
                             </tr>
                             {/volist}

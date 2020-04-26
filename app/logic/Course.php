@@ -41,7 +41,7 @@ class Course extends CourseModel
 
         $field = 'id,category_id,title,cource_image_url,sell_price,level_status,study_num,cource_tag,sell_status,views,create_time';
 
-        return $this->baseQuery([], $field, 'create_time', 'asc', 3)->each(function ($item)
+        return $this->baseQuery(['recommend_status'=>1], $field, 'create_time', 'asc', 3)->each(function ($item)
         {
             $item['cource_image_url'] = getUrlPath($item['cource_image_url']);
             return $item;
@@ -54,7 +54,7 @@ class Course extends CourseModel
     {
         $field = 'id,category_id,title,cource_image_url,sell_price,level_status,study_num,cource_tag,sell_status,views,create_time';
 
-        return $this->baseQuery([], $field, 'create_time', 'desc', 4)->each(function ($item)
+        return $this->baseQuery(['hot_status'=>1], $field, 'create_time', 'desc', 4)->each(function ($item)
         {
             $item['cource_image_url'] = getUrlPath($item['cource_image_url']);
             return $item;
