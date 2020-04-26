@@ -17,9 +17,11 @@ class Nav extends NavModel
                 'a.*',
                 'c.title as category_title',
             ])
-            ->join('course_category c', 'a.category_id = c.id')
+            ->leftJoin('course_category c', 'a.category_id = c.id')
+            ->where(['a.show_status'=>1,'a.delete_status'=>0])
             ->select()->toArray();
 
+            // print_r($nav);exit();
         // $nav = $this->where('delete_status',0)->order('sort', 'desc')->select()->toArray();
 
         return Tools::formatTree(Tools::listToTree($nav, 'id', 'parent_id'),0,'title');
