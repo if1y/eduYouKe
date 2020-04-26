@@ -10,7 +10,18 @@ class Nav extends NavModel
     //获取导航列表
     public function getNavlist()
     {
-        $nav = $this->where('delete_status',0)->order('sort', 'desc')->select()->toArray();
+
+
+           $nav = $this->alias('a')
+            ->field([
+                'a.*',
+                'c.title as category_title',
+            ])
+            ->join('course_category c', 'a.category_id = c.id')
+            ->select()->toArray();
+
+        // $nav = $this->where('delete_status',0)->order('sort', 'desc')->select()->toArray();
+
         return Tools::formatTree(Tools::listToTree($nav, 'id', 'parent_id'),0,'title');
     }
 
