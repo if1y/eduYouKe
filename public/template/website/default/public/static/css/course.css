@@ -1,23 +1,19 @@
-.detail-img {
+.course-detail {
     font-family: sans-serif;
-    text-align: center;
     line-height: 1;
     -webkit-backdrop-filter: blur(50px);
-    backdrop-filter: blur(50px);
+    backdrop-filter: blur(5px);
     width: 100%;
     min-height: 200px;
     background-color: rgba(25, 24, 24, 0.9);
-    /*padding: 20px 40px;*/
 }
 
-.detail-info {
+.course-info {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    background: #2b333b url(http://fastedu.com/upload/education/20191113/61b68369620284dc41c960416da2d107.png) center center;
+    /*    background: #2b333b url(http://fastedu.com/upload/education/20191113/61b68369620284dc41c960416da2d107.png) center center;*/
     background-size: cover;
-    /*background-image: url('http://fastedu.com/upload/admin/20190623/688dbfd0bd3ee8f58cd1ab34afa0d397.jpg');*/
-    /*align-items: center;*/
     display: flex;
     justify-content: center;
     width: 100%;
@@ -31,7 +27,7 @@
     border-radius: 0px;
 }
 
-.detail-img .breadcrumb li a {
+.course-detail .breadcrumb li a {
     color: #d6c8c8;
 }
 
@@ -39,7 +35,7 @@
     margin: 20px;
 }
 
-.detail-nav {
+.course-nav {
     box-shadow: 0 4px 8px 0 rgba(28, 31, 33, .1);
 }
 
@@ -48,7 +44,7 @@
 /*卡片样式*/
 @media(min-width: 1200px) {
 
-    .detail-nav a {
+    .course-nav a {
         font-size: 18px;
         margin: 15px;
         font-weight: 600;
@@ -56,7 +52,7 @@
 }
 
 
-/*.detail-nav a {
+/*.course-nav a {
     font-size: 18px;
     margin: 15px;
     font-weight: 600;
@@ -68,6 +64,12 @@
     font-weight: 700;
 }
 
+.card-body {
+    padding: 0.15rem;
+}
+
+.card-body .fa {}
+
 .card-body .list-group-item {
     border: 0px none;
 }
@@ -77,7 +79,7 @@
     color: red;
 }
 
-.detail-nav .active {
+.course-nav .active {
     border-bottom: 2px solid red;
 }
 
@@ -85,6 +87,7 @@
 #pills-tab,
 .resources-down {
     border-radius: 15px;
+    width: 100%;
 }
 
 /*评论*/
@@ -191,8 +194,8 @@
     text-align: center;
 }
 
-.detail-nav-item {
-    padding: 10px 15px;
+.course-nav-item {
+    /*padding: 10px 15px;*/
 }
 
 
@@ -201,12 +204,17 @@
     .chapter-link {
         display: none;
     }
-    .detail-nav a {
+
+    .course-nav a {
         font-size: 13px;
         /*margin: 15px;*/
     }
 }
 
-.aliplayer .breadcrumb li a{
+.aliplayer .breadcrumb li a {
     color: #6c757d !important
+}
+
+.info-box .ribbon-wrapper {
+    display: none;
 }

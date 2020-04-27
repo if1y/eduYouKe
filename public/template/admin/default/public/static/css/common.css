@@ -17,139 +17,84 @@ a {
     text-decoration: none !important;
 }
 
-.commonality-card {
-    border-radius: 5px;
-    background-color: #fff;
-    padding: 10px 15px;
+
+.table-bordered td .fa-edit {
+    color: Dodgerblue;
 }
 
-.td-text {
-    color: #0e1a25 !important;
-    opacity: 0.5 !important;
-}
-
-
-.modal-content {
-    border: none !important;
-    border-radius: 0px !important;
-}
-
-.modal-header {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: start;
-    align-items: flex-start;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    padding: 1rem 1rem;
-    border-bottom: 1px solid #dee2e6;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    color: #fff;
-}
-
-
-
-.p-50 {
-    padding-left: 50%;
-}
-
-.navbar-brand .text-white {
-    letter-spacing: 3px;
-}
-
-.nav-meun .menu-open .nav-link {
-    padding: 15px 30px;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    opacity: .7;
-    text-decoration: none;
-
-}
-
-.menu-open>.nav-link {
-    color: #0e1a25;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    white-space: nowrap;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    line-height: 25px;
-    opacity: 0.4;
-}
-
-.menu-open>.nav-link:hover,
-.menu-open .list-group-item:hover {
-    color: #000;
-    background-color: #ccc;
-}
-
-
-.menu-open .list-group-item {
-    border: none;
-    padding: 10px 30px;
-}
-
-.menu-open .list-group-item:first-child {
-    margin-bottom: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-
-.menu-open .list-group {
-    display: none;
-    width: 100%;
-}
-
-.menu-open .avtive {
-    background-color: red;
-}
-
-.list-group-item-active {
-    background-color: red;
-}
-
-.nav-meun a .fa {
-    font-size: 22px;
-    color: #0e1a25;
-}
-
-.fa-color {
-    color: #000000 !important;
-}
-
-
-
-.layui-layer-title {
-    color: #fff !important;
-    background-color: #454d55 !important;
-    font-weight: 600;
+.table-bordered td .fa-trash {
+    color: Tomato;
 }
 
 .layui-layer-btn {
-    background-color: #ecf0f1 !important;
+    background-color: #ecf0f1;
 }
 
-.custom-file-label::after{
-    content: "Upload";
+.layui-layer-title {
+    background-color: #4b545c !important;
+    color: #fff !important;
 }
 
-/*小三角*/
-.triangle {
-    width: 0;
-    height: 0;
-    border-width: 6px;
-    border-style: solid;
-    border-color: transparent transparent transparent #0e1a25;
-    margin-left: 50%;
+#defaultUpload,
+#defaultUpload img {
+    height: 128px;
+    width: 128px;
 }
 
-
-.nav-meun .nav-link .fa{
-    width: 25px;
-    height: 25px;
+#websiteLogo #defaultUpload,
+#websiteLogo #defaultUpload img {
+    height: 60px;
+    width: 240px;
 }
+
+.ztree li a {
+    height: 26px !important;
+}
+
+#treeDemo a span {
+    font-size: 20px;
+}
+
+#debug {
+    width: 20px !important;
+    height: 20px !important;
+    background-color: #ccc !important;
+}
+
+#nodebug {}
+
+#img_upload {
+    display: none;
+}
+
+#preview_image,
+#preview_image img {
+    max-width: 128px;
+}
+
+.input-group-append label{
+    margin-bottom: 0px !important;
+    font-weight: 300 !important;;
+}
+.display-none ,#display-none{
+    display: none;
+}
+
+#channel{
+    min-width: 120px;
+}
+/*.uploadVideo {
+    min-width: 120px;
+}
+
+.select2-container .select2-choice {
+    min-height: 100px !important;
+}
+
+#channel {
+    border-radius: .1rem;
+}
+
+.uploadVideo option {
+    line-height: 25px;
+}*/
