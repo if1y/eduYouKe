@@ -32,7 +32,7 @@
                                             <div class="form-group">
                                                 <label><strong class="text-black-50">手机号/用户名</strong></label>
                                                 <input type="text" name="nickname" class="form-control">
-                                                <!-- <small id="emailHelp" class="form-text text-muted">We'll neasdsadasdsaaaaaaaaaaaaaaav.</small> -->
+                                                
                                             </div>
                                             <div class="form-group">
                                                 <label><strong class="text-black-50">请输入密码</strong></label>
@@ -41,17 +41,16 @@
                                         </div>
                                         <input type="hidden" name="__token__" value="{:token()}" />
                                         <div id="sms-login">
-                                            <div class="form-group mb-3">
+                                            <div class="form-group">
                                                 <label><strong class="text-black-50">请输入手机号码</strong></label>
                                                 <input type="text" name="mobile" class="form-control mobile">
-                                                <!-- <small id="emailHelp" class="form-text text-muted">We'll neasdsadasdsaaaaaaaaaaaaaaav.</small> -->
                                             </div>
                                             <strong class="text-black-50 ">请输入验证码</strong>
                                             <div class="input-group mt-2 mb-3">
                                                 <input type="text" name="smscode" class="form-control smscode" aria-describedby="basic-addon">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="basic-addon">
-                                                        <a href="{:url('/user/login/getSmsCode')}" id="sendSms">获取验证码</a>
+                                                        <a href="{:url('/user/login/getSmsCode')}" id="sendSms">验证码</a>
                                                     </span>
                                                 </div>
                                             </div>
