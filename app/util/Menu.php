@@ -1,7 +1,7 @@
 <?php
 namespace app\util;
 
-use think\facade\DB;
+use think\facade\Db;
 use think\facade\Request;
 
 class Menu

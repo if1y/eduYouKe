@@ -5,7 +5,7 @@ namespace app;
 use app\BaseController;
 use app\util\Nav;
 use app\util\Tools;
-use think\facade\DB;
+use think\facade\Db;
 use think\facade\Request;
 use think\facade\View;
 
