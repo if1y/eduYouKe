@@ -68,6 +68,7 @@ class Image
     //图片本地上传
     public function ImageLocalUpload($file,$param)
     {
+        print_r($file);exit;
         return \think\facade\Filesystem::disk('public')->putFile('topic', $file);
     }
 
