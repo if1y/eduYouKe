@@ -49,6 +49,7 @@ class File extends AdminBaseController
 
         $file = $this->request->file('file');
         $param = $this->request->param();
+        // print_r($param);exit;
         $vod = new FileLogic();
         $savename = $vod->uploadVideo($file,$param);
         return json(['code' => 1,'path' => $savename]);

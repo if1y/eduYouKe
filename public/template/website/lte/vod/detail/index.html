@@ -60,9 +60,9 @@
                             <li class="nav-item detail-nav-item">
                                 <a class="nav-link active ml-2" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">章节目录</a>
                             </li>
-                            <li class="nav-item detail-nav-item">
+                           <!--  <li class="nav-item detail-nav-item">
                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">资料下载</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <div class="tab-content" id="pills-tabContent">
@@ -99,7 +99,7 @@
                             </div>
                             {/volist}
                         </div>
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                       <!--  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div class="mt-3 card">
                                 <div class="mt-3 bg-white resources-down">
                                     <div class="media p-2">
@@ -128,7 +128,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="mt-3 card">
+                            <div class="mt-3 card">
                                 <div class="mt-3 bg-white resources-down">
                                     <div class="media p-2">
                                         <a href="#">
@@ -141,8 +141,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
-                        </div>
+                            </div>
+                        </div> -->
                         <!-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"></div> -->
                     </div>
                     <!-- 详情end -->
@@ -217,8 +217,9 @@ var player = new Aliplayer({
     "id": "player-con",
     "source": "{:html_entity_decode($videoinfo.video_url)}",
     "width": "100%",
+    "cover": "{:getUrlPath($videoinfo.image_url)}",
     "height": "500px",
-    "autoplay": true,
+    "autoplay": false,
     "isLive": false,
     "rePlay": false,
     "playsinline": true,

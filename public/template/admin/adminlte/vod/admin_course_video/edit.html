@@ -77,21 +77,36 @@ body {
                     <div class="input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <select class="form-control h-100" id="channel" name="channel" style="min-width: 120px;">
-                                <option value="local">本地上传</option>
-                                <option value="alivod">阿里云上传</option>
+                                <option value="local" {$editData.channel == 'local' ? 'selected' :''} >本地上传</option>
+                                <option value="alivod" {$editData.channel == 'alivod' ? 'selected' :''} >阿里云上传</option>
                             </select>
                         </div>
-                        <input type="text" class="form-control" id="videoUrl" value="{$editData.video_url}"  name="video_url">
+
+                        <input type="text" class="form-control" id="video_url" value="{$editData.video_url}" name="video_url">
                         <span class="input-group-append">
-                            <input type="file" name="file" id="uploadFile" style="display: none;">
-                            <a href="javascript:void(0);" id="defaultUploads" class="btn btn-info btn-flat">
+                            <input type="file" name="file" id="upload_video" class="display-none" onchange="uploadVideo('video_url','upload_video','video_label')" accept="video/mp4" />
+                            <label for="upload_video" id="video_label" class="btn btn-info btn-flat">
                                 上传
-                            </a>
-                            <!-- <button type="button" id="defaultUploads" class="btn btn-info btn-flat">上传</button> -->
+                            </label>
                         </span>
                     </div>
                 </div>
             </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">视频缩略图</label>
+                <div class="col-sm-10">
+
+                    <input id="img_upload" type="file" onchange="uploadImg('image_url','img_upload','preview_image','img_label')" accept="video/*" />
+                    <input type="hidden" name="image_url" id="image_url" value="{$editData.image_url}">
+                    <div id="preview_image">
+                        <img src="{$editData.image_url ? getUrlPath($editData.image_url) :'__STATIC__/img/user3-128x128.jpg'}">
+                    </div>
+                    <label for="img_upload" class="btn btn-warning btn-sm mt-2" id="img_label">缩略图上传
+                    </label>
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">备注</label>
                 <div class="col-sm-10">
@@ -119,59 +134,7 @@ body {
 </div>
 
 {include file='../public/script' /}
-<script src="__STATIC__/common/select2/js/select2.full.min.js"></script>
-<script src="__STATIC__/js/uploadVideo.js"></script>
 <script type="text/javascript">
-$(function() {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-
-    // Initialize Select2 Elements
-    $('.select2bs4').select2({
-        theme: 'bootstrap4'
-    })
-
-
-    $(".select2").change(function() {
-        select_ops = $(".select2").val();
-        console.log(select_ops);
-    });
-
-})
-
-var uploadConfig = {
-    inputId: "uploadFile", // 上传图片的inputId
-    triggerId: "defaultUploads", // 触发上传的元素Id
-    url: "/admin/File/uploadVideo", // 上传地址
-    // params: { // 上传需要携带的参数
-        // channel: channel,
-    // },
-    beforeSend: function() {
-        upload = layer.msg('loadding...', {
-            icon: 16,
-            shade: 0.2,
-            time: false
-        });
-        // 做loadding开始处理
-    },
-    isShowProgress: false, // 是否需要展示上传进度
-    loadProgress: function(progress) { // 上传进度回调
-        // console.log(progress)
-    },
-    base64String: function(imagePath) { // 获取本地的base64字符串做展示
-
-    },
-    loadSuccess: function(data) { // 上传完成后回调
-        $("#videoUrl").val(data.path);
-        // $("#videoUrl").attr("disabled", "disabled");
-        layer.close(upload);
-    }
-}
-videoUploader(uploadConfig)
-
-
-
 function getSelectChapter() {
 
     var courseId = $('#courseId option:selected').val();

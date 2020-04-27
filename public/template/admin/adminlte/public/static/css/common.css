@@ -71,3 +71,30 @@ a {
 #preview_image img {
     max-width: 128px;
 }
+
+.input-group-append label{
+    margin-bottom: 0px !important;
+    font-weight: 300 !important;;
+}
+.display-none ,#display-none{
+    display: none;
+}
+
+#channel{
+    min-width: 120px;
+}
+/*.uploadVideo {
+    min-width: 120px;
+}
+
+.select2-container .select2-choice {
+    min-height: 100px !important;
+}
+
+#channel {
+    border-radius: .1rem;
+}
+
+.uploadVideo option {
+    line-height: 25px;
+}*/

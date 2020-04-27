@@ -38,7 +38,7 @@ class File
 
         switch ($param['channel']) {
             case 'alivod':
-                return $this->aliVodUpload($file,$param['file']);
+                return $this->aliVodUpload($file);
                 break;
             default:
                 return $this->videoLocalUpload($file,$param);
@@ -54,9 +54,10 @@ class File
     }
 
     //上传至阿里云
-    public function aliVodUpload($file,$fileName)
+    public function aliVodUpload($file)
     {
 
+        $fileName = $file->md5().'.'.$file->extension();
         $auth = $this->CreateUploadVideoAuth('测试',$fileName);
         
         $uploadAuth = json_decode(base64_decode($auth['UploadAuth']), true);
