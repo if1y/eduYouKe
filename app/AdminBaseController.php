@@ -24,23 +24,24 @@ class AdminBaseController extends BaseController
     // 初始化
     protected function initialize()
     {
-        
+
         //获取当前配置的模板
         $this->getWebTheme();
         if (empty(Session::get('adminUserInfo')))
         {
-            redirect(getDomain().'/admin/login/login')->send();exit;
+            redirect(getDomain() . '/admin/login/login')->send();exit;
         }
         else
         {
-            if (!$this->checkAccess(Session::get('adminUserInfo'))) {
+            if (!$this->checkAccess(Session::get('adminUserInfo')))
+            {
                 $this->error("您没有访问权限！");
             }
 
             View::assign('templateName', $this->template);
             View::assign('adminMenus', $this->getMenus());
             View::assign('contentHeader', $this->getContentHeader());
-            
+
         }
 
         //模板继承
@@ -66,9 +67,9 @@ class AdminBaseController extends BaseController
         }
         if (Env::get('DEV.RUNTIME') == 'develop')
         {
-            
+
             $this->template = 'adminlte';
-            $path = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
+            $path           = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
 
         }
         $this->viewTplReplaceString();
@@ -77,14 +78,12 @@ class AdminBaseController extends BaseController
 
     }
 
-
-
     //模板字符串替换
     public function viewTplReplaceString()
     {
         $viewConfig = config('view');
 
-        $tempStr = str_replace("public", "", $viewConfig['view_dir_name']) . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR .  $this->template . DIRECTORY_SEPARATOR . 'public/static';
+        $tempStr = str_replace("public", "", $viewConfig['view_dir_name']) . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . 'public/static';
 
         $viewReplaceStr = [
             '__ADMINSTATIC__' => $tempStr,
@@ -93,7 +92,6 @@ class AdminBaseController extends BaseController
         View::config(['tpl_replace_string' => array_merge($viewConfig['tpl_replace_string'], $viewReplaceStr)]);
 
     }
-
 
     //contentHeader获取当前header头的内容
     public function getContentHeader()
@@ -141,7 +139,6 @@ class AdminBaseController extends BaseController
             ->order('sort', 'asc')
             ->select()->toArray();
 
-
         //组装选中状态
         $access = Menu::getActiveStatus($access);
         // // print_r($access);exit();
@@ -164,7 +161,6 @@ class AdminBaseController extends BaseController
         //     }
         // }
 
-
         //组装目录
         $menus = Menu::buildMenus(
             Tools::listToTree($access, 'id', 'parent_id')
@@ -172,35 +168,39 @@ class AdminBaseController extends BaseController
         return $menus;
     }
 
-
     //检查用户是否拥有权限
     public function checkAccess()
     {
 
-        $userId = getUserInfoData(1,'role_id');
+        $roleId = getUserInfoData(1, 'role_id');
 
-        if ($userId) {
-            // print_r($userId);exit();
+        //超级管理员
+        if ($roleId === 1)
+        {
+            return 1;
+        }
+        else
+        {
 
             $roleInfo = DB::name('admin_role')
-            ->field('role_auth,id')
-            ->where('delete_status', 0)
-            ->where('id', $userId)
-            ->find();
-
+                ->field('role_auth,id')
+                ->where('delete_status', 0)
+                ->where('id', $roleId)
+                ->find();
 
             // print_r($roleInfo);exit();
-            if (isset($roleInfo['role_auth']) && !empty($roleInfo['role_auth'])) {
-                    
+            if (isset($roleInfo['role_auth']) && !empty($roleInfo['role_auth']))
+            {
+
                 $module     = app('http')->getName();
                 $controller = $this->request->controller();
                 $action     = $this->request->action();
-                $url       = $module .'/'. $controller .'/'. $action;
-                
+                $url        = $module . '/' . $controller . '/' . $action;
 
-                $menuInfo = DB::name('admin_menu')->field('id,lower(url)')->where('url',strtolower($url))->find();
-                
-                if (in_array($menuInfo['id'], explode(',', $roleInfo['role_auth'])) || $roleInfo['id'] == 1) {
+                $menuInfo = DB::name('admin_menu')->field('id,lower(url)')->where('url', strtolower($url))->find();
+
+                if (in_array($menuInfo['id'], explode(',', $roleInfo['role_auth'])) || $roleInfo['id'] == 1)
+                {
                     return 1;
                 }
 
