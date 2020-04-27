@@ -6,7 +6,6 @@ use app\BaseController;
 use app\util\Menu;
 use app\util\Tools;
 use think\facade\Db;
-use think\facade\Env;
 use think\facade\Request;
 use think\facade\Session;
 use think\facade\View;
@@ -56,22 +55,13 @@ class AdminBaseController extends BaseController
      */
     public function getWebTheme()
     {
-        $res = DB::name('user')->find();
-        if ($res)
-        {
-            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/admin/' . app('http')->getName() . '/' . $this->layout . '/';
-        }
-        else
-        {
-            $path = WEB_ROOT . '/' . config('view.view_dir_name') . '/admin/' . app('http')->getName() . '/' . $this->layout . '/';
-        }
-        if (Env::get('DEV.RUNTIME') == 'develop')
-        {
 
-            $this->template = 'adminlte';
-            $path           = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
+        $template = DB::name('setting')->field('content')
+            ->where(['category_name' => 'adminTemplate'])->find();
 
-        }
+        $this->template = $template['content'];
+
+        $path = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
         $this->viewTplReplaceString();
 
         View::config(['view_path' => $path]);
