@@ -24,7 +24,7 @@ class Image
             return $this->aliOssUpload($file,$param);
 
         }else{
-
+            echo "string";exit;
            return $this->ImageLocalUpload($file,$param);
         
         }
@@ -68,9 +68,7 @@ class Image
     //图片本地上传
     public function ImageLocalUpload($file,$param)
     {
-        $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        print_r($savename);exit;
-        return $savename;
+       return  \think\facade\Filesystem::disk('public')->putFile('topic', $file);
     }
 
 
