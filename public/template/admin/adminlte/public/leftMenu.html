@@ -12,7 +12,7 @@
                 <img src="__STATIC__/img/admin.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="/admin/administrator/editInfo/id/{$Request.session.admin_userid}" class="d-block btn-edit">{$Request.session.admin_nickname|default="昵称"}</a>
+                <a href="{:url('/admin/administrator/editInfo',['id'=>$Request.session.admin_userid])}" class="d-block btn-edit">{$Request.session.admin_nickname|default="昵称"}</a>
             </div>
         </div>
         <!-- Sidebar Menu -->
