@@ -106,7 +106,7 @@ class Course extends WebBaseController
         //获取最近更新
         $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
         //获取评论
-        $commentList = $comment->getCommentList('course',$param['id']);
+        $commentList = $comment->getDetailCommentList('course',$param['id']);
 
         return view('', [
             'coursinfo' => $coursInfo,

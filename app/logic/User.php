@@ -35,13 +35,13 @@ class User extends UserModel
         }
 
         //发送短信添加log
-        event('LogSendSMS',['mobile'=>$param['mobile'],'code'=>$code]);
+        event('LogSendSMS', ['mobile' => $param['mobile'], 'code' => $code]);
 
         //检测今天发送次数
         if (!empty($info))
         {
             //更新用户最后登录
-            event('UserLogin',['user_id'=>$info['id'],'ip'=>$param['ip']]);
+            event('UserLogin', ['user_id' => $info['id'], 'ip' => $param['ip']]);
         }
         else
         {
@@ -253,10 +253,14 @@ class User extends UserModel
         $result = $this->alias('u')
             ->field([
                 'log.*',
+                'c.url',
+                'c.content',
             ])
             ->join('record_log log', 'u.id = log.user_id')
+            ->join('comment c', 'c.id = log.key')
             ->order('log.create_time', 'desc')
             ->whereOr($whereOr)
+            ->where(['c.show_status' => 1, 'c.delete_status' => 0])
             ->where('log.user_id', $userId)
             ->paginate(['query' => ['user_id' => $userId], 'list_rows' => 3])->each(function ($item)
         {
@@ -264,23 +268,22 @@ class User extends UserModel
             $item['source_id'] = $item['key'];
             switch ($item['category'])
             {
-                case 'comment':
-                    $result  = DB::name('comment')->where('id', $item['key'])->find();
-                    $url     = $result['url'];
-                    $content = $result['content'];
-                    break;
-                default:
+
+                case 'courseView':
+
                     $result = DB::name('course')
                         ->where('id', $item['key'])->find();
                     $title = $result['title'];
                     $image = $result['cource_image_url'];
+
+                    break;
+                default:
+
                     break;
             }
 
             $item['title']          = isset($title) ? $title : '';
             $item['image']          = isset($image) ? $image : '';
-            $item['url']            = isset($url) ? $url : '';
-            $item['content']        = isset($content) ? $content : '';
             $item['recent_updates'] = Tools::getDate(strtotime($item['create_time']));
             return $item;
         });
@@ -293,7 +296,5 @@ class User extends UserModel
         return $this->field($field)->where($where)
             ->where(['delete_status' => 0])->order('create_time desc')->paginate();
     }
-
-    
 
 }

@@ -444,14 +444,14 @@ class Tools
      * @param  array  $searchField [description]
      * @return [type]              [description]
      */
-    public static function buildSearchWhere($data, $searchField = [])
+    public static function buildSearchWhere($data, $searchField = [],$prefix = '')
     {
         $searchWhere = [];
 
         if (isset($data['search_time']) && !empty($data['search_time']))
         {
             $time          = explode('-', $data['search_time']);
-            $searchWhere[] = ["create_time", "between", [
+            $searchWhere[] = [$prefix."create_time", "between", [
                 strtotime($time[0]),
                 strtotime($time[1]),
             ]];

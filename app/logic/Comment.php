@@ -50,7 +50,7 @@ class Comment extends CommentModel
 	}
 
 	//获取评论列表
-	public function getCommentList($table_name,$id)
+	public function getDetailCommentList($table_name,$id)
 	{
 
 		$result = $this->alias('c')
@@ -66,10 +66,41 @@ class Comment extends CommentModel
             ->join('user u', 'u.id = c.user_id')
             ->order('c.create_time','desc')
             ->where('c.source_id',$id)
+            ->where('c.table_name',$table_name)
+            ->where(['c.show_status'=>1,'c.delete_status'=>0])
             ->paginate(['query' => ['id' => $id], 'list_rows' => 8]);
 
 
         return $result;
 	}
+
+
+
+    //获取评论列表
+    public function getCommentList($where= [])
+    {
+
+        $result = $this->alias('c')
+            ->field([
+                'c.id',
+                'u.nickname',
+                'u.avatar_url',
+                'u.id as user_id',
+                'co.title',
+                'c.content',
+                'c.url',
+                'c.create_time',
+            ])
+            ->join('course co', 'c.source_id = co.id')
+            ->join('user u', 'u.id = c.user_id')
+            ->order('c.create_time','desc')
+            ->where($where)
+            ->where(['c.show_status'=>1,'c.delete_status'=>0])
+            ->paginate();
+
+
+        return $result;
+    }
+
 
 }
