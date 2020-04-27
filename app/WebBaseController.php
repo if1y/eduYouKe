@@ -115,7 +115,7 @@ class WebBaseController extends BaseController
         $userInfo = DB::name('user')->where('id', $userId)->find();
         if (empty($userInfo))
         {
-            header('location:/user/centor');exit();
+            redirect(getDomain().'/user/user/centor')->send();exit;
         }
         $userInfo['myself'] = $mySelf;
         return $userInfo;
