@@ -1,32 +1,34 @@
 <?php
 namespace app\logic;
+
 use OSS\Core\OssException;
 use OSS\OssClient;
 
-
 class Image
-{   
+{
     //上传图片
-    public function uploadImage($file,$param)
+    public function uploadImage($file, $param)
     {
 
-        if (is_array($file)) {
+        if (is_array($file))
+        {
 
-            return $this->imageMultUpload($file,$param);
+            return $this->imageMultUpload($file, $param);
 
         }
 
-
         $status = $this->getUploadSetting();
 
-        if ($status) {
+        if ($status)
+        {
 
-            return $this->aliOssUpload($file,$param);
+            return $this->aliOssUpload($file, $param);
 
-        }else{
-            echo "string";exit;
-           return $this->ImageLocalUpload($file,$param);
-        
+        }
+        else
+        {
+            return $this->ImageLocalUpload($file, $param);
+
         }
     }
 
@@ -37,26 +39,31 @@ class Image
     }
 
     //多图上传
-    public function imageMultUpload($file,$param)
+    public function imageMultUpload($file, $param)
     {
         $status = $this->getUploadSetting();
-        
+
         $imageUrl = [];
-        
-        if ($status) {
 
-            foreach ($file as $key => $value) {
+        if ($status)
+        {
 
-                $imageUrl[$key] = $this->aliOssUpload($value,$param);
+            foreach ($file as $key => $value)
+            {
+
+                $imageUrl[$key] = $this->aliOssUpload($value, $param);
             }
 
             return $imageUrl;
 
-        }else{
+        }
+        else
+        {
 
-            foreach ($file as $key => $value) {
+            foreach ($file as $key => $value)
+            {
 
-                $imageUrl[$key] = $this->ImageLocalUpload($value,$param);
+                $imageUrl[$key] = $this->ImageLocalUpload($value, $param);
             }
 
             return $imageUrl;
@@ -64,54 +71,58 @@ class Image
         }
     }
 
-
     //图片本地上传
-    public function ImageLocalUpload($file,$param)
+    public function ImageLocalUpload($file, $param)
     {
-       return  \think\facade\Filesystem::disk('public')->putFile('topic', $file);
+        print_r($file);exit;
+        return \think\facade\Filesystem::disk('public')->putFile('topic', $file);
     }
 
-
     //上传至阿里云
-    public function aliOssUpload($file,$param)
+    public function aliOssUpload($file, $param)
     {
 
         $set = new Setting();
 
-        $accessKeyId = $set->getSettingContent('aliossKey');
+        $accessKeyId     = $set->getSettingContent('aliossKey');
         $accessKeySecret = $set->getSettingContent('aliossSecret');
-        $endpoint = $set->getSettingContent('ossEndpoint');
-        $bucket = $set->getSettingContent('ossBucket');
+        $endpoint        = $set->getSettingContent('ossEndpoint');
+        $bucket          = $set->getSettingContent('ossBucket');
 
-        $object = $file->md5().'.'.$file->extension();
+        $object  = $file->md5() . '.' . $file->extension();
         $content = $file->getPathName();
 
-        try{
-            
+        try {
+
             $ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
-            $result = $ossClient->uploadFile($bucket, $object, $content);
-            return isset($result['info']['url']) ? $result['info']['url']:'';
-            // return 
-        } catch(OssException $e) {
+            $result    = $ossClient->uploadFile($bucket, $object, $content);
+            return isset($result['info']['url']) ? $result['info']['url'] : '';
+            // return
+        }
+        catch (OssException $e)
+        {
             printf(__FUNCTION__ . ": FAILED\n");
             printf($e->getMessage() . "\n");
             return;
         }
-
 
     }
 
     //处理编辑器图片
     public function editorImage($data)
     {
-        if (is_array($data)) {
+        if (is_array($data))
+        {
 
             $result = [];
-            foreach ($data as $key => $value) {
+            foreach ($data as $key => $value)
+            {
                 $result[$key] = getUrlPath($value);
             }
             return $result;
-        }else{
+        }
+        else
+        {
             return [getUrlPath($data)];
         }
     }
