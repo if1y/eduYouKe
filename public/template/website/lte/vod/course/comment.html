@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <title>首页 {$site_info.site_name|default=''}</title>
-    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
-    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <title>{$coursinfo.title|default='详情页'}</title>
+    <meta name="keywords" content="{$site_info.seoKeywords|default=''}" />
+    <meta name="description" content="{$coursinfo.description|default=''}">
     {include file='../public/header' /}
     <link href="__TEMPSTATIC__/css/course.css" rel="stylesheet">
 </head>
@@ -128,7 +128,7 @@
                                         <div class="attachment-block mt-2 clearfix">
                                             <img class="attachment-img" src="{:getUrlPath($vo.cource_image_url)}" alt="{$vo.title}">
                                             <div class="attachment-pushed product-info">
-                                                <a href="{:url('/course/index',['id'=>$vo['course_id']])}" class="product-description mt-1"> 
+                                                <a href="{:url('/course/index',['id'=>$vo['course_id']])}" class="product-description mt-1">
                                                     <strong>
                                                         {$vo.course_title}
                                                     </strong>

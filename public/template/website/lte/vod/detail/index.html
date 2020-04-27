@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <title>首页 {$site_info.site_name|default=''}</title>
-    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
-    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <title>{$coursinfo.title|default=''}</title>
+    <meta name="keywords" content="{$site_info.seoKeywords|default=''}" />
+    <meta name="description" content="{$coursinfo.description|default=''}">
     {include file='../public/header' /}
     <link href="__TEMPSTATIC__/css/course.css" rel="stylesheet">
     <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.2/skins/default/aliplayer-min.css" />

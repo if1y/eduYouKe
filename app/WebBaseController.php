@@ -24,6 +24,7 @@ class WebBaseController extends BaseController
         //获取当前配置的模板
         $this->getWebTheme();
         View::assign('nav', $this->getNav());
+        View::assign('site_info', $this->getSeo());
         View::assign('templateName', $this->template);
     }
 
@@ -118,6 +119,18 @@ class WebBaseController extends BaseController
         }
         $userInfo['myself'] = $mySelf;
         return $userInfo;
+    }
+
+    //
+    public function getSeo()
+    {
+        $seo = DB::name('setting')->field('category_name,content')->where('category', 'baseConfig')->select();
+        $seoInfo = [];
+        foreach ($seo as $key => $value) {
+            $seoInfo[$value['category_name']] = $value['content'];
+        }
+        return $seoInfo;
+        // print_r($seoInfo);exit;
     }
 
 }

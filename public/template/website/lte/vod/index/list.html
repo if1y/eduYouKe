@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <title>首页 {$site_info.site_name|default=''}</title>
-    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
-    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <title>{$listInfo.seoTitle|default= $listInfo.title}</title>
+    <meta name="keywords" content="{$listInfo.seoKeywords|default=$listInfo.title}" />
+    <meta name="description" content="{$listInfo.seoDescription|default=$listInfo.title}">
     {include file='../public/header' /}
 </head>
 

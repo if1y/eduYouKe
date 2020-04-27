@@ -3,6 +3,7 @@ namespace app\vod\controller;
 
 use app\logic\Banner;
 use app\logic\Course;
+use app\logic\CourseCategory;
 use app\logic\Nav;
 use app\WebBaseController;
 use think\facade\View;
@@ -33,11 +34,15 @@ class Index extends WebBaseController
 
         $param   = $this->request->param();
         $nav     = new Nav();
+        $cat     = new CourseCategory();
+
         $navView = $nav->getNavView($param);
         $list    = $nav->getListData($param);
-
+        $listInfo = $cat->getCourseCategoryInfo($param['list_id']);
+        
         return view('', [
             'navview' => $navView,
+            'listInfo' => $listInfo,
             'list' => $list,
             'page' => $list->render(),
         ]);
