@@ -4,11 +4,16 @@ namespace app\vod\controller;
 use app\logic\Order;
 use app\service\Pay as PayService;
 use app\WebBaseController;
+use think\facade\Log;
+
 
 
 class Pay extends WebBaseController
 {
-    protected $middleware = ['auth'];
+    protected $middleware = [ 
+        'auth' => ['only'      => ['pay','payStatus'] ],
+    ];
+
     
     //支付
     public function pay()
@@ -55,6 +60,13 @@ class Pay extends WebBaseController
         ]);
 
         return $result ? $this->success('支付成功') : $this->error('未成功');
+    }
+
+    //统一支付回调接口
+    public function notify()
+    {
+        $param  = $this->request->param();
+        Log::record('测试日志信息');
     }
 
 }

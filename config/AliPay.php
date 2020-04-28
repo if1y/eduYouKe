@@ -24,8 +24,8 @@ return [
     ], // 用户不可用指定渠道支付当有多个渠道时用“,”分隔
 
     // 与业务相关参数
-    'notify_url' => 'http://dayutalk.cn/notify/ali',
-    'return_url' => 'http://dayutalk.cn',
+    'notify_url' => getDomain().'/pay/notify',
+    'return_url' => getDomain(),
 
     'fee_type' => 'CNY', // 货币类型  当前仅支持该字段
 ];

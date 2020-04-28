@@ -15,7 +15,8 @@ return [
     ], // 指定不能使用信用卡支付   不传入，则均可使用
     'fee_type' => 'CNY', // 货币类型  当前仅支持该字段
 
-    'notify_url' => 'https://dayutalk.cn/v1/notify/wx',
+    'notify_url' => getDomain().'/pay/notify',
 
-    'redirect_url' => 'https://dayutalk.cn/', // 如果是h5支付，可以设置该值，返回到指定页面
+
+    'redirect_url' => getDomain(), // 如果是h5支付，可以设置该值，返回到指定页面
 ];
