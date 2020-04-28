@@ -253,37 +253,25 @@ class User extends UserModel
         $result = $this->alias('u')
             ->field([
                 'log.*',
+                'log.key as source_id',
                 'c.url',
                 'c.content',
+                'co.cource_image_url as image',
+                'co.id as cource_id',
+                'co.title',
             ])
             ->join('record_log log', 'u.id = log.user_id')
-            ->join('comment c', 'c.id = log.key')
+            ->leftJoin('comment c', 'c.id = log.key')
+            ->leftJoin('course co', 'co.id = log.key')
             ->order('log.create_time', 'desc')
             ->whereOr($whereOr)
-            ->where(['c.show_status' => 1, 'c.delete_status' => 0])
+            ->where([
+                'c.show_status' => 1,
+                'c.delete_status' => 0
+            ])
             ->where('log.user_id', $userId)
             ->paginate(['query' => ['user_id' => $userId], 'list_rows' => 3])->each(function ($item)
         {
-            // print_r($item);exit();
-            $item['source_id'] = $item['key'];
-            switch ($item['category'])
-            {
-
-                case 'courseView':
-
-                    $result = DB::name('course')
-                        ->where('id', $item['key'])->find();
-                    $title = $result['title'];
-                    $image = $result['cource_image_url'];
-
-                    break;
-                default:
-
-                    break;
-            }
-
-            $item['title']          = isset($title) ? $title : '';
-            $item['image']          = isset($image) ? $image : '';
             $item['recent_updates'] = Tools::getDate(strtotime($item['create_time']));
             return $item;
         });
