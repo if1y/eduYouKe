@@ -40,6 +40,7 @@ class AdminBaseController extends BaseController
             View::assign('templateName', $this->template);
             View::assign('adminMenus', $this->getMenus());
             View::assign('contentHeader', $this->getContentHeader());
+            View::assign('site_info', $this->getSeo());
 
         }
 
@@ -131,26 +132,7 @@ class AdminBaseController extends BaseController
 
         //组装选中状态
         $access = Menu::getActiveStatus($access);
-        // // print_r($access);exit();
-
         // //判断当前权限
-
-        // if ($role_id == 1)
-        // {
-        //     $auth = DB::name('admin_role')->field('')->where('id',$role_id)->find();
-        //     // $roleObj = new AdminRole();
-        //     $adminRoleResult = $userInfo['module_id'];
-        //     // $adminRoleResult = cache('adminRoleResult:' . $userInfo['id']);
-        //     $adminRoleResult = explode(',', str_replace("，", ",", $adminRoleResult));
-
-        //     print_r($adminRoleResult);exit();
-        //     foreach ($access as $key => $value)
-        //     {
-        //         $value['auth'] = in_array($value['id'], $adminRoleResult) ? 1 : 0;
-        //         $access[$key]  = $value;
-        //     }
-        // }
-
         //组装目录
         $menus = Menu::buildMenus(
             Tools::listToTree($access, 'id', 'parent_id')
@@ -198,6 +180,18 @@ class AdminBaseController extends BaseController
 
         }
         return 0;
+    }
+
+    public function getSeo()
+    {
+        $seo     = DB::name('setting')->field('category_name,content')->where('category', 'baseConfig')->select();
+        $seoInfo = [];
+        foreach ($seo as $key => $value)
+        {
+            $seoInfo[$value['category_name']] = $value['content'];
+        }
+        return $seoInfo;
+        // print_r($seoInfo);exit;
     }
 
 }
