@@ -74,7 +74,6 @@ class Image
     //图片本地上传
     public function ImageLocalUpload($file, $param)
     {
-        // return \think\facade\Filesystem::putFile( 'topic', $file, 'md5');
         return \think\facade\Filesystem::disk('public')->putFile('topic', $file);
     }
 
