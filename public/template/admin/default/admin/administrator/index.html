@@ -64,13 +64,14 @@
                                 <td>{$vo.role_name ? $vo.role_name : '未选择'}</td>
                                 <td>{$vo.show_status ? '<i class="fa fa-circle text-primary ">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}</td>
                                 <td>{$vo.last_login_time}</td>
-                                {if $vo.role_id == 1}
-                                {else /}
                                 <td>
+                                {if $vo.role_id == 1}
+                                
+                                {else /}
                                     {:checkAuth('edit',$vo.id)}
                                     {:checkAuth('delete',$vo.id)}
-                                </td>
                                 {/if}
+                                </td>
                             </tr>
                             {/volist}
                         </tbody>
