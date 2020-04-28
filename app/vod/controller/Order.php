@@ -16,19 +16,7 @@ class Order extends WebBaseController
 
         $order = new OrderLogic();
         $info  = $order->getCommodityInfo($param);
-        //查询用户是否购买
-        $already = $order->getOrderStatus($param);
-        if ($already)
-        {
-            if ($info['type'] == 'course')
-            {
-                redirect((string) url('course/chapter', ['id' => $info['id']]));
-            }
-            else
-            {
-                redirect((string) url('user/user/centor'));
-            }
-        }
+
         return view('', [
             'info' => $info,
         ]);
