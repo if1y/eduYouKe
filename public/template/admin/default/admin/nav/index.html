@@ -1,5 +1,4 @@
 <div class="content-wrapper pre-scrollable">
-    
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -18,31 +17,17 @@
             </div>
         </div>
     </div>
-    
-    
     <div class="content">
         <section class="content">
             <div class="card">
                 <div class="card-header">
                     <!-- <h3 class="card-title">Bordered Table</h3> -->
                     <div class="table-toolbar mt-2">
+                        {:checkAuth('add')}
                         <a href="javascript:;" class="btn btn-primary btn-sm btn-refresh" title="刷新">
                             刷新
                             <i class="fa fa-refresh"></i>
                         </a>
-                        {:checkAuth('add')}
-                        <!--   <a href="javascript:;" class="btn btn-success btn-edit btn-sm btn-disabled disabled" title="编辑">
-                                    <i class="fa fa-edit"></i>
-                                    编辑
-                                </a>
-                                <a href="javascript:;" class="btn btn-danger btn-ajax-del btn-sm disabled" title="删除">
-                                    <i class="fa fa-trash"></i>
-                                    删除
-                                </a>
-                                <a href="javascript:;" class="btn btn-danger btn-sm btn-import" title="导入" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false" initialized="true" style="position: relative; z-index: 1;">
-                                    <i class="fa fa-upload"></i>
-                                    导入
-                                </a> -->
                     </div>
                 </div>
                 <div class="card-body">
@@ -80,7 +65,6 @@
                         </table>
                     </div>
                 </div>
-                
                 <div class="card-footer clearfix">
                 </div>
             </div>

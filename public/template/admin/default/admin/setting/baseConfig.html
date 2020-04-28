@@ -1,5 +1,4 @@
 <div class="content-wrapper pre-scrollable">
-    
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -18,8 +17,6 @@
             </div>
         </div>
     </div>
-    
-    
     <div class="content">
         <div class="container-fluid p-2">
             <div class="commonality-card bg-white p-4">
@@ -51,7 +48,6 @@
                                 <small class="form-text text-muted mb-2">轮播图推荐200X200</small>
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">SEO标题</label>
                             <div class="col-sm-5">
@@ -87,27 +83,24 @@
                             <label class="col-sm-2 col-form-label">前端模板选择</label>
                             <div class="col-sm-5">
                                 {php}$template = getTemplate('website'); {/php}
-                                <select class="custom-select" id="chapterId" name="template">
+                                <select class="custom-select select2bs4" id="chapterId" name="template">
                                     {volist name="template" id="v"}
-                                    <option value="{$v}" {$v == $detail.template.content ? 'selected' :''} >{$v}</option>
+                                    <option value="{$v}" {$v==$detail.template.content ? 'selected' :''}>{$v}</option>
                                     {/volist}
                                 </select>
                             </div>
                         </div>
-
-
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">后端模板选择</label>
                             <div class="col-sm-5">
                                 {php}$template = getTemplate('admin'); {/php}
-                                <select class="custom-select" id="chapterId" name="adminTemplate">
+                                <select class="custom-select select2bs4" id="chapterId" name="adminTemplate">
                                     {volist name="template" id="v"}
-                                    <option value="{$v}" {$v == $detail.adminTemplate.content ? 'selected' :''} >{$v}</option>
+                                    <option value="{$v}" {$v==$detail.adminTemplate.content ? 'selected' :''}>{$v}</option>
                                     {/volist}
                                 </select>
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">ICP备案</label>
                             <div class="col-sm-5">

@@ -24,13 +24,12 @@
         <section class="content">
             <div class="card">
                 <div class="card-header">
-                    <!-- <h3 class="card-title">Bordered Table</h3> -->
                     <div class="table-toolbar mt-2">
+                        {:checkAuth('add')}
                         <a href="javascript:;" class="btn btn-primary btn-sm btn-refresh" title="刷新">
                             刷新
                             <i class="fa fa-refresh"></i>
                         </a>
-                        {:checkAuth('add')}
 
                     </div>
                 </div>
