@@ -246,7 +246,7 @@ class User extends UserModel
         {
             $whereOr[$key] = ['log.category', '=', $value];
             $whereOr[$key] = ['log.category', '=', $value];
-        }
+        } 
 
         // print_r($whereOr);
 
