@@ -50,10 +50,7 @@ class File
     //视频本地上传
     public function videoLocalUpload($file,$param)
     {
-        print_r(makePath('tovideo',2,1));exit;
-        if (makePath('tovideo')) {
-            return \think\facade\Filesystem::disk('public')->putFile('tovideo', $file);
-        }
+        return \think\facade\Filesystem::disk('public')->putFile('tovideo', $file);
     }
 
     //上传至阿里云
