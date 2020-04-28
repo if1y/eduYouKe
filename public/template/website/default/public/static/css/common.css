@@ -53,3 +53,10 @@
     }
 
 }
+
+@media(min-width: 1200px) {
+
+    .carousel-inner img {
+        max-height: 400px;
+    }
+}
