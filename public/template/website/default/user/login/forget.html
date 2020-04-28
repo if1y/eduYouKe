@@ -17,7 +17,7 @@
             <div class="content">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-auto mt-4 login">
+                        <div class="col-lg-6 col-md-6 col-auto mt-4 login" id="login-image">
                             <div class="login-img">
                                 <img src="__TEMPSTATIC__/img/loginLeft.jpg">
                             </div>
@@ -35,16 +35,16 @@
                                                 <input type="text" name="mobile" class="form-control mobile">
                                                 <!-- <small id="emailHelp" class="form-text text-muted"></small> -->
                                             </div>
-                                            <strong class="text-black-50 ">请输入验证码</strong>
-                                        <input type="hidden" name="__token__" value="{:token()}" />
-                                            <div class="input-group mt-2 mb-3">
-                                                <input type="text" name="smscode" class="form-control" aria-describedby="basic-addon">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="basic-addon">
-                                                        <a href="{:url('/user/login/getSmsCode')}" id="sendSms">验证码</a>
-                                                    </span>
+                                            <div class="form-group">
+                                                <label><strong class="text-black-50">请输入验证码</strong></label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" name="smscode" class="form-control">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon"><a href="{:url('/user/login/getSmsCode')}" id="sendSms">获取验证码</a></span>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <input type="hidden" name="__token__" value="{:token()}" />
                                             <div class="form-group mb-3">
                                                 <label><strong class="text-black-50">请输入密码</strong></label>
                                                 <input type="password" name="password" class="form-control">

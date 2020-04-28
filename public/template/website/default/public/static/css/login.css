@@ -2,12 +2,17 @@
     width: 100%;
     min-height: 500px;
 }
+
 .login-img img{
     width: 100%;
     min-height: 500px;
     max-height: 500px;
 }
+/*@media(min-width: 1200px) {
 
+ 
+
+}*/
 .login .align-self-center {
     min-width: 280px;
 }
@@ -72,4 +77,15 @@
 
 #sms-login , .nickname-login{
     display: none;
+}
+
+#content .form-group{
+    max-width: 280px;
+}
+
+@media (max-width: 768px) {
+
+    #login-image{
+        display: none;
+    }
 }
