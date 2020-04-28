@@ -62,7 +62,7 @@
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
                                         {volist name="vo['video']" id="v" key="k"}
-                                        {if !getUserInfoData() || getUserInfoData() && $isbuy }
+                                        {if !getUserInfoData() || getUserInfoData() && $buystatus }
                                         <a href="{:url('/detail/index',['id'=>$v['id'],'course_id'=>$vo['course_id'] ])}" class="text-muted">
                                             {else /}
                                             <a href="javascript:;" class="text-muted">
@@ -72,7 +72,7 @@
                                                     <span>
                                                         {$keys}-{$k} {$v.title}
                                                     </span>
-                                                    {if !getUserInfoData() || getUserInfoData() && $isbuy }
+                                                    {if !getUserInfoData() || getUserInfoData() && $buystatus }
                                                     <a href="{:url('/detail/index',['id'=>$v['id'],'course_id'=>$vo['course_id'] ])}" class="btn btn-primary btn-xs btn-danger float-right">开始学习</a>
                                                     {else /}
                                                     <a href="{:url('/order/createOrder',['id'=>$coursinfo['id'],'type'=>'course'])}" class="btn btn-primary btn-xs btn-danger float-right">去订阅</a>
