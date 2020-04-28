@@ -190,4 +190,15 @@ class Order extends OrderModel
         }
     }
 
+    //查询用户当前购买状态
+    public function getOrderStatus($data)
+    {
+        $orderType = $data['type'] == 'course' ? 1 :2;
+        return $this->getOrderInfo([
+            'order_type'=>$orderType,
+            'user_id'=>getUserInfoData(),
+            'order_status'=>1
+        ]);
+    }
+
 }
