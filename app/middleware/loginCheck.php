@@ -30,8 +30,19 @@ class loginCheck
 
             }
             else
-            {
-                return redirect('/user/login/login')->remember();
+            {   
+                //排除order控制器
+                if (strtolower($request->controller()) == 'order')
+                {
+
+                    return redirect('/user/login/login');
+
+                }
+                else
+                {
+
+                    return redirect('/user/login/login')->remember();
+                }
             }
         }
         //如果已登录则执行正常的请求
