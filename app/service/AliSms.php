@@ -18,7 +18,7 @@ class AliSms
         $SignName        = $setting->getSettingContent('smsSign');
         $template        = isset($param['type']) && $param['type'] == 1 ? 'smsForgetTemplateCode' : 'smsLoginTemplateCode';
 
-        if ($accessKeyId || $accessKeySecret || $SignName || $template) {
+        if (!$accessKeyId || !$accessKeySecret || !$SignName || !$template) {
             return 0;
         }
         $templateCode = $setting->getSettingContent($template);

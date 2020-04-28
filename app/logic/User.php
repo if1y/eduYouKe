@@ -60,7 +60,6 @@ class User extends UserModel
 
         $aliSms = new AliSms();
         $res    = $aliSms->sendSms(array_merge($param, ['code' => $code]));
-        
         return !$res ? 3 : $code;
     }
 
