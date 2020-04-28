@@ -64,7 +64,59 @@ class Pay extends WebBaseController
     public function notify()
     {
         $param = $this->request->param();
-        Log::record(json_encode($param));
+
+        if (isset($param['app_id']))
+        {
+            $_POST = $param;
+            $config = config('AliPay');
+            $proxy  = \Payment\Client::ALIPAY;
+
+        }
+        else
+        {
+
+            $config = config('WxPay');
+            $proxy  = \Payment\Client::WECHAT;
+
+        }
+
+        $callback = new Notify();
+
+        try {
+            $client = new \Payment\Client($proxy, $config);
+            $xml    = $client->notify($callback);
+        }
+        catch (InvalidArgumentException $e)
+        {
+            echo "1";exit;
+            echo $e->getMessage();
+            exit;
+        }
+        catch (\Payment\Exceptions\GatewayException $e)
+        {
+            $param['sign_error'] = 1;
+            Log::record(json_encode($param));
+        }
+        catch (\Payment\Exceptions\ClassNotFoundException $e)
+        {
+            echo "3";exit;
+
+            echo $e->getMessage();
+            exit;
+        }
+        catch (Exception $e)
+        {
+            echo "4";exit;
+
+            echo $e->getMessage();
+            exit;
+        }
+
+        $order_no = $param['out_trade_no'];
+
+        //更新用户状态,课程状态
+        $order = new Order();
+        $order->updatePayOrder($order_no,$param);
 
     }
 

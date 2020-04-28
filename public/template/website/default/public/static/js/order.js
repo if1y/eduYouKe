@@ -51,7 +51,7 @@ function coursePay() {
                     }
                     $.ajax(getting)
                     //这里写你的代码
-                }, 2000);
+                }, 3000);
 
             }
 
