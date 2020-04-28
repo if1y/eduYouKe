@@ -47,7 +47,7 @@
                                             <b>经验</b> <a class="float-right">{$userinfo.empirical}</a>
                                         </li>
                                     </ul>
-                                    <a href="#" class="btn btn-primary btn-block"><b>私信</b></a>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,6 @@
                                         <li class="nav-item"><a class="nav-link active" href="{:url('/user/user/centor',['user_id'=>$userinfo.id ])}">足迹</a></li>
                                         {if $userinfo.myself == 1}
                                         <li class="nav-item"><a class="nav-link " href="{:url('/user/user/order',['user_id'=> $userinfo.id ])}">订单</a></li>
-                                        <li class="nav-item"><a class="nav-link  " href="{:url('/user/user/message',['user_id'=>$userinfo.id ])}">消息</a></li>
                                         <li class="nav-item"><a class="nav-link " href="{:url('/user/user/setting',['user_id'=>$userinfo.id ])}">设置</a></li>
                                         {else /}
                                         {/if}

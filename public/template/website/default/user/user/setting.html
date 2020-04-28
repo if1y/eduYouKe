@@ -37,9 +37,7 @@
                                     <h3 class="profile-username text-center">{$userinfo.nickname}</h3>
                                     <p class="text-muted text-center">{$userinfo.introduce ? $userinfo.introduce :'这个人懒蛋蛋...'}</p>
                                     <ul class="list-group list-group-unbordered mb-3">
-                                        <!-- <li class="list-group-item">
-                                            <b>关注</b> <a class="float-right">1,322</a>
-                                        </li> -->
+                                        
                                         <li class="list-group-item">
                                             <b>学习时长</b> <a class="float-right">543小时</a>
                                         </li>
@@ -47,10 +45,9 @@
                                             <b>经验</b> <a class="float-right">{$userinfo.empirical}</a>
                                         </li>
                                     </ul>
-                                    <a href="#" class="btn btn-primary btn-block"><b>私信</b></a>
+                                    
                                 </div>
                             </div>
-                            <!-- /.card -->
                         </div>
                         
                         <div class="col-md-9 mt-3">
@@ -60,7 +57,6 @@
                                         <li class="nav-item"><a class="nav-link" href="{:url('/user/user/centor',['user_id'=>$userinfo.id ])}">足迹</a></li>
                                         {if $userinfo.myself == 1}
                                         <li class="nav-item"><a class="nav-link " href="{:url('/user/user/order',['user_id'=> $userinfo.id ])}">订单</a></li>
-                                        <li class="nav-item"><a class="nav-link  " href="{:url('/user/user/message',['user_id'=>$userinfo.id ])}">消息</a></li>
                                         <li class="nav-item"><a class="nav-link active" href="{:url('/user/user/setting',['user_id'=>$userinfo.id ])}">设置</a></li>
                                         {else /}
                                         {/if}
@@ -80,7 +76,7 @@
                                                     <label for="Mobile" class="col-sm-2 col-form-label">手机号</label>
                                                     <div class="col-sm-10">
                                                         <strong>{$userinfo.mobile}</strong>
-                                                        <!-- <input type="email" class="form-control" id="Mobile" placeholder="Email"> -->
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -114,12 +110,12 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <!-- /.tab-pane -->
+                                        
                                     </div>
-                                    <!-- /.tab-content -->
+                                    
                                 </div>
                             </div>
-                            <!-- /.nav-tabs-custom -->
+                            
                         </div>
                         
                     </div>
