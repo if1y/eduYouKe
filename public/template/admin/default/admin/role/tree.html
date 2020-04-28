@@ -1,12 +1,17 @@
 {__NOLAYOUT__}
 {include file='../public/header' /}
-<div class="container-fluid bg-white h-100">
+<style type="text/css">
+    body,html{
+        overflow: visible;
+    }
+</style>
+<div class="container-fluid h-100">
     <br>
     <div class="row">
         <div class="m-auto">
             <form class="layui-form" action="post">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">选择{$id}</label>
+                    <label class="layui-form-label">选择</label>
                     <div class="layui-input-block">
                         <div id="LAY-auth-tree-index"></div>
                     </div>

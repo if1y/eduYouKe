@@ -1,13 +1,6 @@
 {__NOLAYOUT__}
 {include file='../public/header' /}
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/wangEditor.css">
-<!-- <link rel="stylesheet" type="text/css" href="__STATIC__/css/tagsinput.css"> -->
-<style type="text/css">
-html,
-body {
-    background-color: #fff;
-}
-</style>
 <div class="container-fluid bg-white h-100">
     <br>
     <div class="row">
@@ -74,7 +67,7 @@ body {
                     <div id="editor">
                         {:html_entity_decode($editData.content)}
                     </div>
-                    <textarea id="editorcontent" name="content" style="display: none;"></textarea>
+                    <textarea id="editorcontent" class="display-none" name="content"></textarea>
                 </div>
             </div>
             <div class="form-group row">

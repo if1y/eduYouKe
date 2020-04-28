@@ -1,5 +1,5 @@
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+<div class="content-wrapper pre-scrollable">
+    
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -8,18 +8,18 @@
                         <i class="fa fa-{$contentHeader.icon}"></i>
                         {$contentHeader.title}
                     </h3>
-                </div><!-- /.col -->
+                </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/admin">首页</a></li>
                         <li class="breadcrumb-item active">{$contentHeader.title}</li>
                     </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
+    
+    
     <div class="content">
         <div class="container-fluid p-2">
             <div class="commonality-card bg-white p-4">
@@ -44,16 +44,13 @@
                                 <input id="img_upload" type="file" onchange="uploadImg('image_url','img_upload','preview_image','img_label')" accept="image/*" />
                                 <input type="hidden" name="logoImage" id="image_url" value="{$detail.logoImage.content}">
                                 <div id="preview_image">
-                                    <img src="{$detail.logoImage.content ? getUrlPath($detail.logoImage.content) :'__STATIC__/img/user3-128x128.jpg'}" width="360">
+                                    <img src="{$detail.logoImage.content ? getUrlPath($detail.logoImage.content) :'__STATIC__/img/user3-128x128.jpg'}" width="60">
                                 </div>
                                 <label for="img_upload" class="btn btn-warning btn-sm mt-2" id="img_label">图片上传
                                 </label>
                                 <small class="form-text text-muted mb-2">轮播图推荐200X200</small>
                             </div>
                         </div>
-
-
-                        
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">SEO标题</label>
@@ -73,9 +70,19 @@
                                 <input type="text" class="form-control" name="seoDescription" value="{$detail.seoDescription.content}" placeholder="请输入SEO关键字">
                             </div>
                         </div>
-
-
-
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">登录页默认图</label>
+                            <div class="col-sm-5" id="websiteLogo">
+                                <input id="login_img_upload" type="file" onchange="uploadImg('login_image_url','login_img_upload','login_preview_image','login_img_label')" class="display-none" accept="image/*" />
+                                <input type="hidden" name="loginImage" id="login_image_url" value="{$detail.loginImage.content}">
+                                <div id="login_preview_image">
+                                    <img src="{$detail.loginImage.content ? getUrlPath($detail.loginImage.content) :'__STATIC__/img/user3-128x128.jpg'}" width="80">
+                                </div>
+                                <label for="login_img_upload" class="btn btn-warning btn-sm mt-2" id="login_img_label">图片上传
+                                </label>
+                                <small class="form-text text-muted mb-2">轮播图推荐500X500</small>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">前端模板选择</label>
                             <div class="col-sm-5">

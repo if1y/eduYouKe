@@ -68,9 +68,9 @@
                     </div>
                 </div>
             </div>
-            <button class="sub-bindbtn" lay-submit lay-filter="bind" style="display: none;">
-                <!-- <button class="sub-bindbtn" lay-submit lay-filter="bind" style="width: 20px; height: 20px;"> -->
-            </button>
+
+             <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
+        
         </form>
     </div>
 </div>
