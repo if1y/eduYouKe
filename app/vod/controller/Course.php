@@ -19,21 +19,25 @@ class Course extends WebBaseController
     {
         $param = $this->request->param();
 
-        $cours   = new CourseLogic();
+        $course   = new CourseLogic();
         $chapter = new Chapter();
 
         //获取详情
-        $coursInfo = $cours->getCourseInfo($param['id']);
+        $coursInfo = $course->getCourseInfo($param['id']);
+
+        $buystatus = $course->getCourseAuth($coursInfo);
+
         //获取面包屑
-        $breadcrumb = $cours->getBreadcrumb($param['id']);
+        $breadcrumb = $course->getBreadcrumb($param['id']);
 
         //获取最近更新
         $recommendCourse = $chapter->getRecommendRoundCourse($coursInfo['category_id']);
         
         event('LogViewCourse',$param);
-                
+        
         return view('', [
             'coursinfo' => $coursInfo,
+            'buystatus' => $buystatus,
             'breadcrumb' => $breadcrumb,
             'recommend' => $recommendCourse,
         ]);
@@ -55,7 +59,7 @@ class Course extends WebBaseController
         //获取详情
         $coursInfo = $course->getCourseInfo($param['id']);
         //查看当前用户的购买状态
-        $isBuy = $course->getCourseAuth($coursInfo);
+        $buystatus = $course->getCourseAuth($coursInfo);
 
         //获取面包屑
         $breadcrumb = $course->getBreadcrumb($param['id']);
@@ -68,7 +72,7 @@ class Course extends WebBaseController
 
         return view('', [
             'coursinfo' => $coursInfo,
-            'isbuy' => $isBuy,
+            'buystatus' => $buystatus,
             'breadcrumb' => $breadcrumb,
             'chapterlist' => $chapterList,
             'recommend' => $recommendCourse,
@@ -100,6 +104,7 @@ class Course extends WebBaseController
 
         //获取详情
         $coursInfo = $course->getCourseInfo($param['id']);
+        $buystatus = $course->getCourseAuth($coursInfo);
 
         //获取面包屑
         $breadcrumb = $course->getBreadcrumb($param['id']);
@@ -110,6 +115,7 @@ class Course extends WebBaseController
 
         return view('', [
             'coursinfo' => $coursInfo,
+            'buystatus' => $buystatus,
             'breadcrumb' => $breadcrumb,
             'recommend' => $recommendCourse,
             'commentlist' => $commentList,
