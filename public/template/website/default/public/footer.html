@@ -1,8 +1,11 @@
 <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-        <!-- Anything you want -->
+        <strong>
+        	{$site_info.icpString|default='京ICP证888888号'}
+        </strong>
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2014-{:date('Y',time())} <a href="http://edu.com/">Edu.com</a>.</strong> All rights reserved.
 </footer>
+{:html_entity_decode($site_info.countCode)}
