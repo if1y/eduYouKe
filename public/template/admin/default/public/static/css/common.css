@@ -19,11 +19,11 @@ a {
 }
 
 .table-bordered td .fa-edit {
-    color: Dodgerblue;
+    color: #00cc66;
 }
 
 .table-bordered td .fa-trash {
-    color: Tomato;
+    color: #ff6600;
 }
 
 .layui-layer-btn {

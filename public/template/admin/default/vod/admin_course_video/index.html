@@ -73,7 +73,7 @@
                                 <td>{$vo.description}</td>
                                 <td> <img src="{$vo.image_url ? getUrlPath($vo.image_url) :'/static/common/img/video-128x128.jpg'}" width="30" height="30"></td>
                                 <td>{$vo.remark}</td>
-                                <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
+                                <td>{$vo.show_status ? '<i class="fa fa-circle text-primary">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}</td>
                                 <td>{$vo.seoTitle}</td>
                                 <td>{$vo.seoKeywords}</td>
                                 <td>{$vo.seoDescription}</td>

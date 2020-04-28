@@ -68,7 +68,7 @@
                                     <td>{$vo.category_title}</td>
                                     <td>{$vo.sort}</td>
                                     <td>
-                                        {$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}
+                                        {$vo.show_status ? '<i class="fa fa-circle text-primary">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}
                                     </td>
                                     <td>
                                         {:checkAuth('edit',$vo.id)}

@@ -70,7 +70,7 @@
                                 <td><img src="{$vo.image_url ? getUrlPath($vo.image_url) :'/static/common/img/user3-128x128.jpg'}" width="100" height="40"> </td>
                                 <td>{$vo.link_url}</td>
                                 <td>{$vo.remark}</td>
-                                <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
+                                <td>{$vo.show_status ? '<i class="fa fa-circle text-primary">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}</td>
                                 <td>
                                     {:checkAuth('edit',$vo.id)}
                                     {:checkAuth('delete',$vo.id)}

@@ -1,5 +1,4 @@
 <div class="content-wrapper pre-scrollable">
-    
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -18,8 +17,6 @@
             </div>
         </div>
     </div>
-    
-    
     <div class="content">
         <section class="content">
             <div class="card">
@@ -65,18 +62,20 @@
                                 <td> <img src="{$vo.avatar_url ? getUrlPath($vo.avatar_url) :'__STATIC__/img/user3-128x128.jpg'}" width="30" height="30"></td>
                                 <td>{$vo.mobile}</td>
                                 <td>{$vo.role_name ? $vo.role_name : '未选择'}</td>
-                                <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
+                                <td>{$vo.show_status ? '<i class="fa fa-circle text-primary ">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}</td>
                                 <td>{$vo.last_login_time}</td>
+                                {if $vo.role_id == 1}
+                                {else /}
                                 <td>
                                     {:checkAuth('edit',$vo.id)}
                                     {:checkAuth('delete',$vo.id)}
                                 </td>
+                                {/if}
                             </tr>
                             {/volist}
                         </tbody>
                     </table>
                 </div>
-                
                 <div class="card-footer clearfix">
                     {$page|raw}
                 </div>

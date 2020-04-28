@@ -68,7 +68,7 @@
                                 <td>{$vo.seoKeywords}</td>
                                 <td>{$vo.seoDescription}</td>
                                 <td>{$vo.remark}</td>
-                                <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
+                                <td>{$vo.show_status ? '<i class="fa fa-circle text-primary">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}</td>
                                 <td>
                                     {:checkAuth('edit',$vo.id)}
                                     {:checkAuth('delete',$vo.id)}

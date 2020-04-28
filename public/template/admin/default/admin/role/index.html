@@ -51,12 +51,12 @@
                                 <td>{$vo.id}</td>
                                 <td>{$vo.role_name}</td>
                                 <td>{$vo.remark}</td>
-                                <td>{$vo.show_status ? '<i class="fa fa-circle" style="color: Dodgerblue;">&nbsp;正常</i>' : '<i class="fa fa-circle" style="color: Tomato;"> &nbsp;不可用</i>'}</td>
+                                <td>{$vo.show_status ? '<i class="fa fa-circle text-primary">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}</td>
                                 <td>
                                     {:checkAuth('edit',$vo.id)}
                                     {:checkAuth('delete',$vo.id)}
                                     <a href="{$Request.root}/{$Request.controller}/tree/type/{$Request.action}/id/{$vo.id | default=1}" class="btn-auth" title="权限分配">
-                                        <i class="fa fa-sitemap">权限分配</i>
+                                        <i class="fa fa-sitemap text-info"></i> 权限分配
                                     </a>
                                 </td>
                             </tr>
