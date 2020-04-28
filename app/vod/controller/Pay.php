@@ -66,7 +66,7 @@ class Pay extends WebBaseController
     public function notify()
     {
         $param  = $this->request->param();
-        Log::record('测试日志信息');
+        Log::record(json_encode($param));
     }
 
 }
