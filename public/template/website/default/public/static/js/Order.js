@@ -1,7 +1,7 @@
 function coursePay() {
 
     event.preventDefault();
-
+    
     url = $("#coursePay").attr('href');
     var payType = $('#payType').val();
 
