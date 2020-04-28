@@ -18,7 +18,11 @@ class AliSms
         $SignName        = $setting->getSettingContent('smsSign');
         $template        = isset($param['type']) && $param['type'] == 1 ? 'smsForgetTemplateCode' : 'smsLoginTemplateCode';
 
+        if ($accessKeyId || $accessKeySecret || $SignName || $template) {
+            return 0;
+        }
         $templateCode = $setting->getSettingContent($template);
+
 
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
             ->regionId('cn-hangzhou') // replace regionId as you need
