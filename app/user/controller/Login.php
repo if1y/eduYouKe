@@ -2,6 +2,7 @@
 namespace app\user\controller;
 
 use app\logic\User;
+use app\logic\Setting;
 use app\user\validate\Login as LoginValidate;
 use app\WebBaseController;
 use think\facade\Session;
@@ -108,7 +109,11 @@ class Login extends WebBaseController
         }
         else
         {
-            return View::fetch('');
+
+            return view('', [
+                'loginImage' => (new Setting())->getSettingContent('loginImage'),
+            ]);
+
         }
     }
 
@@ -147,7 +152,9 @@ class Login extends WebBaseController
         }
         else
         {
-            return View::fetch('');
+            return view('', [
+                'loginImage' => (new Setting())->getSettingContent('loginImage'),
+            ]);
         }
     }
 
@@ -189,7 +196,9 @@ class Login extends WebBaseController
         }
         else
         {
-            return View::fetch('');
+            return view('', [
+                'loginImage' => (new Setting())->getSettingContent('loginImage'),
+            ]);
         }
     }
 
