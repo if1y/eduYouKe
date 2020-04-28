@@ -60,8 +60,7 @@ class AdminBaseController extends BaseController
         $template = DB::name('setting')->field('content')
             ->where(['category_name' => 'adminTemplate'])->find();
 
-        $this->template = $template['content'];
-
+        $this->template = !empty($template['content']) ? $template['content'] : 'default';
         $path = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
         $this->viewTplReplaceString();
 
