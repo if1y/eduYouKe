@@ -81,7 +81,11 @@
                                             <div class="user-block">
                                                 <img class="img-circle img-bordered-sm" src="{:getUserAvatarUrl() ? getUserAvatarUrl() :'__STATIC__/img/user4-128x128.jpg'}" alt="user image">
                                                 <span class="username mt-2">
-                                                    <a href="#">总有刁民想害朕</a>
+                                                    {if $Request.session.UserInfo}
+                                                    <a href="{:url('user/user/centor',['user_id'=>getUserInfoData()])}">{:getUserInfoData(0,'nickname')}</a>
+                                                    {else /}
+                                                    <a href="javascript:;">未登录</a>
+                                                    {/if}
                                                 </span>
                                                 <!-- <span class="description">输出你的看法吧~</span> -->
                                             </div>
