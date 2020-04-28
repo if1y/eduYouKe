@@ -64,4 +64,5 @@ class AliPay
         return  \Payment\Helpers\StrUtil::toQRImg($res['qr_code']);
 
     }
+
 }

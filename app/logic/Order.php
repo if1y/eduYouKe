@@ -53,9 +53,10 @@ class Order extends OrderModel
 
         $info = $this->getCommodityInfo($param);
 
-        switch ($param['type']) {
+        switch ($param['type'])
+        {
             case 'order':
-                    $this->where('id',$param['id'])->save(['order_no'=>$orderId]);
+                $this->where('id', $param['id'])->save(['order_no' => $orderId]);
                 break;
             default:
                 $this->save([
@@ -113,13 +114,80 @@ class Order extends OrderModel
             $item['description'] = $info['description'];
             $item['price']       = $info['price'];
             $item['image_url']   = isset($info['image_url']) ? $info['image_url'] : '';
-            $user = (new User())->getUserInfo($item['user_id'],'nickname');
-            $item['nickname']   = $user['nickname'];
-            
+            $user                = (new User())->getUserInfo($item['user_id'], 'nickname');
+            $item['nickname']    = $user['nickname'];
+
             return $item;
         });
 
         return $list;
+    }
+
+    //
+    public function updatePayOrder($order_no, $data)
+    {
+        $orderInfo = $this->getOrderInfo(['order_no' => $order_no]);
+
+        if (!empty($orderInfo))
+        {
+
+            switch ($orderInfo['order_type'])
+            {
+                case 1:
+                    //更新课程
+                    $this->where(['order_no' => $order_no])->update(['order_status' => 1]);
+                    break;
+                case 2:
+                    //更新会员
+                    $result = $this->where(['order_no' => $order_no])
+                        ->update(['order_status' => 1]);
+                    if ($result)
+                    {
+
+                        //查询用户信息
+                        $userInfo = (new User())->where(['id' => $orderInfo['user_id']])->find();
+
+                        //查询是否为续费
+                        if ($userInfo['user_type'] == 2)
+                        {
+
+                            $date = $userInfo['vip_expiration_time'] > time() ? date('Y-m-d H:i:s', $userInfo['vip_expiration_time']) : date('Y-m-d H:i:s', time());
+
+                        }
+                        else
+                        {
+
+                            $date = date('Y-m-d H:i:s', time());
+                        }
+
+                        //处理过期时间
+                        $vip = (new Setting())->where('id', $orderInfo['commodity_id'])->find();
+                        switch ($vip['category_name'])
+                        {
+                            case 'vipMonth':
+                                $time = date("Y-m-d", strtotime("+1 months", strtotime($date)));
+                                break;
+                            case 'vipQuarter':
+                                $time = date("Y-m-d", strtotime("+4 months", strtotime($date)));
+                                break;
+                            case 'vipYear':
+                                $time = date("Y-m-d", strtotime("+12 months", strtotime($date)));
+                                break;
+                            default:
+                                $time = time();
+                                break;
+                        }
+                        //更新用户信息
+                        (new User())->where(['id' => $orderInfo['user_id']])->update(['user_type' => 2, 'vip_expiration_time' => strtotime($time)]);
+                    }
+
+                    break;
+                default:
+                    //
+                    break;
+            }
+
+        }
     }
 
 }
