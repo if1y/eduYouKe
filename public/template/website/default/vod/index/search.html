@@ -46,7 +46,7 @@
                         <div class="col-md-3">
                             <div class="card card-widget widget-user wider">
                                 <a href="{:url('/course',['id'=>$vo['id']])}">
-                                    <div class="widget-user-header text-white" style="background: url('{$vo.cource_image_url}') center center;">
+                                    <div class="widget-user-header text-white" style="background: url('{:getUrlPath($vo.cource_image_url)}') center center;">
                                     </div>
                                 </a>
                                 <div id="course-title">
