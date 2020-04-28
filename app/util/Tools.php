@@ -302,7 +302,7 @@ class Tools
             }
             else
             {
-                return $content;
+                return 0;
             }
         }
         else
