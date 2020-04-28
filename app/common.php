@@ -237,14 +237,15 @@ function getTemplate($name)
     return ['default'];
 }
 
-function split_sql($file, $tablePre, $charset = 'utf8mb4', $defaultTablePre = 'edu_', $defaultCharset = 'utf8mb4')
+function splitSql($file, $tablePre, $charset = 'utf8mb4', $defaultTablePre = 'edu_', $defaultCharset = 'utf8mb4')
 {
-    if (file_exists($file)) {
+    if (file_exists($file))
+    {
         //读取SQL文件
         $sql = file_get_contents($file);
         $sql = str_replace("\r", "\n", $sql);
-        $sql = str_replace("BEGIN;\n", '', $sql);//兼容 navicat 导出的 insert 语句
-        $sql = str_replace("COMMIT;\n", '', $sql);//兼容 navicat 导出的 insert 语句
+        $sql = str_replace("BEGIN;\n", '', $sql); //兼容 navicat 导出的 insert 语句
+        $sql = str_replace("COMMIT;\n", '', $sql); //兼容 navicat 导出的 insert 语句
         $sql = str_replace($defaultCharset, $charset, $sql);
         $sql = trim($sql);
         //替换表前缀
@@ -254,4 +255,49 @@ function split_sql($file, $tablePre, $charset = 'utf8mb4', $defaultTablePre = 'e
     }
 
     return [];
+}
+
+/**
+ * 上传路径转化,默认路径
+ * @param $path
+ * @param int $type
+ * @param bool $force
+ * @return string
+ */
+function makePath($path, int $type = 2, bool $force = false)
+{
+    $path = DIRECTORY_SEPARATOR . ltrim(rtrim($path));
+    // switch ($type)
+    // {
+    //     case 1:
+    //         $path .= DIRECTORY_SEPARATOR . date('Y');
+    //         break;
+    //     case 2:
+    //         $path .= DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m');
+    //         break;
+    //     case 3:
+    //         $path .= DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d');
+    //         break;
+    // }
+    try {
+        if (is_dir(app()->getRootPath() . 'public' . DIRECTORY_SEPARATOR . 'storage' . $path) == true || mkdir(app()->getRootPath() . 'public' . DIRECTORY_SEPARATOR . 'storage' . $path, 0777, true) == true)
+        {
+            return trim(str_replace(DIRECTORY_SEPARATOR, '/', $path), '.');
+        }
+        else
+        {
+            return '';
+        }
+
+    }
+    catch (\Exception $e)
+    {
+        if ($force)
+        {
+            throw new \Exception($e->getMessage());
+        }
+
+        return '无法创建文件夹，请检查您的上传目录权限：' . app()->getRootPath() . 'public' . DIRECTORY_SEPARATOR . 'uploaDIRECTORY_SEPARATOR' . DIRECTORY_SEPARATOR . 'attach' . DIRECTORY_SEPARATOR;
+    }
+
 }

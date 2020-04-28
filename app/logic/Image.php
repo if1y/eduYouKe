@@ -74,7 +74,9 @@ class Image
     //图片本地上传
     public function ImageLocalUpload($file, $param)
     {
-        return \think\facade\Filesystem::disk('public')->putFile('topic', $file);
+        if (makePath('topic')) {
+            return \think\facade\Filesystem::disk('public')->putFile('topic', $file);
+        }
     }
 
     //上传至阿里云
