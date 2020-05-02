@@ -59,7 +59,8 @@ class Comment extends CommentModel
             	'u.nickname',
             	'u.avatar_url',
             	'u.id',
-            	'c.content',
+                'c.content',
+            	'c.user_id',
             	'c.create_time',
             ])
             ->join('course co', 'c.source_id = co.id')
