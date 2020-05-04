@@ -1,0 +1,15 @@
+{	
+	"php_ext":"bcmath,mbstring,openssl,pathinfo",
+	"chmod":[
+				{"mode":774,"path":"/runtime"},
+				{"mode":774,"path":"/public/storage"}
+			],	
+	"success_url":"/",				
+	"php_versions":"71,72,73",	
+	"db_config":"/config/database.php",
+	"admin_username":"admin",
+	"admin_password":"123456",
+	"run_path":"/public",
+	"remove_file":[".user.ini"],
+	"enable_functions":["proc_open","putenv"]
+}
