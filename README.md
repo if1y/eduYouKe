@@ -5,10 +5,15 @@ eduYouke在线教育点播系统
 ## 环境要求
 
 > 运行环境要求PHP7.1+ ,
+
 > 开启静态重写 ,
+
 > 要求环境支持pathinfo ,
+
 > PDO PHP Extension  ,
+
 > MBstring PHP Extension ,
+
 > CURL PHP Extension 。
 
 ## 安装
