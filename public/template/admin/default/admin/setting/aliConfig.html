@@ -68,13 +68,13 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">阿里大于Key</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="smsKey" value="{$detail.smsKey.content}" placeholder="请输入短信Key">
+                                <input type="text" class="form-control" name="smsKey" value="{:hideStr($detail.smsKey.content)}" placeholder="请输入短信Key">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">阿里大于Secret</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="smsSecret" value="{$detail.smsSecret.content}" placeholder="请输入短信Secret">
+                                <input type="text" class="form-control" name="smsSecret" value="{:hideStr($detail.smsSecret.content)}" placeholder="请输入短信Secret">
                             </div>
                         </div>
                         <div class="form-group row">

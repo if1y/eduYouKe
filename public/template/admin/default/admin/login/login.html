@@ -28,14 +28,13 @@
                 <div class="login media bg-white" id="login">
                     <div class="align-self-center mx-auto">
                         <div class="text-with-hr mt-4">
-                            <span style="font-weight: 600;">后台登录</span>
+                            <strong>后台登录</strong>
                         </div>
                         <form class="m-auto" id="content" action="{$Request.root}/{$Request.controller}/doLogin">
                             <div id="nickname-login">
                                 <div class="form-group">
                                     <label><strong class="text-black-50">用户名</strong></label>
                                     <input type="text" name="username" class="form-control username">
-                                    <!-- <small id="emailHelp" class="form-text text-muted">We'll neasdsadasdsaaaaaaaaaaaaaaav.</small> -->
                                 </div>
                                 <div class="form-group">
                                     <label><strong class="text-black-50">请输入密码</strong></label>
@@ -45,21 +44,13 @@
                                     <strong class="text-black-50 ">请输入验证码</strong>
                                     <div class="input-group mt-2 mb-3">
                                         <input type="text" name="verifycode" class="form-control verifycode" aria-describedby="basic-addon">
+                                        {:token_field()}
                                         <div class="input-group-append" style="height: 35px;">
                                             {:captcha_img()}
-                                            <!--  <span class="input-group-text" id="basic-addon">
-                                            <a href="javascript:;">
-                                            {:captcha_img()}
-                                        </a>
-                                        </span> -->
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group mt-3">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label text-black-50">保持登陆</label>
-                                </div>
-                                <a href="{:url('admin/login/doLogin')}" id="formLogin" onclick="formLogin()" class="btn btn-primary btn-block">登录</a>
+                                <a href="{:url('admin/login/doLogin')}" id="formLogin" onclick="formLogin()" class="btn btn-primary btn-block mt-4 mb-4">登录</a>
                             </div>
                         </form>
                         <br>

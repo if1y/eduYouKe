@@ -237,67 +237,55 @@ function getTemplate($name)
     return ['default'];
 }
 
-function splitSql($file, $tablePre, $charset = 'utf8mb4', $defaultTablePre = 'edu_', $defaultCharset = 'utf8mb4')
-{
-    if (file_exists($file))
-    {
-        //读取SQL文件
-        $sql = file_get_contents($file);
-        $sql = str_replace("\r", "\n", $sql);
-        $sql = str_replace("BEGIN;\n", '', $sql); //兼容 navicat 导出的 insert 语句
-        $sql = str_replace("COMMIT;\n", '', $sql); //兼容 navicat 导出的 insert 语句
-        $sql = str_replace($defaultCharset, $charset, $sql);
-        $sql = trim($sql);
-        //替换表前缀
-        $sql  = str_replace(" `{$defaultTablePre}", " `{$tablePre}", $sql);
-        $sqls = explode(";\n", $sql);
-        return $sqls;
-    }
 
-    return [];
-}
 
-/**
- * 上传路径转化,默认路径
- * @param $path
- * @param int $type
- * @param bool $force
- * @return string
- */
-function makePath($path, int $type = 2, bool $force = false)
-{
-    $path = DIRECTORY_SEPARATOR . ltrim(rtrim($path));
-    // switch ($type)
-    // {
-    //     case 1:
-    //         $path .= DIRECTORY_SEPARATOR . date('Y');
-    //         break;
-    //     case 2:
-    //         $path .= DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m');
-    //         break;
-    //     case 3:
-    //         $path .= DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d');
-    //         break;
-    // }
-    try {
-        if (is_dir(app()->getRootPath() . 'public' . DIRECTORY_SEPARATOR . 'storage' . $path) == true || mkdir(app()->getRootPath() . 'public' . DIRECTORY_SEPARATOR . 'storage' . $path, 0777, true) == true)
-        {
-            return trim(str_replace(DIRECTORY_SEPARATOR, '/', $path), '.');
+function hideStr($string, $bengin = 0, $len = 4, $type = 0, $glue = "@") {
+    if (empty($string))
+        return false;
+    $array = array();
+    if ($type == 0 || $type == 1 || $type == 4) {
+        $strlen = $length = mb_strlen($string);
+        while ($strlen) {
+            $array[] = mb_substr($string, 0, 1, "utf8");
+            $string = mb_substr($string, 1, $strlen, "utf8");
+            $strlen = mb_strlen($string);
         }
-        else
-        {
-            return '';
-        }
-
     }
-    catch (\Exception $e)
-    {
-        if ($force)
-        {
-            throw new \Exception($e->getMessage());
+    if ($type == 0) {
+        for ($i = $bengin; $i < ($bengin + $len); $i++) {
+            if (isset($array[$i]))
+                $array[$i] = "*";
         }
-
-        return '无法创建文件夹，请检查您的上传目录权限：' . app()->getRootPath() . 'public' . DIRECTORY_SEPARATOR . 'uploaDIRECTORY_SEPARATOR' . DIRECTORY_SEPARATOR . 'attach' . DIRECTORY_SEPARATOR;
+        $string = implode("", $array);
+    } else if ($type == 1) {
+        $array = array_reverse($array);
+        for ($i = $bengin; $i < ($bengin + $len); $i++) {
+            if (isset($array[$i]))
+                $array[$i] = "*";
+        }
+        $string = implode("", array_reverse($array));
+    } else if ($type == 2) {
+        $array = explode($glue, $string);
+        $array[0] = hideStr($array[0], $bengin, $len, 1);
+        $string = implode($glue, $array);
+    } else if ($type == 3) {
+        $array = explode($glue, $string);
+        $array[1] = hideStr($array[1], $bengin, $len, 0);
+        $string = implode($glue, $array);
+    } else if ($type == 4) {
+        $left = $bengin;
+        $right = $len;
+        $tem = array();
+        for ($i = 0; $i < ($length - $right); $i++) {
+            if (isset($array[$i]))
+                $tem[] = $i >= $left ? "*" : $array[$i];
+        }
+        $array = array_chunk(array_reverse($array), $right);
+        $array = array_reverse($array[0]);
+        for ($i = 0; $i < $right; $i++) {
+            $tem[] = $array[$i];
+        }
+        $string = implode("", $tem);
     }
-
+    return $string;
 }

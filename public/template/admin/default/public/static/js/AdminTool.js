@@ -519,8 +519,9 @@ function formLogin() {
     var username = $('input[name="username"]').val();
     var verifycode = $('input[name="verifycode"]').val();
     var password = $('input[name="password"]').val();
+    var token = $('input[name="__token__"]').val();
 
-    $.post(href, { username: username, password: password, verifycode: verifycode }, function(json) {
+    $.post(href, { username: username, password: password,__token__: token,verifycode: verifycode }, function(json) {
         if (json.code == 1) {
 
             success(json.msg)

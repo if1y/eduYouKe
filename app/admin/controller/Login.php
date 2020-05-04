@@ -5,6 +5,8 @@ use app\AdminBaseController;
 use app\logic\AdminUser;
 use think\facade\Session;
 use think\facade\View;
+use app\admin\validate\Login as LoginValidate;
+
 
 
 class Login extends AdminBaseController
@@ -27,10 +29,13 @@ class Login extends AdminBaseController
     public function doLogin()
     {
         $param = $this->request->param();
-        if (!captcha_check($param['verifycode']))
+        //验证数据
+        $validate = new LoginValidate();
+        if (!$validate->check($param))
         {
-            $this->error('验证码错误');
+            $this->error($validate->getError());
         }
+
         $user   = new AdminUser();
         $result = $user->doLogin($param);
         switch ($result)
