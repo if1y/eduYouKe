@@ -26,8 +26,14 @@ composer install
 
 ## 演示
 
+
+
 [演示地址](http://edu.lixuqi.com/admin)
 [账号密码 admin--123456]
 
+
+## 交流群
+
+![Image text](http://edu.lixuqi.com/storage/topic/20200504/c1ae08e4ccd75cdbd5eb5ac8f2a1eb37.jpg)
 
 
