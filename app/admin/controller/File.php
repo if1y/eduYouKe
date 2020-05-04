@@ -7,20 +7,8 @@ use app\logic\File as FileLogic;
 use app\logic\Image;
 
 
-
 class File extends AdminBaseController
 {
-    //登录
-    public function filelist()
-    {
-        return View::fetch('');
-    }
-
-    //登录
-    public function file()
-    {
-        return View::fetch('');
-    }
 
     /**
      * [upload 图片上传接口]
@@ -35,7 +23,6 @@ class File extends AdminBaseController
         $savename = $image->uploadImage($file,$param);
         return json([
             'errno' => 0,
-            'path'=>$savename ,
             'data' => $image->editorImage($savename)
         ]);
     }
@@ -49,7 +36,6 @@ class File extends AdminBaseController
 
         $file = $this->request->file('file');
         $param = $this->request->param();
-        // print_r($param);exit;
         $vod = new FileLogic();
         $savename = $vod->uploadVideo($file,$param);
         return json(['code' => 1,'path' => $savename]);
