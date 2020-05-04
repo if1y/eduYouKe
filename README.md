@@ -34,6 +34,6 @@ composer install
 
 ## 交流群
 
-![Image text](https://edu.lixuqi.com/storage/topic/20200504/c1ae08e4ccd75cdbd5eb5ac8f2a1eb37.jpg)
+<img src="https://edu.lixuqi.com/storage/topic/20200504/c1ae08e4ccd75cdbd5eb5ac8f2a1eb37.jpg" width="300" height="300">
 
 
