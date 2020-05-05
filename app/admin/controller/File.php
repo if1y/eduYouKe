@@ -26,6 +26,7 @@ class File extends AdminBaseController
             'path'  =>$savename,
             'data' => $image->editorImage($savename)
         ]);
+    }
 
     /**
      * [videoUpload 视频上传接口]
