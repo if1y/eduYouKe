@@ -1,6 +1,6 @@
 {__NOLAYOUT__}
 {include file='../public/header' /}
-<div class="container-fluid bg-white h-100">
+<div class="container-fluid bg-white h-100 table-responsive">
     <br>
     <div class="row">
         <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/addPost">
@@ -73,7 +73,7 @@
                     <input type="text" class="form-control" name="remark" placeholder="请输入备注[选填]">
                 </div>
             </div>
-            <div class="form-group row display-none" id="rbacAction">
+            <div class="form-group row" id="rbacAction" style="display: none;">
                 <label class="col-sm-2 col-form-label">权限细化</label>
                 <div class="col-sm-10">
 
@@ -95,7 +95,7 @@
                             修改
                         </label>
                     </div>
-                    <small id="emailHelp" class="form-text text-muted">对应后台控制器:{add/edit/del/info}</small>
+                    <small class="form-text text-muted">对应后台控制器:{add/edit/del/info}</small>
                 </div>
             </div>
             <div class="form-group row">

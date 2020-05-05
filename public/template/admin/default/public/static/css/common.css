@@ -98,3 +98,7 @@ a {
 .uploadVideo option {
     line-height: 25px;
 }*/
+
+.tab-content form .form-group .form-control , .tab-content form .form-group .custom-select{
+    color: #a0aab3;
+}

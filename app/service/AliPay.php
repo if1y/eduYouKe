@@ -1,15 +1,52 @@
 <?php
 namespace app\service;
 
+use app\logic\Setting;
+
 class AliPay
 {
     //
     public function pay($data)
     {
 
-        $aliConfig = config('AliPay');
-        $tradeNo   = time() . rand(1000, 9999);
-        $payData   = [
+        $conf = [
+            'app_id' => 'alipayAppId',
+            'sign_type' => 'alipaySignType',
+            'ali_public_key' => 'alipayPublicKey',
+            'rsa_private_key' => 'alipayRsaPrivateKey',
+            'notify_url' => 'alipayNotifyUrl',
+            'return_url' => 'alipayReturnUrl',
+        ];
+
+        $setting = new Setting();
+
+        $ali = [];
+        foreach ($conf as $key => $value)
+        {
+            $v = $setting->getSettingContent($value);
+
+            if ($v)
+            {
+                $ali[$key] = $v;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        //
+        $config = [
+
+            'use_sandbox' => $setting->getSettingContent('alipaySandbox'),
+            'limit_pay' => [],
+            'fee_type' => 'CNY',
+
+        ];
+        //
+        $aliConfig = array_merge($ali, $config);
+
+        $payData = [
             'body' => $data['title'],
             'subject' => $data['title'],
             'trade_no' => $data['order_no'],
@@ -26,17 +63,18 @@ class AliPay
 
         // 使用
         try {
-            
+
             $client = new \Payment\Client(\Payment\Client::ALIPAY, $aliConfig);
-            switch ($data['isMobile']) {
+            switch ($data['isMobile'])
+            {
                 case '1':
-                    $res    = $client->pay(\Payment\Client::ALI_CHANNEL_WAP, $payData);
+                    $res = $client->pay(\Payment\Client::ALI_CHANNEL_WAP, $payData);
                     break;
                 default:
-                    $res    = $client->pay(\Payment\Client::ALI_CHANNEL_QR, $payData);
+                    $res = $client->pay(\Payment\Client::ALI_CHANNEL_QR, $payData);
                     break;
             }
-            return isset($res['qr_code']) ? $res['qr_code'] :$res;
+            return isset($res['qr_code']) ? $res['qr_code'] : $res;
         }
         catch (InvalidArgumentException $e)
         {
@@ -61,7 +99,7 @@ class AliPay
         }
 
         return $res['qr_code'];
-        return  \Payment\Helpers\StrUtil::toQRImg($res['qr_code']);
+        return \Payment\Helpers\StrUtil::toQRImg($res['qr_code']);
 
     }
 

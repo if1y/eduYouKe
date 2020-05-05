@@ -43,6 +43,21 @@ class File extends AdminBaseController
     }
 
     /**
+     * [videoUpload 文件上传接口]
+     * @return [type] [description]
+     */
+    public function uploadFile()
+    {
+
+        $file = $this->request->file('file');
+        $param = $this->request->param();
+        $vod = new FileLogic();
+        $savename = $vod->uploadFile($file,$param);
+        return json(['code' => 1,'path' => $savename]);
+    }
+
+    
+    /**
      * [uploadCloud 更新到云上]
      * @return [type] [description]
      */

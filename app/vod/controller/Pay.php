@@ -40,11 +40,16 @@ class Pay extends WebBaseController
             'isMobile' => $param['isMobile'],
         ], $orderInfo->toArray()));
 
+        if ($result) {
+
         $this->success('正在跳转...', '', [
             'mobile' => $param['isMobile'],
             'order_id' => $orderId,
             'src' => $result,
         ]);
+        }else{
+            $this->error('支付通道未配置');
+        }
     }
 
     //查询订单状态
