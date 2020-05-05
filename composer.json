@@ -24,7 +24,6 @@
         "topthink/think-captcha": "^3.0",
         "alibabacloud/sdk": "^1.8",
         "aliyuncs/oss-sdk-php": "^2.3",
-        "php-ffmpeg/php-ffmpeg": "^0.15.0",
         "riverslei/payment": "*",
         "godruoyi/php-snowflake": "^1.0",
         "liliuwei/thinkphp-jump": "^1.5"

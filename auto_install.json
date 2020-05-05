@@ -11,5 +11,4 @@
 	"admin_password":"123456",
 	"run_path":"/public",
 	"remove_file":[".user.ini"],
-	"enable_functions":["proc_open","putenv"]
 }
