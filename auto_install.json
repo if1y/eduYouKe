@@ -6,9 +6,9 @@
 			],	
 	"success_url":"/",				
 	"php_versions":"71,72,73",	
-	"db_config":"/config/database.php",
+	"db_config":".env",
 	"admin_username":"admin",
 	"admin_password":"123456",
 	"run_path":"/public",
-	"remove_file":[".user.ini"],
+	"remove_file":[".user.ini"]
 }
