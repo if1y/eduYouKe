@@ -6,7 +6,7 @@
 			],	
 	"success_url":"/",				
 	"php_versions":"71,72,73",	
-	"db_config":".env",
+	"db_config":"/config/database.php",
 	"admin_username":"admin",
 	"admin_password":"123456",
 	"run_path":"/public",
