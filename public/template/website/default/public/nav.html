@@ -28,7 +28,7 @@
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
 
             <li class="nav-item">
-                <a class="nav-link" href="{:url('/vip/index')}">
+                <a class="nav-link mb-2" href="{:url('/vip/index')}">
                     <img alt="35x35"  src="__STATIC__/img/vip.png" width="35" height="35">
                 </a>
             </li>
@@ -36,11 +36,11 @@
             <!-- Notifications Dropdown Menu -->
             <li class="nav-item dropdown">
                 {if $Request.session.UserInfo}
-                <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mb-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img alt="35x35" class="rounded" src="{:getUserAvatarUrl() ? getUserAvatarUrl() :'__STATIC__/img/user4-128x128.jpg'}" data-holder-rendered="true" width="35" height="35">
                 </a>
                 {else /}
-                <a class="nav-link " href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mb-2" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img alt="35x35" class="rounded" src="__STATIC__/img/avatar.png" data-holder-rendered="true" width="35" height="35">
                 </a>
                 {/if}
