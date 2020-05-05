@@ -567,6 +567,54 @@ $("#sign-out").click(function() {
 
 
 
+function uploadFile(input, file, path, label) {
+
+    var files = event.target.files[0];
+
+    var reader = new FileReader();
+    reader.readAsDataURL(files); // 读取文件
+    reader.onload = function(arg) {
+
+        var self = this,
+            base64String = this.result,
+            blob = dataURItoBlob(base64String),
+            canvas = document.createElement('canvas'),
+            dataURL = canvas.toDataURL('image/jpeg', 0.5),
+            fd = new FormData(document.forms[0]);
+
+        fd.append("file", blob, files.name);
+
+
+        $.ajax({
+            url: "/admin/File/uploadFile",
+            type: 'post',
+            data: fd,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function(data) {
+                success('上传成功');
+                $('#' + file).val('');
+                //渲染到页面
+                $("#" + path + " img").attr('src', arg.target.result);
+                //添加路径到页面
+                console.log(data)
+                $("#" + input).val(data.path);
+                //更改文案
+                $("#" + label).html('重新上传');
+
+            },
+            error: function(error) {
+                console.log(error)
+            }
+        })
+        return this.result;
+
+    }
+}
+
+
+
 function uploadVideo(input, file, path, label) {
 
     // alert(123123);

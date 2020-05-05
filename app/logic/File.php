@@ -132,5 +132,12 @@ class File
 
 
 
+    //文件上传--暂支持本地
+    public function uploadFile($file,$param)
+    {   
+        return \think\facade\Filesystem::disk('public')->putFile('tofile', $file);
+    }
+
+
 
 }
