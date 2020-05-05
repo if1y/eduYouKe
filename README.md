@@ -21,7 +21,7 @@ eduYouke在线教育点播系统
 ~~~
 composer install
 
-导入SQL文件 /import.sql
+导入SQL文件 public/databases/install.sql
 ~~~
 
 ## 演示
