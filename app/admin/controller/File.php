@@ -23,6 +23,7 @@ class File extends AdminBaseController
         $savename = $image->uploadImage($file,$param);
         return json([
             'errno' => 0,
+            'path'  =>$savename,
             'data' => $image->editorImage($savename)
         ]);
     }
