@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : 本地
 Source Server Version : 50726
 Source Host           : localhost:3306
-Source Database       : fastedu
+Source Database       : ads
 
 Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-04-28 21:45:48
+Date: 2020-05-05 18:05:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -389,14 +389,13 @@ CREATE TABLE `edu_setting` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `category` (`category`)
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of edu_setting
 -- ----------------------------
 INSERT INTO `edu_setting` VALUES ('31', '基础配置', 'base', 'baseConfig', '', null, null, 'nav导航', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('32', '阿里云配置', 'base', 'aliConfig', '', null, '', 'nav导航', '1', '0', '0', '0');
-INSERT INTO `edu_setting` VALUES ('33', '支付配置', 'base', 'payConfig', '', null, null, 'nav导航', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('39', '网站名称', 'baseConfig', 'webSiteName', '', null, null, '网站名称', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('40', 'SEO标题', 'baseConfig', 'seoTitle', '', null, null, 'SEO标题', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('41', 'SEO关键字', 'baseConfig', 'seoKeywords', '', null, null, 'SEO关键字', '1', '0', '0', '0');
@@ -407,12 +406,6 @@ INSERT INTO `edu_setting` VALUES ('45', '播放器Key', 'aliConfig', 'aliPlayerK
 INSERT INTO `edu_setting` VALUES ('46', '播放器Secret', 'aliConfig', 'aliPlayerSecret', '', null, null, '播放器Secret', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('47', 'ossKey', 'aliConfig', 'aliossKey', '', null, null, 'ossKey', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('48', 'ossSecret', 'aliConfig', 'aliossSecret', '', null, null, 'ossSecret', '1', '0', '0', '0');
-INSERT INTO `edu_setting` VALUES ('49', '支付宝Key', 'payConfig', 'aliPayKey', '', null, null, '支付宝Key', '1', '0', '0', '0');
-INSERT INTO `edu_setting` VALUES ('50', '支付宝Secret', 'payConfig', 'aliPaySecret', '', null, null, '支付宝Secret', '1', '0', '0', '0');
-INSERT INTO `edu_setting` VALUES ('51', '微信支付Key', 'payConfig', 'wxPayKey', '', null, null, '微信支付Key', '1', '0', '0', '0');
-INSERT INTO `edu_setting` VALUES ('52', '微信支付Secret', 'payConfig', 'wxPaySecret', '', null, null, '微信支付Secret', '1', '0', '0', '0');
-INSERT INTO `edu_setting` VALUES ('53', '个人支付Key', 'payConfig', 'otherPayKey', '', null, null, '个人支付Key', '1', '0', '0', '0');
-INSERT INTO `edu_setting` VALUES ('54', '个人支付Secret', 'payConfig', 'otherPaySecret', '', null, null, '个人支付Secret', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('59', '阿里短信Key', 'aliConfig', 'aliSmsKey', '', null, null, '阿里短信Key', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('60', '阿里短信Secret', 'aliConfig', 'aliSmsSecret', '', null, null, '阿里短信Secret', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('68', '网站logo', 'baseConfig', 'logoImage', '', null, null, '网站logo', '1', '0', '0', '0');
@@ -433,6 +426,14 @@ INSERT INTO `edu_setting` VALUES ('82', '年度会员', 'vipConfig', 'vipYear', 
 INSERT INTO `edu_setting` VALUES ('83', '前端模板选择', 'baseConfig', 'template', '', null, null, '', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('84', '后台模板选择', 'baseConfig', 'adminTemplate', '', null, null, '', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('85', '登录页默认图', 'baseConfig', 'loginImage', '', null, null, '登录页默认图', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('86', '支付宝配置', 'base', 'AliPay', null, null, null, '', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('87', '沙箱模式', 'AliPay', 'alipaySandbox', '', null, null, '沙箱模式', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('88', 'appId', 'AliPay', 'alipayAppId', '', null, null, '支付宝app_id', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('89', '支付加密模式', 'AliPay', 'alipaySignType', '', null, null, '支付加密模式', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('90', '支付宝公钥', 'AliPay', 'alipayPublicKey', '', null, null, '支付宝公钥', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('91', '应用秘钥', 'AliPay', 'alipayRsaPrivateKey', '', null, null, '应用秘钥', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('92', '异步通知地址', 'AliPay', 'alipayNotifyUrl', '', null, null, '异步通知地址', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('93', '同步通知地址', 'AliPay', 'alipayReturnUrl', '', null, null, '同步通知地址', '1', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for edu_user
