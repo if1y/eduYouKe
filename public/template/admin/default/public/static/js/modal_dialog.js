@@ -43,6 +43,7 @@ function $modal(data) {
     }
     if (data.type === 'message') {
         $('#modail_message_box').html('');
+        $('#modail_message_box').css({ "z-index": "1000", })
         $('#modail-dialog-box').append('<div id="modail_message_box"></div>')
         var width_s = 40 + (fontSize * data.content.length) + fontSize + 4;
         $('#modail_message_box').append('<div id="' + idText + '_box"></div>');
@@ -58,8 +59,8 @@ function $modal(data) {
         // $('.' + idText + '_item img').css({ width: fontSize + 4 + 'px', verticalAlign: 'top', position: 'relative', top: '1px' })
         $('.' + idText + '_item img').css({ width: fontSize + 4 + 'px', position: 'relative', top: '1px' })
         calculate($('#' + idText + '_box'), 20)
-        $('#' + idText + '_box').css({ top: data.top - 60, })
-        $('#' + idText + '_box').animate({ 'top': data.top, 'opacity': '1', }, data.transition)
+        $('#' + idText + '_box').css({ top: data.top - 60,"z-index":"999" })
+        $('#' + idText + '_box').animate({ 'top': data.top, 'opacity': '1',"z-index":"999", }, data.transition)
 
         function close() {
             $('#' + idText + '_box').animate({ 'top': data.top - 60, 'opacity': '0', }, data.transition)

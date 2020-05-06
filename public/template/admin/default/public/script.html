@@ -79,7 +79,7 @@ function error(message = 'error', timeout = 2000) {
 
         type: 'message',
         icon: 'error',
-        content: '验证码发送成功,请注意查收',
+        timeout: timeout,
         content: message,
         center: false,
         top: 100,
