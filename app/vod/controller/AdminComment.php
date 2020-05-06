@@ -9,6 +9,8 @@ use app\util\Tools;
 
 class AdminComment extends AdminBaseController
 {
+    protected $middleware = ['adminAuth','Access'];
+    
 	//
 	public function index()
 	{

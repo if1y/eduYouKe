@@ -2,27 +2,26 @@
 namespace app\admin\controller;
 
 use app\AdminBaseController;
+use app\admin\validate\Login as LoginValidate;
 use app\logic\AdminUser;
 use think\facade\Session;
 use think\facade\View;
-use app\admin\validate\Login as LoginValidate;
-
-
 
 class Login extends AdminBaseController
 {
-    
-    //
-    public function initialize()
-    {
-        $this->getWebTheme();
-        View::assign('templateName', $this->template);
 
-    }
+    
+    // //
+    // public function initialize()
+    // {
+    //     $this->getWebTheme();
+    //     View::assign('templateName', $this->template);
+
+    // }
     //登录
     public function login()
     {
-        return View::fetch('');
+        return view('');
     }
 
     //登录
@@ -41,10 +40,10 @@ class Login extends AdminBaseController
         switch ($result)
         {
             case 1:
-                return json(['code' => 1, 'msg' => '登录成功']);
+                $this->success('登录成功');
                 break;
             default:
-                return json(['code' => 0, 'msg' => '账号密码错误']);
+                $this->error('账号密码错误');
                 break;
         }
     }
@@ -53,7 +52,7 @@ class Login extends AdminBaseController
     public function logout()
     {
         Session::delete('adminUserInfo');
-        return json(['code' => 1, 'msg' => '退出成功']);
+        $this->success('退出成功');
     }
 
 }

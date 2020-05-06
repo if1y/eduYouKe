@@ -13,6 +13,8 @@ use app\vod\validate\AdminCourseVideo as AdminCourseVideoValidate;
 
 class AdminCourseVideo extends AdminBaseController
 {
+    protected $middleware = ['adminAuth','Access'];
+    
     //视频列表
     public function index()
     {

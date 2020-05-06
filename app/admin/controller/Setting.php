@@ -1,15 +1,15 @@
 <?php
-// 千行代码，Bug何处藏。 纵使上线又怎样，朝令改，夕断肠
 namespace app\admin\controller;
 
 use app\AdminBaseController;
 use app\logic\Setting as logicSetting;
-use app\model\Banner;
 use think\facade\View;
 
 class Setting extends AdminBaseController
 {
-    //基础配置
+    protected $middleware = ['adminAuth','Access'];
+    
+    //基础配置 
     public function website()
     {
         $param   = $this->request->param();
@@ -29,6 +29,5 @@ class Setting extends AdminBaseController
         $tpl = isset($param['type']) && !empty($param['type']) ? $param['type'] : 'baseConfig';
         return redirect((string) url('/admin/setting/website', ['tplType' => $tpl]));
     }
-
 
 }

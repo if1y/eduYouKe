@@ -2,29 +2,30 @@
 namespace app\admin\controller;
 
 use app\AdminBaseController;
-use app\logic\Nav as NavLogic;
 use app\logic\CourseCategory;
+use app\logic\Nav as NavLogic;
 use think\facade\View;
 
 class Nav extends AdminBaseController
 {
+    protected $middleware = ['adminAuth','Access'];
 
-	public function index()
-	{
-		$nav = new NavLogic();
+    public function index()
+    {
+        $nav = new NavLogic();
 
         return view('', [
             'navlist' => $nav->getNavlist(),
         ]);
 
-	}
+    }
 
-	//添加
+    //添加
     public function add()
     {
 
         $param    = $this->request->param();
-		$nav = new NavLogic();
+        $nav      = new NavLogic();
         $category = new CourseCategory();
 
         $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
@@ -56,9 +57,9 @@ class Nav extends AdminBaseController
     public function edit()
     {
 
-        $param    = $this->request->param();
+        $param = $this->request->param();
 
-		$nav = new NavLogic();
+        $nav      = new NavLogic();
         $category = new CourseCategory();
 
         $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
@@ -77,7 +78,7 @@ class Nav extends AdminBaseController
         }
         else
         {
-        	// print_r($nav->getNavInfo($param['id'])->toArray());exit;
+            // print_r($nav->getNavInfo($param['id'])->toArray());exit;
             return view('', [
                 'editData' => $nav->getNavInfo($param['id']),
                 'navlist' => $nav->getNavlist(),
@@ -91,18 +92,11 @@ class Nav extends AdminBaseController
     //删除
     public function del()
     {
-        $param    = $this->request->param();
-		$nav = new NavLogic();
-        $result   = $nav->update(['delete_status' => 1], ['id' => $param['id']]);
-        if ($result)
-        {
-            return json(['code' => 1, 'msg' => '删除成功']);
-        }
-        else
-        {
-            return json(['code' => 0, 'msg' => '删除失败']);
-        }
-    }
+        $param  = $this->request->param();
+        $nav    = new NavLogic();
+        $result = $nav->update(['delete_status' => 1], ['id' => $param['id']]);
+        $result ? $this->success('删除成功') : $this->error('删除失败');
 
+    }
 
 }

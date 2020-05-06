@@ -553,7 +553,7 @@ $("#sign-out").click(function() {
         if (json.code == 1) {
             success(json.msg)
             setTimeout(function() {
-                window.location.href = "/admin"
+                window.location.href = "/admin/login/login"
             }, 1000);
 
         } else {
@@ -599,7 +599,7 @@ function uploadFile(input, file, path, label) {
                 $("#" + path + " img").attr('src', arg.target.result);
                 //添加路径到页面
                 console.log(data)
-                $("#" + input).val(data.path);
+                $("#" + input).val(data.data.path);
                 //更改文案
                 $("#" + label).html('重新上传');
 
@@ -650,8 +650,7 @@ function uploadVideo(input, file, path, label) {
                 //渲染到页面
                 $("#" + path + " img").attr('src', arg.target.result);
                 //添加路径到页面
-                console.log(data)
-                $("#" + input).val(data.path);
+                $("#" + input).val(data.data.path);
                 //更改文案
                 $("#" + label).html('重新上传');
 
