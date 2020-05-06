@@ -29,7 +29,7 @@ composer install
 
 
 [演示地址](http://edu.lixuqi.com/admin)
-[账号密码 admin--123456]
+[账号密码 eduYouke--123456]
 
 
 ## 交流群

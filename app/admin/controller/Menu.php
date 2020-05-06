@@ -85,8 +85,12 @@ class Menu extends AdminBaseController
                 $this->error($validate->getError());
             }
 
-            $exsit = $menu->where('url', $param['url'])
-                ->where('id', '<>', $param['id'])->find();
+            $exsit = $menu->where([
+                'show_status'=>1,
+                'delete_status'=>0,
+                'url'=>$param['url']
+                ])->where('id', '<>', $param['id'])
+            ->find();
 
             if ($exsit)
             {
