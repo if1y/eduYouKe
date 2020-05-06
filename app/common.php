@@ -108,13 +108,6 @@ function checkAuth($authUrl, $authId = 0)
         }
     }
 
-    // <!-- <a href="{:checkAuth($Request.root}/{$Request.controller}/add/)}" class="btn btn-success btn-sm btn-add" title="添加">
-    //                        <i class="fa fa-plus"></i>
-    //                        添加
-    //                    </a> -->
-
-    exit();
-
 }
 
 function getAdminAuth($authUrl, $url, $authId)
