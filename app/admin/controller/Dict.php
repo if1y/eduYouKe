@@ -2,30 +2,30 @@
 namespace app\admin\controller;
 
 use app\AdminBaseController;
-use think\facade\View;
 use app\logic\Dict as DictLogic;
+use think\facade\View;
 
 class Dict extends AdminBaseController
 {
-	public function index()
-	{
-		$dict = new DictLogic();
+    protected $middleware = ['adminAuth','Access'];
+    
+    public function index()
+    {
+        $dict = new DictLogic();
 
-		$list = $dict->getDictList();
+        $list = $dict->getDictList();
 
-		return view('', [
+        return view('', [
             'dictlist' => $list,
             'page' => $list->render(),
         ]);
-	}
+    }
 
-
-
-	public function add()
+    public function add()
     {
 
-        $param  = $this->request->param();
-        $dict = new DictLogic();
+        $param = $this->request->param();
+        $dict  = new DictLogic();
 
         if ($this->request->isPost())
         {
@@ -46,7 +46,7 @@ class Dict extends AdminBaseController
         {
             $dict = new DictLogic();
             return view('', [
-            	'dictlist' => $dict->getDictList(['type'=>1]),
+                'dictlist' => $dict->getDictList(['type' => 1]),
             ]);
         }
 
@@ -55,8 +55,8 @@ class Dict extends AdminBaseController
     public function edit()
     {
 
-        $param  = $this->request->param();
-        $dict = new DictLogic();
+        $param = $this->request->param();
+        $dict  = new DictLogic();
 
         if ($this->request->isPost())
         {
@@ -76,8 +76,8 @@ class Dict extends AdminBaseController
         else
         {
             return view('', [
-            	'editData' => $dict->getDictInfo($param['id']),
-            	'dictlist' => $dict->getDictList(['type'=>1]),
+                'editData' => $dict->getDictInfo($param['id']),
+                'dictlist' => $dict->getDictList(['type' => 1]),
             ]);
         }
 
@@ -94,14 +94,7 @@ class Dict extends AdminBaseController
         $dict = new DictLogic();
 
         $result = $dict->update(['delete_status' => 1], ['id' => $id]);
-        if ($result)
-        {
-            return json(['code' => 1, 'msg' => '删除成功']);
-        }
-        else
-        {
-            return json(['code' => 0, 'msg' => '删除失败']);
-        }
+        $result ? $this->success('删除成功') : $this->error('删除失败');
     }
 
 }

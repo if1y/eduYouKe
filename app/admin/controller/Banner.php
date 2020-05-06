@@ -4,25 +4,26 @@ namespace app\admin\controller;
 use app\AdminBaseController;
 use app\admin\validate\Banner as BannerValidate;
 use app\logic\Banner as BannerLogic;
-use think\facade\View;
 use app\util\Tools;
+use think\facade\View;
 
 class Banner extends AdminBaseController
 {
+    protected $middleware = ['adminAuth','Access'];
 
     public function index()
     {
-        $param  = $this->request->param();
-        
+        $param = $this->request->param();
+
         $banner = new BannerLogic();
-        $where = Tools::buildSearchWhere($param,[
-            'title','description','link_url','image_url']);
-        
-        $list   = $banner->getBannerList($where);
-        
+        $where  = Tools::buildSearchWhere($param, [
+            'title', 'description', 'link_url', 'image_url']);
+
+        $list = $banner->getBannerList($where);
+
         return view('', [
             'bannerlist' => $list,
-            'search_time' => isset($param['search_time']) ? $param['search_time']:'',
+            'search_time' => isset($param['search_time']) ? $param['search_time'] : '',
             'page' => $list->render(),
         ]);
     }
@@ -109,14 +110,8 @@ class Banner extends AdminBaseController
         $banner = new BannerLogic();
 
         $result = $banner->update(['delete_status' => 1], ['id' => $id]);
-        if ($result)
-        {
-            return json(['code' => 1, 'msg' => '删除成功']);
-        }
-        else
-        {
-            return json(['code' => 0, 'msg' => '删除失败']);
-        }
+        $result ? $this->success('删除成功') : $this->error('删除失败');
+
     }
 
 }

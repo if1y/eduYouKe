@@ -4,11 +4,12 @@ namespace app\admin\controller;
 use app\AdminBaseController;
 use app\logic\AdminMenu;
 use app\logic\AdminRole;
-use app\util\Tools;
 use think\facade\View;
 
 class Role extends AdminBaseController
 {
+
+    protected $middleware = ['adminAuth','Access'];
 
     /**
      * [AdminRoleList 获取角色组列表]
@@ -18,9 +19,11 @@ class Role extends AdminBaseController
         $role = new AdminRole();
         $list = $role->where('delete_status', 0)->paginate(12);
 
-        View::assign('rolelist', $list);
-        View::assign('page', $list->render());
-        return View::fetch();
+        return view('', [
+            'rolelist' => $list,
+            'page' => $list->render(),
+        ]);
+
     }
 
     /**
@@ -46,7 +49,7 @@ class Role extends AdminBaseController
         }
         else
         {
-            return View::fetch();
+            return view('');
         }
     }
 
@@ -76,8 +79,10 @@ class Role extends AdminBaseController
         else
         {
 
-            View::assign('editData', $role->getAdminRoleInfo($param['id']));
-            return View::fetch();
+            return view('', [
+                'editData' => $role->getAdminRoleInfo($param['id']),
+            ]);
+
         }
     }
 
@@ -91,14 +96,7 @@ class Role extends AdminBaseController
 
         $role   = new AdminRole();
         $result = $role->update(['delete_status' => 1], ['id' => $id]);
-        if ($result)
-        {
-            return json(['code' => 1, 'msg' => '删除成功']);
-        }
-        else
-        {
-            return json(['code' => 0, 'msg' => '删除失败']);
-        }
+        $result ? $this->success('删除成功') : $this->error('删除失败');
     }
 
     /**
@@ -113,12 +111,14 @@ class Role extends AdminBaseController
 
         if ($this->request->isPost())
         {
-            if (isset($param['authids'])) {
+            if (isset($param['authids']))
+            {
 
                 $role = new AdminRole();
-                if ($role->where('id',$param['id'])->save([
-                    'role_auth'=>implode(',',$param['authids'])
-                ])) {
+                if ($role->where('id', $param['id'])->save([
+                    'role_auth' => implode(',', $param['authids']),
+                ]))
+                {
                     $this->success('操作成功');
                 }
 
@@ -132,16 +132,14 @@ class Role extends AdminBaseController
         }
     }
 
-
-
     //获取当前用户的tree权限
     public function getAuthTree()
     {
 
         $roleId = $this->request->param('id', 0, 'intval');
-        $menu = new AdminMenu();
-        $tress = $menu->getUserAuthTree($roleId);
-        return $this->success('获取成功...','',['trees'=>$tress]);
+        $menu   = new AdminMenu();
+        $tress  = $menu->getUserAuthTree($roleId);
+        return $this->success('获取成功...', '', ['trees' => $tress]);
 
     }
 

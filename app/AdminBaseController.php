@@ -26,23 +26,10 @@ class AdminBaseController extends BaseController
 
         //获取当前配置的模板
         $this->getWebTheme();
-        if (empty(Session::get('adminUserInfo')))
-        {
-            redirect(getDomain() . '/admin/login/login')->send();exit;
-        }
-        else
-        {
-            if (!$this->checkAccess(Session::get('adminUserInfo')))
-            {
-                $this->error("您没有访问权限！");
-            }
-
-            View::assign('templateName', $this->template);
-            View::assign('adminMenus', $this->getMenus());
-            View::assign('contentHeader', $this->getContentHeader());
-            View::assign('site_info', $this->getSeo());
-
-        }
+        View::assign('templateName', $this->template);
+        View::assign('adminMenus', $this->getMenus());
+        View::assign('contentHeader', $this->getContentHeader());
+        View::assign('site_info', $this->getSeo());
 
         //模板继承
         if ($this->layout)
@@ -61,7 +48,7 @@ class AdminBaseController extends BaseController
             ->where(['category_name' => 'adminTemplate'])->find();
 
         $this->template = !empty($template['content']) ? $template['content'] : 'default';
-        $path = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
+        $path           = WEB_ROOT . DIRECTORY_SEPARATOR . config('view.view_dir_name') . DIRECTORY_SEPARATOR . $this->webTemplateDir . DIRECTORY_SEPARATOR . $this->template . DIRECTORY_SEPARATOR . app('http')->getName() . '/';
         $this->viewTplReplaceString();
 
         View::config(['view_path' => $path]);
@@ -92,51 +79,55 @@ class AdminBaseController extends BaseController
     final public function getMenus()
     {
 
-        $userInfo = json_decode(Session::get('adminUserInfo'), true);
-        $role_id  = $userInfo['role_id'];
-        Session::set('admin_nickname', $userInfo['nickname']);
-        Session::set('admin_userid', $userInfo['id']);
-        // echo Session::get('admin_nickname');
-        // exit;
-        if ($role_id !== 1)
+        if (!empty(Session::get('adminUserInfo')))
         {
 
-            $role = DB::name('admin_role')->field('role_auth')->where('delete_status', 0)
-                ->where('id', $role_id)->find();
-
-            Session::set('adminAuth', $role['role_auth']);
-            if (empty($role['role_auth']))
+            $userInfo = json_decode(Session::get('adminUserInfo'), true);
+            $role_id = $userInfo['role_id'];
+            Session::set('admin_nickname', $userInfo['nickname']);
+            Session::set('admin_userid', $userInfo['id']);
+            // echo Session::get('admin_nickname');
+            // exit;
+            if ($role_id !== 1)
             {
-                Session::set('adminUserInfo', null);
-                return;
+
+                $role = DB::name('admin_role')->field('role_auth')->where('delete_status', 0)
+                    ->where('id', $role_id)->find();
+
+                Session::set('adminAuth', $role['role_auth']);
+                if (empty($role['role_auth']))
+                {
+                    Session::set('adminUserInfo', null);
+                    return;
+                }
+                $whereIn = [
+                    ['id', 'in', $role['role_auth']],
+                ];
+
             }
-            $whereIn = [
-                ['id', 'in', $role['role_auth']],
-            ];
+            else
+            {
 
+                $whereIn = [];
+            }
+
+            $access = DB::name('admin_menu')
+                ->where('show_status', 1)
+                ->where('delete_status', 0)
+                ->where('type', 'in', '1,2')
+                ->where($whereIn)
+                ->order('sort', 'asc')
+                ->select()->toArray();
+
+            //组装选中状态
+            $access = Menu::getActiveStatus($access);
+            // //判断当前权限
+            //组装目录
+            $menus = Menu::buildMenus(
+                Tools::listToTree($access, 'id', 'parent_id')
+            );
+            return $menus;
         }
-        else
-        {
-
-            $whereIn = [];
-        }
-
-        $access = DB::name('admin_menu')
-            ->where('show_status', 1)
-            ->where('delete_status', 0)
-            ->where('type', 'in', '1,2')
-            ->where($whereIn)
-            ->order('sort', 'asc')
-            ->select()->toArray();
-
-        //组装选中状态
-        $access = Menu::getActiveStatus($access);
-        // //判断当前权限
-        //组装目录
-        $menus = Menu::buildMenus(
-            Tools::listToTree($access, 'id', 'parent_id')
-        );
-        return $menus;
     }
 
     //检查用户是否拥有权限

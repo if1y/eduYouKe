@@ -7,6 +7,8 @@ use think\facade\View;
 
 class AdminCourseCategory extends AdminBaseController
 {
+    protected $middleware = ['adminAuth','Access'];
+    
     //分类首页
     public function index()
     {

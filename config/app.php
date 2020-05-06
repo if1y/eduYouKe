@@ -36,5 +36,11 @@ return [
     'error_message'    => '页面错误！请稍后再试～',
     // 显示错误信息
     'show_error_msg'   => true,
-        // 默认跳转页面对应的模板文件【新增】
+    // 默认跳转页面对应的模板文件【新增】
+    
+    'http_exception_template'=>[
+        // 定义404错误的模板文件地址
+        404 =>  \think\facade\App::getRootPath() .'public'.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR. '404.html',
+        401 =>  \think\facade\App::getRootPath() .'public'.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR. '401.html',
+    ]
 ];

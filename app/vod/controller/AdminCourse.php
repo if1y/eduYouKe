@@ -10,6 +10,7 @@ use app\vod\validate\AdminCourse as AdminCourseValidate;
 
 class AdminCourse extends AdminBaseController
 {
+    protected $middleware = ['adminAuth','Access'];
 
     /**
      * [courselist 课程列表/章节列表]

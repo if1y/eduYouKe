@@ -2,13 +2,14 @@
 namespace app\admin\controller;
 
 use app\AdminBaseController;
+use app\admin\validate\Menu as MenuValidate;
 use app\logic\AdminMenu;
 use think\facade\View;
-use app\admin\validate\Menu as MenuValidate;
-
 
 class Menu extends AdminBaseController
 {
+
+    protected $middleware = ['adminAuth','Access'];
 
     /**
      * [menulist 目录列表]
@@ -18,8 +19,11 @@ class Menu extends AdminBaseController
     {
 
         $menu = new AdminMenu();
-        View::assign('menulist', $menu->getMenuList());
-        return View::fetch();
+
+        return view('', [
+            'menulist' => $menu->getMenuList(),
+        ]);
+
     }
 
     //添加页面
@@ -57,9 +61,9 @@ class Menu extends AdminBaseController
         }
         else
         {
-
-            View::assign('menulist', $menu->getMenuList());
-            return View::fetch();
+            return view('', [
+                'menulist' => $menu->getMenuList(),
+            ]);
         }
     }
 
@@ -73,7 +77,7 @@ class Menu extends AdminBaseController
         $menu  = new AdminMenu();
 
         if ($this->request->isPost())
-        {   
+        {
 
             $validate = new MenuValidate();
             if (!$validate->check($param))
@@ -88,7 +92,6 @@ class Menu extends AdminBaseController
             {
                 $this->error('路径已存在');
             }
-
 
             if ($menu->editMenu($param))
             {
@@ -119,14 +122,7 @@ class Menu extends AdminBaseController
         $param  = $this->request->param();
         $menu   = new AdminMenu();
         $result = $menu->update(['delete_status' => 1], ['id' => $param['id']]);
-        if ($result)
-        {
-            return json(['code' => 1, 'msg' => '删除成功']);
-        }
-        else
-        {
-            return json(['code' => 0, 'msg' => '删除失败']);
-        }
+        $result ? $this->success('删除成功') : $this->error('删除失败');
     }
 
 }

@@ -9,6 +9,8 @@ use app\util\Tools;
 
 class AdminOrder extends AdminBaseController
 {
+    protected $middleware = ['adminAuth','Access'];
+    
 	//订单列表
 	public function index()
     {

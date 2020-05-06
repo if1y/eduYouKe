@@ -11,6 +11,8 @@ use app\vod\validate\AdminChapter as AdminChapterValidate;
 
 class AdminChapter extends AdminBaseController
 {
+    protected $middleware = ['adminAuth','Access'];
+    
     //首页
     public function index()
     {
