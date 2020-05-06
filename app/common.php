@@ -209,9 +209,9 @@ function getUserInfoData($admin = 0, $column = 'id')
 }
 
 //获取用户头像
-function getUserAvatarUrl()
+function getUserAvatarUrl($isAdmin = 0)
 {
-    return getUrlPath(getUserInfoData(0, 'avatar_url'));
+    return getUrlPath(getUserInfoData($isAdmin, 'avatar_url'));
 }
 
 function getTemplate($name)
