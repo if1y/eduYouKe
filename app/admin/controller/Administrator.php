@@ -169,7 +169,7 @@ class Administrator extends AdminBaseController
 
             //验证数据
             $validate = new AdministratorValidate();
-            if (!$validate->scene('edit')->check($param))
+            if (!$validate->scene('editInfo')->check($param))
             {
                 $this->error($validate->getError());
             }

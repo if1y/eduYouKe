@@ -11,7 +11,7 @@ use app\user\validate\AdminUser as AdminUserValidate;
 class AdminUser extends AdminBaseController
 {
 
-    protected $middleware = ['adminAuth','access'];
+    protected $middleware = ['adminAuth','Access'];
 
     public function index()
     {

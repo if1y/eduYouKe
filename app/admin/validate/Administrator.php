@@ -21,5 +21,6 @@ class Administrator extends Validate
     
     protected $scene = [
         'edit' => ['nickname', 'role_id', 'mobile'],
+        'editInfo' => ['nickname', 'mobile'],
     ];
 }
