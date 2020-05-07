@@ -60,7 +60,7 @@
                             <li class="nav-item detail-nav-item">
                                 <a class="nav-link active ml-2" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">章节目录</a>
                             </li>
-                           <!--  <li class="nav-item detail-nav-item">
+                            <!--  <li class="nav-item detail-nav-item">
                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">资料下载</a>
                             </li> -->
                         </ul>
@@ -99,12 +99,11 @@
                             </div>
                             {/volist}
                         </div>
-
                     </div>
                     <!-- 详情end -->
                 </div>
+                <input type="hidden" name="videoplay" value="0">
                 <div class="col-lg-3 col-md-12 ">
-
                     <div class="card mt-3 mb-3">
                         <div class="card-header">
                             <h3 class="card-title">推荐课程</h3>
@@ -152,6 +151,11 @@ var player = new Aliplayer({
     "controlBarVisibility": "hover",
     "useH5Prism": true
 }, function(player) {
-    console.log("The player is created");
+
 });
+
+player.on('ready', function(e) {
+    player.play();
+});
+
 </script>

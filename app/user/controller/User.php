@@ -29,7 +29,6 @@ class User extends WebBaseController
         $user    = new UserLogic();
         $history = $user->getUserHistory($param);
 
-        // print_r($history);exit();
         return view('', [
             'history' => $history,
             'page' => $history->render(),
