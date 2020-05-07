@@ -19,7 +19,7 @@
                             {include file='../public/slide' /}
                         </div>
                     </div>
-                    <h3> <i class="fa fa-bookmark-o" aria-hidden="true"></i> 精品推荐</h3>
+                    <h3> <i class="fa fa-bookmark-o text-warning" aria-hidden="true"></i> 精品推荐</h3>
                     <hr>
                     <div class="row">
                         {volist name="recommendcourse" id="vo" key="k"}
@@ -55,7 +55,7 @@
                         </div>
                         {/volist}
                     </div>
-                    <h3> <i class="fa fa-bookmark-o" aria-hidden="true"></i> 新上好课</h3>
+                    <h3> <i class="fa fa-bookmark-o text-danger" aria-hidden="true"></i> 新上好课</h3>
                     <hr>
                     <div class="row">
                         {volist name="newcourse" id="vo" key="k"}
@@ -90,7 +90,7 @@
                         </div>
                         {/volist}
                     </div>
-                    <h3> <i class="fa fa-bookmark-o" aria-hidden="true"></i> 热门课程</h3>
+                    <h3> <i class="fa fa-bookmark-o text-primary" aria-hidden="true"></i> 热门课程</h3>
                     <hr>
                     <div class="row">
                         {volist name="hotcourse" id="vo" key="k"}
@@ -125,7 +125,7 @@
                         </div>
                         {/volist}
                     </div>
-                    <h3> <i class="fa fa-bookmark-o" aria-hidden="true"></i> 猜你喜欢</h3>
+                    <h3> <i class="fa fa-bookmark-o text-success" aria-hidden="true"></i> 猜你喜欢</h3>
                     <hr>
                     <div class="row">
                         {volist name="conjecturecourse" id="vo" key="k"}
@@ -159,6 +159,27 @@
                             </div>
                         </div>
                         {/volist}
+                    </div>
+                </div>
+                <div class="container">
+                    <br>
+                    <h3> <i class="fa fa-link text-muted" aria-hidden="true"></i> 合作伙伴</h3>
+                    <hr>
+                    <div class="row">
+
+
+                        {volist name="linklist" id="vo" key="k"}
+
+                        <div class="col-md-3" id="info-box">
+                            <div class="info-box text-center">
+                                <a href="{$vo.link_url}">
+                                <img class="rounded-lg imgcolor"  src="{$vo.image_url}" width="100%" height="80px">
+                                </a>
+                            </div>
+                        </div>
+
+                        {/volist}
+
                     </div>
                 </div>
             </div>

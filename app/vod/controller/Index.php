@@ -14,10 +14,10 @@ class Index extends WebBaseController
     {
         $banner     = new Banner();
         $course     = new Course();
-        $bannerList = $banner->getBannerList(['type' => 1], 'link_url,image_url');
-
+        
         return view('', [
-            'bannerlist' => $bannerList,
+            'bannerlist' => $banner->getBannerList(['type' => 1], 'link_url,image_url'),
+            'linklist' => $banner->getBannerList(['type' => 2], 'link_url,image_url'),
             'newcourse' => $course->getNewCourse(), //新课程
             'recommendcourse' => $course->getRecommendCourse(), //推荐课程
             'hotcourse' => $course->getHotCourse(), //热门课程

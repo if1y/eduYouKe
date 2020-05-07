@@ -11,27 +11,37 @@ class Nav extends NavModel
     public function getNavlist()
     {
 
-
-           $nav = $this->alias('a')
+        $nav = $this->alias('a')
             ->field([
                 'a.*',
                 'c.title as category_title',
             ])
             ->leftJoin('course_category c', 'a.category_id = c.id')
-            ->where(['a.show_status'=>1,'a.delete_status'=>0])
+            ->where(['a.show_status' => 1, 'a.delete_status' => 0])
             ->select()->toArray();
 
-            // print_r($nav);exit();
+        // print_r($nav);exit();
         // $nav = $this->where('delete_status',0)->order('sort', 'desc')->select()->toArray();
 
-        return Tools::formatTree(Tools::listToTree($nav, 'id', 'parent_id'),0,'title');
+        return Tools::formatTree(Tools::listToTree($nav, 'id', 'parent_id'), 0, 'title');
     }
-
 
     //获取前端展示
     public function getNavView($param)
     {
-        $data = (new CourseCategory())->baseQuery();
+        $data = $this->alias('a')
+            ->field([
+                'a.parent_id',
+                'a.category_id',
+                'a.id',
+                'a.title',
+                'c.seoTitle',
+                'c.seoKeywords',
+                'c.seoDescription',
+            ])
+            ->join('course_category c', 'a.category_id = c.id')
+            ->where(['a.show_status' => 1, 'a.delete_status' => 0])
+            ->select();
 
         $lv = Tools::formatTree(
             Tools::listToTree($data->toArray(), 'id', 'parent_id'), 0, 'title'
@@ -43,7 +53,6 @@ class Nav extends NavModel
             $parentIds = Tools::getOnTree($lv, $param['list_id']);
             $allIds    = array_filter(array_merge($parentIds, $sonIds));
 
-            // print_r($sonIds);exit();
             $checkLv = [];
             foreach ($lv as $key => $value)
             {
@@ -81,28 +90,33 @@ class Nav extends NavModel
         if (!empty($param))
         {
 
-            $data = (new CourseCategory())->baseQuery();
+            $data = $this->alias('a')
+                ->field([
+                    'a.parent_id',
+                    'a.category_id',
+                    'a.id',
+                    'a.title',
+                    'c.seoTitle',
+                    'c.seoKeywords',
+                    'c.seoDescription',
+                ])
+                ->join('course_category c', 'a.category_id = c.id')
+                ->where(['a.show_status' => 1, 'a.delete_status' => 0])
+                ->select();
 
             $lv = Tools::formatTree(
                 Tools::listToTree($data->toArray(), 'id', 'parent_id'), 0, 'title'
             );
-            $sonIds = Tools::getUpTree($lv, $param['list_id']);
-            $sonIds = $this->getIdsByParentId($sonIds);
-            // print_r($sonIds);exit();
-            // exit();
-            if (!empty($sonIds))
-            {
-                $ids     = implode(',', $sonIds);
-                $whereIn = [
-                    ['cat.id', 'in', $ids],
-                ];
-            }
-            else
-            {
-                $whereIn = [
-                    ['cat.id', 'in', $param['list_id']],
-                ];
-            }
+
+            $listId = Tools::getUpTree($lv, $param['list_id']);
+            $sonIds = $this->getIdsByParentId($listId);
+
+            $sonIds = $this->getCategoryIdsByNavIds($sonIds, $param['list_id']);
+
+            $ids     = implode(',', $sonIds);
+            $whereIn = [
+                ['cat.id', 'in', $ids],
+            ];
 
         }
 
@@ -122,15 +136,44 @@ class Nav extends NavModel
         return $result;
     }
 
+    //
+    public function getCategoryIdsByNavIds($sonIds, $listId)
+    {
+
+        if (!empty($sonIds))
+        {
+            $ids     = implode(',', $sonIds);
+            $whereIn = [
+                ['id', 'in', $ids],
+            ];
+        }
+        else
+        {
+            $whereIn = [
+                ['id', 'in', $listId],
+            ];
+        }
+
+        $category   = $this->field('category_id')->where($whereIn)->select();
+        $categoryId = [];
+        foreach ($category as $key => $value)
+        {
+            $categoryId[$key] = $value['category_id'];
+        }
+
+        return $categoryId;
+
+    }
+
     //根据当前选择获取所有子id
     public function getIdsByParentId($sonIds)
     {
 
-        $cat   = new CourseCategory();
+        // $cat   = new CourseCategory();
         $idArr = [];
         foreach ($sonIds as $key => $value)
         {
-            $info  = $cat->baseQuery(['parent_id' => $value], 'id,parent_id');
+            $info  = $this->baseQuery(['parent_id' => $value], 'id,parent_id');
             $ids   = $this->dataToIds($info);
             $idArr = array_merge($idArr, $ids);
         }

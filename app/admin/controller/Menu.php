@@ -9,7 +9,7 @@ use think\facade\View;
 class Menu extends AdminBaseController
 {
 
-    protected $middleware = ['adminAuth','Access'];
+    protected $middleware = ['adminAuth', 'Access'];
 
     /**
      * [menulist 目录列表]
@@ -86,11 +86,11 @@ class Menu extends AdminBaseController
             }
 
             $exsit = $menu->where([
-                'show_status'=>1,
-                'delete_status'=>0,
-                'url'=>$param['url']
-                ])->where('id', '<>', $param['id'])
-            ->find();
+                'show_status' => 1,
+                'delete_status' => 0,
+                'url' => $param['url'],
+            ])->where('id', '<>', $param['id'])
+                ->find();
 
             if ($exsit)
             {
@@ -123,10 +123,22 @@ class Menu extends AdminBaseController
      */
     public function del()
     {
-        $param  = $this->request->param();
-        $menu   = new AdminMenu();
-        $result = $menu->update(['delete_status' => 1], ['id' => $param['id']]);
-        $result ? $this->success('删除成功') : $this->error('删除失败');
+        $param = $this->request->param();
+        $menu  = new AdminMenu();
+
+        $child = $menu->getAdminMenuInfo(['parent_id' => $param['id']], 'id');
+        if ($child)
+        {
+
+            $this->error('请先删除子分类');
+
+        }
+        else
+        {
+
+            $result = $menu->update(['delete_status' => 1], ['id' => $param['id']]);
+            $result ? $this->success('删除成功') : $this->error('删除失败');
+        }
     }
 
 }
