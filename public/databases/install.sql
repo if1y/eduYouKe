@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : testedu
+Source Server         : fastedu
 Source Server Version : 50729
 Source Host           : 140.143.158.102:3306
-Source Database       : test_lixuqi_com
+Source Database       : edu_lixuqi_com
 
 Target Server Type    : MYSQL
 Target Server Version : 50729
 File Encoding         : 65001
 
-Date: 2020-05-06 21:19:07
+Date: 2020-05-07 15:41:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `edu_admin_menu` (
   PRIMARY KEY (`id`),
   KEY `show_status` (`show_status`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of edu_admin_menu
@@ -110,6 +110,7 @@ INSERT INTO `edu_admin_menu` VALUES ('157', '46', '3', '0', '1', '0', 'user/Admi
 INSERT INTO `edu_admin_menu` VALUES ('158', '48', '3', '0', '1', '0', 'vod/AdminOrder/add', '添加', 'circle', '', '0', '0');
 INSERT INTO `edu_admin_menu` VALUES ('159', '48', '3', '0', '1', '0', 'vod/AdminOrder/del', '删除', 'circle', '', '0', '0');
 INSERT INTO `edu_admin_menu` VALUES ('160', '48', '3', '0', '1', '0', 'vod/AdminOrder/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('161', '11', '3', '0', '1', '0', 'vod/AdminCourse/operation', '热门/推荐', '', '', '1588837165', '0');
 
 -- ----------------------------
 -- Table structure for edu_admin_role

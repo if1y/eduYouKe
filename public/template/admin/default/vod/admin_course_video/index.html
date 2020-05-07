@@ -54,7 +54,7 @@
                                 <th style="width: 10px">章节名称</th>
                                 <th style="width: 10px">视频名称</th>
                                 <th style="width: 10px">视频简介</th>
-                                <th style="width: 10px">视频预览</th>
+                                <th style="width: 10px">缩略图</th>
                                 <th style="width: 10px">备注</th>
                                 <th style="width: 10px">状态</th>
                                 <th style="width: 10px">SEO标题</th>
@@ -71,7 +71,7 @@
                                 <td>{$vo.chapter_id}</td>
                                 <td>{$vo.title}</td>
                                 <td>{$vo.description}</td>
-                                <td> <img src="{$vo.image_url ? getUrlPath($vo.image_url) :'/static/common/img/video-128x128.jpg'}" width="30" height="30"></td>
+                                <td> <img src="{$vo.image_url ? getUrlPath($vo.image_url) :'__STATIC__/img/video-128x128.jpg'}" width="30" height="30"></td>
                                 <td>{$vo.remark}</td>
                                 <td>{$vo.show_status ? '<i class="fa fa-circle text-primary">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}</td>
                                 <td>{$vo.seoTitle}</td>
