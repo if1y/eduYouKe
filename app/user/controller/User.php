@@ -2,17 +2,17 @@
 namespace app\user\controller;
 
 use app\logic\Image;
-use app\logic\User as UserLogic;
-use app\WebBaseController;
-use app\util\Tools;
 use app\logic\Order;
+use app\logic\User as UserLogic;
+use app\util\Tools;
+use app\WebBaseController;
 use think\facade\View;
 
 class User extends WebBaseController
 {
 
     protected $middleware = ['auth'];
-    
+
     protected function initialize()
     {
         parent::initialize();
@@ -44,7 +44,7 @@ class User extends WebBaseController
         }
 
         $order = new Order();
-        $list = $order->getUserOrderList();
+        $list  = $order->getUserOrderList();
         return view('', [
             'list' => $list,
             'page' => $list->render(),
@@ -103,7 +103,13 @@ class User extends WebBaseController
                 return redirect((string) url('user/centor', ['user_id' => $this->userId]));
             }
 
-            $this->userInfo['mobile'] = substr($this->userInfo['mobile'], 0, 3) . '****' . substr($this->userInfo['mobile'], 7);
+            //
+            if ($this->userInfo['mobile'])
+            {
+
+                $this->userInfo['mobile'] = substr($this->userInfo['mobile'], 0, 3) . '****' . substr($this->userInfo['mobile'], 7);
+
+            }
 
             return view('', [
                 'userinfo' => $this->userInfo,
@@ -124,7 +130,39 @@ class User extends WebBaseController
         //更新Session头像
         $user->updateSession(0, 'avatar_url', $savename);
         $user->where('id', $userId)->save(['avatar_url' => $savename]);
-        return json(['code' => 1, 'message' => '上传成功']);
+        $this->success('上传成功');
+    }
+
+    //绑定手机号
+    public function updateMobile()
+    {
+        $param = $this->request->param();
+
+        $user   = new UserLogic();
+        $result = $user->updateMobile($param);
+
+        switch ($result)
+        {
+            case 1:
+                $this->success('绑定成功');
+                break;
+            case 2:
+                $this->error('绑定失败');
+                break;
+            case 3:
+                $this->error('验证码有误');
+                break;
+            case 4:
+                $this->error('验证码失效');
+                break;
+            case 5:
+                $this->error('该手机号已绑定');
+                break;
+            default:
+                $this->error('绑定失败');
+                break;
+        }
+
     }
 
 }

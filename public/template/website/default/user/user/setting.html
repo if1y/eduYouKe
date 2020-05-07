@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>{$userinfo.nickname|default=''}的个人中心</title>
     <meta name="keywords" content="{$site_info.seoKeywords|default=''}" />
     <meta name="description" content="{$site_info.seoDescription|default=''}">
     {include file='../public/header' /}
-    <style type="text/css">
-    </style>
+    <link href="__STATIC__/css/jquery-confirm.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -41,11 +39,9 @@
                                             <b>经验</b> <a class="float-right">{$userinfo.empirical}</a>
                                         </li>
                                     </ul>
-                                    
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="col-md-9 mt-3">
                             <div class="card">
                                 <div class="card-header p-2">
@@ -71,8 +67,11 @@
                                                 <div class="form-group row">
                                                     <label for="Mobile" class="col-sm-2 col-form-label">手机号</label>
                                                     <div class="col-sm-10">
+                                                        {if $userinfo.mobile}
                                                         <strong>{$userinfo.mobile}</strong>
-                                                        
+                                                        {else /}
+                                                        <a href="{:url('user/user/updateMobile')}" class="badge badge-danger" id="bandMobile"> 绑定手机号</a>
+                                                        {/if}
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -105,15 +104,30 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                            <div id="bandMobileForm" style="display: none;">
+                                                <div id="sms-login">
+                                                    <div class="form-group">
+                                                        <label><strong class="text-black-50">请输入手机号码</strong></label>
+                                                        <input type="text" name="mobile" class="form-control mobile">
+                                                    </div>
+                                                        {:token_field()}
+                                                    <div class="form-group">
+                                                        <label><strong class="text-black-50">请输入验证码</strong></label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" name="smscode" class="form-control smscode">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon" onclick="sendSms()">获取验证码
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        
                                     </div>
-                                    
                                 </div>
                             </div>
-                            
                         </div>
-                        
                     </div>
                 </div>
             </div>
@@ -122,7 +136,11 @@
     {include file='../public/footer' /}
     </div>
     {include file='../public/script' /}
-    <script src="__TEMPSTATIC__/js/avatarUpload.js"></script>
+    <script src="__STATIC__/js/jquery-confirm.min.js"></script>
+    <script src="__TEMPSTATIC__/js/avatar.js"></script>
+    <script src="__TEMPSTATIC__/js/login.js"></script>
+    <script src="__TEMPSTATIC__/js/setting.js"></script>
+
 </body>
 
 </html>

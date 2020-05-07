@@ -50,7 +50,7 @@
 
     if ($('#sendSms').length) {
         $('#sendSms').on('click', function(e) {
-
+            
             e.preventDefault();
 
             url = $("#sendSms").attr('href');

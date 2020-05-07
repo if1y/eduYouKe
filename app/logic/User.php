@@ -4,7 +4,6 @@ namespace app\logic;
 use app\model\User as UserModel;
 use app\service\AliSms;
 use app\util\Tools;
-use think\facade\Db;
 use think\facade\Session;
 
 class User extends UserModel
@@ -246,7 +245,7 @@ class User extends UserModel
         {
             $whereOr[$key] = ['log.category', '=', $value];
             $whereOr[$key] = ['log.category', '=', $value];
-        } 
+        }
 
         // print_r($whereOr);
 
@@ -267,7 +266,7 @@ class User extends UserModel
             ->whereOr($whereOr)
             ->where([
                 'c.show_status' => 1,
-                'c.delete_status' => 0
+                'c.delete_status' => 0,
             ])
             ->where('log.user_id', $userId)
             ->paginate(['query' => ['user_id' => $userId], 'list_rows' => 3])->each(function ($item)
@@ -283,6 +282,45 @@ class User extends UserModel
     {
         return $this->field($field)->where($where)
             ->where(['delete_status' => 0])->order('create_time desc')->paginate();
+    }
+
+    //更新用户手机号
+    public function updateMobile($data)
+    {
+
+        $log     = new RecordLog();
+        $content = $log->field('value,create_time')
+            ->where(['category' => 'smsCode', 'key' => $data['mobile'], 'value' => $data['smscode']])
+            ->order('create_time', 'desc')->find();
+        if (empty($content))
+        {
+            return 3; //验证码有误
+        }
+
+        //
+        if ((time() - strtotime($content['create_time'])) > 300)
+        {
+            return 4; //验证码无效
+        }
+
+        $userId = getUserInfoData();
+
+        //查询当前手机号是否已经绑定
+        $exsit = $this->where('mobile', $data['mobile'])->where('id', '<>', $userId)->find();
+        if ($exsit) {
+            return 5;
+        }
+        //更新当前用户手机号
+        $result = $this->where('id', $userId)->save(['mobile' => $data['mobile']]);
+        if ($result)
+        {
+
+            $this->updateSession(0, 'mobile', $data['mobile']);
+            return $result;
+        }
+
+        return 2;
+
     }
 
 }
