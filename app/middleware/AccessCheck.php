@@ -61,7 +61,7 @@ class AccessCheck
             {
                 return json([
                     'code' => 0,
-                    'msg' => 'authorization error',
+                    'msg' => '暂无权限 , authorization error',
                 ]);
 
             }

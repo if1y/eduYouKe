@@ -8,7 +8,7 @@ use think\facade\View;
 
 class Nav extends AdminBaseController
 {
-    protected $middleware = ['adminAuth','Access'];
+    protected $middleware = ['adminAuth', 'Access'];
 
     public function index()
     {
@@ -92,10 +92,22 @@ class Nav extends AdminBaseController
     //删除
     public function del()
     {
-        $param  = $this->request->param();
-        $nav    = new NavLogic();
-        $result = $nav->update(['delete_status' => 1], ['id' => $param['id']]);
-        $result ? $this->success('删除成功') : $this->error('删除失败');
+        $param = $this->request->param();
+        $nav   = new NavLogic();
+        //查询是否有子分类
+        $child = $nav->getNavInfo(['parent_id' => $param['id']], 'id');
+        if ($child)
+        {
+
+            $this->error('请先删除子分类');
+
+        }
+        else
+        {
+
+            $result = $nav->update(['delete_status' => 1], ['id' => $param['id']]);
+            $result ? $this->success('删除成功') : $this->error('删除失败');
+        }
 
     }
 

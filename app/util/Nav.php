@@ -10,7 +10,7 @@ class Nav
         foreach ($nav as $key => $value)
         {
 
-            $js     =  $value['nav_type'] == 1  ? '/index/list/?list_id='.$value['category_id']: fixUrl($value['url']);
+            $js     =  $value['nav_type'] == 1  ? '/index/list/?list_id='.$value['id']: fixUrl($value['url']);
             
             $class  = !empty($value['_child']) ? ' nav-item dropdown ' : ' nav-item ';
             $toggle = !empty($value['_child']) ? ' dropdown-toggle ' : '';

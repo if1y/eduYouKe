@@ -12,7 +12,7 @@ $('#content').validate({
             required: "请输入路径",
         },
         title: {
-            required: "请输入菜单名称",
+            required: "请输入banner名称",
         },
     },
     // errorElement: 'span',
