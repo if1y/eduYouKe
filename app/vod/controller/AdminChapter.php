@@ -4,28 +4,27 @@ namespace app\vod\controller;
 use app\AdminBaseController;
 use app\logic\Chapter as ChapterLogic;
 use app\logic\Course;
-use think\facade\View;
+use app\logic\CourseVideo;
 use app\util\Tools;
 use app\vod\validate\AdminChapter as AdminChapterValidate;
-
+use think\facade\View;
 
 class AdminChapter extends AdminBaseController
 {
-    protected $middleware = ['adminAuth','Access'];
-    
+    protected $middleware = ['adminAuth', 'Access'];
+
     //首页
     public function index()
     {
 
         $param = $this->request->param();
 
-        $where = Tools::buildSearchWhere($param,[
-            'title','description']);
-        
+        $where = Tools::buildSearchWhere($param, [
+            'ch.title', 'ch.description', 'co.title'], 'ch');
 
         $chapter = new ChapterLogic();
-        $list   = $chapter->getChapterList($where);
-        
+        $list    = $chapter->getChapterList($where);
+
         return view('', [
             'chapterlist' => $list,
             'page' => $list->render(),
@@ -88,7 +87,7 @@ class AdminChapter extends AdminBaseController
             {
                 $this->error($validate->getError());
             }
-            
+
             $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
 
             if ($chapter->where('id', $param['id'])->save($param))
@@ -118,16 +117,24 @@ class AdminChapter extends AdminBaseController
     {
         $id = $this->request->param('id', 0, 'intval');
 
-        $chapter = new ChapterLogic();
-        $result  = $chapter->update(['delete_status' => 1], ['id' => $id]);
-        if ($result)
+        //查看章节下是否有视频
+        $video     = new CourseVideo();
+        $videoInfo = $video->getCourseVideoInfo([
+            'delete_status' => 0,
+            'show_status' => 1,
+            'chapter_id' => $id,
+        ], 'id');
+        if (empty($videoInfo))
         {
-            return json(['code' => 1, 'msg' => '删除成功']);
+            $chapter = new ChapterLogic();
+            $result  = $chapter->update(['delete_status' => 1], ['id' => $id]);
+            $result ? $this->success('删除成功') : $this->error('删除失败');
         }
         else
         {
-            return json(['code' => 0, 'msg' => '删除失败']);
+            $this->error('请先删除章节下的视频');
         }
+
     }
 
 }
