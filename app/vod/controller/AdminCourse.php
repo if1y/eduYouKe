@@ -20,12 +20,12 @@ class AdminCourse extends AdminBaseController
     {
         $param = $this->request->param();
 
-        $cours = new CourseLogic();
+        $course = new CourseLogic();
 
         $where = Tools::buildSearchWhere($param,[
             'title','description']);
         
-        $list   = $cours->getCourseList($where);
+        $list   = $course->getCourseList($where);
 
         return view('', [
             'courslist' => $list,
@@ -39,7 +39,7 @@ class AdminCourse extends AdminBaseController
     {
 
         $param = $this->request->param();
-        $cours = new CourseLogic();
+        $course = new CourseLogic();
 
         if ($this->request->isPost())
         {
@@ -53,7 +53,7 @@ class AdminCourse extends AdminBaseController
 
             $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
-            if ($cours->save($param))
+            if ($course->save($param))
             {
                 $this->success('操作成功');
             }
@@ -77,7 +77,7 @@ class AdminCourse extends AdminBaseController
     {
 
         $param    = $this->request->param();
-        $cours    = new CourseLogic();
+        $course    = new CourseLogic();
         $category = new CourseCategory();
         if ($this->request->isPost())
         {
@@ -92,7 +92,7 @@ class AdminCourse extends AdminBaseController
 
             $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
-            if ($cours->where('id', $param['id'])->save($param))
+            if ($course->where('id', $param['id'])->save($param))
             {
                 $this->success('操作成功');
             }
@@ -104,9 +104,8 @@ class AdminCourse extends AdminBaseController
         }
         else
         {
-
             View::assign('categorylist', $category->getCategoryList());
-            View::assign('editData', $cours->getCourseInfo($param['id']));
+            View::assign('editData', $course->getCourseInfo($param['id']));
             return View::fetch();
         }
     }
@@ -119,8 +118,8 @@ class AdminCourse extends AdminBaseController
     {
         $id = $this->request->param('id', 0, 'intval');
 
-        $cours  = new CourseLogic();
-        $result = $cours->update(['delete_status' => 1], ['id' => $id]);
+        $course  = new CourseLogic();
+        $result = $course->update(['delete_status' => 1], ['id' => $id]);
         $result ? $this->success('删除成功') : $this->error('删除失败');
        
     }
@@ -135,8 +134,8 @@ class AdminCourse extends AdminBaseController
         $key = isset($param['hot_status']) ? 'hot_status':'recommend_status';
         $value = isset($param['hot_status']) ? $param['hot_status']:$param['recommend_status'];
 
-        $cours  = new CourseLogic();
-        $result = $cours->update([$key => ($value ? 0:1) ], ['id' => $param['id']]);
+        $course  = new CourseLogic();
+        $result = $course->update([$key => ($value ? 0:1) ], ['id' => $param['id']]);
         $result ? $this->success('操作成功') : $this->error('操作失败');
 
     }

@@ -21,8 +21,24 @@ class CourseVideo extends CourseVideoModel
     //获取分页列表
     public function getVideoList($where = [], $field = '*')
     {
-        return $this->field($field)->where($where)
-            ->where(['delete_status' => 0, 'show_status' => 1])->paginate();
+
+        return $this->alias('c')
+            ->field([
+                'c.*',
+                'co.title as course_title',
+                'ch.title as chapter_title',
+            ])
+            ->join('course co', 'co.id = c.course_id')
+            ->join('chapter ch', 'ch.id = c.chapter_id')
+            ->order('c.create_time','desc')
+            ->where([
+                'c.delete_status' => 0, 
+                'c.show_status' => 1,
+                'co.delete_status' => 0,
+                'co.show_status' => 1,
+                'ch.delete_status' => 0,
+                'ch.show_status' => 1,
+            ])->paginate();
     }
 
     //

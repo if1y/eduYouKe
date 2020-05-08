@@ -1,5 +1,4 @@
 <div class="content-wrapper pre-scrollable">
-    
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -18,12 +17,10 @@
             </div>
         </div>
     </div>
-    
-    
     <div class="content">
         <section class="content">
             <div class="card">
-               <div class="card-header">
+                <div class="card-header">
                     {:checkAuth('add')}
                     <a href="javascript:;" class="btn btn-primary btn-sm btn-refresh" title="刷新">
                         刷新
@@ -67,8 +64,12 @@
                             {volist name="coursevideolist" id="vo"}
                             <tr>
                                 <td>{$vo.id}</td>
-                                <td>{$vo.id}</td>
-                                <td>{$vo.chapter_id}</td>
+                                <td><a href="{:url('/course',['id'=>$vo['course_id']])}"  target="_blank">
+                                        <strong class="text-muted">
+                                            {$vo.course_title}
+                                        </strong>
+                                    </a></td>
+                                <td>{$vo.chapter_title}</td>
                                 <td>{$vo.title}</td>
                                 <td>{$vo.description}</td>
                                 <td> <img src="{$vo.image_url ? getUrlPath($vo.image_url) :'__STATIC__/img/video-128x128.jpg'}" width="30" height="30"></td>
@@ -86,7 +87,6 @@
                         </tbody>
                     </table>
                 </div>
-                
                 <div class="card-footer clearfix">
                     {$page|raw}
                 </div>
