@@ -2,15 +2,16 @@
 namespace app\vod\controller;
 
 use app\AdminBaseController;
+use app\logic\Chapter;
 use app\logic\Course as CourseLogic;
 use app\logic\CourseCategory;
-use think\facade\View;
 use app\util\Tools;
 use app\vod\validate\AdminCourse as AdminCourseValidate;
+use think\facade\View;
 
 class AdminCourse extends AdminBaseController
 {
-    protected $middleware = ['adminAuth','Access'];
+    protected $middleware = ['adminAuth', 'Access'];
 
     /**
      * [courselist 课程列表/章节列表]
@@ -22,10 +23,10 @@ class AdminCourse extends AdminBaseController
 
         $course = new CourseLogic();
 
-        $where = Tools::buildSearchWhere($param,[
-            'title','description']);
-        
-        $list   = $course->getCourseList($where);
+        $where = Tools::buildSearchWhere($param, [
+            'title', 'description']);
+
+        $list = $course->getCourseList($where);
 
         return view('', [
             'courslist' => $list,
@@ -38,7 +39,7 @@ class AdminCourse extends AdminBaseController
     public function add()
     {
 
-        $param = $this->request->param();
+        $param  = $this->request->param();
         $course = new CourseLogic();
 
         if ($this->request->isPost())
@@ -67,8 +68,9 @@ class AdminCourse extends AdminBaseController
         {
 
             $category = new CourseCategory();
-            View::assign('categorylist', $category->getCategoryList());
-            return View::fetch();
+            return view('', [
+                'categorylist' => $category->getCategoryList(),
+            ]);
         }
     }
 
@@ -77,7 +79,7 @@ class AdminCourse extends AdminBaseController
     {
 
         $param    = $this->request->param();
-        $course    = new CourseLogic();
+        $course   = new CourseLogic();
         $category = new CourseCategory();
         if ($this->request->isPost())
         {
@@ -104,9 +106,11 @@ class AdminCourse extends AdminBaseController
         }
         else
         {
-            View::assign('categorylist', $category->getCategoryList());
-            View::assign('editData', $course->getCourseInfo($param['id']));
-            return View::fetch();
+            return view('', [
+                'categorylist' => $category->getCategoryList(),
+                'editData' => $course->getCourseInfo($param['id']),
+            ]);
+
         }
     }
 
@@ -118,12 +122,27 @@ class AdminCourse extends AdminBaseController
     {
         $id = $this->request->param('id', 0, 'intval');
 
-        $course  = new CourseLogic();
-        $result = $course->update(['delete_status' => 1], ['id' => $id]);
-        $result ? $this->success('删除成功') : $this->error('删除失败');
-       
-    }
+        $chapter = new Chapter();
+        //查看课程下是否有章节
+        $chapterInfo = $chapter->getChapterInfo([
+            'delete_status' => 0,
+            'show_status' => 1,
+            'course_id' => $id,
+        ], 'id');
 
+        if (empty($chapterInfo))
+        {
+
+            $course = new CourseLogic();
+            $result = $course->update(['delete_status' => 1], ['id' => $id]);
+            $result ? $this->success('删除成功') : $this->error('删除失败');
+        }
+        else
+        {
+            $this->error('请先删除课程下的章节');
+        }
+
+    }
 
     //操作
     public function operation()
@@ -131,11 +150,11 @@ class AdminCourse extends AdminBaseController
 
         $param = $this->request->param();
 
-        $key = isset($param['hot_status']) ? 'hot_status':'recommend_status';
-        $value = isset($param['hot_status']) ? $param['hot_status']:$param['recommend_status'];
+        $key   = isset($param['hot_status']) ? 'hot_status' : 'recommend_status';
+        $value = isset($param['hot_status']) ? $param['hot_status'] : $param['recommend_status'];
 
-        $course  = new CourseLogic();
-        $result = $course->update([$key => ($value ? 0:1) ], ['id' => $param['id']]);
+        $course = new CourseLogic();
+        $result = $course->update([$key => ($value ? 0 : 1)], ['id' => $param['id']]);
         $result ? $this->success('操作成功') : $this->error('操作失败');
 
     }

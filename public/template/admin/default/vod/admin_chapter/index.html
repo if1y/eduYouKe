@@ -1,5 +1,4 @@
 <div class="content-wrapper pre-scrollable">
-    
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -17,8 +16,6 @@
             </div>
         </div>
     </div>
-    
-    
     <div class="content">
         <section class="content">
             <div class="card">
@@ -49,6 +46,7 @@
                         <thead>
                             <tr>
                                 <th style="width: 10px">ID</th>
+                                <th style="width: 20px">课程名称</th>
                                 <th style="width: 20px">章节标题</th>
                                 <th style="width: 10px">章节简介</th>
                                 <th style="width: 10px">备注</th>
@@ -60,6 +58,13 @@
                             {volist name="chapterlist" id="vo"}
                             <tr>
                                 <td>{$vo.id}</td>
+                                <td>
+                                    <a href="{:url('/course',['id'=>$vo['course_id']])}" target="_blank">
+                                        <strong class="text-muted">
+                                            {$vo.course_title}
+                                        </strong>
+                                    </a>
+                                </td>
                                 <td>{$vo.title}</td>
                                 <td>{$vo.description}</td>
                                 <td>{$vo.remark}</td>
@@ -73,7 +78,6 @@
                         </tbody>
                     </table>
                 </div>
-                
                 <div class="card-footer clearfix">
                     {$page|raw}
                 </div>

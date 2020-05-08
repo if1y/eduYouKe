@@ -2,51 +2,46 @@
 namespace app\vod\controller;
 
 use app\AdminBaseController;
-use think\facade\View;
 use app\logic\Chapter;
 use app\logic\Course;
-use app\util\Tools;
 use app\logic\CourseVideo as CourseVideoLogic;
+use app\util\Tools;
 use app\vod\validate\AdminCourseVideo as AdminCourseVideoValidate;
-
-
+use think\facade\View;
 
 class AdminCourseVideo extends AdminBaseController
 {
-    protected $middleware = ['adminAuth','Access'];
-    
+    protected $middleware = ['adminAuth', 'Access'];
+
     //视频列表
     public function index()
     {
 
-        $param   = $this->request->param();
+        $param = $this->request->param();
 
-        $where = Tools::buildSearchWhere($param,[
-            'title','description']);
-        
+        $where = Tools::buildSearchWhere($param, [
+            'title', 'description']);
+
         $courseVideo = new CourseVideoLogic();
-        $list   = $courseVideo->getVideoList($where);
+        $list        = $courseVideo->getVideoList($where);
 
         return view('', [
             'coursevideolist' => $list,
             'page' => $list->render(),
         ]);
 
-
     }
 
     //视频添加
-    public function add($value='')
+    public function add($value = '')
     {
 
-
-        $param   = $this->request->param();
+        $param                = $this->request->param();
         $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
 
-        $course = new Course();
-        $chapter = new Chapter();
+        $course      = new Course();
+        $chapter     = new Chapter();
         $courseVideo = new CourseVideoLogic();
-
 
         if ($this->request->isPost())
         {
@@ -82,14 +77,13 @@ class AdminCourseVideo extends AdminBaseController
     }
 
     //视频编辑
-   	public function edit()
-   	{
-        $param    = $this->request->param();
+    public function edit()
+    {
+        $param = $this->request->param();
 
-        $course = new Course();
-        $chapter = new Chapter();
+        $course      = new Course();
+        $chapter     = new Chapter();
         $courseVideo = new CourseVideoLogic();
-
 
         if ($this->request->isPost())
         {
@@ -101,7 +95,7 @@ class AdminCourseVideo extends AdminBaseController
                 $this->error($validate->getError());
             }
 
-            if ($courseVideo->where('id',$param['id'])->save($param))
+            if ($courseVideo->where('id', $param['id'])->save($param))
             {
                 $this->success('操作成功');
             }
@@ -112,10 +106,9 @@ class AdminCourseVideo extends AdminBaseController
 
         }
         else
-        {   
+        {
 
-
-            $videoInfo = $courseVideo->getCourseVideoInfo($param['id']);
+            $videoInfo   = $courseVideo->getCourseVideoInfo($param['id']);
             $videoParent = $courseVideo->getCourseOrChapter($param['id']);
 
             return view('', [
@@ -125,38 +118,33 @@ class AdminCourseVideo extends AdminBaseController
             ]);
 
         }
-        
 
-   	}
+    }
 
-   	//视频删除
-	public function del()
-	{
+    //视频删除
+    public function del()
+    {
         $id = $this->request->param('id', 0, 'intval');
 
         $courseVideo = new CourseVideoLogic();
-        
-        $result  = $courseVideo->update(['delete_status' => 1], ['id' => $id]);
-        if ($result)
-        {
-            return json(['code' => 1, 'msg' => '删除成功']);
-        }
-        else
-        {
-            return json(['code' => 0, 'msg' => '删除失败']);
-        }
-	}
 
+        $result = $courseVideo->update(['delete_status' => 1], ['id' => $id]);
+        $result ? $this->success('删除成功') : $this->error('删除失败');
+    }
 
+    //
     public function getChapterList()
     {
-        $param    = $this->request->param();
+
+        $param   = $this->request->param();
         $chapter = new Chapter();
-        $data = $chapter
-        ->field('id,course_id,title')
-        ->where(['delete_status'=>0,'course_id'=>$param['course_id']])
-        ->select()->toArray();
-        return json(['code'=>1,'data'=>$data]);
-    }	
+
+        $data    = $chapter
+            ->field('id,course_id,title')
+            ->where(['delete_status' => 0, 'course_id' => $param['course_id']])
+            ->select()->toArray();
+
+        return json(['code' => 1, 'data' => $data]);
+    }
 
 }
