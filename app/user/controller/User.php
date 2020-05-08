@@ -45,6 +45,7 @@ class User extends WebBaseController
 
         $order = new Order();
         $list  = $order->getUserOrderList();
+        // print_r($list);exit;
         return view('', [
             'list' => $list,
             'page' => $list->render(),
