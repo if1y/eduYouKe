@@ -32,7 +32,14 @@
                                 <p>
                                     <span class="p-2">观看人数 : {$coursinfo.views}</span>
                                     <span class="p-2">学习人数 : {$coursinfo.study_num}</span>
-                                    <span class="p-2">难度 : {$coursinfo.level_status}</span>
+                                    <span class="p-2">难度 : {switch $coursinfo.level_status}
+                                        {case 1}初级
+                                        {/case}
+                                        {case 2}中级
+                                        {/case}
+                                        {default /}高级
+                                        {/switch}
+                                    </span>
                                 </p>
                             </div>
                         </div>
@@ -44,7 +51,6 @@
                     <nav class="nav">
                         <a class="nav-link text-muted" href="{:url('/course/index',['id'=>$coursinfo['id']])}">课程介绍</a>
                         <a class="nav-link active text-muted" href="{:url('/course/chapter',['id'=>$coursinfo['id']])}">课程章节</a>
-                        <!-- <a class="nav-link text-muted" href="{:url('/course/articleList')}">关联文章</a> -->
                         <a class="nav-link text-muted" href="{:url('/course/comment',['id'=>$coursinfo['id']])}">课程评论</a>
                     </nav>
                 </div>
