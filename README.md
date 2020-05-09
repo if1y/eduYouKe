@@ -27,20 +27,29 @@ composer install
 导入SQL文件 public/databases/install.sql
 
 配置 .env文件
-
 [DATABASE]
 HOSTNAME = 127.0.0.1
 DATABASE = xxx
 USERNAME = root
 PASSWORD = root
 
+写入权限
+/public/storage
+/runtime
+
+nginx配置
+location / {
+   if (!-e $request_filename) {
+   		rewrite  ^(.*)$  /index.php?s=/$1  last;
+    }
+}
 ~~~
 
 ## 演示
 
 
 
-[演示地址](http://edu.lixuqi.com/admin)
+[演示地址](https://edu.lixuqi.com/admin)
 [账号密码 eduYouke--123456]
 
 
