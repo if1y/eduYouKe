@@ -143,53 +143,5 @@ class Role extends AdminBaseController
 
     }
 
-    /**
-     * [roleAuthPost 修改用户组权限]
-     * @return [type] [description]
-     */
-    public function roleUserAuth()
-    {
-        $param  = $this->request->param();
-        $roleId = $param['role_id'];
-        $role   = new AdminRole();
-        return json([
-            'code' => 1,
-            'msg' => '获取成功',
-            'data' => $role->getUserAuthMenu($param['role_id']),
-        ]);
-    }
-
-    public function roleUserAuthPost()
-    {
-        $param = $this->request->param();
-
-        $result = 0;
-        if (isset($param['authStr']) && !empty($param['authStr']))
-        {
-
-            $role     = new AdminRole();
-            $roleData = $role->find($param['id']);
-            $result   = $roleData->allowField([
-                'role_auth',
-            ])->save(['role_auth' => implode(',', $param['authStr'])]);
-
-        }
-        if ($result)
-        {
-
-            return json([
-                'code' => 1,
-                'msg' => '成功',
-            ]);
-        }
-        else
-        {
-            return json([
-                'code' => 0,
-                'msg' => 'error',
-            ]);
-        }
-
-    }
 
 }

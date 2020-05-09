@@ -54,7 +54,7 @@
                                 <td>
                                     {:checkAuth('edit',$vo.id)}
                                     {:checkAuth('delete',$vo.id)}
-                                    <a href="{$Request.root}/{$Request.controller}/tree/type/{$Request.action}/id/{$vo.id | default=1}" class="btn-auth" title="权限分配">
+                                    <a href="{$Request.root}/{$Request.controller}/tree/id/{$vo.id}" class="btn-auth" title="权限分配">
                                         <i class="fa fa-sitemap text-info"></i> 权限分配
                                     </a>
                                 </td>
