@@ -19,9 +19,21 @@ eduYouke在线教育点播系统
 ## 安装
 
 ~~~
+
+git clone
+
 composer install
 
 导入SQL文件 public/databases/install.sql
+
+配置 .env文件
+
+[DATABASE]
+HOSTNAME = 127.0.0.1
+DATABASE = xxx
+USERNAME = root
+PASSWORD = root
+
 ~~~
 
 ## 演示
