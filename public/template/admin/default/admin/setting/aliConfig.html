@@ -30,15 +30,26 @@
                 <div class="tab-content">
                     <form class="p-3" enctype="multipart/form-data" action="{$Request.root}/{$Request.controller}/addPost/type/{$tpl}" method="post">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">阿里Vod_Key</label>
+                            <label class="col-sm-2 col-form-label">阿里VodKey</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="aliPlayerKey" value="{$detail.aliPlayerKey.content}" placeholder="请输入阿里Vod_Key">
+                                <input type="text" class="form-control" name="aliPlayerKey" value="{$detail.aliPlayerKey.content}" placeholder="VodKey">
+                            </div>
+                            <small>
+                                <a href="https://help.aliyun.com/document_detail/123465.htm" class="text-warning" target="_blank">
+                                    <i class="fa fa-question-circle" aria-hidden="true"></i> Help
+                                </a>
+                            </small>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">阿里VodSecret</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="aliPlayerSecret" value="{$detail.aliPlayerSecret.content}" placeholder="VodSecret">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">阿里Vod_Secret</label>
+                            <label class="col-sm-2 col-form-label">阿里VodRegionId</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="aliPlayerSecret" value="{$detail.aliPlayerSecret.content}" placeholder="请输入阿里Vod_Secret">
+                                <input type="text" class="form-control" name="aliPlayerRegionId" value="{$detail.aliPlayerRegionId.content}" placeholder="请输入RegionId">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -46,6 +57,11 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="aliossKey" value="{$detail.aliossKey.content}" placeholder="请输入阿里ossKey">
                             </div>
+                            <small>
+                                <a href="https://help.aliyun.com/document_detail/32101.html" class="text-warning" target="_blank">
+                                    <i class="fa fa-question-circle" aria-hidden="true"></i> Help
+                                </a>
+                            </small>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">阿里ossSecret</label>
@@ -70,6 +86,11 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="smsKey" value="{:hideStr($detail.smsKey.content)}" placeholder="请输入短信Key">
                             </div>
+                            <small>
+                                <a href="https://help.aliyun.com/document_detail/112186.html" class="text-warning" target="_blank">
+                                    <i class="fa fa-question-circle" aria-hidden="true"></i> Help
+                                </a>
+                                </small>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">阿里大于Secret</label>
