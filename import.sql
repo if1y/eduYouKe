@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50726
-Source Host           : localhost:3306
-Source Database       : ads
+Source Server         : fastedu
+Source Server Version : 50729
+Source Host           : 140.143.158.102:3306
+Source Database       : edu_lixuqi_com
 
 Target Server Type    : MYSQL
-Target Server Version : 50726
+Target Server Version : 50729
 File Encoding         : 65001
 
-Date: 2020-05-05 18:05:42
+Date: 2020-05-09 10:52:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `edu_admin_menu` (
   `show_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态;1:显示,0:不显示',
   `sort` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `url` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '应用路径:app/controller/action',
-  `title` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '菜单名称',
+  `title` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '菜单名称',
   `icon` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '菜单图标',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
@@ -35,7 +35,7 @@ CREATE TABLE `edu_admin_menu` (
   PRIMARY KEY (`id`),
   KEY `show_status` (`show_status`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of edu_admin_menu
@@ -48,7 +48,7 @@ INSERT INTO `edu_admin_menu` VALUES ('5', '1', '2', '0', '1', '0', 'admin/role/i
 INSERT INTO `edu_admin_menu` VALUES ('6', '0', '1', '0', '1', '0', 'admin/setting/default', '网站管理', 'laptop', '', '1581834849', '0');
 INSERT INTO `edu_admin_menu` VALUES ('7', '6', '2', '0', '1', '0', 'admin/setting/website', '基础配置', 'cog', '', '1581834952', '0');
 INSERT INTO `edu_admin_menu` VALUES ('8', '6', '2', '0', '1', '0', 'admin/banner/index', 'Banner管理', 'picture-o', '轮播图/友情链接', '1581999892', '0');
-INSERT INTO `edu_admin_menu` VALUES ('9', '6', '2', '0', '0', '0', 'admin/file/filelist', '附件管理', 'file', '', '1582515985', '0');
+INSERT INTO `edu_admin_menu` VALUES ('9', '6', '2', '1', '0', '0', 'admin/file/filelist', '附件管理', 'file', '', '1582515985', '0');
 INSERT INTO `edu_admin_menu` VALUES ('10', '0', '1', '0', '1', '0', 'admin/course/default', '课程管理', 'graduation-cap', '', '1582517857', '0');
 INSERT INTO `edu_admin_menu` VALUES ('11', '10', '2', '0', '1', '0', 'vod/AdminCourse/index', '课程列表', 'television', '', '1582518197', '0');
 INSERT INTO `edu_admin_menu` VALUES ('12', '10', '2', '0', '1', '3', 'vod/AdminCourseCategory/index', '课程分类', 'sliders', '', '1582518489', '0');
@@ -63,11 +63,56 @@ INSERT INTO `edu_admin_menu` VALUES ('48', '47', '2', '0', '1', '0', 'vod/AdminO
 INSERT INTO `edu_admin_menu` VALUES ('88', '0', '3', '0', '1', '0', 'admin/index/index', '后台首页', '', '', '1587384227', '0');
 INSERT INTO `edu_admin_menu` VALUES ('98', '13', '3', '0', '1', '0', 'vod/AdminCoursevideo/getChapterList', '获取课程', '', '', '1587385185', '0');
 INSERT INTO `edu_admin_menu` VALUES ('102', '0', '1', '0', '1', '0', 'admin/dict/default', '数据字典', 'database', '', '1587899968', '0');
-INSERT INTO `edu_admin_menu` VALUES ('103', '102', '2', '0', '1', '0', 'admin/dict/index', '字典列表', '', '', '1587900001', '0');
+INSERT INTO `edu_admin_menu` VALUES ('103', '102', '2', '0', '1', '0', 'admin/dict/index', '字典列表', 'circle', '', '1587900001', '0');
 INSERT INTO `edu_admin_menu` VALUES ('107', '102', '2', '1', '1', '0', 'admin/dictCategory/index', '字典分类', '', '', '1587900086', '0');
 INSERT INTO `edu_admin_menu` VALUES ('111', '0', '1', '0', '1', '0', 'vod/AdminComment/default', '评论管理', 'commenting-o', '', '1587965750', '0');
 INSERT INTO `edu_admin_menu` VALUES ('112', '111', '2', '0', '1', '0', 'vod/AdminComment/index', '评论列表', 'comments-o', '', '1587965801', '0');
 INSERT INTO `edu_admin_menu` VALUES ('113', '0', '3', '0', '1', '0', 'admin/administrator/editInfo', '后台用户修改资料', '', '', '1587384227', '0');
+INSERT INTO `edu_admin_menu` VALUES ('119', '8', '3', '0', '1', '0', 'admin/banner/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('120', '8', '3', '0', '1', '0', 'admin/banner/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('121', '8', '3', '0', '1', '0', 'admin/banner/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('122', '7', '3', '0', '1', '0', 'admin/setting/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('123', '7', '3', '0', '1', '0', 'admin/setting/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('124', '7', '3', '0', '1', '0', 'admin/setting/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('125', '35', '3', '0', '1', '0', 'admin/nav/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('126', '35', '3', '0', '1', '0', 'admin/nav/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('127', '35', '3', '0', '1', '0', 'admin/nav/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('128', '11', '3', '0', '1', '0', 'vod/AdminCourse/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('129', '11', '3', '0', '1', '0', 'vod/AdminCourse/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('130', '11', '3', '0', '1', '0', 'vod/AdminCourse/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('131', '22', '3', '0', '1', '0', 'vod/AdminChapter/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('132', '22', '3', '0', '1', '0', 'vod/AdminChapter/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('133', '22', '3', '0', '1', '0', 'vod/AdminChapter/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('134', '13', '3', '0', '1', '0', 'vod/AdminCourseVideo/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('135', '13', '3', '0', '1', '0', 'vod/AdminCourseVideo/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('136', '13', '3', '0', '1', '0', 'vod/AdminCourseVideo/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('137', '12', '3', '0', '1', '0', 'vod/AdminCourseCategory/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('138', '12', '3', '0', '1', '0', 'vod/AdminCourseCategory/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('139', '12', '3', '0', '1', '0', 'vod/AdminCourseCategory/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('140', '2', '3', '0', '1', '0', 'admin/menu/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('141', '2', '3', '0', '1', '0', 'admin/menu/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('142', '2', '3', '0', '1', '0', 'admin/menu/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('143', '5', '3', '0', '1', '0', 'admin/role/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('144', '5', '3', '0', '1', '0', 'admin/role/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('145', '5', '3', '0', '1', '0', 'admin/role/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('146', '3', '3', '0', '1', '0', 'admin/administrator/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('147', '3', '3', '0', '1', '0', 'admin/administrator/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('148', '3', '3', '0', '1', '0', 'admin/administrator/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('149', '112', '3', '0', '1', '0', 'vod/AdminComment/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('150', '112', '3', '0', '1', '0', 'vod/AdminComment/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('151', '112', '3', '0', '1', '0', 'vod/AdminComment/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('152', '103', '3', '0', '1', '0', 'admin/dict/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('153', '103', '3', '0', '1', '0', 'admin/dict/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('154', '103', '3', '0', '1', '0', 'admin/dict/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('155', '46', '3', '0', '1', '0', 'user/AdminUser/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('156', '46', '3', '0', '1', '0', 'user/AdminUser/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('157', '46', '3', '0', '1', '0', 'user/AdminUser/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('158', '48', '3', '0', '1', '0', 'vod/AdminOrder/add', '添加', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('159', '48', '3', '0', '1', '0', 'vod/AdminOrder/del', '删除', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('160', '48', '3', '0', '1', '0', 'vod/AdminOrder/edit', '编辑', 'circle', '', '0', '0');
+INSERT INTO `edu_admin_menu` VALUES ('161', '11', '3', '0', '1', '0', 'vod/AdminCourse/operation', '热门/推荐', '', '', '1588837165', '0');
+INSERT INTO `edu_admin_menu` VALUES ('162', '5', '3', '0', '1', '0', 'admin/Role/tree', '权限分配', '', '', '1588992297', '0');
+INSERT INTO `edu_admin_menu` VALUES ('163', '5', '3', '0', '1', '0', 'admin/role/getAuthTree', '获取用户组权限', '', '', '1588992350', '0');
 
 -- ----------------------------
 -- Table structure for edu_admin_role
@@ -75,8 +120,8 @@ INSERT INTO `edu_admin_menu` VALUES ('113', '0', '3', '0', '1', '0', 'admin/admi
 DROP TABLE IF EXISTS `edu_admin_role`;
 CREATE TABLE `edu_admin_role` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '角色名称',
-  `role_auth` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '权限字符串',
+  `role_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '角色名称',
+  `role_auth` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '权限字符串',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
   `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
   `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
@@ -114,7 +159,7 @@ CREATE TABLE `edu_admin_user` (
 -- ----------------------------
 -- Records of edu_admin_user
 -- ----------------------------
-INSERT INTO `edu_admin_user` VALUES ('9', '1', '', '', 'admin', 'd93a5def7511da3d0f2d171d9c344e91', '1', '0', '', '0', '0', '0');
+INSERT INTO `edu_admin_user` VALUES ('9', '1', '', '', 'eduYouke', 'd93a5def7511da3d0f2d171d9c344e91', '1', '0', '', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for edu_banner
@@ -146,7 +191,7 @@ DROP TABLE IF EXISTS `edu_chapter`;
 CREATE TABLE `edu_chapter` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `course_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '关联的课程id',
-  `title` varchar(32) NOT NULL DEFAULT '' COMMENT '章节名称',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '章节名称',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '章节简介',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
   `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
@@ -168,9 +213,9 @@ DROP TABLE IF EXISTS `edu_comment`;
 CREATE TABLE `edu_comment` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '被回复的评论id',
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '发表评论的用户id',
-  `to_user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '被评论的用户id',
-  `source_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论内容 id',
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '发表评论的用户id',
+  `to_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '被评论的用户id',
+  `source_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论内容 id',
   `like_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '点赞数',
   `dislike_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '不喜欢数',
   `floor` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '楼层数',
@@ -178,7 +223,7 @@ CREATE TABLE `edu_comment` (
   `show_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:已审核,0:未审核',
   `delete_status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态,1:已删除,0:未删除',
   `table_name` varchar(64) NOT NULL DEFAULT '' COMMENT '评论内容所在表，不带表前缀',
-  `full_name` varchar(50) NOT NULL DEFAULT '' COMMENT '评论者昵称',
+  `full_name` varchar(64) NOT NULL DEFAULT '' COMMENT '评论者昵称',
   `path` varchar(255) NOT NULL DEFAULT '' COMMENT '层级关系',
   `url` text COMMENT '原文地址',
   `content` text CHARACTER SET utf8mb4 COMMENT '评论内容',
@@ -232,7 +277,7 @@ DROP TABLE IF EXISTS `edu_course_category`;
 CREATE TABLE `edu_course_category` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父菜单id',
-  `title` varchar(32) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '分类名称',
   `seoTitle` varchar(255) DEFAULT NULL COMMENT 'SEO标题',
   `seoKeywords` varchar(255) DEFAULT NULL COMMENT 'SEO关键字',
   `seoDescription` varchar(255) DEFAULT NULL COMMENT 'SEO描述',
@@ -258,7 +303,7 @@ CREATE TABLE `edu_course_video` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `chapter_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '关联的章节id',
   `course_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '关联的课程id',
-  `title` varchar(32) NOT NULL DEFAULT '' COMMENT '视频名称',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '视频名称',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '视频简介',
   `seoTitle` varchar(255) DEFAULT NULL COMMENT 'SEO标题',
   `seoKeywords` varchar(255) DEFAULT NULL COMMENT 'SEO关键字',
@@ -285,9 +330,9 @@ CREATE TABLE `edu_course_video` (
 DROP TABLE IF EXISTS `edu_dict`;
 CREATE TABLE `edu_dict` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `category` varchar(32) NOT NULL DEFAULT '' COMMENT '菜单标识',
-  `key` varchar(32) NOT NULL DEFAULT '' COMMENT '名称',
-  `value` varchar(32) NOT NULL DEFAULT '' COMMENT '内容',
+  `category` varchar(64) NOT NULL DEFAULT '' COMMENT '菜单标识',
+  `key` varchar(64) NOT NULL DEFAULT '' COMMENT '名称',
+  `value` varchar(64) NOT NULL DEFAULT '' COMMENT '内容',
   `type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:数据,1:分类',
   `show_status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;0:禁用,1:正常',
   `delete_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态;1:已删除,0:未删除',
@@ -309,8 +354,8 @@ CREATE TABLE `edu_nav` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父导航id',
   `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '关联的菜单id',
-  `title` varchar(32) NOT NULL DEFAULT '' COMMENT '分类名称',
-  `url` varchar(32) NOT NULL DEFAULT '' COMMENT '自定义链接',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '自定义链接',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
   `sort` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `nav_type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '关联分类;1:关联分类,2:自定义地址',
@@ -332,9 +377,9 @@ CREATE TABLE `edu_nav` (
 DROP TABLE IF EXISTS `edu_order`;
 CREATE TABLE `edu_order` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` int(8) unsigned DEFAULT '0' COMMENT '用户id',
-  `commodity_id` int(8) unsigned NOT NULL DEFAULT '0' COMMENT '商品ID',
-  `order_no` varchar(32) NOT NULL DEFAULT '0' COMMENT '订单号',
+  `user_id` int(11) unsigned DEFAULT '0' COMMENT '用户id',
+  `commodity_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品ID',
+  `order_no` varchar(64) NOT NULL DEFAULT '0' COMMENT '订单号',
   `order_status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '订单状态;0:未支付,1:已支付',
   `amount_total` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品单价',
   `order_type` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态;1:课程,2:会员',
@@ -355,9 +400,9 @@ CREATE TABLE `edu_order` (
 DROP TABLE IF EXISTS `edu_record_log`;
 CREATE TABLE `edu_record_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
-  `key` varchar(32) NOT NULL DEFAULT '' COMMENT '分类名称',
-  `category` varchar(32) NOT NULL DEFAULT '' COMMENT '分类',
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `key` varchar(255) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `category` varchar(255) NOT NULL DEFAULT '' COMMENT '分类',
   `value` varchar(255) DEFAULT NULL COMMENT '输入内容',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
@@ -444,7 +489,7 @@ CREATE TABLE `edu_user` (
   `mobile` varchar(32) NOT NULL DEFAULT '' COMMENT '中国手机不带国家代码，国际手机号格式为：国家代码-手机号',
   `avatar_url` varchar(255) NOT NULL DEFAULT '' COMMENT '用户头像',
   `sex` tinyint(2) unsigned DEFAULT '0' COMMENT '0:保密1男:2女',
-  `nickname` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户昵称',
+  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户昵称',
   `password` varchar(64) NOT NULL DEFAULT '' COMMENT '登录密码',
   `introduce` varchar(255) DEFAULT NULL COMMENT '简介',
   `empirical` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '经验值',
@@ -463,3 +508,6 @@ CREATE TABLE `edu_user` (
 -- ----------------------------
 -- Records of edu_user
 -- ----------------------------
+
+
+insert into edu_setting (title,category,category_name) value("阿里VodRegionId","aliConfig","aliPlayerRegionId");
