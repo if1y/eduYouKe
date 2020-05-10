@@ -521,7 +521,7 @@ function formLogin() {
     var password = $('input[name="password"]').val();
     var token = $('input[name="__token__"]').val();
 
-    $.post(href, { username: username, password: password,__token__: token,verifycode: verifycode }, function(json) {
+    $.post(href, { username: username, password: password, __token__: token, verifycode: verifycode }, function(json) {
         if (json.code == 1) {
 
             success(json.msg)
@@ -593,15 +593,23 @@ function uploadFile(input, file, path, label) {
             contentType: false,
             dataType: "json",
             success: function(data) {
-                success('上传成功');
-                $('#' + file).val('');
-                //渲染到页面
-                $("#" + path + " img").attr('src', arg.target.result);
-                //添加路径到页面
-                console.log(data)
-                $("#" + input).val(data.data.path);
-                //更改文案
-                $("#" + label).html('重新上传');
+
+                if (data.code == 1) {
+
+                    success(data.msg);
+
+                    $('#' + file).val('');
+                    //渲染到页面
+                    $("#" + path + " img").attr('src', arg.target.result);
+                    //添加路径到页面
+                    console.log(data)
+                    $("#" + input).val(data.data.path);
+                    //更改文案
+                    $("#" + label).html('重新上传');
+
+                } else {
+                    error(data.msg);
+                }
 
             },
             error: function(error) {
@@ -645,14 +653,25 @@ function uploadVideo(input, file, path, label) {
             contentType: false,
             dataType: "json",
             success: function(data) {
-                success('上传成功');
-                $('#' + file).val('');
-                //渲染到页面
-                $("#" + path + " img").attr('src', arg.target.result);
-                //添加路径到页面
-                $("#" + input).val(data.data.path);
-                //更改文案
-                $("#" + label).html('重新上传');
+
+
+
+                if (data.code == 1) {
+
+                    success(data.msg);
+                    $('#' + file).val('');
+                    //渲染到页面
+                    $("#" + path + " img").attr('src', arg.target.result);
+                    //添加路径到页面
+                    $("#" + input).val(data.data.path);
+                    //更改文案
+                    $("#" + label).html('重新上传');
+
+                } else {
+                    error(data.msg);
+                }
+
+
 
             },
             error: function(error) {
@@ -693,14 +712,19 @@ function uploadImg(input, file, path, label) {
             contentType: false,
             dataType: "json",
             success: function(data) {
-                success('上传成功');
-                //渲染到页面
-                $("#" + path + " img").attr('src', arg.target.result);
-                //添加路径到页面
-                console.log(data)
-                $("#" + input).val(data.path);
-                //更改文案
-                $("#" + label).html('重新上传');
+
+                if (data.code == 1) {
+
+                    success(data.msg);
+                    //渲染到页面
+                    $("#" + path + " img").attr('src', arg.target.result);
+                    //添加路径到页面
+                    $("#" + input).val(data.path);
+                    //更改文案
+                    $("#" + label).html('重新上传');
+                } else {
+                    error(data.msg);
+                }
 
             },
             error: function(error) {
