@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : fastedu
+Source Server         : testedu
 Source Server Version : 50729
 Source Host           : 140.143.158.102:3306
-Source Database       : edu_lixuqi_com
+Source Database       : test_lixuqi_com
 
 Target Server Type    : MYSQL
 Target Server Version : 50729
 File Encoding         : 65001
 
-Date: 2020-05-09 10:52:09
+Date: 2020-05-10 13:36:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `edu_admin_menu` (
   PRIMARY KEY (`id`),
   KEY `show_status` (`show_status`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of edu_admin_menu
@@ -113,6 +113,7 @@ INSERT INTO `edu_admin_menu` VALUES ('160', '48', '3', '0', '1', '0', 'vod/Admin
 INSERT INTO `edu_admin_menu` VALUES ('161', '11', '3', '0', '1', '0', 'vod/AdminCourse/operation', '热门/推荐', '', '', '1588837165', '0');
 INSERT INTO `edu_admin_menu` VALUES ('162', '5', '3', '0', '1', '0', 'admin/Role/tree', '权限分配', '', '', '1588992297', '0');
 INSERT INTO `edu_admin_menu` VALUES ('163', '5', '3', '0', '1', '0', 'admin/role/getAuthTree', '获取用户组权限', '', '', '1588992350', '0');
+INSERT INTO `edu_admin_menu` VALUES ('164', '46', '3', '0', '1', '0', 'user/AdminUser/block', '拉黑', '', '', '1589088951', '0');
 
 -- ----------------------------
 -- Table structure for edu_admin_role
@@ -434,7 +435,7 @@ CREATE TABLE `edu_setting` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `category` (`category`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of edu_setting
@@ -479,6 +480,7 @@ INSERT INTO `edu_setting` VALUES ('90', '支付宝公钥', 'AliPay', 'alipayPubl
 INSERT INTO `edu_setting` VALUES ('91', '应用秘钥', 'AliPay', 'alipayRsaPrivateKey', '', null, null, '应用秘钥', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('92', '异步通知地址', 'AliPay', 'alipayNotifyUrl', '', null, null, '异步通知地址', '1', '0', '0', '0');
 INSERT INTO `edu_setting` VALUES ('93', '同步通知地址', 'AliPay', 'alipayReturnUrl', '', null, null, '同步通知地址', '1', '0', '0', '0');
+INSERT INTO `edu_setting` VALUES ('95', '阿里VodRegionId', 'aliConfig', 'aliPlayerRegionId', null, null, null, '', '1', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for edu_user
@@ -508,6 +510,3 @@ CREATE TABLE `edu_user` (
 -- ----------------------------
 -- Records of edu_user
 -- ----------------------------
-
-
-insert into edu_setting (title,category,category_name) value("阿里VodRegionId","aliConfig","aliPlayerRegionId");
