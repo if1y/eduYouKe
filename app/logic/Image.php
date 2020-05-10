@@ -35,7 +35,20 @@ class Image
     //
     public function getUploadSetting()
     {
-        return (new Setting())->getSettingContent('imageUploader');
+
+        $set = new Setting();
+
+        $status   = $set->getSettingContent('imageUploader');
+        $key      = $set->getSettingContent('aliossKey');
+        $secret   = $set->getSettingContent('aliossSecret');
+        $endpoint = $set->getSettingContent('ossEndpoint');
+        $bucket   = $set->getSettingContent('ossBucket');
+        if (empty($status) || empty($key) || empty($secret) || empty($endpoint) || empty($bucket))
+        {
+            return 0;
+        }
+        return 1;
+
     }
 
     //多图上传
