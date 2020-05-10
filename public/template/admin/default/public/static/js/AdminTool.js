@@ -713,7 +713,7 @@ function uploadImg(input, file, path, label) {
             dataType: "json",
             success: function(data) {
 
-                if (data.code == 1) {
+                if (data.errno == 0) {
 
                     success(data.msg);
                     //渲染到页面
