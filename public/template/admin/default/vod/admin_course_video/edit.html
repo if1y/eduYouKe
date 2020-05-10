@@ -11,7 +11,7 @@
                         <select class="custom-select select2bs4" id="courseId" onchange="getSelectChapter()" name="course_id">
                             <option value="">无</option>
                             {volist name="courselist" id="vo"}
-                            <option value="{$vo.id}"  {$vo.select==1 ? 'selected' :''} >{$vo.title}</option>
+                            <option value="{$vo.id}" {$vo.select==1 ? 'selected' :''}>{$vo.title}</option>
                             {/volist}
                         </select>
                     </div>
@@ -24,7 +24,7 @@
                         <select class="custom-select select2bs4" id="chapterId" name="chapter_id">
                             <option value="">无</option>
                             {volist name="chapterlist" id="vo"}
-                            <option value="{$vo.id}" {$vo.select==1 ? 'selected' :''} >{$vo.title}</option>
+                            <option value="{$vo.id}" {$vo.select==1 ? 'selected' :''}>{$vo.title}</option>
                             {/volist}
                         </select>
                     </div>
@@ -33,7 +33,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">视频名称</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="title"  value="{$editData.title}" placeholder="请输入视频名称">
+                    <input type="text" class="form-control" name="title" value="{$editData.title}" placeholder="请输入视频名称">
                 </div>
             </div>
             <div class="form-group row">
@@ -69,11 +69,10 @@
                     <div class="input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <select class="form-control h-100" id="channel" name="channel" style="min-width: 120px;">
-                                <option value="local" {$editData.channel == 'local' ? 'selected' :''} >本地上传</option>
-                                <option value="alivod" {$editData.channel == 'alivod' ? 'selected' :''} >阿里云上传</option>
+                                <option value="local" {$editData.channel=='local' ? 'selected' :''}>本地上传</option>
+                                <option value="alivod" {$editData.channel=='alivod' ? 'selected' :''}>阿里云上传</option>
                             </select>
                         </div>
-
                         <input type="text" class="form-control" id="video_url" value="{$editData.video_url}" name="video_url">
                         <span class="input-group-append">
                             <input type="file" name="file" id="upload_video" class="display-none" onchange="uploadVideo('video_url','upload_video','video_label')" accept="video/mp4" />
@@ -84,12 +83,10 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">视频缩略图</label>
                 <div class="col-sm-10">
-
-                    <input id="img_upload" type="file" onchange="uploadImg('image_url','img_upload','preview_image','img_label')" accept="video/*" />
+                    <input id="img_upload" type="file" onchange="uploadImg('image_url','img_upload','preview_image','img_label')" accept="image/*" />
                     <input type="hidden" name="image_url" id="image_url" value="{$editData.image_url}">
                     <div id="preview_image">
                         <img src="{$editData.image_url ? getUrlPath($editData.image_url) :'__STATIC__/img/user3-128x128.jpg'}">
@@ -98,7 +95,6 @@
                     </label>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">备注</label>
                 <div class="col-sm-10">
@@ -110,7 +106,7 @@
                 <div class="col-sm-10">
                     <div class="form-group">
                         <div class="icheck-success d-inline">
-                            <input type="checkbox" name="show_status" {$editData.show_status==1 ? 'checked' :''}  value="1"  id="showStatus">
+                            <input type="checkbox" name="show_status" {$editData.show_status==1 ? 'checked' :''} value="1" id="showStatus">
                             <label for="showStatus">
                                 是否可用
                             </label>
@@ -118,12 +114,11 @@
                     </div>
                 </div>
             </div>
-             <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
+            <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
             </button>
         </form>
     </div>
 </div>
-
 {include file='../public/script' /}
 <script type="text/javascript">
 function getSelectChapter() {
@@ -178,5 +173,4 @@ $('#content').validate({
     },
 
 });
-
 </script>
