@@ -508,3 +508,6 @@ CREATE TABLE `edu_user` (
 -- ----------------------------
 -- Records of edu_user
 -- ----------------------------
+
+
+insert into edu_setting (title,category,category_name) value("阿里VodRegionId","aliConfig","aliPlayerRegionId");

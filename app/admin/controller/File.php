@@ -49,7 +49,7 @@ class File extends AdminBaseController
         $param    = $this->request->param();
         $vod      = new FileLogic();
         $savename = $vod->uploadVideo($file, $param);
-        $this->success('上传成功','',['path'=>$savename]);
+        $savename ? $this->success('上传成功','',['path'=>$savename]) : $this->error('未开启上传通道...');
     }
 
     /**
