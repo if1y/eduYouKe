@@ -3,8 +3,8 @@ namespace app\admin\controller;
 
 use app\AdminBaseController;
 use app\logic\File as FileLogic;
-use think\facade\Session;
 use app\logic\Image;
+use think\facade\Session;
 
 class File extends AdminBaseController
 {
@@ -31,11 +31,26 @@ class File extends AdminBaseController
         $param    = $this->request->param();
         $image    = new Image();
         $savename = $image->uploadImage($file, $param);
-        return json([
-            'errno' => 0,
-            'path' => $savename,
-            'data' => $image->editorImage($savename),
-        ]);
+        if ($savename)
+        {
+
+            return json([
+                'errno' => 0,
+                'msg' => '上传成功',
+                'path' => $savename,
+                'data' => $image->editorImage($savename),
+            ]);
+
+        }
+        else
+        {
+
+            return json([
+                'errno' => 1,
+                'msg' => '上传失败',
+            ]);
+
+        }
     }
 
     /**
@@ -49,7 +64,7 @@ class File extends AdminBaseController
         $param    = $this->request->param();
         $vod      = new FileLogic();
         $savename = $vod->uploadVideo($file, $param);
-        $savename ? $this->success('上传成功','',['path'=>$savename]) : $this->error('未开启上传通道...');
+        $savename ? $this->success('上传成功', '', ['path' => $savename]) : $this->error('未开启上传通道...');
     }
 
     /**
