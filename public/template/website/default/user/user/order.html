@@ -60,11 +60,11 @@
                                     <div class="tab-content">
                                         <!-- /.tab-pane -->
                                         <div class="tab-pane active" id="order">
+                                            {notempty name="list"}
                                             <!-- /.card-header -->
                                             <ul class="list-unstyled w-100">
                                                 {volist name="list" id="vo"}
                                                 <li class="media col-md-12 col-xs-2">
-                                                    
                                                     <img class="mr-3 rounded-sm shadow p-3 mb-5 bg-white rounded " src="{$vo.image_url ? getUrlPath($vo.image_url) :'__STATIC__/img/paybg.png'}" alt="{$vo.title}">
                                                     <div class="media-body">
                                                         <p>
@@ -79,7 +79,6 @@
                                                                 </small>
                                                             </span>
                                                         </p>
-
                                                         <p>
                                                             <small>
                                                                 {$vo.description}
@@ -104,6 +103,16 @@
                                                 <hr>
                                                 {/volist}
                                             </ul>
+                                            {else /}
+                                            <div class="media h-100">
+                                                <div class="align-self-center mx-auto text-center">
+                                                    <img src="__STATIC__/img/empty.png">
+                                                    <p>
+                                                        <small class="text-muted">暂无订单消息</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            {/notempty}
                                             <div>
                                                 {$page|raw}
                                             </div>
