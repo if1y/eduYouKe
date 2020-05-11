@@ -243,16 +243,14 @@ class User extends UserModel
         $whereOr = [];
         foreach ($arr as $key => $value)
         {
-            $whereOr[$key] = ['log.category', '=', $value];
-            $whereOr[$key] = ['log.category', '=', $value];
+            $whereOr[$key] = [['log.category', '=', $value],['log.user_id','=',$userId]];
         }
 
-        // print_r($whereOr);
 
         $result = $this->alias('u')
             ->field([
                 'log.*',
-                'log.key as source_id',
+                'log.name as source_id',
                 'c.url',
                 'c.content',
                 'co.cource_image_url as image',
@@ -260,20 +258,20 @@ class User extends UserModel
                 'co.title',
             ])
             ->join('record_log log', 'u.id = log.user_id')
-            ->leftJoin('comment c', 'c.id = log.key')
-            ->leftJoin('course co', 'co.id = log.key')
-            ->order('log.create_time', 'desc')
+            ->join('comment c', 'c.id = log.name')
+            ->join('course co', 'co.id = log.name')
             ->whereOr($whereOr)
             ->where([
                 'c.show_status' => 1,
                 'c.delete_status' => 0,
             ])
-            ->where('log.user_id', $userId)
+            ->order('log.create_time', 'desc')
             ->paginate(['query' => ['user_id' => $userId], 'list_rows' => 3])->each(function ($item)
         {
             $item['recent_updates'] = Tools::getDate(strtotime($item['create_time']));
             return $item;
         });
+        // print_r($this->getLastSql());exit;
         return $result;
     }
 

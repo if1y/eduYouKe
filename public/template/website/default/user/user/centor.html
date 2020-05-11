@@ -41,7 +41,6 @@
                                             <b>经验</b> <a class="float-right">{$userinfo.empirical}</a>
                                         </li>
                                     </ul>
-                                   
                                 </div>
                             </div>
                         </div>
@@ -61,6 +60,7 @@
                                     <div class="tab-content">
                                         <!-- /.tab-pane -->
                                         <div class="tab-pane active" id="timeline">
+                                            {notempty name='history'}
                                             <!-- The timeline -->
                                             <div class="timeline timeline-inverse">
                                                 <!-- timeline time label -->
@@ -112,6 +112,16 @@
                                                     <i class="far fa-clock bg-gray"></i>
                                                 </div>
                                             </div>
+                                            {else /}
+                                            <div class="media h-100">
+                                                <div class="align-self-center mx-auto text-center">
+                                                    <img src="__STATIC__/img/empty.png">
+                                                    <p>
+                                                        <small class="text-muted">暂无记录</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            {/notempty}
                                             {$page|raw}
                                         </div>
                                         <!-- /.tab-pane -->
@@ -123,7 +133,6 @@
                             <div>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>

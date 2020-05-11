@@ -44,7 +44,9 @@
     max-width: 128px;
 }
 
-
+.timeline-body img {
+        max-width: 300px;
+    }
 
 @media (max-width: 768px) {
 
@@ -60,6 +62,9 @@
 
 }
 
+
+
+
 @media(min-width: 1200px) {
 
     .carousel-inner img {
@@ -71,9 +76,9 @@
     }
 
     .list-unstyled .media img {
-    max-width: 300px;
-    max-height: 160px;
-}
+        max-width: 300px;
+        max-height: 160px;
+    }
 
 }
 
