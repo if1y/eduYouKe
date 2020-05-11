@@ -16,7 +16,7 @@ class Record
 
         $log->save(
             [
-                'key' => $sms['mobile'],
+                'name' => $sms['mobile'],
                 'category' => 'smsCode',
                 'value' => $sms['code'],
                 'create_time' => time(),
@@ -42,7 +42,7 @@ class Record
             //查询是否已经记录过
             $logs = $logObj->where([
                 'user_id' => getUserInfoData(),
-                'key' => $course['id'],
+                'name' => $course['id'],
                 'category' => 'courseView',
             ])->whereDay('create_time')
                 ->find();
@@ -52,7 +52,7 @@ class Record
             {
                 $logObj->save([
                     'user_id' => getUserInfoData(),
-                    'key' => $course['id'],
+                    'name' => $course['id'],
                     'category' => 'courseView',
                     'create_time' => time(),
                 ]);
@@ -60,41 +60,39 @@ class Record
         }
     }
 
-
-
-
     //更新用户学习状态
     public function onViewVideo($video)
     {
 
-        $log = new RecordLog();
+        $log       = new RecordLog();
         $courseObj = new Course();
 
         //查询是否已经观看过
         $where = [
-            'user_id'=>getUserInfoData(0,'id'),
-            'key'=>$video['course_id'],
-            'category'=> 'studyCourse',
+            'user_id' => getUserInfoData(0, 'id'),
+            'name' => $video['course_id'],
+            'category' => 'studyCourse',
         ];
 
         //查看当前用户是否观看过该课程
-        
+
         $studyInfo = $log->where($where)->find();
-        
-        if (empty($studyInfo)) {
 
-	        $courseObj->where('id', $video['course_id'])->inc('study_num')->update();
+        if (empty($studyInfo))
+        {
+
+            $courseObj->where('id', $video['course_id'])->inc('study_num')->update();
         }
 
-        $where = array_merge($where,['value'=>$video['id']]);
+        $where   = array_merge($where, ['value' => $video['id']]);
         $logInfo = $log->where($where)->find();
-        
-        if (empty($logInfo)) {
+
+        if (empty($logInfo))
+        {
             //添加数据到数据库
-            $log->save(array_merge(['create_time'=>time()],$where));
+            $log->save(array_merge(['create_time' => time()], $where));
         }
 
-        
     }
 
 }

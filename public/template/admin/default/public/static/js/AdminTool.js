@@ -650,6 +650,11 @@ function uploadVideo(input, file, path, label) {
             type: 'post',
             data: fd,
             processData: false,
+            beforeSend: function() {
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+            },
             contentType: false,
             dataType: "json",
             success: function(data) {
@@ -673,6 +678,9 @@ function uploadVideo(input, file, path, label) {
 
 
 
+            },
+            complete: function() {
+                layer.closeAll('loading');
             },
             error: function(error) {
                 console.log(error)
