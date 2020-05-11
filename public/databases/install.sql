@@ -402,7 +402,7 @@ DROP TABLE IF EXISTS `edu_record_log`;
 CREATE TABLE `edu_record_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
-  `key` varchar(255) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '分类名称',
   `category` varchar(255) NOT NULL DEFAULT '' COMMENT '分类',
   `value` varchar(255) DEFAULT NULL COMMENT '输入内容',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
