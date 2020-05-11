@@ -47,7 +47,8 @@
                                                 免费
                                             </span>
                                             {/if}
-                                            <span class="badge badge-secondary">{switch $vo.level_status}
+                                            <span class="badge badge-secondary">
+                                                {switch $vo.level_status}
                                                 {case 1}初级
                                                 {/case}
                                                 {case 2}中级
@@ -89,7 +90,15 @@
                                                 免费
                                             </span>
                                             {/if}
-                                            <span class="badge badge-secondary">{$vo.level_status}</span>
+                                            <span class="badge badge-secondary">
+                                                {switch $vo.level_status}
+                                                {case 1}初级
+                                                {/case}
+                                                {case 2}中级
+                                                {/case}
+                                                {default /}高级
+                                                {/switch}
+                                            </span>
                                         </small></span>
                                     <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
                                 </div>
@@ -124,7 +133,15 @@
                                                 免费
                                             </span>
                                             {/if}
-                                            <span class="badge badge-secondary">{$vo.level_status}</span>
+                                            <span class="badge badge-secondary">
+                                                {switch $vo.level_status}
+                                                {case 1}初级
+                                                {/case}
+                                                {case 2}中级
+                                                {/case}
+                                                {default /}高级
+                                                {/switch}
+                                            </span>
                                         </small></span>
                                     <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
                                 </div>
@@ -159,7 +176,15 @@
                                                 免费
                                             </span>
                                             {/if}
-                                            <span class="badge badge-secondary">{$vo.level_status}</span>
+                                            <span class="badge badge-secondary">
+                                                {switch $vo.level_status}
+                                                {case 1}初级
+                                                {/case}
+                                                {case 2}中级
+                                                {/case}
+                                                {default /}高级
+                                                {/switch}
+                                            </span>
                                         </small></span>
                                     <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
                                 </div>
