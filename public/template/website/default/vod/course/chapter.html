@@ -32,7 +32,8 @@
                                 <p>
                                     <span class="p-2">观看人数 : {$coursinfo.views}</span>
                                     <span class="p-2">学习人数 : {$coursinfo.study_num}</span>
-                                    <span class="p-2">难度 : {switch $coursinfo.level_status}
+                                    <span class="p-2">难度 :
+                                        {switch $coursinfo.level_status}
                                         {case 1}初级
                                         {/case}
                                         {case 2}中级
@@ -103,12 +104,11 @@
                                         {if $buystatus}
                                         <a href="{:url('/course/chapter',['id'=>$coursinfo['id']])}" class="btn btn-info btn-sm btn-block">立即学习</a>
                                         {else /}
-
-                                            {if $coursinfo.sell_status}
-                                            <a href="{:url('/order/createOrder',['id'=>$coursinfo['id'],'type'=>'course'])}" class="btn btn-danger btn-sm btn-block">￥{$coursinfo.sell_price} 立即购买</a>
-                                            {else /}
-                                            <a href="{:url('/course/chapter',['id'=>$coursinfo['id']])}" class="btn btn-info btn-sm btn-block">立即学习</a>
-                                            {/if}
+                                        {if $coursinfo.sell_status}
+                                        <a href="{:url('/order/createOrder',['id'=>$coursinfo['id'],'type'=>'course'])}" class="btn btn-danger btn-sm btn-block">￥{$coursinfo.sell_price} 立即购买</a>
+                                        {else /}
+                                        <a href="{:url('/course/chapter',['id'=>$coursinfo['id']])}" class="btn btn-info btn-sm btn-block">立即学习</a>
+                                        {/if}
                                         {/if}
                                     </div>
                                 </div>
@@ -124,7 +124,7 @@
                                         <div class="attachment-block mt-2 clearfix">
                                             <img class="attachment-img" src="{:getUrlPath($vo.cource_image_url)}" alt="{$vo.title}">
                                             <div class="attachment-pushed product-info">
-                                                <a href="{:url('/course/index',['id'=>$vo['course_id']])}" class="product-description mt-1"> 
+                                                <a href="{:url('/course/index',['id'=>$vo['course_id']])}" class="product-description mt-1">
                                                     <strong>
                                                         {$vo.course_title}
                                                     </strong>
