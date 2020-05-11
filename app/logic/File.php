@@ -21,7 +21,7 @@ class File
     public function initVodClient()
     {
 
-        return AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
+        return AlibabaCloud::accessKeyClient($this->accessKeyId, $this->accessKeySecret)
             ->regionId($this->regionId)
             ->connectTimeout(1)
             ->timeout(3)
@@ -122,6 +122,8 @@ class File
 
     public function getPlayInfo($videoId)
     {
+
+        $this->initVodClient();
 
         // $this->createVideoPlayAuth($videoId);exit();
         $info = Vod::v20170321()->getPlayInfo()->client($this->Client)

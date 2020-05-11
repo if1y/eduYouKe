@@ -25,7 +25,7 @@ class User extends UserModel
 
         $count = $log->where([
             'category' => 'smsCode',
-            'key' => $param['mobile']]
+            'name' => $param['mobile']]
         )->whereDay('create_time')->count();
 
         if ($count >= 5)
@@ -130,7 +130,7 @@ class User extends UserModel
         }
         $log     = new RecordLog();
         $content = $log->field('value,create_time')
-            ->where(['category' => 'smsCode', 'key' => $param['mobile'], 'value' => $param['smscode']])
+            ->where(['category' => 'smsCode', 'name' => $param['mobile'], 'value' => $param['smscode']])
             ->order('create_time', 'desc')->find();
         if (empty($content))
         {
@@ -214,7 +214,7 @@ class User extends UserModel
         }
         $log     = new RecordLog();
         $content = $log->field('value,create_time')
-            ->where(['category' => 'smsCode', 'key' => $param['mobile'], 'value' => $param['smscode']])
+            ->where(['category' => 'smsCode', 'name' => $param['mobile'], 'value' => $param['smscode']])
             ->order('create_time', 'desc')->find();
         if (empty($content))
         {
@@ -288,7 +288,7 @@ class User extends UserModel
 
         $log     = new RecordLog();
         $content = $log->field('value,create_time')
-            ->where(['category' => 'smsCode', 'key' => $data['mobile'], 'value' => $data['smscode']])
+            ->where(['category' => 'smsCode', 'name' => $data['mobile'], 'value' => $data['smscode']])
             ->order('create_time', 'desc')->find();
         if (empty($content))
         {

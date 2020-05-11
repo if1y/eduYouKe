@@ -62,7 +62,7 @@ class Chapter extends ChapterModel
     {
         $log = (new RecordLog())->getRecordLogInfo([
             'user_id' => getUserInfoData(0, 'id'),
-            'key' => $value['course_id'],
+            'name' => $value['course_id'],
             'value' => $value['id'],
             'category' => 'studyCourse',
         ]);
