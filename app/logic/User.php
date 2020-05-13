@@ -257,9 +257,9 @@ class User extends UserModel
                 'co.id as cource_id',
                 'co.title',
             ])
-            ->join('record_log log', 'u.id = log.user_id')
-            ->join('comment c', 'c.id = log.name')
-            ->join('course co', 'co.id = log.name')
+            ->leftJoin('record_log log', 'u.id = log.user_id')
+            ->leftJoin('comment c', 'c.id = log.name')
+            ->leftJoin('course co', 'co.id = log.name')
             ->whereOr($whereOr)
             ->where([
                 'c.show_status' => 1,
