@@ -20,8 +20,6 @@ class Login extends WebBaseController
         if ($this->request->isPost()){
 
             $validate    = new LoginValidate();
-            // print_r($param);exit;
-            // !$validate->check($param)
             if (!$validate->scene('sms')->check($param))
             {
                 $this->error($validate->getError());
