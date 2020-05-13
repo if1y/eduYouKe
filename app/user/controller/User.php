@@ -4,6 +4,7 @@ namespace app\user\controller;
 use app\logic\Image;
 use app\logic\Order;
 use app\logic\User as UserLogic;
+use app\user\validate\Login as LoginValidate;
 use app\util\Tools;
 use app\WebBaseController;
 use think\facade\View;
@@ -80,14 +81,28 @@ class User extends WebBaseController
         $user  = new UserLogic();
         if ($this->request->isPost())
         {
+
+            $validate = new LoginValidate();
+            if (!$validate->scene('setting')->check($param))
+            {
+                $this->error($validate->getError());
+            }
+
             unset($param['user_id']);
+
+            if (!empty($param['password']) && strlen($param['password']) < 8)
+            {
+                $this->error('请输入至少8位数密码');
+            }
+
             $param['password'] = !empty($param['password']) ? Tools::userMd5($param['password']) : 0;
+
             if (!$param['password'])
             {
                 unset($param['password']);
             }
 
-            $user->where('id', getUserInfoData())->save($param);
+            $result = $user->where('id', getUserInfoData())->save($param);
 
             //更新session
             if ($param['nickname'])
@@ -95,7 +110,8 @@ class User extends WebBaseController
                 $user->updateSession(0, 'nickname', $param['nickname']);
             }
 
-            return redirect((string) url('user/setting', ['user_id' => getUserInfoData()]));
+            $result ? $this->success('修改成功') : $this->success('保存成功');
+
         }
         else
         {
