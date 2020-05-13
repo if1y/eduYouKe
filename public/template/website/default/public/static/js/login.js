@@ -50,7 +50,7 @@
 
     if ($('#sendSms').length) {
         $('#sendSms').on('click', function(e) {
-            
+
             e.preventDefault();
 
             url = $("#sendSms").attr('href');
@@ -170,6 +170,40 @@
 
         });
     }
+
+
+    if ($('#userSetting').length) {
+        $('#userSetting').on('click', function(e) {
+
+            e.preventDefault();
+            url = $("#userSetting").attr('href');
+
+            var nickname = $('input[name="nickname"]').val();
+            var password = $('input[name="password"]').val();
+            var introduce = $('textarea[name="introduce"]').val();
+            var sex = $('select[name="sex"] option:selected').val();
+
+            $.post(url, { nickname: nickname, password: password, introduce: introduce, sex: sex }, function(json) {
+
+                if (json.code == 1) {
+
+                    success(json.msg);
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
+
+
+                } else {
+
+                    return error(json.msg);
+                }
+
+            }, "json");
+
+
+        });
+    }
+
 
 
 

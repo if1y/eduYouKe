@@ -38,5 +38,6 @@ class Login extends Validate
         'mobileLogin' => ['mobile', 'smscode'],
         'userLogin' => ['nickname', 'password'],
         'sms' => ['mobile'],
+        'setting' => ['nickname'],
     ];
 }

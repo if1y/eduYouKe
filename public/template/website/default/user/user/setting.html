@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>{$userinfo.nickname|default=''}的个人中心</title>
     <meta name="keywords" content="{$site_info.seoKeywords|default=''}" />
@@ -101,7 +102,7 @@
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="offset-sm-2 col-sm-10">
-                                                        <button type="submit" class="btn btn-info">修改</button>
+                                                        <a href="{:url('/user/user/setting')}" class="btn btn-primary" id="userSetting">保存</a>
                                                     </div>
                                                 </div>
                                             </form>
@@ -111,7 +112,7 @@
                                                         <label><strong class="text-black-50">请输入手机号码</strong></label>
                                                         <input type="text" name="mobile" class="form-control mobile">
                                                     </div>
-                                                        {:token_field()}
+                                                    {:token_field()}
                                                     <div class="form-group">
                                                         <label><strong class="text-black-50">请输入验证码</strong></label>
                                                         <div class="input-group mb-3">
@@ -141,7 +142,6 @@
     <script src="__TEMPSTATIC__/js/avatar.js"></script>
     <script src="__TEMPSTATIC__/js/login.js"></script>
     <script src="__TEMPSTATIC__/js/setting.js"></script>
-
 </body>
 
 </html>
