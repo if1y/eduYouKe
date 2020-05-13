@@ -196,7 +196,7 @@ class Administrator extends AdminBaseController
             }
             else
             {
-                $this->success('操做失败');
+                $this->error('操做失败');
             }
 
         }
