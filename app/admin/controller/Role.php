@@ -95,6 +95,11 @@ class Role extends AdminBaseController
         $id = $this->request->param('id', 0, 'intval');
 
         $role   = new AdminRole();
+        $roleInfo   = $role->getAdminRoleInfo($id);
+        
+        if ($roleInfo['id'] == 1 || $roleInfo['role_name'] == '超级管理员') {
+            $this->error('不可删除..');
+        }
         $result = $role->update(['delete_status' => 1], ['id' => $id]);
         $result ? $this->success('删除成功') : $this->error('删除失败');
     }
