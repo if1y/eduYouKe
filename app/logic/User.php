@@ -243,7 +243,12 @@ class User extends UserModel
         $whereOr = [];
         foreach ($arr as $key => $value)
         {
-            $whereOr[$key] = [['log.category', '=', $value],['log.user_id','=',$userId]];
+            $whereOr[$key] = [
+                ['log.category', '=', $value],
+                ['log.user_id', '=', $userId],
+                ['co.show_status', '=', 1],
+                ['co.delete_status', '=', 0],
+            ];
         }
 
 
@@ -264,8 +269,6 @@ class User extends UserModel
             ->where([
                 'c.show_status' => 1,
                 'c.delete_status' => 0,
-                'co.show_status' => 1,
-                'co.delete_status' => 0,
             ])
             ->order('log.create_time', 'desc')
             ->paginate(['query' => ['user_id' => $userId], 'list_rows' => 3])->each(function ($item)
