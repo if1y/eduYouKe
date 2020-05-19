@@ -45,6 +45,10 @@ location / {
 }
 ~~~
 
+## 视频加密
+https://help.aliyun.com/document_detail/68613.html?spm=a2c4g.11186623.2.30.50e66a6aR1CiJS
+
+
 ## 演示
 
 

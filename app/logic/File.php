@@ -109,6 +109,7 @@ class File
         }
     }
 
+    //
     public function CreateUploadVideoAuth($title, $fileName)
     {
 
@@ -124,16 +125,15 @@ class File
     {
 
         $this->initVodClient();
-
-        // $this->createVideoPlayAuth($videoId);exit();
         $info = Vod::v20170321()->getPlayInfo()->client($this->Client)
             ->withVideoId($videoId) // 指定接口参数
             ->withAuthTimeout(3600 * 24)
+            ->withResultType('Multiple')
             ->format('JSON') // 指定返回格式
             ->request(); // 执行请求
 
         $data = $info->PlayInfoList->PlayInfo;
-        // print_r($data);exit();
+        
         if (isset($data[0]))
         {
             return $data[0]->PlayURL;
