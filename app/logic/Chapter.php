@@ -86,12 +86,17 @@ class Chapter extends ChapterModel
             ])
             ->join('course co', 'ch.course_id = co.id')
             ->join('course_category cat', 'cat.id = co.category_id')
+            ->where([
+                'ch.delete_status' => 0,
+                'ch.show_status' => 1,
+                'co.delete_status' => 0,
+                'co.show_status' => 1,
+            ])
             ->orderRaw('rand()')
             ->limit(6)
             ->group('co.id')
             ->select();
 
-        // print_r($result->toArray());exit();
         return $result;
 
     }

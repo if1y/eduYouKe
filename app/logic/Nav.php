@@ -101,7 +101,12 @@ class Nav extends NavModel
                     'c.seoDescription',
                 ])
                 ->join('course_category c', 'a.category_id = c.id')
-                ->where(['a.show_status' => 1, 'a.delete_status' => 0])
+                ->where([
+                    'a.show_status' => 1,
+                    'a.delete_status' => 0,
+                    'c.show_status' => 1,
+                    'c.delete_status' => 0,
+                ])
                 ->select();
 
             $lv = Tools::formatTree(
