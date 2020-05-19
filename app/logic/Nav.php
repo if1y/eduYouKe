@@ -135,6 +135,10 @@ class Nav extends NavModel
                 'co.id',
             ])
             ->join('course co', 'co.category_id = cat.id')
+            ->where([
+                'co.show_status' => 1,
+                'co.delete_status' => 0,
+            ])
             ->where($whereIn)
             ->paginate(['query' => ['list_id' => $param['list_id']], 'list_rows' => 15]);
 
