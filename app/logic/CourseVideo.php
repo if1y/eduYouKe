@@ -113,19 +113,26 @@ class CourseVideo extends CourseVideoModel
     //获取视频详情
     public function getVideoUrl($video)
     {
-        // print_r($video);exit();
+
         if ($video['channel'] == 'local')
         {
 
             $video['video_url'] = getDomain() . '/storage/' . str_replace('\\', '/', $video['video_url']);
+            $video['suffix'] = pathinfo($video['video_url'], PATHINFO_EXTENSION);
 
         }
         else
         {
 
             $video_url          = (new File())->getPlayInfo($video['video_url']);
-            $video['video_url'] = $video_url;
+            $Auth               = (new File())->createVideoPlayAuth($video['video_url']);
+            unset($video['url']);
+            $video['suffix'] = pathinfo($video_url, PATHINFO_EXTENSION);
+            $video['aliVideo'] = $Auth;
+
+
         }
+        
         return $video;
     }
 

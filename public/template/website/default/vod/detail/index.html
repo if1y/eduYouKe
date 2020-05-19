@@ -139,13 +139,17 @@
 <script>
 var player = new Aliplayer({
     "id": "player-con",
-    "source": "{:html_entity_decode($videoinfo.video_url)}",
     "width": "100%",
+    "source": "{$videoinfo.channel == 'local' ? html_entity_decode($videoinfo.video_url) :''}",
     "cover": "{:getUrlPath($videoinfo.image_url)}",
     "height": "500px",
+    "format": "{$videoinfo.suffix}",
+    "playauth": "{$videoinfo.aliVideo.PlayAuth ? $videoinfo.aliVideo.PlayAuth :''}",
+    "encryptType": 1,
     "autoplay": false,
     "isLive": false,
     "rePlay": false,
+    "vid": "{$videoinfo.aliVideo.VideoMeta.VideoId ? $videoinfo.aliVideo.VideoMeta.VideoId : ''}",
     "playsinline": true,
     "preload": true,
     "controlBarVisibility": "hover",
