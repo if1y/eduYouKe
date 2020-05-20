@@ -44,13 +44,18 @@ class WecahtloginCheck
             $userInfo = json_decode($data, true);
             $openid   = $userInfo['openid'];
             //插入到数据库
-            (new User())->insert([
-                'nickname' => '微信用户_' . mt_rand(10000, 99999),
-                'password' => password_hash((string) mt_rand(10000, 99999), PASSWORD_DEFAULT),
-                'openid' => $openid,
-            ]);
+            $userInfo = (new User())->where('openid', $openid)->find();
+            if (empty($userInfo)) {
+
+                (new User())->insert([
+                    'nickname' => '微信用户_' . mt_rand(10000, 99999),
+                    'password' => password_hash((string) mt_rand(10000, 99999), PASSWORD_DEFAULT),
+                    'openid' => $openid,
+                ]);
+                //
+                $userInfo = (new User())->where('openid', $openid)->find();
+            }
             //查询用户信息
-            $userInfo = (new User())->where('openid', $openid)->find()->toArray();
             Session::set('UserInfo', json_encode($userInfo));
             //跳转到绑定手机号页面
             return redirect((string) url('/user/login/band', ['openid' => $openid]));
