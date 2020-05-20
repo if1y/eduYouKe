@@ -22,7 +22,7 @@ class WecahtloginCheck
         if (isWechat()) {
 
         	//获取
-        	$uri = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET"
+        	$uri = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
         	$data = curlGet($uri);
         	print_r($data);exit;
 
