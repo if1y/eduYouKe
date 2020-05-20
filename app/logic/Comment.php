@@ -22,10 +22,17 @@ class Comment extends CommentModel
                 }
             }
 
+            //过滤敏感词
             $content = Tools::badWordsFilter($param['content']);
             if ($content) {
                 return 3;
             }
+
+            //手机号绑定检测
+            if (empty(getUserInfoData(0,'mobile'))) {
+                return 4;
+            }
+
 
         }
 
