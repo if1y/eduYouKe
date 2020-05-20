@@ -11,6 +11,8 @@ use think\facade\View;
 class Login extends WebBaseController
 {
 
+    protected $middleware = ['WechatLogin'];
+
     //获取验证码
     public function getSmsCode()
     {
