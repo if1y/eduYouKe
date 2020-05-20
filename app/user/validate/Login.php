@@ -12,6 +12,7 @@ class Login extends Validate
         'clause' => 'require',
         'mobile' => 'require|mobile|token',
         'smscode' => 'require',
+        'openid' => 'require',
         // 'mobile' => 'mobile',
     ];
 
@@ -30,6 +31,7 @@ class Login extends Validate
         'mobile.mobile' => '手机号不正确',
         'mobile.token' => '请刷新页面后重试',
         'smscode.require' => '验证码不能为空',
+        'openid.require' => '操作有误',
     ];
 
     protected $scene = [
@@ -39,5 +41,6 @@ class Login extends Validate
         'userLogin' => ['nickname', 'password'],
         'sms' => ['mobile'],
         'setting' => ['nickname'],
+        'band' => ['openid','mobile', 'smscode'],
     ];
 }
