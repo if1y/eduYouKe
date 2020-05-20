@@ -1,8 +1,8 @@
 <?php
 namespace app\user\controller;
 
-use app\logic\User;
 use app\logic\Setting;
+use app\logic\User;
 use app\user\validate\Login as LoginValidate;
 use app\WebBaseController;
 use think\facade\Session;
@@ -11,7 +11,14 @@ use think\facade\View;
 class Login extends WebBaseController
 {
 
-    protected $middleware = ['WechatLogin'];
+    protected $middleware = [
+        'WechatLogin' => [
+            'only' =>
+            [
+                'login',
+            ],
+        ],
+    ];
 
     //获取验证码
     public function getSmsCode()
@@ -19,55 +26,58 @@ class Login extends WebBaseController
         $param       = $this->request->param();
         $param['ip'] = $this->request->ip();
 
-        if ($this->request->isPost()){
+        if ($this->request->isPost())
+        {
 
-            $validate    = new LoginValidate();
+            $validate = new LoginValidate();
             if (!$validate->scene('sms')->check($param))
             {
                 $this->error($validate->getError());
             }
 
-            $user   = new User();
+            $user = new User();
             //查询手机号是否注册
             $result = $user->getMobileCode($param);
 
             switch ($result)
             {
                 case 1:
-                    $this->error('手机号有误','',['token'=>token()]);
+                    $this->error('手机号有误', '', ['token' => token()]);
                     break;
                 case 2:
-                    $this->error('今日发送次数较多','',['token'=>token()]);
+                    $this->error('今日发送次数较多', '', ['token' => token()]);
                     break;
                 case 3:
-                    $this->error('验证码获取失败','',['token'=>token()]);
+                    $this->error('验证码获取失败', '', ['token' => token()]);
                     break;
                 default:
-                    $this->success('验证码获取成功','',['token'=>token()]);
+                    $this->success('验证码获取成功', '', ['token' => token()]);
                     break;
             }
         }
 
     }
 
-
     //登录验证
     public function doLogin()
     {
-        $param       = $this->request->param();
+        $param = $this->request->param();
         if ($this->request->isPost())
         {
             $param['ip'] = $this->request->ip();
             $user        = new User();
-            
-            $validate    = new LoginValidate();
-            if ($param['type']) {
+
+            $validate = new LoginValidate();
+            if ($param['type'])
+            {
 
                 if (!$validate->scene('mobileLogin')->check($param))
                 {
                     $this->error($validate->getError());
                 }
-            }else{
+            }
+            else
+            {
                 if (!$validate->scene('userLogin')->check($param))
                 {
                     $this->error($validate->getError());
@@ -75,7 +85,7 @@ class Login extends WebBaseController
 
             }
 
-            $result      = $user->doLogin($param);
+            $result = $user->doLogin($param);
             switch ($result)
             {
                 case 1:
@@ -207,6 +217,37 @@ class Login extends WebBaseController
     {
         Session::delete('UserInfo');
         return redirect('/');
+    }
+
+    //
+    public function band()
+    {
+        $param = $this->request->param();
+
+        if ($this->request->isPost())
+        {
+
+            $validate = new LoginValidate();
+            if (!$validate->scene('band')->check($param))
+            {
+                $this->error($validate->getError());
+            }
+            $user   = new User();
+            $userId = getUserInfoData(0, 'id');
+            $result = $user->where('id', $userId)->update(['mobile' => $param['mobile']]);
+            $result ? $this->success('绑定成功') : $this->error('绑定失败');
+        }
+        else
+        {
+            if (isset($param['open_id']))
+            {
+                return view('');
+            }
+            else
+            {
+                return redirect('/');
+            }
+        }
     }
 
 }

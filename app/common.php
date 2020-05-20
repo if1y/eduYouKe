@@ -314,24 +314,29 @@ function isWechat()
     return strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger');
 }
 
-
-    function curlGet($url = '', $time_out = 25)
+function curlGet($url = '', $time_out = 25)
+{
+    if (!$url)
     {
-        if (!$url) return '';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查  
-        if (stripos($url, "https://") !== FALSE) {
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);  // 从证书中检查SSL加密算法是否存在
-        }
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('user-agent:' . $_SERVER['HTTP_USER_AGENT']));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $time_out);
-        $response = curl_exec($ch);
-        if ($error = curl_error($ch)) {
-            return false;
-        }
-        curl_close($ch);
-        return $response;
+        return '';
     }
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查
+    if (stripos($url, "https://") !== false)
+    {
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2); // 从证书中检查SSL加密算法是否存在
+    }
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['user-agent:' . $_SERVER['HTTP_USER_AGENT']]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, $time_out);
+    $response = curl_exec($ch);
+    if ($error = curl_error($ch))
+    {
+        return false;
+    }
+    curl_close($ch);
+    return mb_convert_encoding($response, 'utf-8', 'GB2312');
+}
