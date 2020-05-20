@@ -230,55 +230,108 @@ function getTemplate($name)
     return ['default'];
 }
 
-
-
-function hideStr($string, $bengin = 0, $len = 4, $type = 0, $glue = "@") {
+function hideStr($string, $bengin = 0, $len = 4, $type = 0, $glue = "@")
+{
     if (empty($string))
+    {
         return false;
-    $array = array();
-    if ($type == 0 || $type == 1 || $type == 4) {
+    }
+
+    $array = [];
+    if ($type == 0 || $type == 1 || $type == 4)
+    {
         $strlen = $length = mb_strlen($string);
-        while ($strlen) {
+        while ($strlen)
+        {
             $array[] = mb_substr($string, 0, 1, "utf8");
-            $string = mb_substr($string, 1, $strlen, "utf8");
-            $strlen = mb_strlen($string);
+            $string  = mb_substr($string, 1, $strlen, "utf8");
+            $strlen  = mb_strlen($string);
         }
     }
-    if ($type == 0) {
-        for ($i = $bengin; $i < ($bengin + $len); $i++) {
+    if ($type == 0)
+    {
+        for ($i = $bengin; $i < ($bengin + $len); $i++)
+        {
             if (isset($array[$i]))
+            {
                 $array[$i] = "*";
+            }
+
         }
         $string = implode("", $array);
-    } else if ($type == 1) {
+    }
+    elseif ($type == 1)
+    {
         $array = array_reverse($array);
-        for ($i = $bengin; $i < ($bengin + $len); $i++) {
+        for ($i = $bengin; $i < ($bengin + $len); $i++)
+        {
             if (isset($array[$i]))
+            {
                 $array[$i] = "*";
+            }
+
         }
         $string = implode("", array_reverse($array));
-    } else if ($type == 2) {
-        $array = explode($glue, $string);
+    }
+    elseif ($type == 2)
+    {
+        $array    = explode($glue, $string);
         $array[0] = hideStr($array[0], $bengin, $len, 1);
-        $string = implode($glue, $array);
-    } else if ($type == 3) {
-        $array = explode($glue, $string);
+        $string   = implode($glue, $array);
+    }
+    elseif ($type == 3)
+    {
+        $array    = explode($glue, $string);
         $array[1] = hideStr($array[1], $bengin, $len, 0);
-        $string = implode($glue, $array);
-    } else if ($type == 4) {
-        $left = $bengin;
+        $string   = implode($glue, $array);
+    }
+    elseif ($type == 4)
+    {
+        $left  = $bengin;
         $right = $len;
-        $tem = array();
-        for ($i = 0; $i < ($length - $right); $i++) {
+        $tem   = [];
+        for ($i = 0; $i < ($length - $right); $i++)
+        {
             if (isset($array[$i]))
+            {
                 $tem[] = $i >= $left ? "*" : $array[$i];
+            }
+
         }
         $array = array_chunk(array_reverse($array), $right);
         $array = array_reverse($array[0]);
-        for ($i = 0; $i < $right; $i++) {
+        for ($i = 0; $i < $right; $i++)
+        {
             $tem[] = $array[$i];
         }
         $string = implode("", $tem);
     }
     return $string;
 }
+
+function isWechat()
+{
+    return strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger');
+}
+
+
+    function curlGet($url = '', $time_out = 25)
+    {
+        if (!$url) return '';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查  
+        if (stripos($url, "https://") !== FALSE) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);  // 从证书中检查SSL加密算法是否存在
+        }
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('user-agent:' . $_SERVER['HTTP_USER_AGENT']));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $time_out);
+        $response = curl_exec($ch);
+        if ($error = curl_error($ch)) {
+            return false;
+        }
+        curl_close($ch);
+        return $response;
+    }
