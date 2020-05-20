@@ -239,14 +239,10 @@ class Login extends WebBaseController
         }
         else
         {
-            if (isset($param['open_id']))
-            {
+            // if (isset($param['open_id']))
+            // {
                 return view('');
-            }
-            else
-            {
-                return redirect('/');
-            }
+            // }
         }
     }
 
