@@ -41,6 +41,7 @@ class Wechat
     public function getWechatOpenId($code)
     {
 
+        $setting = new Setting();
         $AppId     = $setting->getSettingContent('wechatPayAppId');
         $AppSecret = $setting->getSettingContent('wechatPayAppSecret');
 
