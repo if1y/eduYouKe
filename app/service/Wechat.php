@@ -52,7 +52,7 @@ class Wechat
 
         $data   = curlGet($open);
         $result = json_decode($data, true);
-        $openid = $result['openid'];
+        return $result['openid'];
 
     }
 
