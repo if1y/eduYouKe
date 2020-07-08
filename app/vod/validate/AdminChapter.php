@@ -11,8 +11,12 @@ class AdminChapter extends Validate
     ];
 
     protected $message = [
-        'category_id.require' => '请选择关联课程',
+        'course_id.require' => '请选择关联课程',
         'title.require' => '请输入标题',
+    ];
+
+     protected $scene = [
+        'edit' => ['title']
     ];
 
 }
