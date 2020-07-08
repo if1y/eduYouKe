@@ -60,9 +60,32 @@
                                     </p>
                                 </div>
                                 <div class="mb-2">
+                                    <span class="text-black-50 ml-2"> <small>
+                                            {if $vo.sell_status}
+                                            <span class="badge badge-danger">
+                                                ￥{$vo.sell_price}
+                                            </span>
+                                            {else /}
+                                            <span class="badge badge-info">
+                                                免费
+                                            </span>
+                                            {/if}
+                                            <span class="badge badge-secondary">
+                                                {switch $vo.level_status}
+                                                {case 1}初级
+                                                {/case}
+                                                {case 2}中级
+                                                {/case}
+                                                {default /}高级
+                                                {/switch}
+                                            </span>
+                                        </small></span>
+                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
+                                </div>
+                                <!-- <div class="mb-2">
                                     <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
                                     <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         {/volist}
