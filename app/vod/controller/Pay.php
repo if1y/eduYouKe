@@ -34,12 +34,14 @@ class Pay extends WebBaseController
         $orderId = $order->createOrder($param);
 
         $orderInfo = $order->getOrderInfo(['order_no' => $orderId]);
+        // print_r($orderInfo);exit();
         $result    = $service->pay(array_merge([
             'title' => $check['title'],
             'payType' => $param['payType'],
             'isMobile' => $param['isMobile'],
         ], $orderInfo->toArray()));
 
+        // print_r($result);exit();
         if ($result) {
 
         $this->success('正在跳转...', '', [

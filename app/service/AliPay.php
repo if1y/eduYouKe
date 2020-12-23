@@ -45,7 +45,7 @@ class AliPay
         ];
         //
         $aliConfig = array_merge($ali, $config);
-
+        // print_r($aliConfig);exit();
         $payData = [
             'body' => $data['title'],
             'subject' => $data['title'],
